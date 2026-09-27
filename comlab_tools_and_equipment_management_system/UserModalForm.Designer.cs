@@ -29,131 +29,163 @@
         private void InitializeComponent()
         {
             groupBox1 = new GroupBox();
-            label1 = new Label();
-            label2 = new Label();
-            label3 = new Label();
-            label4 = new Label();
-            textBox1 = new TextBox();
-            textBox2 = new TextBox();
-            comboBox1 = new ComboBox();
-            button1 = new Button();
-            button2 = new Button();
+            lblModalTitle = new Label();
+            lblPass = new Label();
+            lblUsername = new Label();
+            lblSRole = new Label();
+            txtUsername = new TextBox();
+            txtPassword = new TextBox();
+            cmbRole = new ComboBox();
+            btnSave = new Button();
+            btnCancel = new Button();
+            lblEdit = new Label();
             SuspendLayout();
             // 
             // groupBox1
             // 
-            groupBox1.Location = new Point(370, 272);
+            groupBox1.Location = new Point(462, 340);
+            groupBox1.Margin = new Padding(4);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(8, 8);
+            groupBox1.Padding = new Padding(4);
+            groupBox1.Size = new Size(10, 10);
             groupBox1.TabIndex = 0;
             groupBox1.TabStop = false;
             groupBox1.Text = "groupBox1";
             // 
-            // label1
+            // lblModalTitle
             // 
-            label1.AutoSize = true;
-            label1.Location = new Point(65, 113);
-            label1.Name = "label1";
-            label1.Size = new Size(104, 20);
-            label1.TabIndex = 1;
-            label1.Text = "Add New User";
+            lblModalTitle.AutoSize = true;
+            lblModalTitle.Font = new Font("Segoe UI", 14F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblModalTitle.Location = new Point(138, 35);
+            lblModalTitle.Margin = new Padding(4, 0, 4, 0);
+            lblModalTitle.Name = "lblModalTitle";
+            lblModalTitle.Size = new Size(204, 38);
+            lblModalTitle.TabIndex = 1;
+            lblModalTitle.Text = "Add New User";
             // 
-            // label2
+            // lblPass
             // 
-            label2.AutoSize = true;
-            label2.Location = new Point(337, 176);
-            label2.Name = "label2";
-            label2.Size = new Size(70, 20);
-            label2.TabIndex = 2;
-            label2.Text = "Password";
+            lblPass.AutoSize = true;
+            lblPass.Location = new Point(65, 214);
+            lblPass.Margin = new Padding(4, 0, 4, 0);
+            lblPass.Name = "lblPass";
+            lblPass.Size = new Size(87, 25);
+            lblPass.TabIndex = 2;
+            lblPass.Text = "Password";
             // 
-            // label3
+            // lblUsername
             // 
-            label3.AutoSize = true;
-            label3.Location = new Point(65, 176);
-            label3.Name = "label3";
-            label3.Size = new Size(75, 20);
-            label3.TabIndex = 3;
-            label3.Text = "Username";
+            lblUsername.AutoSize = true;
+            lblUsername.Location = new Point(65, 119);
+            lblUsername.Margin = new Padding(4, 0, 4, 0);
+            lblUsername.Name = "lblUsername";
+            lblUsername.Size = new Size(91, 25);
+            lblUsername.TabIndex = 3;
+            lblUsername.Text = "Username";
             // 
-            // label4
+            // lblSRole
             // 
-            label4.AutoSize = true;
-            label4.Location = new Point(65, 264);
-            label4.Name = "label4";
-            label4.Size = new Size(90, 20);
-            label4.TabIndex = 4;
-            label4.Text = "System Role";
+            lblSRole.AutoSize = true;
+            lblSRole.Location = new Point(65, 325);
+            lblSRole.Margin = new Padding(4, 0, 4, 0);
+            lblSRole.Name = "lblSRole";
+            lblSRole.Size = new Size(108, 25);
+            lblSRole.TabIndex = 4;
+            lblSRole.Text = "System Role";
             // 
-            // textBox1
+            // txtUsername
             // 
-            textBox1.BorderStyle = BorderStyle.FixedSingle;
-            textBox1.Location = new Point(65, 199);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(206, 27);
-            textBox1.TabIndex = 5;
+            txtUsername.BorderStyle = BorderStyle.FixedSingle;
+            txtUsername.Location = new Point(65, 148);
+            txtUsername.Margin = new Padding(4);
+            txtUsername.Name = "txtUsername";
+            txtUsername.Size = new Size(351, 31);
+            txtUsername.TabIndex = 5;
             // 
-            // textBox2
+            // txtPassword
             // 
-            textBox2.BorderStyle = BorderStyle.FixedSingle;
-            textBox2.Location = new Point(337, 199);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(206, 27);
-            textBox2.TabIndex = 6;
+            txtPassword.BorderStyle = BorderStyle.FixedSingle;
+            txtPassword.Location = new Point(65, 244);
+            txtPassword.Margin = new Padding(4);
+            txtPassword.Name = "txtPassword";
+            txtPassword.Size = new Size(351, 31);
+            txtPassword.TabIndex = 6;
             // 
-            // comboBox1
+            // cmbRole
             // 
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Items.AddRange(new object[] { "Admin", "Technician", "Student" });
-            comboBox1.Location = new Point(65, 287);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(206, 28);
-            comboBox1.TabIndex = 7;
+            cmbRole.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbRole.FormattingEnabled = true;
+            cmbRole.Items.AddRange(new object[] { "Admin", "Technician", "Student" });
+            cmbRole.Location = new Point(65, 355);
+            cmbRole.Margin = new Padding(4);
+            cmbRole.Name = "cmbRole";
+            cmbRole.Size = new Size(351, 33);
+            cmbRole.TabIndex = 7;
             // 
-            // button1
+            // btnSave
             // 
-            button1.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            button1.BackColor = Color.LimeGreen;
-            button1.FlatAppearance.BorderSize = 0;
-            button1.FlatStyle = FlatStyle.Flat;
-            button1.ForeColor = SystemColors.Control;
-            button1.Location = new Point(399, 353);
-            button1.Name = "button1";
-            button1.Size = new Size(144, 55);
-            button1.TabIndex = 8;
-            button1.Text = "Save";
-            button1.UseVisualStyleBackColor = false;
+            btnSave.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            btnSave.BackColor = Color.LimeGreen;
+            btnSave.DialogResult = DialogResult.OK;
+            btnSave.FlatAppearance.BorderSize = 0;
+            btnSave.FlatStyle = FlatStyle.Flat;
+            btnSave.ForeColor = SystemColors.Control;
+            btnSave.Location = new Point(279, 442);
+            btnSave.Margin = new Padding(4);
+            btnSave.Name = "btnSave";
+            btnSave.Size = new Size(137, 44);
+            btnSave.TabIndex = 8;
+            btnSave.Text = "Save";
+            btnSave.UseVisualStyleBackColor = false;
             // 
-            // button2
+            // btnCancel
             // 
-            button2.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            button2.BackColor = Color.Gray;
-            button2.FlatAppearance.BorderSize = 0;
-            button2.FlatStyle = FlatStyle.Flat;
-            button2.ForeColor = SystemColors.Control;
-            button2.Location = new Point(234, 353);
-            button2.Name = "button2";
-            button2.Size = new Size(144, 55);
-            button2.TabIndex = 9;
-            button2.Text = "Cancel";
-            button2.UseVisualStyleBackColor = false;
+            btnCancel.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            btnCancel.BackColor = Color.Gray;
+            btnCancel.DialogResult = DialogResult.Cancel;
+            btnCancel.FlatAppearance.BorderSize = 0;
+            btnCancel.FlatStyle = FlatStyle.Flat;
+            btnCancel.ForeColor = SystemColors.Control;
+            btnCancel.Location = new Point(65, 442);
+            btnCancel.Margin = new Padding(4);
+            btnCancel.Name = "btnCancel";
+            btnCancel.Size = new Size(137, 44);
+            btnCancel.TabIndex = 9;
+            btnCancel.Text = "Cancel";
+            btnCancel.UseVisualStyleBackColor = false;
+            // 
+            // lblEdit
+            // 
+            lblEdit.AutoSize = true;
+            lblEdit.Font = new Font("Segoe UI", 9F, FontStyle.Italic, GraphicsUnit.Point, 0);
+            lblEdit.ForeColor = SystemColors.ControlDarkDark;
+            lblEdit.Location = new Point(79, 278);
+            lblEdit.Margin = new Padding(4, 0, 4, 0);
+            lblEdit.Name = "lblEdit";
+            lblEdit.Size = new Size(0, 25);
+            lblEdit.TabIndex = 2;
             // 
             // UserModalForm
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(582, 499);
-            Controls.Add(button2);
-            Controls.Add(button1);
-            Controls.Add(comboBox1);
-            Controls.Add(textBox2);
-            Controls.Add(textBox1);
-            Controls.Add(label4);
-            Controls.Add(label3);
-            Controls.Add(label2);
-            Controls.Add(label1);
+            ClientSize = new Size(483, 528);
+            Controls.Add(btnCancel);
+            Controls.Add(btnSave);
+            Controls.Add(cmbRole);
+            Controls.Add(txtPassword);
+            Controls.Add(txtUsername);
+            Controls.Add(lblSRole);
+            Controls.Add(lblUsername);
+            Controls.Add(lblEdit);
+            Controls.Add(lblPass);
+            Controls.Add(lblModalTitle);
             Controls.Add(groupBox1);
+            Margin = new Padding(4);
+            MaximizeBox = false;
+            MinimizeBox = false;
             Name = "UserModalForm";
+            StartPosition = FormStartPosition.CenterParent;
             Text = "UserModalForm";
             ResumeLayout(false);
             PerformLayout();
@@ -162,14 +194,15 @@
         #endregion
 
         private GroupBox groupBox1;
-        private Label label1;
-        private Label label2;
-        private Label label3;
-        private Label label4;
-        private TextBox textBox1;
-        private TextBox textBox2;
-        private ComboBox comboBox1;
-        private Button button1;
-        private Button button2;
+        private Label lblModalTitle;
+        private Label lblPass;
+        private Label lblUsername;
+        private Label lblSRole;
+        private TextBox txtUsername;
+        private TextBox txtPassword;
+        private ComboBox cmbRole;
+        private Button btnSave;
+        private Button btnCancel;
+        private Label lblEdit;
     }
 }

@@ -29,23 +29,21 @@
         private void InitializeComponent()
         {
             pnlHeader = new Panel();
-            lblUM = new Label();
             btnDel = new Button();
             btnAddUser = new Button();
             btnEditUser = new Button();
             sqlCommandBuilder1 = new Microsoft.Data.SqlClient.SqlCommandBuilder();
-            dvgUsers = new DataGridView();
+            dgvUsers = new DataGridView();
             userid = new DataGridViewTextBoxColumn();
             username = new DataGridViewTextBoxColumn();
             role = new DataGridViewTextBoxColumn();
             datacreated = new DataGridViewTextBoxColumn();
             pnlHeader.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dvgUsers).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgvUsers).BeginInit();
             SuspendLayout();
             // 
             // pnlHeader
             // 
-            pnlHeader.Controls.Add(lblUM);
             pnlHeader.Controls.Add(btnDel);
             pnlHeader.Controls.Add(btnAddUser);
             pnlHeader.Controls.Add(btnEditUser);
@@ -55,18 +53,6 @@
             pnlHeader.Name = "pnlHeader";
             pnlHeader.Size = new Size(958, 100);
             pnlHeader.TabIndex = 0;
-            // 
-            // lblUM
-            // 
-            lblUM.AutoSize = true;
-            lblUM.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblUM.ForeColor = Color.FromArgb(30, 41, 59);
-            lblUM.Location = new Point(38, 21);
-            lblUM.Margin = new Padding(4, 0, 4, 0);
-            lblUM.Name = "lblUM";
-            lblUM.Size = new Size(328, 48);
-            lblUM.TabIndex = 0;
-            lblUM.Text = "User Management";
             // 
             // btnDel
             // 
@@ -81,6 +67,7 @@
             btnDel.TabIndex = 3;
             btnDel.Text = "Delete";
             btnDel.UseVisualStyleBackColor = false;
+            btnDel.Click += btnDel_Click;
             // 
             // btnAddUser
             // 
@@ -95,6 +82,7 @@
             btnAddUser.TabIndex = 1;
             btnAddUser.Text = "Add New User";
             btnAddUser.UseVisualStyleBackColor = false;
+            btnAddUser.Click += btnAddUser_Click;
             // 
             // btnEditUser
             // 
@@ -109,6 +97,7 @@
             btnEditUser.TabIndex = 2;
             btnEditUser.Text = "Edit / Reset";
             btnEditUser.UseVisualStyleBackColor = false;
+            btnEditUser.Click += btnEditUser_Click;
             // 
             // sqlCommandBuilder1
             // 
@@ -116,21 +105,21 @@
             sqlCommandBuilder1.QuotePrefix = "[";
             sqlCommandBuilder1.QuoteSuffix = "]";
             // 
-            // dvgUsers
+            // dgvUsers
             // 
-            dvgUsers.AllowUserToAddRows = false;
-            dvgUsers.BackgroundColor = Color.White;
-            dvgUsers.BorderStyle = BorderStyle.None;
-            dvgUsers.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dvgUsers.Columns.AddRange(new DataGridViewColumn[] { userid, username, role, datacreated });
-            dvgUsers.Dock = DockStyle.Fill;
-            dvgUsers.Location = new Point(0, 100);
-            dvgUsers.Margin = new Padding(4);
-            dvgUsers.Name = "dvgUsers";
-            dvgUsers.RowHeadersVisible = false;
-            dvgUsers.RowHeadersWidth = 51;
-            dvgUsers.Size = new Size(958, 464);
-            dvgUsers.TabIndex = 4;
+            dgvUsers.AllowUserToAddRows = false;
+            dgvUsers.BackgroundColor = Color.White;
+            dgvUsers.BorderStyle = BorderStyle.None;
+            dgvUsers.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvUsers.Columns.AddRange(new DataGridViewColumn[] { userid, username, role, datacreated });
+            dgvUsers.Dock = DockStyle.Fill;
+            dgvUsers.Location = new Point(0, 100);
+            dgvUsers.Margin = new Padding(4);
+            dgvUsers.Name = "dgvUsers";
+            dgvUsers.RowHeadersVisible = false;
+            dgvUsers.RowHeadersWidth = 51;
+            dgvUsers.Size = new Size(958, 464);
+            dgvUsers.TabIndex = 4;
             // 
             // userid
             // 
@@ -168,27 +157,25 @@
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(248, 249, 250);
-            Controls.Add(dvgUsers);
+            Controls.Add(dgvUsers);
             Controls.Add(pnlHeader);
             ForeColor = SystemColors.Control;
             Margin = new Padding(4);
             Name = "UserManagementView";
             Size = new Size(958, 564);
             pnlHeader.ResumeLayout(false);
-            pnlHeader.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)dvgUsers).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvUsers).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
 
         private Panel pnlHeader;
-        private Label lblUM;
         private Microsoft.Data.SqlClient.SqlCommandBuilder sqlCommandBuilder1;
         private Button btnAddUser;
         private Button btnEditUser;
         private Button btnDel;
-        private DataGridView dvgUsers;
+        private DataGridView dgvUsers;
         private DataGridViewTextBoxColumn userid;
         private DataGridViewTextBoxColumn username;
         private DataGridViewTextBoxColumn role;

@@ -11,6 +11,7 @@ namespace ComLabManager.UI.NavigationStrategies
         public bool CanViewTickets => true;
         public bool CanViewSpareParts => false;
         public bool CanViewScheduler => false;
+        public bool CanViewUsers => false;
         public string TicketButtonText => "Report Issue";
 
         public void LoadInitialView(MainForm form)
