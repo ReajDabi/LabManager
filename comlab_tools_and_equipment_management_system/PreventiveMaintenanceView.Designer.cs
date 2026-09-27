@@ -29,13 +29,13 @@
         private void InitializeComponent()
         {
             dataGridView1 = new DataGridView();
-            buttonScheduleTask = new Button();
             task = new DataGridViewTextBoxColumn();
             equipment = new DataGridViewTextBoxColumn();
             frequency = new DataGridViewTextBoxColumn();
             lastcompleted = new DataGridViewTextBoxColumn();
             nextdue = new DataGridViewTextBoxColumn();
             assignedto = new DataGridViewTextBoxColumn();
+            buttonScheduleTask = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -57,23 +57,6 @@
             dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridView1.Size = new Size(958, 474);
             dataGridView1.TabIndex = 0;
-            // 
-            // buttonScheduleTask
-            // 
-            buttonScheduleTask.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            buttonScheduleTask.BackColor = Color.Navy;
-            buttonScheduleTask.BackgroundImageLayout = ImageLayout.None;
-            buttonScheduleTask.Cursor = Cursors.Hand;
-            buttonScheduleTask.FlatAppearance.BorderSize = 0;
-            buttonScheduleTask.FlatStyle = FlatStyle.Flat;
-            buttonScheduleTask.Font = new Font("Segoe UI", 10F);
-            buttonScheduleTask.ForeColor = Color.White;
-            buttonScheduleTask.Location = new Point(738, 480);
-            buttonScheduleTask.Name = "buttonScheduleTask";
-            buttonScheduleTask.Size = new Size(193, 62);
-            buttonScheduleTask.TabIndex = 1;
-            buttonScheduleTask.Text = "Schedule task";
-            buttonScheduleTask.UseVisualStyleBackColor = false;
             // 
             // task
             // 
@@ -116,6 +99,24 @@
             assignedto.MinimumWidth = 6;
             assignedto.Name = "assignedto";
             assignedto.ReadOnly = true;
+            // 
+            // buttonScheduleTask
+            // 
+            buttonScheduleTask.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            buttonScheduleTask.BackColor = Color.Navy;
+            buttonScheduleTask.BackgroundImageLayout = ImageLayout.None;
+            buttonScheduleTask.Cursor = Cursors.Hand;
+            buttonScheduleTask.FlatAppearance.BorderSize = 0;
+            buttonScheduleTask.FlatStyle = FlatStyle.Flat;
+            buttonScheduleTask.Font = new Font("Segoe UI", 10F);
+            buttonScheduleTask.ForeColor = Color.White;
+            buttonScheduleTask.Location = new Point(738, 480);
+            buttonScheduleTask.Name = "buttonScheduleTask";
+            buttonScheduleTask.Size = new Size(193, 62);
+            buttonScheduleTask.TabIndex = 1;
+            buttonScheduleTask.Text = "Schedule task";
+            buttonScheduleTask.UseVisualStyleBackColor = false;
+            buttonScheduleTask.Click += buttonScheduleTask_Click;
             // 
             // PreventiveMaintenanceView
             // 
