@@ -45,7 +45,7 @@ namespace ComLabManager.UI
             {
                 var loggedInUser = loginForm.AuthenticatedUser;
 
-                // 1. Determine the strategy based on the database user role
+               
                 IRoleNavigationStrategy roleStrategy = loggedInUser.Role switch
                 {
                     "Admin" => new AdminStrategy(),
@@ -56,7 +56,7 @@ namespace ComLabManager.UI
 
                 var mainForm = serviceProvider.GetRequiredService<MainForm>();
 
-                // 2. Inject both the user data AND their navigation rules into the form
+              
                 mainForm.SetCurrentUser(loggedInUser, roleStrategy);
 
                 Application.Run(mainForm);
