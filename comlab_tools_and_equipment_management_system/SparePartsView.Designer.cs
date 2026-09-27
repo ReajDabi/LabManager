@@ -171,6 +171,7 @@
             buttonDelete.TabIndex = 2;
             buttonDelete.Text = "Delete Spare Part";
             buttonDelete.UseVisualStyleBackColor = false;
+            buttonDelete.Click += buttonDelete_Click;
             // 
             // SparePartsView
             // 
