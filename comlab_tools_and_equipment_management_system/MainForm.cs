@@ -1,5 +1,6 @@
 using ComLabManager.Core.Interfaces;
 using ComLabManager.Core.Models;
+using System.Linq.Expressions;
 
 namespace ComLabManager.UI
 {
@@ -102,6 +103,9 @@ namespace ComLabManager.UI
         {
             HighlightActiveButton((Button)sender);
             lblPageTitle.Text = "Maintenance Scheduler";
+
+            PreventiveMaintenanceView preventivemaintenance = new PreventiveMaintenanceView();
+            LoadView(preventivemaintenance);
         }
 
         private void btnSignOut_Click(object sender, EventArgs e)
