@@ -30,10 +30,10 @@
         {
             panel1 = new Panel();
             label1 = new Label();
-            sqlCommandBuilder1 = new Microsoft.Data.SqlClient.SqlCommandBuilder();
+            button2 = new Button();
             btnAddUser = new Button();
             btnEditUser = new Button();
-            button2 = new Button();
+            sqlCommandBuilder1 = new Microsoft.Data.SqlClient.SqlCommandBuilder();
             dvgUsers = new DataGridView();
             userid = new DataGridViewTextBoxColumn();
             username = new DataGridViewTextBoxColumn();
@@ -62,15 +62,22 @@
             label1.ForeColor = Color.FromArgb(30, 41, 59);
             label1.Location = new Point(30, 17);
             label1.Name = "label1";
-            label1.Size = new Size(260, 41);
+            label1.Size = new Size(276, 41);
             label1.TabIndex = 0;
-            label1.Text = "User Mnagement";
+            label1.Text = "User Management";
             // 
-            // sqlCommandBuilder1
+            // button2
             // 
-            sqlCommandBuilder1.DataAdapter = null;
-            sqlCommandBuilder1.QuotePrefix = "[";
-            sqlCommandBuilder1.QuoteSuffix = "]";
+            button2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            button2.BackColor = Color.FromArgb(229, 57, 69);
+            button2.FlatAppearance.BorderSize = 0;
+            button2.FlatStyle = FlatStyle.Flat;
+            button2.Location = new Point(452, 17);
+            button2.Name = "button2";
+            button2.Size = new Size(150, 41);
+            button2.TabIndex = 3;
+            button2.Text = "Delete";
+            button2.UseVisualStyleBackColor = false;
             // 
             // btnAddUser
             // 
@@ -98,22 +105,16 @@
             btnEditUser.Text = "Edit / Reset";
             btnEditUser.UseVisualStyleBackColor = false;
             // 
-            // button2
+            // sqlCommandBuilder1
             // 
-            button2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            button2.BackColor = Color.FromArgb(229, 57, 69);
-            button2.FlatAppearance.BorderSize = 0;
-            button2.FlatStyle = FlatStyle.Flat;
-            button2.Location = new Point(452, 17);
-            button2.Name = "button2";
-            button2.Size = new Size(150, 41);
-            button2.TabIndex = 3;
-            button2.Text = "Delete";
-            button2.UseVisualStyleBackColor = false;
+            sqlCommandBuilder1.DataAdapter = null;
+            sqlCommandBuilder1.QuotePrefix = "[";
+            sqlCommandBuilder1.QuoteSuffix = "]";
             // 
             // dvgUsers
             // 
             dvgUsers.AllowUserToAddRows = false;
+            dvgUsers.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dvgUsers.BackgroundColor = Color.White;
             dvgUsers.BorderStyle = BorderStyle.None;
             dvgUsers.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -121,8 +122,10 @@
             dvgUsers.Dock = DockStyle.Fill;
             dvgUsers.Location = new Point(0, 80);
             dvgUsers.Name = "dvgUsers";
+            dvgUsers.ReadOnly = true;
             dvgUsers.RowHeadersVisible = false;
             dvgUsers.RowHeadersWidth = 51;
+            dvgUsers.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dvgUsers.Size = new Size(958, 484);
             dvgUsers.TabIndex = 4;
             // 
@@ -131,8 +134,8 @@
             userid.HeaderText = "UserId";
             userid.MinimumWidth = 6;
             userid.Name = "userid";
+            userid.ReadOnly = true;
             userid.Visible = false;
-            userid.Width = 125;
             // 
             // username
             // 
@@ -140,6 +143,7 @@
             username.HeaderText = "Username";
             username.MinimumWidth = 6;
             username.Name = "username";
+            username.ReadOnly = true;
             // 
             // role
             // 
@@ -147,6 +151,7 @@
             role.HeaderText = "Role";
             role.MinimumWidth = 6;
             role.Name = "role";
+            role.ReadOnly = true;
             role.Width = 68;
             // 
             // datacreated
@@ -155,6 +160,7 @@
             datacreated.HeaderText = "Data Created";
             datacreated.MinimumWidth = 6;
             datacreated.Name = "datacreated";
+            datacreated.ReadOnly = true;
             datacreated.Width = 126;
             // 
             // UserManagementView
