@@ -13,7 +13,7 @@ namespace ComLabManager.UI.NavigationStrategies
         public bool CanViewTickets => true;
         public bool CanViewSpareParts => true;
 
-      
+      public bool CanViewUsers => false;
         public bool CanViewScheduler => false;
 
         public string TicketButtonText => "My Tasks";

@@ -13,7 +13,7 @@ namespace ComLabManager.UI
         public MainForm(IEquipmentRepository equipmentRepository)
         {
             InitializeComponent();
-           
+
             _equipmentRepository = equipmentRepository;
         }
 
@@ -29,18 +29,18 @@ namespace ComLabManager.UI
             _currentUser = user;
             lblCurrentUser.Text = $"Viewing as: {_currentUser.UserName} ({_currentUser.Role})";
 
-           
+
             btnNavDashboard.Visible = accessStrategy.CanViewDashboard;
             btnNavEquipment.Visible = accessStrategy.CanViewEquipment;
             btnNavTickets.Visible = accessStrategy.CanViewTickets;
             btnNavSpareParts.Visible = accessStrategy.CanViewSpareParts;
             btnNavScheduler.Visible = accessStrategy.CanViewScheduler;
+            btnNavUser.Visible = accessStrategy.CanViewUsers;
 
-           
             lblMonitor.Visible = accessStrategy.CanViewDashboard;
             lblAssets.Visible = accessStrategy.CanViewEquipment;
 
-            
+            lblUM.Visible = accessStrategy.CanViewUsers;
             lblMaintenance.Visible = accessStrategy.CanViewTickets || accessStrategy.CanViewSpareParts;
 
             btnNavTickets.Text = accessStrategy.TicketButtonText;
@@ -152,7 +152,15 @@ namespace ComLabManager.UI
             }
         }
 
-        
+
+        private void btnNavUser_Click(object sender, EventArgs e)
+        {
+            HighlightActiveButton((Button)sender);
+            lblPageTitle.Text = "User Management";
+
+            UserManagementView usermanagement = new UserManagementView();
+            LoadView(usermanagement);
+        }
     }
 
 }
