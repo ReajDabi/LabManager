@@ -131,6 +131,9 @@ namespace ComLabManager.UI
         {
             HighlightActiveButton((Button)sender);
             lblPageTitle.Text = "Maintenance Scheduler";
+
+            PreventiveMaintenanceView preventivemaintenance = new PreventiveMaintenanceView();
+            LoadView(preventivemaintenance);
         }
 
         private void btnSignOut_Click(object sender, EventArgs e)
