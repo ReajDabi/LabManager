@@ -14,5 +14,16 @@ namespace ComLabManager.UI
         {
             InitializeComponent();
         }
+        private void buttonDelete_Click(object sender, EventArgs e)
+        {
+            DeleteSparePartForm deletesparepartform = new DeleteSparePartForm();
+            deletesparepartform.ShowDialog();
+        }
+
+        private void buttonAddSparePart_Click(object sender, EventArgs e)
+        {
+            AddSparePartForm addsparepartform = new AddSparePartForm();
+            addsparepartform.ShowDialog();
+        }
     }
 }
