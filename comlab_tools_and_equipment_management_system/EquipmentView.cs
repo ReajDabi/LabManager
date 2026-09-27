@@ -14,5 +14,13 @@ namespace ComLabManager.UI
         {
             InitializeComponent();
         }
+
+        private void btnAddEquipment_Click(object sender, EventArgs e)
+        {
+            using (EquipmentForm form = new EquipmentForm())
+            {
+                form.ShowDialog();
+            }
+        }
     }
 }

@@ -12,6 +12,7 @@ namespace ComLabManager.UI
         public MainForm(IEquipmentRepository equipmentRepository)
         {
             InitializeComponent();
+            btnNavDashboard_Click(btnNavDashboard, EventArgs.Empty);
             _equipmentRepository = equipmentRepository;
         }
 
@@ -46,13 +47,13 @@ namespace ComLabManager.UI
 
         private void LoadView(UserControl view)
         {
-           
+
             pnlMainContent.Controls.Clear();
 
-           
+
             view.Dock = DockStyle.Fill;
 
-        
+
             pnlMainContent.Controls.Add(view);
         }
 
@@ -61,9 +62,13 @@ namespace ComLabManager.UI
 
         //Click Events
 
-        private void btnDashboard_Click(object sender, EventArgs e)
+        private void btnNavDashboard_Click(object sender, EventArgs e)
         {
             HighlightActiveButton((Button)sender);
+            lblPageTitle.Text = "Dashboard";
+
+            DashboardView dashView = new DashboardView();
+            LoadView(dashView);
         }
 
         private void btnNavEquipment_Click(object sender, EventArgs e)
@@ -111,9 +116,11 @@ namespace ComLabManager.UI
             if (result == DialogResult.Yes)
             {
                 Application.Restart();
-                Environment.Exit(0); 
+                Environment.Exit(0);
             }
         }
+
+        
     }
 
 }

@@ -39,7 +39,7 @@
         btnSignOut = new Button();
         pnlLogo = new Panel();
         pbLogo = new PictureBox();
-        label1 = new Label();
+        lblLogo = new Label();
         lblMonitor = new Label();
         lblAssets = new Label();
         lblMaintenance = new Label();
@@ -99,7 +99,7 @@
         btnNavDashboard.Text = "Dashboard";
         btnNavDashboard.TextAlign = ContentAlignment.MiddleLeft;
         btnNavDashboard.UseVisualStyleBackColor = false;
-        btnNavDashboard.Click += btnDashboard_Click;
+        btnNavDashboard.Click += btnNavDashboard_Click;
         // 
         // btnNavEquipment
         // 
@@ -196,7 +196,7 @@
         // 
         pnlLogo.BackColor = Color.FromArgb(30, 41, 59);
         pnlLogo.Controls.Add(pbLogo);
-        pnlLogo.Controls.Add(label1);
+        pnlLogo.Controls.Add(lblLogo);
         pnlLogo.Dock = DockStyle.Top;
         pnlLogo.Location = new Point(0, 0);
         pnlLogo.Name = "pnlLogo";
@@ -213,17 +213,17 @@
         pbLogo.TabIndex = 7;
         pbLogo.TabStop = false;
         // 
-        // label1
+        // lblLogo
         // 
-        label1.AutoSize = true;
-        label1.Font = new Font("Segoe UI", 8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-        label1.ForeColor = Color.FromArgb(148, 163, 184);
-        label1.Location = new Point(65, 10);
-        label1.Name = "label1";
-        label1.Padding = new Padding(0, 15, 5, 10);
-        label1.Size = new Size(124, 46);
-        label1.TabIndex = 6;
-        label1.Text = "LABMANAGER";
+        lblLogo.AutoSize = true;
+        lblLogo.Font = new Font("Segoe UI", 8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+        lblLogo.ForeColor = Color.FromArgb(148, 163, 184);
+        lblLogo.Location = new Point(65, 10);
+        lblLogo.Name = "lblLogo";
+        lblLogo.Padding = new Padding(0, 15, 5, 10);
+        lblLogo.Size = new Size(124, 46);
+        lblLogo.TabIndex = 6;
+        lblLogo.Text = "LABMANAGER";
         // 
         // lblMonitor
         // 
@@ -248,7 +248,6 @@
         lblAssets.Size = new Size(71, 46);
         lblAssets.TabIndex = 6;
         lblAssets.Text = "ASSETS";
-        lblAssets.Click += label1_Click;
         // 
         // lblMaintenance
         // 
@@ -261,7 +260,6 @@
         lblMaintenance.Size = new Size(133, 46);
         lblMaintenance.TabIndex = 6;
         lblMaintenance.Text = "MAINTENANCE";
-        lblMaintenance.Click += label1_Click;
         // 
         // pnlSidebar
         // 
@@ -312,10 +310,6 @@
         ResumeLayout(false);
     }
 
-    private void label1_Click(object sender, EventArgs e)
-    {
-        throw new NotImplementedException();
-    }
 
     #endregion
     private Panel pnlHeader;
@@ -328,7 +322,7 @@
     private Button btnNavScheduler;
     private Button btnSignOut;
     private Panel pnlLogo;
-    private Label label1;
+    private Label lblLogo;
     private Label lblMonitor;
     private Label lblAssets;
     private Label lblMaintenance;

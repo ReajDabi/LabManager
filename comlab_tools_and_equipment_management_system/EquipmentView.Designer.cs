@@ -138,6 +138,7 @@
             btnAddEquipment.TabIndex = 3;
             btnAddEquipment.Text = "+ Add Equipment";
             btnAddEquipment.UseVisualStyleBackColor = false;
+            btnAddEquipment.Click += btnAddEquipment_Click;
             // 
             // btnSearch
             // 
@@ -149,7 +150,7 @@
             btnSearch.FlatStyle = FlatStyle.Flat;
             btnSearch.Font = new Font("Segoe UI", 8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnSearch.ForeColor = Color.White;
-            btnSearch.Location = new Point(380, 16);
+            btnSearch.Location = new Point(328, 17);
             btnSearch.Name = "btnSearch";
             btnSearch.Size = new Size(115, 34);
             btnSearch.TabIndex = 2;
@@ -160,7 +161,7 @@
             // 
             txtSearch.BorderStyle = BorderStyle.FixedSingle;
             txtSearch.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtSearch.Location = new Point(31, 16);
+            txtSearch.Location = new Point(9, 16);
             txtSearch.Name = "txtSearch";
             txtSearch.Size = new Size(300, 34);
             txtSearch.TabIndex = 0;
