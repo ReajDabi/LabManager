@@ -14,5 +14,11 @@ namespace ComLabManager.UI
         {
             InitializeComponent();
         }
+
+        private void buttonScheduleTask_Click(object sender, EventArgs e)
+        {
+             ScheduleTaskForm scheduletaskform = new ScheduleTaskForm();
+            scheduletaskform.ShowDialog();
+        }
     }
 }
