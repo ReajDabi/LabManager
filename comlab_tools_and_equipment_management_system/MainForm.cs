@@ -29,15 +29,22 @@ namespace ComLabManager.UI
             _currentUser = user;
             lblCurrentUser.Text = $"Viewing as: {_currentUser.UserName} ({_currentUser.Role})";
 
+           
             btnNavDashboard.Visible = accessStrategy.CanViewDashboard;
             btnNavEquipment.Visible = accessStrategy.CanViewEquipment;
             btnNavTickets.Visible = accessStrategy.CanViewTickets;
             btnNavSpareParts.Visible = accessStrategy.CanViewSpareParts;
             btnNavScheduler.Visible = accessStrategy.CanViewScheduler;
 
+           
+            lblMonitor.Visible = accessStrategy.CanViewDashboard;
+            lblAssets.Visible = accessStrategy.CanViewEquipment;
+
+            
+            lblMaintenance.Visible = accessStrategy.CanViewTickets || accessStrategy.CanViewSpareParts;
+
             btnNavTickets.Text = accessStrategy.TicketButtonText;
 
-        
             accessStrategy.LoadInitialView(this);
         }
 

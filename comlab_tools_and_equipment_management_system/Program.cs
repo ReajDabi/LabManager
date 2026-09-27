@@ -34,8 +34,12 @@ namespace ComLabManager.UI
             // Temporary Admin Password Seeding
             using (var connection = new MySqlConnection(connectionString))
             {
-                string realHash = BCrypt.Net.BCrypt.HashPassword("admin123");
-                string updateSql = "UPDATE Users SET PasswordHash = @Hash WHERE Username = 'admin_reaj'";
+               
+                string realHash = BCrypt.Net.BCrypt.HashPassword("password123");
+
+               
+                string updateSql = "UPDATE Users SET PasswordHash = @Hash WHERE Username IN ('admin_reaj', 'tech_chrishian', 'student_test')";
+
                 connection.Execute(updateSql, new { Hash = realHash });
             }
 
