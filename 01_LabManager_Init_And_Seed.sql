@@ -76,3 +76,20 @@ INSERT INTO Equipment (AssetTag, Name, Category, Status, StationNumber, DateAcqu
 INSERT INTO PreventiveMaintenance (EquipmentId, TaskName, FrequencyInDays, NextDueDate) VALUES 
 (1, 'Thermal Paste Replacement', 180, '2026-10-15'),
 (2, 'Thermal Paste Replacement', 180, '2026-10-15');
+
+
+
+
+-- Pa run ani sa sql sc
+
+USE LabManagerDb;
+SET FOREIGN_KEY_CHECKS = 0;
+
+TRUNCATE TABLE Users;
+
+INSERT INTO Users (Username, PasswordHash, Role) VALUES 
+('admin_reaj', 'dummy_hash', 'Admin'),
+('tech_chrishian', 'dummy_hash', 'Technician'),
+('student_test', 'dummy_hash', 'Student');
+
+SET FOREIGN_KEY_CHECKS = 1;

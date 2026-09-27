@@ -189,7 +189,7 @@
         private DataGridViewTextBoxColumn SerialNumber;
         private DataGridViewTextBoxColumn Category;
         private DataGridViewTextBoxColumn Status;
-        private DataGridViewTextBoxColumn Location;
+        private DataGridViewTextBoxColumn   Location;
         private DataGridViewTextBoxColumn DateAcquired;
         private Panel pnlActionToolbar;
         private Button btnAddEquipment;

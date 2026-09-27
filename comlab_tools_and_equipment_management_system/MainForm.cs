@@ -1,6 +1,6 @@
 using ComLabManager.Core.Interfaces;
 using ComLabManager.Core.Models;
-using System.Linq.Expressions;
+using ComLabManager.UI.NavigationStrategies;
 
 namespace ComLabManager.UI
 {
@@ -13,17 +13,45 @@ namespace ComLabManager.UI
         public MainForm(IEquipmentRepository equipmentRepository)
         {
             InitializeComponent();
-            btnNavDashboard_Click(btnNavDashboard, EventArgs.Empty);
+           
             _equipmentRepository = equipmentRepository;
         }
 
+        public void OpenDashboard() => btnNavDashboard_Click(btnNavDashboard, EventArgs.Empty);
+        public void OpenTickets() => btnNavTickets_Click(btnNavTickets, EventArgs.Empty);
 
-        public void SetCurrentUser(User user)
+
+
+
+        //Limit other Users to certain views based on their role
+        public void SetCurrentUser(User user, IRoleNavigationStrategy accessStrategy)
         {
             _currentUser = user;
-
             lblCurrentUser.Text = $"Viewing as: {_currentUser.UserName} ({_currentUser.Role})";
+
+           
+            btnNavDashboard.Visible = accessStrategy.CanViewDashboard;
+            btnNavEquipment.Visible = accessStrategy.CanViewEquipment;
+            btnNavTickets.Visible = accessStrategy.CanViewTickets;
+            btnNavSpareParts.Visible = accessStrategy.CanViewSpareParts;
+            btnNavScheduler.Visible = accessStrategy.CanViewScheduler;
+
+           
+            lblMonitor.Visible = accessStrategy.CanViewDashboard;
+            lblAssets.Visible = accessStrategy.CanViewEquipment;
+
+            
+            lblMaintenance.Visible = accessStrategy.CanViewTickets || accessStrategy.CanViewSpareParts;
+
+            btnNavTickets.Text = accessStrategy.TicketButtonText;
+
+            accessStrategy.LoadInitialView(this);
         }
+
+
+
+
+        //Button Logics etc...
 
         private Button _activeButton;
 
