@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             groupBox1 = new GroupBox();
-            label1 = new Label();
-            label2 = new Label();
-            textBox1 = new TextBox();
             button1 = new Button();
+            textBox1 = new TextBox();
+            label2 = new Label();
+            label1 = new Label();
             groupBox1.SuspendLayout();
             SuspendLayout();
             // 
@@ -42,38 +42,13 @@
             groupBox1.Controls.Add(textBox1);
             groupBox1.Controls.Add(label2);
             groupBox1.Controls.Add(label1);
-            groupBox1.Location = new Point(20, -6);
+            groupBox1.Location = new Point(-1, -8);
+            groupBox1.Margin = new Padding(4, 4, 4, 4);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(543, 501);
+            groupBox1.Padding = new Padding(4, 4, 4, 4);
+            groupBox1.Size = new Size(430, 346);
             groupBox1.TabIndex = 1;
             groupBox1.TabStop = false;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 15F);
-            label1.Location = new Point(165, 115);
-            label1.Name = "label1";
-            label1.Size = new Size(206, 35);
-            label1.TabIndex = 0;
-            label1.Text = "Delete Spare Part";
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Font = new Font("Segoe UI", 10F);
-            label2.Location = new Point(19, 211);
-            label2.Name = "label2";
-            label2.Size = new Size(144, 23);
-            label2.TabIndex = 1;
-            label2.Text = "Equipment Name";
-            // 
-            // textBox1
-            // 
-            textBox1.Location = new Point(19, 237);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(487, 27);
-            textBox1.TabIndex = 2;
             // 
             // button1
             // 
@@ -83,20 +58,52 @@
             button1.FlatStyle = FlatStyle.Flat;
             button1.Font = new Font("Segoe UI", 10F);
             button1.ForeColor = Color.White;
-            button1.Location = new Point(204, 270);
+            button1.Location = new Point(299, 259);
+            button1.Margin = new Padding(4, 4, 4, 4);
             button1.Name = "button1";
-            button1.Size = new Size(146, 57);
+            button1.Size = new Size(100, 37);
             button1.TabIndex = 3;
             button1.Text = "Delete";
             button1.UseVisualStyleBackColor = false;
             // 
+            // textBox1
+            // 
+            textBox1.Location = new Point(21, 203);
+            textBox1.Margin = new Padding(4, 4, 4, 4);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(378, 31);
+            textBox1.TabIndex = 2;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Font = new Font("Segoe UI", 10F);
+            label2.Location = new Point(21, 157);
+            label2.Margin = new Padding(4, 0, 4, 0);
+            label2.Name = "label2";
+            label2.Size = new Size(164, 28);
+            label2.TabIndex = 1;
+            label2.Text = "Equipment Name";
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 15F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.Location = new Point(99, 44);
+            label1.Margin = new Padding(4, 0, 4, 0);
+            label1.Name = "label1";
+            label1.Size = new Size(263, 41);
+            label1.TabIndex = 0;
+            label1.Text = "Delete Spare Part";
+            // 
             // DeleteSparePartForm
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             AutoSize = true;
-            ClientSize = new Size(582, 499);
+            ClientSize = new Size(427, 330);
             Controls.Add(groupBox1);
+            Margin = new Padding(4, 4, 4, 4);
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "DeleteSparePartForm";

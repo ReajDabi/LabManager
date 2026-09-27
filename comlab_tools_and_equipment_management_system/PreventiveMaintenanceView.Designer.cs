@@ -49,13 +49,14 @@
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Columns.AddRange(new DataGridViewColumn[] { task, equipment, frequency, lastcompleted, nextdue, assignedto });
             dataGridView1.Cursor = Cursors.Hand;
-            dataGridView1.Location = new Point(0, 0);
+            dataGridView1.Location = new Point(0, 66);
+            dataGridView1.Margin = new Padding(4);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.ReadOnly = true;
             dataGridView1.RowHeadersVisible = false;
             dataGridView1.RowHeadersWidth = 51;
             dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridView1.Size = new Size(958, 474);
+            dataGridView1.Size = new Size(958, 498);
             dataGridView1.TabIndex = 0;
             // 
             // task
@@ -110,9 +111,10 @@
             buttonScheduleTask.FlatStyle = FlatStyle.Flat;
             buttonScheduleTask.Font = new Font("Segoe UI", 10F);
             buttonScheduleTask.ForeColor = Color.White;
-            buttonScheduleTask.Location = new Point(738, 480);
+            buttonScheduleTask.Location = new Point(764, 14);
+            buttonScheduleTask.Margin = new Padding(4);
             buttonScheduleTask.Name = "buttonScheduleTask";
-            buttonScheduleTask.Size = new Size(193, 62);
+            buttonScheduleTask.Size = new Size(181, 44);
             buttonScheduleTask.TabIndex = 1;
             buttonScheduleTask.Text = "Schedule task";
             buttonScheduleTask.UseVisualStyleBackColor = false;
@@ -120,11 +122,12 @@
             // 
             // PreventiveMaintenanceView
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(248, 249, 250);
             Controls.Add(buttonScheduleTask);
             Controls.Add(dataGridView1);
+            Margin = new Padding(4);
             Name = "PreventiveMaintenanceView";
             Size = new Size(958, 564);
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();

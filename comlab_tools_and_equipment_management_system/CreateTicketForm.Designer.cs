@@ -70,9 +70,9 @@
             button2.FlatAppearance.BorderSize = 0;
             button2.FlatStyle = FlatStyle.Flat;
             button2.ForeColor = Color.White;
-            button2.Location = new Point(383, 415);
+            button2.Location = new Point(399, 415);
             button2.Name = "button2";
-            button2.Size = new Size(127, 39);
+            button2.Size = new Size(111, 39);
             button2.TabIndex = 10;
             button2.Text = "Save";
             button2.UseVisualStyleBackColor = false;
@@ -97,7 +97,7 @@
             comboBox1.FormattingEnabled = true;
             comboBox1.Location = new Point(299, 323);
             comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(211, 31);
+            comboBox1.Size = new Size(211, 36);
             comboBox1.TabIndex = 8;
             // 
             // textBox3
@@ -105,7 +105,7 @@
             textBox3.BorderStyle = BorderStyle.FixedSingle;
             textBox3.Location = new Point(31, 324);
             textBox3.Name = "textBox3";
-            textBox3.Size = new Size(214, 30);
+            textBox3.Size = new Size(214, 34);
             textBox3.TabIndex = 7;
             // 
             // textBox2
@@ -122,7 +122,7 @@
             textBox1.BorderStyle = BorderStyle.FixedSingle;
             textBox1.Location = new Point(31, 115);
             textBox1.Name = "textBox1";
-            textBox1.Size = new Size(479, 30);
+            textBox1.Size = new Size(479, 34);
             textBox1.TabIndex = 5;
             // 
             // label5
@@ -130,9 +130,9 @@
             label5.AutoSize = true;
             label5.FlatStyle = FlatStyle.Flat;
             label5.ForeColor = Color.Black;
-            label5.Location = new Point(380, 293);
+            label5.Location = new Point(299, 292);
             label5.Name = "label5";
-            label5.Size = new Size(130, 23);
+            label5.Size = new Size(149, 28);
             label5.TabIndex = 4;
             label5.Text = "Spare part used";
             // 
@@ -141,9 +141,9 @@
             label4.AutoSize = true;
             label4.FlatStyle = FlatStyle.Flat;
             label4.ForeColor = Color.Black;
-            label4.Location = new Point(31, 293);
+            label4.Location = new Point(31, 292);
             label4.Name = "label4";
-            label4.Size = new Size(97, 23);
+            label4.Size = new Size(111, 28);
             label4.TabIndex = 3;
             label4.Text = "Repair Cost";
             // 
@@ -152,9 +152,9 @@
             label3.AutoSize = true;
             label3.FlatStyle = FlatStyle.Flat;
             label3.ForeColor = Color.Black;
-            label3.Location = new Point(27, 167);
+            label3.Location = new Point(27, 162);
             label3.Name = "label3";
-            label3.Size = new Size(139, 23);
+            label3.Size = new Size(159, 28);
             label3.TabIndex = 2;
             label3.Text = "Issue Description";
             // 
@@ -163,9 +163,9 @@
             label2.AutoSize = true;
             label2.FlatStyle = FlatStyle.Flat;
             label2.ForeColor = Color.Black;
-            label2.Location = new Point(27, 89);
+            label2.Location = new Point(27, 85);
             label2.Name = "label2";
-            label2.Size = new Size(93, 23);
+            label2.Size = new Size(107, 28);
             label2.TabIndex = 1;
             label2.Text = "Equipment";
             // 
@@ -173,10 +173,11 @@
             // 
             label1.AutoSize = true;
             label1.FlatStyle = FlatStyle.Flat;
+            label1.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.ForeColor = Color.Black;
             label1.Location = new Point(27, 26);
             label1.Name = "label1";
-            label1.Size = new Size(146, 23);
+            label1.Size = new Size(220, 32);
             label1.TabIndex = 0;
             label1.Text = "New Repair Ticket";
             // 

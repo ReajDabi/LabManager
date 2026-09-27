@@ -45,9 +45,9 @@
             buttonCreateTicket.Cursor = Cursors.NoMove2D;
             buttonCreateTicket.FlatStyle = FlatStyle.Flat;
             buttonCreateTicket.ForeColor = SystemColors.ControlLight;
-            buttonCreateTicket.Location = new Point(860, 560);
+            buttonCreateTicket.Location = new Point(789, 10);
             buttonCreateTicket.Name = "buttonCreateTicket";
-            buttonCreateTicket.Size = new Size(193, 62);
+            buttonCreateTicket.Size = new Size(153, 44);
             buttonCreateTicket.TabIndex = 0;
             buttonCreateTicket.Text = "Create Ticket";
             buttonCreateTicket.UseVisualStyleBackColor = false;
@@ -64,13 +64,13 @@
             dataGridView1.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Columns.AddRange(new DataGridViewColumn[] { ticket, equipment, issue, status, cost });
-            dataGridView1.Location = new Point(-3, 1);
+            dataGridView1.Location = new Point(-3, 66);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.ReadOnly = true;
             dataGridView1.RowHeadersVisible = false;
             dataGridView1.RowHeadersWidth = 51;
             dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridView1.Size = new Size(1076, 646);
+            dataGridView1.Size = new Size(958, 497);
             dataGridView1.TabIndex = 1;
             // 
             // ticket
@@ -110,7 +110,7 @@
             // 
             // MaintenanceView
             // 
-            AutoScaleDimensions = new SizeF(9F, 23F);
+            AutoScaleDimensions = new SizeF(11F, 28F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(248, 249, 250);
             BorderStyle = BorderStyle.FixedSingle;
@@ -119,7 +119,7 @@
             Cursor = Cursors.Hand;
             Font = new Font("Segoe UI", 10F);
             Name = "MaintenanceView";
-            Size = new Size(1076, 646);
+            Size = new Size(958, 564);
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
         }
