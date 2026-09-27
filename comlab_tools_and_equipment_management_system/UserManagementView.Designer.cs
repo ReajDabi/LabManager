@@ -28,49 +28,59 @@
         /// </summary>
         private void InitializeComponent()
         {
-            panel1 = new Panel();
-            label1 = new Label();
-            sqlCommandBuilder1 = new Microsoft.Data.SqlClient.SqlCommandBuilder();
+            pnlHeader = new Panel();
+            lblUM = new Label();
+            btnDel = new Button();
             btnAddUser = new Button();
             btnEditUser = new Button();
-            button2 = new Button();
+            sqlCommandBuilder1 = new Microsoft.Data.SqlClient.SqlCommandBuilder();
             dvgUsers = new DataGridView();
             userid = new DataGridViewTextBoxColumn();
             username = new DataGridViewTextBoxColumn();
             role = new DataGridViewTextBoxColumn();
             datacreated = new DataGridViewTextBoxColumn();
-            panel1.SuspendLayout();
+            pnlHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dvgUsers).BeginInit();
             SuspendLayout();
             // 
-            // panel1
+            // pnlHeader
             // 
-            panel1.Controls.Add(label1);
-            panel1.Controls.Add(button2);
-            panel1.Controls.Add(btnAddUser);
-            panel1.Controls.Add(btnEditUser);
-            panel1.Dock = DockStyle.Top;
-            panel1.Location = new Point(0, 0);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(958, 80);
-            panel1.TabIndex = 0;
+            pnlHeader.Controls.Add(lblUM);
+            pnlHeader.Controls.Add(btnDel);
+            pnlHeader.Controls.Add(btnAddUser);
+            pnlHeader.Controls.Add(btnEditUser);
+            pnlHeader.Dock = DockStyle.Top;
+            pnlHeader.Location = new Point(0, 0);
+            pnlHeader.Margin = new Padding(4);
+            pnlHeader.Name = "pnlHeader";
+            pnlHeader.Size = new Size(958, 100);
+            pnlHeader.TabIndex = 0;
             // 
-            // label1
+            // lblUM
             // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.ForeColor = Color.FromArgb(30, 41, 59);
-            label1.Location = new Point(30, 17);
-            label1.Name = "label1";
-            label1.Size = new Size(260, 41);
-            label1.TabIndex = 0;
-            label1.Text = "User Mnagement";
+            lblUM.AutoSize = true;
+            lblUM.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblUM.ForeColor = Color.FromArgb(30, 41, 59);
+            lblUM.Location = new Point(38, 21);
+            lblUM.Margin = new Padding(4, 0, 4, 0);
+            lblUM.Name = "lblUM";
+            lblUM.Size = new Size(328, 48);
+            lblUM.TabIndex = 0;
+            lblUM.Text = "User Management";
             // 
-            // sqlCommandBuilder1
+            // btnDel
             // 
-            sqlCommandBuilder1.DataAdapter = null;
-            sqlCommandBuilder1.QuotePrefix = "[";
-            sqlCommandBuilder1.QuoteSuffix = "]";
+            btnDel.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnDel.BackColor = Color.FromArgb(229, 57, 69);
+            btnDel.FlatAppearance.BorderSize = 0;
+            btnDel.FlatStyle = FlatStyle.Flat;
+            btnDel.Location = new Point(508, 34);
+            btnDel.Margin = new Padding(4);
+            btnDel.Name = "btnDel";
+            btnDel.Size = new Size(125, 38);
+            btnDel.TabIndex = 3;
+            btnDel.Text = "Delete";
+            btnDel.UseVisualStyleBackColor = false;
             // 
             // btnAddUser
             // 
@@ -78,9 +88,10 @@
             btnAddUser.BackColor = Color.FromArgb(25, 135, 84);
             btnAddUser.FlatAppearance.BorderSize = 0;
             btnAddUser.FlatStyle = FlatStyle.Flat;
-            btnAddUser.Location = new Point(783, 17);
+            btnAddUser.Location = new Point(798, 34);
+            btnAddUser.Margin = new Padding(4);
             btnAddUser.Name = "btnAddUser";
-            btnAddUser.Size = new Size(147, 41);
+            btnAddUser.Size = new Size(125, 38);
             btnAddUser.TabIndex = 1;
             btnAddUser.Text = "Add New User";
             btnAddUser.UseVisualStyleBackColor = false;
@@ -91,25 +102,19 @@
             btnEditUser.BackColor = Color.FromArgb(30, 41, 59);
             btnEditUser.FlatAppearance.BorderSize = 0;
             btnEditUser.FlatStyle = FlatStyle.Flat;
-            btnEditUser.Location = new Point(621, 17);
+            btnEditUser.Location = new Point(651, 34);
+            btnEditUser.Margin = new Padding(4);
             btnEditUser.Name = "btnEditUser";
-            btnEditUser.Size = new Size(147, 41);
+            btnEditUser.Size = new Size(125, 38);
             btnEditUser.TabIndex = 2;
             btnEditUser.Text = "Edit / Reset";
             btnEditUser.UseVisualStyleBackColor = false;
             // 
-            // button2
+            // sqlCommandBuilder1
             // 
-            button2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            button2.BackColor = Color.FromArgb(229, 57, 69);
-            button2.FlatAppearance.BorderSize = 0;
-            button2.FlatStyle = FlatStyle.Flat;
-            button2.Location = new Point(452, 17);
-            button2.Name = "button2";
-            button2.Size = new Size(150, 41);
-            button2.TabIndex = 3;
-            button2.Text = "Delete";
-            button2.UseVisualStyleBackColor = false;
+            sqlCommandBuilder1.DataAdapter = null;
+            sqlCommandBuilder1.QuotePrefix = "[";
+            sqlCommandBuilder1.QuoteSuffix = "]";
             // 
             // dvgUsers
             // 
@@ -119,11 +124,12 @@
             dvgUsers.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dvgUsers.Columns.AddRange(new DataGridViewColumn[] { userid, username, role, datacreated });
             dvgUsers.Dock = DockStyle.Fill;
-            dvgUsers.Location = new Point(0, 80);
+            dvgUsers.Location = new Point(0, 100);
+            dvgUsers.Margin = new Padding(4);
             dvgUsers.Name = "dvgUsers";
             dvgUsers.RowHeadersVisible = false;
             dvgUsers.RowHeadersWidth = 51;
-            dvgUsers.Size = new Size(958, 484);
+            dvgUsers.Size = new Size(958, 464);
             dvgUsers.TabIndex = 4;
             // 
             // userid
@@ -147,7 +153,7 @@
             role.HeaderText = "Role";
             role.MinimumWidth = 6;
             role.Name = "role";
-            role.Width = 68;
+            role.Width = 82;
             // 
             // datacreated
             // 
@@ -155,32 +161,33 @@
             datacreated.HeaderText = "Data Created";
             datacreated.MinimumWidth = 6;
             datacreated.Name = "datacreated";
-            datacreated.Width = 126;
+            datacreated.Width = 151;
             // 
             // UserManagementView
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(248, 249, 250);
             Controls.Add(dvgUsers);
-            Controls.Add(panel1);
+            Controls.Add(pnlHeader);
             ForeColor = SystemColors.Control;
+            Margin = new Padding(4);
             Name = "UserManagementView";
             Size = new Size(958, 564);
-            panel1.ResumeLayout(false);
-            panel1.PerformLayout();
+            pnlHeader.ResumeLayout(false);
+            pnlHeader.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dvgUsers).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
 
-        private Panel panel1;
-        private Label label1;
+        private Panel pnlHeader;
+        private Label lblUM;
         private Microsoft.Data.SqlClient.SqlCommandBuilder sqlCommandBuilder1;
         private Button btnAddUser;
         private Button btnEditUser;
-        private Button button2;
+        private Button btnDel;
         private DataGridView dvgUsers;
         private DataGridViewTextBoxColumn userid;
         private DataGridViewTextBoxColumn username;
