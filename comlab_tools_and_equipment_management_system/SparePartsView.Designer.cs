@@ -157,6 +157,7 @@
             buttonAddSparePart.TabIndex = 1;
             buttonAddSparePart.Text = "Add Spare Part";
             buttonAddSparePart.UseVisualStyleBackColor = false;
+            buttonAddSparePart.Click += buttonAddSparePart_Click;
             // 
             // buttonDelete
             // 
