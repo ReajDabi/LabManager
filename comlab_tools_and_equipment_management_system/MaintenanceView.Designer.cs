@@ -35,19 +35,21 @@
             issue = new DataGridViewTextBoxColumn();
             status = new DataGridViewTextBoxColumn();
             cost = new DataGridViewTextBoxColumn();
+            panel1 = new Panel();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            panel1.SuspendLayout();
             SuspendLayout();
             // 
             // buttonCreateTicket
             // 
-            buttonCreateTicket.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            buttonCreateTicket.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             buttonCreateTicket.BackColor = Color.Navy;
             buttonCreateTicket.Cursor = Cursors.NoMove2D;
             buttonCreateTicket.FlatStyle = FlatStyle.Flat;
             buttonCreateTicket.ForeColor = SystemColors.ControlLight;
-            buttonCreateTicket.Location = new Point(789, 10);
+            buttonCreateTicket.Location = new Point(801, 9);
             buttonCreateTicket.Name = "buttonCreateTicket";
-            buttonCreateTicket.Size = new Size(153, 44);
+            buttonCreateTicket.Size = new Size(138, 39);
             buttonCreateTicket.TabIndex = 0;
             buttonCreateTicket.Text = "Create Ticket";
             buttonCreateTicket.UseVisualStyleBackColor = false;
@@ -108,19 +110,29 @@
             cost.Name = "cost";
             cost.ReadOnly = true;
             // 
+            // panel1
+            // 
+            panel1.Controls.Add(buttonCreateTicket);
+            panel1.Dock = DockStyle.Top;
+            panel1.Location = new Point(0, 0);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(958, 60);
+            panel1.TabIndex = 2;
+            // 
             // MaintenanceView
             // 
             AutoScaleDimensions = new SizeF(11F, 28F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(248, 249, 250);
             BorderStyle = BorderStyle.FixedSingle;
-            Controls.Add(buttonCreateTicket);
+            Controls.Add(panel1);
             Controls.Add(dataGridView1);
             Cursor = Cursors.Hand;
             Font = new Font("Segoe UI", 10F);
             Name = "MaintenanceView";
             Size = new Size(958, 564);
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            panel1.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -133,5 +145,6 @@
         private DataGridViewTextBoxColumn issue;
         private DataGridViewTextBoxColumn status;
         private DataGridViewTextBoxColumn cost;
+        private Panel panel1;
     }
 }

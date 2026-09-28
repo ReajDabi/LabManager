@@ -40,7 +40,9 @@
             unitprice = new DataGridViewTextBoxColumn();
             buttonAddSparePart = new Button();
             buttonDelete = new Button();
+            pnlActionBar = new Panel();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            pnlActionBar.SuspendLayout();
             SuspendLayout();
             // 
             // dataGridView1
@@ -54,14 +56,14 @@
             dataGridView1.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Columns.AddRange(new DataGridViewColumn[] { euipmentname, category, quantity, minus, plus, restock, restockminus, restockplus, unitprice });
-            dataGridView1.Location = new Point(0, 86);
+            dataGridView1.Location = new Point(0, 69);
             dataGridView1.Margin = new Padding(4);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.ReadOnly = true;
             dataGridView1.RowHeadersVisible = false;
             dataGridView1.RowHeadersWidth = 51;
             dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridView1.Size = new Size(958, 478);
+            dataGridView1.Size = new Size(958, 495);
             dataGridView1.TabIndex = 0;
             // 
             // euipmentname
@@ -152,7 +154,7 @@
             buttonAddSparePart.FlatAppearance.BorderSize = 0;
             buttonAddSparePart.FlatStyle = FlatStyle.Flat;
             buttonAddSparePart.ForeColor = Color.White;
-            buttonAddSparePart.Location = new Point(773, 17);
+            buttonAddSparePart.Location = new Point(770, 10);
             buttonAddSparePart.Margin = new Padding(4);
             buttonAddSparePart.Name = "buttonAddSparePart";
             buttonAddSparePart.Size = new Size(167, 42);
@@ -168,7 +170,7 @@
             buttonDelete.FlatAppearance.BorderSize = 0;
             buttonDelete.FlatStyle = FlatStyle.Flat;
             buttonDelete.ForeColor = Color.White;
-            buttonDelete.Location = new Point(557, 17);
+            buttonDelete.Location = new Point(554, 10);
             buttonDelete.Margin = new Padding(4);
             buttonDelete.Name = "buttonDelete";
             buttonDelete.Size = new Size(177, 42);
@@ -177,19 +179,29 @@
             buttonDelete.UseVisualStyleBackColor = false;
             buttonDelete.Click += buttonDelete_Click;
             // 
+            // pnlActionBar
+            // 
+            pnlActionBar.Controls.Add(buttonAddSparePart);
+            pnlActionBar.Controls.Add(buttonDelete);
+            pnlActionBar.Dock = DockStyle.Top;
+            pnlActionBar.Location = new Point(0, 0);
+            pnlActionBar.Name = "pnlActionBar";
+            pnlActionBar.Size = new Size(958, 62);
+            pnlActionBar.TabIndex = 3;
+            // 
             // SparePartsView
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(248, 249, 250);
-            Controls.Add(buttonDelete);
-            Controls.Add(buttonAddSparePart);
+            Controls.Add(pnlActionBar);
             Controls.Add(dataGridView1);
             Cursor = Cursors.Hand;
             Margin = new Padding(4);
             Name = "SparePartsView";
             Size = new Size(958, 564);
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            pnlActionBar.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -207,5 +219,6 @@
         private DataGridViewTextBoxColumn unitprice;
         private Button buttonAddSparePart;
         private Button buttonDelete;
+        private Panel pnlActionBar;
     }
 }

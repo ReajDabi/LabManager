@@ -156,7 +156,6 @@
             // 
             // pnlAnalytics
             // 
-            pnlAnalytics.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             pnlAnalytics.BackColor = Color.WhiteSmoke;
             pnlAnalytics.Controls.Add(pnlDecommissioned);
             pnlAnalytics.Controls.Add(pnlRepair);
@@ -247,7 +246,7 @@
             dgvRecentTickets.BorderStyle = BorderStyle.None;
             dgvRecentTickets.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvRecentTickets.Columns.AddRange(new DataGridViewColumn[] { Ticket, Status });
-            dgvRecentTickets.Dock = DockStyle.Fill;
+            dgvRecentTickets.Dock = DockStyle.Right;
             dgvRecentTickets.Location = new Point(0, 0);
             dgvRecentTickets.Name = "dgvRecentTickets";
             dgvRecentTickets.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;

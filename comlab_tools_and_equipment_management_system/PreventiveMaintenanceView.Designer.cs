@@ -36,7 +36,9 @@
             nextdue = new DataGridViewTextBoxColumn();
             assignedto = new DataGridViewTextBoxColumn();
             buttonScheduleTask = new Button();
+            panel1 = new Panel();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            panel1.SuspendLayout();
             SuspendLayout();
             // 
             // dataGridView1
@@ -103,7 +105,7 @@
             // 
             // buttonScheduleTask
             // 
-            buttonScheduleTask.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            buttonScheduleTask.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             buttonScheduleTask.BackColor = Color.Navy;
             buttonScheduleTask.BackgroundImageLayout = ImageLayout.None;
             buttonScheduleTask.Cursor = Cursors.Hand;
@@ -111,26 +113,36 @@
             buttonScheduleTask.FlatStyle = FlatStyle.Flat;
             buttonScheduleTask.Font = new Font("Segoe UI", 10F);
             buttonScheduleTask.ForeColor = Color.White;
-            buttonScheduleTask.Location = new Point(764, 14);
+            buttonScheduleTask.Location = new Point(774, 16);
             buttonScheduleTask.Margin = new Padding(4);
             buttonScheduleTask.Name = "buttonScheduleTask";
-            buttonScheduleTask.Size = new Size(181, 44);
+            buttonScheduleTask.Size = new Size(170, 40);
             buttonScheduleTask.TabIndex = 1;
             buttonScheduleTask.Text = "Schedule task";
             buttonScheduleTask.UseVisualStyleBackColor = false;
             buttonScheduleTask.Click += buttonScheduleTask_Click;
+            // 
+            // panel1
+            // 
+            panel1.Controls.Add(buttonScheduleTask);
+            panel1.Dock = DockStyle.Top;
+            panel1.Location = new Point(0, 0);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(958, 72);
+            panel1.TabIndex = 2;
             // 
             // PreventiveMaintenanceView
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(248, 249, 250);
-            Controls.Add(buttonScheduleTask);
+            Controls.Add(panel1);
             Controls.Add(dataGridView1);
             Margin = new Padding(4);
             Name = "PreventiveMaintenanceView";
             Size = new Size(958, 564);
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            panel1.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -144,5 +156,6 @@
         private DataGridViewTextBoxColumn lastcompleted;
         private DataGridViewTextBoxColumn nextdue;
         private DataGridViewTextBoxColumn assignedto;
+        private Panel panel1;
     }
 }
