@@ -28,11 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            pnlHeader = new Panel();
-            btnToggleParts = new Button();
-            lblTitle = new Label();
-            btnToggleBorrow = new Button();
-            pnlBorrowRequests = new Panel();
+            btnApprove = new Button();
+            btnDeny = new Button();
+            pnlActions = new Panel();
             dgvBorrowRequests = new DataGridView();
             RequestId = new DataGridViewTextBoxColumn();
             StudentName = new DataGridViewTextBoxColumn();
@@ -40,9 +38,6 @@
             Purpose = new DataGridViewTextBoxColumn();
             Schedule = new DataGridViewTextBoxColumn();
             Status = new DataGridViewTextBoxColumn();
-            pnlActions = new Panel();
-            btnDeny = new Button();
-            btnApprove = new Button();
             pnlPartRequests = new Panel();
             dgvPartRequests = new DataGridView();
             colPartRequestId = new DataGridViewTextBoxColumn();
@@ -51,71 +46,56 @@
             Quantity = new DataGridViewTextBoxColumn();
             colPartReason = new DataGridViewTextBoxColumn();
             colParrtStatus = new DataGridViewTextBoxColumn();
-            pnlHeader.SuspendLayout();
-            pnlBorrowRequests.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dgvBorrowRequests).BeginInit();
+            pnlBorrowRequests = new Panel();
+            btnToggleBorrow = new Button();
+            pnlHeader = new Panel();
+            btnToggleParts = new Button();
             pnlActions.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvBorrowRequests).BeginInit();
             pnlPartRequests.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvPartRequests).BeginInit();
+            pnlBorrowRequests.SuspendLayout();
+            pnlHeader.SuspendLayout();
             SuspendLayout();
             // 
-            // pnlHeader
+            // btnApprove
             // 
-            pnlHeader.Controls.Add(btnToggleParts);
-            pnlHeader.Controls.Add(lblTitle);
-            pnlHeader.Controls.Add(btnToggleBorrow);
-            pnlHeader.Dock = DockStyle.Top;
-            pnlHeader.Location = new Point(0, 0);
-            pnlHeader.Name = "pnlHeader";
-            pnlHeader.Size = new Size(958, 80);
-            pnlHeader.TabIndex = 0;
+            btnApprove.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnApprove.BackColor = Color.FromArgb(25, 135, 84);
+            btnApprove.FlatStyle = FlatStyle.Flat;
+            btnApprove.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
+            btnApprove.ForeColor = SystemColors.ButtonHighlight;
+            btnApprove.Location = new Point(579, 9);
+            btnApprove.Name = "btnApprove";
+            btnApprove.Size = new Size(158, 41);
+            btnApprove.TabIndex = 1;
+            btnApprove.Text = "Approve";
+            btnApprove.UseVisualStyleBackColor = false;
             // 
-            // btnToggleParts
+            // btnDeny
             // 
-            btnToggleParts.BackColor = Color.FromArgb(30, 41, 59);
-            btnToggleParts.FlatStyle = FlatStyle.Flat;
-            btnToggleParts.ForeColor = SystemColors.ButtonFace;
-            btnToggleParts.Location = new Point(751, 13);
-            btnToggleParts.Name = "btnToggleParts";
-            btnToggleParts.Size = new Size(171, 50);
-            btnToggleParts.TabIndex = 1;
-            btnToggleParts.Text = "Tech Requests";
-            btnToggleParts.UseVisualStyleBackColor = false;
-            btnToggleParts.Click += btnToggleParts_Click;
+            btnDeny.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnDeny.BackColor = Color.FromArgb(229, 57, 69);
+            btnDeny.FlatStyle = FlatStyle.Flat;
+            btnDeny.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
+            btnDeny.ForeColor = SystemColors.ButtonHighlight;
+            btnDeny.Location = new Point(785, 9);
+            btnDeny.Name = "btnDeny";
+            btnDeny.Size = new Size(145, 41);
+            btnDeny.TabIndex = 1;
+            btnDeny.Text = "Deny";
+            btnDeny.UseVisualStyleBackColor = false;
+            btnDeny.Click += button2_Click;
             // 
-            // lblTitle
+            // pnlActions
             // 
-            lblTitle.AutoSize = true;
-            lblTitle.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblTitle.ForeColor = Color.FromArgb(30, 41, 59);
-            lblTitle.Location = new Point(19, 15);
-            lblTitle.Name = "lblTitle";
-            lblTitle.Size = new Size(337, 48);
-            lblTitle.TabIndex = 0;
-            lblTitle.Text = "Pending Approvals";
-            // 
-            // btnToggleBorrow
-            // 
-            btnToggleBorrow.BackColor = SystemColors.Highlight;
-            btnToggleBorrow.FlatStyle = FlatStyle.Flat;
-            btnToggleBorrow.ForeColor = SystemColors.ButtonFace;
-            btnToggleBorrow.Location = new Point(541, 13);
-            btnToggleBorrow.Name = "btnToggleBorrow";
-            btnToggleBorrow.Size = new Size(180, 48);
-            btnToggleBorrow.TabIndex = 1;
-            btnToggleBorrow.Text = "Student Requests";
-            btnToggleBorrow.UseVisualStyleBackColor = false;
-            btnToggleBorrow.Click += btnToggleBorrow_Click;
-            // 
-            // pnlBorrowRequests
-            // 
-            pnlBorrowRequests.Controls.Add(pnlPartRequests);
-            pnlBorrowRequests.Controls.Add(dgvBorrowRequests);
-            pnlBorrowRequests.Dock = DockStyle.Fill;
-            pnlBorrowRequests.Location = new Point(0, 80);
-            pnlBorrowRequests.Name = "pnlBorrowRequests";
-            pnlBorrowRequests.Size = new Size(958, 484);
-            pnlBorrowRequests.TabIndex = 1;
+            pnlActions.Controls.Add(btnDeny);
+            pnlActions.Controls.Add(btnApprove);
+            pnlActions.Dock = DockStyle.Bottom;
+            pnlActions.Location = new Point(0, 504);
+            pnlActions.Name = "pnlActions";
+            pnlActions.Size = new Size(958, 60);
+            pnlActions.TabIndex = 2;
             // 
             // dgvBorrowRequests
             // 
@@ -176,50 +156,13 @@
             Status.Name = "Status";
             Status.Width = 150;
             // 
-            // pnlActions
-            // 
-            pnlActions.Controls.Add(btnDeny);
-            pnlActions.Controls.Add(btnApprove);
-            pnlActions.Dock = DockStyle.Bottom;
-            pnlActions.Location = new Point(0, 504);
-            pnlActions.Name = "pnlActions";
-            pnlActions.Size = new Size(958, 60);
-            pnlActions.TabIndex = 2;
-            // 
-            // btnDeny
-            // 
-            btnDeny.BackColor = Color.FromArgb(229, 57, 69);
-            btnDeny.FlatStyle = FlatStyle.Flat;
-            btnDeny.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
-            btnDeny.ForeColor = SystemColors.ButtonHighlight;
-            btnDeny.Location = new Point(785, 9);
-            btnDeny.Name = "btnDeny";
-            btnDeny.Size = new Size(145, 41);
-            btnDeny.TabIndex = 1;
-            btnDeny.Text = "Deny";
-            btnDeny.UseVisualStyleBackColor = false;
-            btnDeny.Click += button2_Click;
-            // 
-            // btnApprove
-            // 
-            btnApprove.BackColor = Color.FromArgb(25, 135, 84);
-            btnApprove.FlatStyle = FlatStyle.Flat;
-            btnApprove.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
-            btnApprove.ForeColor = SystemColors.ButtonHighlight;
-            btnApprove.Location = new Point(579, 9);
-            btnApprove.Name = "btnApprove";
-            btnApprove.Size = new Size(158, 41);
-            btnApprove.TabIndex = 1;
-            btnApprove.Text = "Approve";
-            btnApprove.UseVisualStyleBackColor = false;
-            // 
             // pnlPartRequests
             // 
             pnlPartRequests.Controls.Add(dgvPartRequests);
             pnlPartRequests.Dock = DockStyle.Fill;
-            pnlPartRequests.Location = new Point(0, 0);
+            pnlPartRequests.Location = new Point(0, 80);
             pnlPartRequests.Name = "pnlPartRequests";
-            pnlPartRequests.Size = new Size(958, 484);
+            pnlPartRequests.Size = new Size(958, 424);
             pnlPartRequests.TabIndex = 2;
             // 
             // dgvPartRequests
@@ -234,7 +177,7 @@
             dgvPartRequests.RowHeadersVisible = false;
             dgvPartRequests.RowHeadersWidth = 62;
             dgvPartRequests.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvPartRequests.Size = new Size(958, 484);
+            dgvPartRequests.Size = new Size(958, 424);
             dgvPartRequests.TabIndex = 0;
             // 
             // colPartRequestId
@@ -281,33 +224,76 @@
             colParrtStatus.Name = "colParrtStatus";
             colParrtStatus.Width = 150;
             // 
+            // pnlBorrowRequests
+            // 
+            pnlBorrowRequests.Controls.Add(dgvBorrowRequests);
+            pnlBorrowRequests.Dock = DockStyle.Fill;
+            pnlBorrowRequests.Location = new Point(0, 80);
+            pnlBorrowRequests.Name = "pnlBorrowRequests";
+            pnlBorrowRequests.Size = new Size(958, 484);
+            pnlBorrowRequests.TabIndex = 1;
+            // 
+            // btnToggleBorrow
+            // 
+            btnToggleBorrow.BackColor = SystemColors.Highlight;
+            btnToggleBorrow.FlatStyle = FlatStyle.Flat;
+            btnToggleBorrow.ForeColor = SystemColors.ButtonFace;
+            btnToggleBorrow.Location = new Point(23, 17);
+            btnToggleBorrow.Name = "btnToggleBorrow";
+            btnToggleBorrow.Size = new Size(180, 48);
+            btnToggleBorrow.TabIndex = 1;
+            btnToggleBorrow.Text = "Student Requests";
+            btnToggleBorrow.UseVisualStyleBackColor = false;
+            btnToggleBorrow.Click += btnToggleBorrow_Click;
+            // 
+            // pnlHeader
+            // 
+            pnlHeader.Controls.Add(btnToggleParts);
+            pnlHeader.Controls.Add(btnToggleBorrow);
+            pnlHeader.Dock = DockStyle.Top;
+            pnlHeader.Location = new Point(0, 0);
+            pnlHeader.Name = "pnlHeader";
+            pnlHeader.Size = new Size(958, 80);
+            pnlHeader.TabIndex = 0;
+            // 
+            // btnToggleParts
+            // 
+            btnToggleParts.BackColor = Color.FromArgb(30, 41, 59);
+            btnToggleParts.FlatStyle = FlatStyle.Flat;
+            btnToggleParts.ForeColor = SystemColors.ButtonFace;
+            btnToggleParts.Location = new Point(233, 17);
+            btnToggleParts.Name = "btnToggleParts";
+            btnToggleParts.Size = new Size(171, 50);
+            btnToggleParts.TabIndex = 1;
+            btnToggleParts.Text = "Tech Requests";
+            btnToggleParts.UseVisualStyleBackColor = false;
+            btnToggleParts.Click += btnToggleParts_Click;
+            // 
             // AdminApprovalsView
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(248, 249, 250);
+            Controls.Add(pnlPartRequests);
             Controls.Add(pnlActions);
             Controls.Add(pnlBorrowRequests);
             Controls.Add(pnlHeader);
             Name = "AdminApprovalsView";
             Size = new Size(958, 564);
-            pnlHeader.ResumeLayout(false);
-            pnlHeader.PerformLayout();
-            pnlBorrowRequests.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)dgvBorrowRequests).EndInit();
             pnlActions.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dgvBorrowRequests).EndInit();
             pnlPartRequests.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dgvPartRequests).EndInit();
+            pnlBorrowRequests.ResumeLayout(false);
+            pnlHeader.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         #endregion
 
-        private Panel pnlHeader;
-        private Label lblTitle;
-        private Button btnToggleParts;
-        private Button btnToggleBorrow;
-        private Panel pnlBorrowRequests;
+        private Button btnApprove;
+        private Button btnDeny;
+        private Panel pnlActions;
         private DataGridView dgvBorrowRequests;
         private DataGridViewTextBoxColumn RequestId;
         private DataGridViewTextBoxColumn StudentName;
@@ -315,9 +301,6 @@
         private DataGridViewTextBoxColumn Purpose;
         private DataGridViewTextBoxColumn Schedule;
         private DataGridViewTextBoxColumn Status;
-        private Panel pnlActions;
-        private Button btnDeny;
-        private Button btnApprove;
         private Panel pnlPartRequests;
         private DataGridView dgvPartRequests;
         private DataGridViewTextBoxColumn colPartRequestId;
@@ -326,5 +309,9 @@
         private DataGridViewTextBoxColumn Quantity;
         private DataGridViewTextBoxColumn colPartReason;
         private DataGridViewTextBoxColumn colParrtStatus;
+        private Panel pnlBorrowRequests;
+        private Button btnToggleBorrow;
+        private Panel pnlHeader;
+        private Button btnToggleParts;
     }
 }

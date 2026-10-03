@@ -1,6 +1,7 @@
 using ComLabManager.Core.Interfaces;
 using ComLabManager.Core.Models;
 using ComLabManager.UI.NavigationStrategies;
+using ComLabManager.UI.Views;
 
 namespace ComLabManager.UI
 {
@@ -66,14 +67,16 @@ namespace ComLabManager.UI
             btnNavTickets.BackColor = defaultColor;
             btnNavSpareParts.BackColor = defaultColor;
             btnNavScheduler.BackColor = defaultColor;
-            btnNavUser.BackColor  = defaultColor;
-
+            btnNavUser.BackColor = defaultColor;
+            btnNavRequestApproval.BackColor = defaultColor;
 
             clickedButton.BackColor = Color.FromArgb(0, 120, 215);
 
 
             _activeButton = clickedButton;
         }
+
+
 
         private void LoadView(UserControl view)
         {
@@ -161,6 +164,15 @@ namespace ComLabManager.UI
 
             UserManagementView usermanagement = new UserManagementView();
             LoadView(usermanagement);
+        }
+
+        private void btnNavRequestApproval_Click(object sender, EventArgs e)
+        {
+            HighlightActiveButton((Button)sender);
+            lblPageTitle.Text = "Pending Requests";
+
+            AdminApprovalsView adminapprovals = new AdminApprovalsView();
+            LoadView(adminapprovals);
         }
     }
 
