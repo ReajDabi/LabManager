@@ -22,6 +22,7 @@ namespace ComLabManager.UI
 
             InitializeComponent();
             _userRepository = userRepository;
+
         }
 
         private void btnLogin_Click(object sender, EventArgs e)
@@ -29,13 +30,13 @@ namespace ComLabManager.UI
             try
             {
 
-                if(string.IsNullOrWhiteSpace(txtUsername.Text) || string.IsNullOrWhiteSpace(txtPassword.Text))
+                if (string.IsNullOrWhiteSpace(txtUsername.Text) || string.IsNullOrWhiteSpace(txtPassword.Text))
                 {
                     MessageBox.Show("Please enter both username and password.", "Required Fields", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
-                var user= _userRepository.AuthenticateUser(txtUsername.Text, txtPassword.Text);
+                var user = _userRepository.AuthenticateUser(txtUsername.Text, txtPassword.Text);
 
                 if (user == null)
                 {
@@ -48,11 +49,23 @@ namespace ComLabManager.UI
                 this.DialogResult = DialogResult.OK;
                 this.Close();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show($"An error occurred during login: {ex.Message}", "System Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            
+
+        }
+
+        private void txtUsername_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                
+                e.SuppressKeyPress = true;
+
+               
+                txtPassword.Focus();
+            }
         }
     }
 }

@@ -13,6 +13,8 @@ namespace ComLabManager.UI.NavigationStrategies
         public bool CanViewScheduler => true;
 
         public bool CanViewUsers => true;
+
+        public string RequestButtonText => "Requests Approval";
         public string TicketButtonText => "Maintenance Tickets";
 
         public void LoadInitialView(MainForm form)

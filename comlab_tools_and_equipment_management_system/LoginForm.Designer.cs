@@ -36,11 +36,11 @@
             imageList1 = new ImageList(components);
             lblLogin = new Label();
             pnlLogin = new Panel();
+            pbLogo = new PictureBox();
             lblWU = new Label();
             lblLM = new Label();
             lblUserName = new Label();
             lblPass = new Label();
-            pbLogo = new PictureBox();
             pnlLogin.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pbLogo).BeginInit();
             SuspendLayout();
@@ -56,6 +56,7 @@
             txtUsername.PlaceholderText = "Enter User Name";
             txtUsername.Size = new Size(291, 45);
             txtUsername.TabIndex = 0;
+            txtUsername.KeyDown += txtUsername_KeyDown;
             // 
             // txtPassword
             // 
@@ -68,7 +69,7 @@
             txtPassword.PasswordChar = '*';
             txtPassword.PlaceholderText = "Enter Password";
             txtPassword.Size = new Size(291, 48);
-            txtPassword.TabIndex = 0;
+            txtPassword.TabIndex = 1;
             // 
             // btnLogin
             // 
@@ -83,7 +84,7 @@
             btnLogin.Location = new Point(752, 417);
             btnLogin.Name = "btnLogin";
             btnLogin.Size = new Size(291, 52);
-            btnLogin.TabIndex = 1;
+            btnLogin.TabIndex = 2;
             btnLogin.Text = "SIGN IN";
             btnLogin.UseVisualStyleBackColor = false;
             btnLogin.Click += btnLogin_Click;
@@ -116,6 +117,16 @@
             pnlLogin.Name = "pnlLogin";
             pnlLogin.Size = new Size(615, 644);
             pnlLogin.TabIndex = 4;
+            // 
+            // pbLogo
+            // 
+            pbLogo.Image = (Image)resources.GetObject("pbLogo.Image");
+            pbLogo.Location = new Point(206, 65);
+            pbLogo.Name = "pbLogo";
+            pbLogo.Size = new Size(184, 173);
+            pbLogo.SizeMode = PictureBoxSizeMode.Zoom;
+            pbLogo.TabIndex = 4;
+            pbLogo.TabStop = false;
             // 
             // lblWU
             // 
@@ -161,18 +172,9 @@
             lblPass.TabIndex = 5;
             lblPass.Text = "Password";
             // 
-            // pbLogo
-            // 
-            pbLogo.Image = (Image)resources.GetObject("pbLogo.Image");
-            pbLogo.Location = new Point(206, 65);
-            pbLogo.Name = "pbLogo";
-            pbLogo.Size = new Size(184, 173);
-            pbLogo.SizeMode = PictureBoxSizeMode.Zoom;
-            pbLogo.TabIndex = 4;
-            pbLogo.TabStop = false;
-            // 
             // LoginForm
             // 
+            AcceptButton = btnLogin;
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1178, 644);
