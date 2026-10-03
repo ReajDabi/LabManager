@@ -12,8 +12,10 @@ namespace ComLabManager.Core.Models
         public string Category { get; set; }
         public string Status { get; set; }
         public string? StationNumber { get; set; }
+        public int UsageCount { get; set; }
         public DateTime DateAcquired { get; set; }
         public DateTime CreatedAt { get; set; }
+
 
     }
 }
