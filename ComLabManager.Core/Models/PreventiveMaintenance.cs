@@ -8,8 +8,9 @@ namespace ComLabManager.Core.Models
     {
         public int Id { get; set; }
         public int EquipmentId { get; set; }
+        public string TargetLocation { get; set; }
         public string TaskName { get; set; }
-        public int FrequencyInDays { get; set; }
+        public string Frequency { get; set; }
         public DateTime? LastCompleted { get; set; }
         public DateTime NextDueDate { get; set; }
         public int? AssignedTo { get; set; }
