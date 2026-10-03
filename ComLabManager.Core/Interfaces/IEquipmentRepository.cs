@@ -12,5 +12,6 @@ namespace ComLabManager.Core.Interfaces
         void DeleteEquipment(int id);
         List<Equipment> SearchEquipment(string keyword);
 
+        IEnumerable<Equipment> GetEquipmentByCategory(string category);
     }
 }

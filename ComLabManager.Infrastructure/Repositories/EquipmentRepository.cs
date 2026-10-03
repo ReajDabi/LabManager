@@ -3,6 +3,7 @@ using ComLabManager.Core.Models;
 using Dapper;
 using MySql.Data.MySqlClient;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 
 namespace ComlabManager.Infrastructure.Repositories
@@ -11,7 +12,7 @@ namespace ComlabManager.Infrastructure.Repositories
     {
         private readonly string _connectionString;
 
-       
+
         public EquipmentRepository(string connectionString)
         {
             _connectionString = connectionString;
@@ -19,7 +20,7 @@ namespace ComlabManager.Infrastructure.Repositories
 
         public List<Equipment> GetAllEquipment()
         {
-           
+
             using (var connection = new MySqlConnection(_connectionString))
             {
                 string sql = "SELECT * FROM Equipment";
@@ -31,7 +32,7 @@ namespace ComlabManager.Infrastructure.Repositories
         {
             using (var connection = new MySqlConnection(_connectionString))
             {
-                
+
                 string sql = @"INSERT INTO Equipment (Name, SerialNumber, Category, Status, Location, DateAcquired) 
                        VALUES (@Name, @SerialNumber, @Category, @Status, @Location, @DateAcquired)";
 
@@ -67,7 +68,7 @@ namespace ComlabManager.Infrastructure.Repositories
         {
             using (var connection = new MySqlConnection(_connectionString))
             {
-                
+
                 string sql = @"SELECT * FROM Equipment 
                        WHERE Name LIKE @Search 
                        OR SerialNumber LIKE @Search 
@@ -75,6 +76,16 @@ namespace ComlabManager.Infrastructure.Repositories
                        OR Status LIKE @Search";
 
                 return connection.Query<Equipment>(sql, new { Search = $"%{keyword}%" }).ToList();
+            }
+        }
+
+        public IEnumerable<Equipment> GetEquipmentByCategory(string category)
+        {
+            using (IDbConnection connection = new MySqlConnection(_connectionString))
+            {
+                string sql = "SELECT * FROM Equipment WHERE Category = @Category";
+
+                return connection.Query<Equipment>(sql, new { Category = category }).ToList();
             }
         }
     }
