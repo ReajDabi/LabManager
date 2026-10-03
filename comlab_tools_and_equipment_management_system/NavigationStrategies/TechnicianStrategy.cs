@@ -17,7 +17,7 @@ namespace ComLabManager.UI.NavigationStrategies
         public bool CanViewScheduler => false;
 
         public string TicketButtonText => "My Tasks";
-
+        public string RequestButtonText => "Requests";
         public void LoadInitialView(MainForm form)
         {
           

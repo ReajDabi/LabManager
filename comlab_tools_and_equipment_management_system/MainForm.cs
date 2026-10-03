@@ -37,6 +37,7 @@ namespace ComLabManager.UI
             btnNavSpareParts.Visible = accessStrategy.CanViewSpareParts;
             btnNavScheduler.Visible = accessStrategy.CanViewScheduler;
             btnNavUser.Visible = accessStrategy.CanViewUsers;
+            
 
             lblMonitor.Visible = accessStrategy.CanViewDashboard;
             lblAssets.Visible = accessStrategy.CanViewEquipment;
@@ -45,6 +46,7 @@ namespace ComLabManager.UI
             lblMaintenance.Visible = accessStrategy.CanViewTickets || accessStrategy.CanViewSpareParts;
 
             btnNavTickets.Text = accessStrategy.TicketButtonText;
+            btnNavRequestApproval.Text = accessStrategy.RequestButtonText;
 
             accessStrategy.LoadInitialView(this);
         }
@@ -171,8 +173,24 @@ namespace ComLabManager.UI
             HighlightActiveButton((Button)sender);
             lblPageTitle.Text = "Pending Requests";
 
-            AdminApprovalsView adminapprovals = new AdminApprovalsView();
-            LoadView(adminapprovals);
+            switch (_currentUser.Role)
+            {
+                case "Admin":
+                    AdminApprovalsView adminapprovals = new AdminApprovalsView();
+                    LoadView(adminapprovals);
+                    break;
+                case "Student":
+                    StudentDashboardView studentview = new StudentDashboardView(_equipmentRepository);
+                   
+                    LoadView(studentview);
+                    break;
+               /* case "Technician":
+                    StudentDashboardView studentview = new StudentDashboardView(_equipmentRepository);
+                    LoadView(studentview);
+                    break;
+                */
+            }
+
         }
     }
 

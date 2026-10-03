@@ -13,8 +13,7 @@ namespace ComLabManager.UI.NavigationStrategies
         bool CanViewScheduler { get; }
         bool CanViewUsers { get; }
         string TicketButtonText { get; }
-
-        // Tells the form which page to load first
+        string RequestButtonText { get; }
         void LoadInitialView(MainForm form);
     }
 }

@@ -210,7 +210,10 @@
             Controls.Add(textBox1);
             Controls.Add(cmbItem);
             Controls.Add(cmbScope);
+            MaximizeBox = false;
+            MinimizeBox = false;
             Name = "BorrowModalForm";
+            StartPosition = FormStartPosition.CenterParent;
             Text = "BorrowModalForm";
             ResumeLayout(false);
             PerformLayout();
