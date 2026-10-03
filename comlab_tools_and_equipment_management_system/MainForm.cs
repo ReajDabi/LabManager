@@ -66,6 +66,7 @@ namespace ComLabManager.UI
             btnNavTickets.BackColor = defaultColor;
             btnNavSpareParts.BackColor = defaultColor;
             btnNavScheduler.BackColor = defaultColor;
+            btnNavUser.BackColor  = defaultColor;
 
 
             clickedButton.BackColor = Color.FromArgb(0, 120, 215);
