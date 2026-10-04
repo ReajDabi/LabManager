@@ -1,7 +1,6 @@
 using ComLabManager.Core.Interfaces;
 using ComLabManager.Core.Models;
 using ComLabManager.UI.NavigationStrategies;
-using ComLabManager.UI.Views;
 
 namespace ComLabManager.UI
 {
@@ -37,7 +36,6 @@ namespace ComLabManager.UI
             btnNavSpareParts.Visible = accessStrategy.CanViewSpareParts;
             btnNavScheduler.Visible = accessStrategy.CanViewScheduler;
             btnNavUser.Visible = accessStrategy.CanViewUsers;
-            
 
             lblMonitor.Visible = accessStrategy.CanViewDashboard;
             lblAssets.Visible = accessStrategy.CanViewEquipment;
@@ -46,7 +44,6 @@ namespace ComLabManager.UI
             lblMaintenance.Visible = accessStrategy.CanViewTickets || accessStrategy.CanViewSpareParts;
 
             btnNavTickets.Text = accessStrategy.TicketButtonText;
-            btnNavRequestApproval.Text = accessStrategy.RequestButtonText;
 
             accessStrategy.LoadInitialView(this);
         }
@@ -69,16 +66,14 @@ namespace ComLabManager.UI
             btnNavTickets.BackColor = defaultColor;
             btnNavSpareParts.BackColor = defaultColor;
             btnNavScheduler.BackColor = defaultColor;
-            btnNavUser.BackColor = defaultColor;
-            btnNavRequestApproval.BackColor = defaultColor;
+            btnNavUser.BackColor  = defaultColor;
+
 
             clickedButton.BackColor = Color.FromArgb(0, 120, 215);
 
 
             _activeButton = clickedButton;
         }
-
-
 
         private void LoadView(UserControl view)
         {
@@ -166,31 +161,6 @@ namespace ComLabManager.UI
 
             UserManagementView usermanagement = new UserManagementView();
             LoadView(usermanagement);
-        }
-
-        private void btnNavRequestApproval_Click(object sender, EventArgs e)
-        {
-            HighlightActiveButton((Button)sender);
-            lblPageTitle.Text = "Pending Requests";
-
-            switch (_currentUser.Role)
-            {
-                case "Admin":
-                    AdminApprovalsView adminapprovals = new AdminApprovalsView();
-                    LoadView(adminapprovals);
-                    break;
-                case "Student":
-                    StudentDashboardView studentview = new StudentDashboardView(_equipmentRepository);
-                   
-                    LoadView(studentview);
-                    break;
-               /* case "Technician":
-                    StudentDashboardView studentview = new StudentDashboardView(_equipmentRepository);
-                    LoadView(studentview);
-                    break;
-                */
-            }
-
         }
     }
 

@@ -44,7 +44,6 @@
         lblAssets = new Label();
         lblMaintenance = new Label();
         pnlSidebar = new Panel();
-        btnNavRequestApproval = new Button();
         btnNavUser = new Button();
         lblUM = new Label();
         pnlMainContent = new Panel();
@@ -290,7 +289,6 @@
         // pnlSidebar
         // 
         pnlSidebar.BackColor = Color.FromArgb(30, 41, 59);
-        pnlSidebar.Controls.Add(btnNavRequestApproval);
         pnlSidebar.Controls.Add(btnNavUser);
         pnlSidebar.Controls.Add(lblUM);
         pnlSidebar.Controls.Add(btnNavScheduler);
@@ -309,26 +307,6 @@
         pnlSidebar.Name = "pnlSidebar";
         pnlSidebar.Size = new Size(220, 644);
         pnlSidebar.TabIndex = 1;
-        // 
-        // btnNavRequestApproval
-        // 
-        btnNavRequestApproval.BackColor = Color.FromArgb(30, 41, 59);
-        btnNavRequestApproval.Dock = DockStyle.Top;
-        btnNavRequestApproval.FlatAppearance.BorderSize = 0;
-        btnNavRequestApproval.FlatAppearance.MouseDownBackColor = Color.FromArgb(15, 23, 42);
-        btnNavRequestApproval.FlatAppearance.MouseOverBackColor = Color.FromArgb(51, 65, 85);
-        btnNavRequestApproval.FlatStyle = FlatStyle.Flat;
-        btnNavRequestApproval.ForeColor = Color.White;
-        btnNavRequestApproval.Location = new Point(0, 524);
-        btnNavRequestApproval.Margin = new Padding(2);
-        btnNavRequestApproval.Name = "btnNavRequestApproval";
-        btnNavRequestApproval.Padding = new Padding(15, 0, 0, 0);
-        btnNavRequestApproval.Size = new Size(220, 45);
-        btnNavRequestApproval.TabIndex = 9;
-        btnNavRequestApproval.Text = "Requests Approval";
-        btnNavRequestApproval.TextAlign = ContentAlignment.MiddleLeft;
-        btnNavRequestApproval.UseVisualStyleBackColor = false;
-        btnNavRequestApproval.Click += btnNavRequestApproval_Click;
         // 
         // btnNavUser
         // 
@@ -417,6 +395,5 @@
     private PictureBox pbLogo;
     private Button btnNavUser;
     private Label lblUM;
-    private Button btnNavRequestApproval;
 }
 
