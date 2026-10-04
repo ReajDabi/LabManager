@@ -16,7 +16,7 @@ namespace ComLabManager.UI.NavigationStrategies
         public string RequestButtonText => "Requests";
         public void LoadInitialView(MainForm form)
         {
-            form.OpenTickets();
+            form.OpenStudentDashboard();
         }
     }
 }
