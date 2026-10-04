@@ -32,6 +32,12 @@
             btnToggleSchedule = new Button();
             btnToggleBorrow = new Button();
             pnlSchedules = new Panel();
+            cmbLabFilter = new ComboBox();
+            dgvSchedules = new DataGridView();
+            Subject = new DataGridViewTextBoxColumn();
+            Instructor = new DataGridViewTextBoxColumn();
+            StartTime = new DataGridViewTextBoxColumn();
+            EndTime = new DataGridViewTextBoxColumn();
             pnlBorrow = new Panel();
             dgvMyRequests = new DataGridView();
             Target = new DataGridViewTextBoxColumn();
@@ -39,17 +45,11 @@
             Time = new DataGridViewTextBoxColumn();
             Status = new DataGridViewTextBoxColumn();
             btnNewRequest = new Button();
-            dgvSchedules = new DataGridView();
-            Subject = new DataGridViewTextBoxColumn();
-            Instructor = new DataGridViewTextBoxColumn();
-            StartTime = new DataGridViewTextBoxColumn();
-            EndTime = new DataGridViewTextBoxColumn();
-            cmbLabFilter = new ComboBox();
             pnlHeader.SuspendLayout();
             pnlSchedules.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvSchedules).BeginInit();
             pnlBorrow.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvMyRequests).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)dgvSchedules).BeginInit();
             SuspendLayout();
             // 
             // pnlHeader
@@ -67,7 +67,7 @@
             btnToggleSchedule.BackColor = SystemColors.Highlight;
             btnToggleSchedule.FlatStyle = FlatStyle.Flat;
             btnToggleSchedule.ForeColor = SystemColors.ButtonFace;
-            btnToggleSchedule.Location = new Point(44, 12);
+            btnToggleSchedule.Location = new Point(26, 12);
             btnToggleSchedule.Name = "btnToggleSchedule";
             btnToggleSchedule.Size = new Size(164, 50);
             btnToggleSchedule.TabIndex = 2;
@@ -80,7 +80,7 @@
             btnToggleBorrow.BackColor = Color.FromArgb(30, 41, 59);
             btnToggleBorrow.FlatStyle = FlatStyle.Flat;
             btnToggleBorrow.ForeColor = SystemColors.ButtonFace;
-            btnToggleBorrow.Location = new Point(229, 12);
+            btnToggleBorrow.Location = new Point(186, 12);
             btnToggleBorrow.Name = "btnToggleBorrow";
             btnToggleBorrow.Size = new Size(214, 50);
             btnToggleBorrow.TabIndex = 2;
@@ -90,21 +90,70 @@
             // 
             // pnlSchedules
             // 
-            pnlSchedules.Controls.Add(pnlBorrow);
-            pnlSchedules.Controls.Add(dgvSchedules);
             pnlSchedules.Controls.Add(cmbLabFilter);
+            pnlSchedules.Controls.Add(dgvSchedules);
             pnlSchedules.Dock = DockStyle.Fill;
             pnlSchedules.Location = new Point(0, 80);
             pnlSchedules.Name = "pnlSchedules";
             pnlSchedules.Size = new Size(958, 484);
             pnlSchedules.TabIndex = 1;
             // 
+            // cmbLabFilter
+            // 
+            cmbLabFilter.FormattingEnabled = true;
+            cmbLabFilter.Location = new Point(734, 17);
+            cmbLabFilter.Name = "cmbLabFilter";
+            cmbLabFilter.Size = new Size(207, 33);
+            cmbLabFilter.TabIndex = 0;
+            // 
+            // dgvSchedules
+            // 
+            dgvSchedules.BackgroundColor = SystemColors.ButtonHighlight;
+            dgvSchedules.BorderStyle = BorderStyle.None;
+            dgvSchedules.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvSchedules.Columns.AddRange(new DataGridViewColumn[] { Subject, Instructor, StartTime, EndTime });
+            dgvSchedules.Location = new Point(0, 0);
+            dgvSchedules.Name = "dgvSchedules";
+            dgvSchedules.RowHeadersVisible = false;
+            dgvSchedules.RowHeadersWidth = 62;
+            dgvSchedules.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvSchedules.Size = new Size(958, 449);
+            dgvSchedules.TabIndex = 1;
+            // 
+            // Subject
+            // 
+            Subject.HeaderText = "Subject";
+            Subject.MinimumWidth = 8;
+            Subject.Name = "Subject";
+            Subject.Width = 150;
+            // 
+            // Instructor
+            // 
+            Instructor.HeaderText = "Instructor";
+            Instructor.MinimumWidth = 8;
+            Instructor.Name = "Instructor";
+            Instructor.Width = 150;
+            // 
+            // StartTime
+            // 
+            StartTime.HeaderText = "Start Time";
+            StartTime.MinimumWidth = 8;
+            StartTime.Name = "StartTime";
+            StartTime.Width = 150;
+            // 
+            // EndTime
+            // 
+            EndTime.HeaderText = "End Time";
+            EndTime.MinimumWidth = 8;
+            EndTime.Name = "EndTime";
+            EndTime.Width = 150;
+            // 
             // pnlBorrow
             // 
-            pnlBorrow.Controls.Add(dgvMyRequests);
             pnlBorrow.Controls.Add(btnNewRequest);
+            pnlBorrow.Controls.Add(dgvMyRequests);
             pnlBorrow.Dock = DockStyle.Fill;
-            pnlBorrow.Location = new Point(0, 0);
+            pnlBorrow.Location = new Point(0, 80);
             pnlBorrow.Name = "pnlBorrow";
             pnlBorrow.Size = new Size(958, 484);
             pnlBorrow.TabIndex = 4;
@@ -115,11 +164,11 @@
             dgvMyRequests.BorderStyle = BorderStyle.None;
             dgvMyRequests.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvMyRequests.Columns.AddRange(new DataGridViewColumn[] { Target, Date, Time, Status });
-            dgvMyRequests.Location = new Point(0, 76);
+            dgvMyRequests.Location = new Point(0, 0);
             dgvMyRequests.Name = "dgvMyRequests";
             dgvMyRequests.RowHeadersVisible = false;
             dgvMyRequests.RowHeadersWidth = 62;
-            dgvMyRequests.Size = new Size(958, 408);
+            dgvMyRequests.Size = new Size(958, 484);
             dgvMyRequests.TabIndex = 4;
             // 
             // Target
@@ -164,70 +213,21 @@
             btnNewRequest.UseVisualStyleBackColor = false;
             btnNewRequest.Click += btnNewRequest_Click;
             // 
-            // dgvSchedules
-            // 
-            dgvSchedules.BackgroundColor = SystemColors.ButtonHighlight;
-            dgvSchedules.BorderStyle = BorderStyle.None;
-            dgvSchedules.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvSchedules.Columns.AddRange(new DataGridViewColumn[] { Subject, Instructor, StartTime, EndTime });
-            dgvSchedules.Location = new Point(244, 127);
-            dgvSchedules.Name = "dgvSchedules";
-            dgvSchedules.RowHeadersVisible = false;
-            dgvSchedules.RowHeadersWidth = 62;
-            dgvSchedules.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvSchedules.Size = new Size(604, 279);
-            dgvSchedules.TabIndex = 1;
-            // 
-            // Subject
-            // 
-            Subject.HeaderText = "Subject";
-            Subject.MinimumWidth = 8;
-            Subject.Name = "Subject";
-            Subject.Width = 150;
-            // 
-            // Instructor
-            // 
-            Instructor.HeaderText = "Instructor";
-            Instructor.MinimumWidth = 8;
-            Instructor.Name = "Instructor";
-            Instructor.Width = 150;
-            // 
-            // StartTime
-            // 
-            StartTime.HeaderText = "Start Time";
-            StartTime.MinimumWidth = 8;
-            StartTime.Name = "StartTime";
-            StartTime.Width = 150;
-            // 
-            // EndTime
-            // 
-            EndTime.HeaderText = "End Time";
-            EndTime.MinimumWidth = 8;
-            EndTime.Name = "EndTime";
-            EndTime.Width = 150;
-            // 
-            // cmbLabFilter
-            // 
-            cmbLabFilter.FormattingEnabled = true;
-            cmbLabFilter.Location = new Point(34, 22);
-            cmbLabFilter.Name = "cmbLabFilter";
-            cmbLabFilter.Size = new Size(207, 33);
-            cmbLabFilter.TabIndex = 0;
-            // 
             // StudentDashboardView
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(248, 249, 250);
+            Controls.Add(pnlBorrow);
             Controls.Add(pnlSchedules);
             Controls.Add(pnlHeader);
             Name = "StudentDashboardView";
             Size = new Size(958, 564);
             pnlHeader.ResumeLayout(false);
             pnlSchedules.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dgvSchedules).EndInit();
             pnlBorrow.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dgvMyRequests).EndInit();
-            ((System.ComponentModel.ISupportInitialize)dgvSchedules).EndInit();
             ResumeLayout(false);
         }
 

@@ -261,9 +261,9 @@
             btnToggleParts.BackColor = Color.FromArgb(30, 41, 59);
             btnToggleParts.FlatStyle = FlatStyle.Flat;
             btnToggleParts.ForeColor = SystemColors.ButtonFace;
-            btnToggleParts.Location = new Point(233, 17);
+            btnToggleParts.Location = new Point(194, 17);
             btnToggleParts.Name = "btnToggleParts";
-            btnToggleParts.Size = new Size(171, 50);
+            btnToggleParts.Size = new Size(171, 48);
             btnToggleParts.TabIndex = 1;
             btnToggleParts.Text = "Tech Requests";
             btnToggleParts.UseVisualStyleBackColor = false;

@@ -18,8 +18,11 @@ namespace ComLabManager.UI
             _equipmentRepository = equipmentRepository;
         }
 
+        //Mu auto open depende sa role
         public void OpenDashboard() => btnNavDashboard_Click(btnNavDashboard, EventArgs.Empty);
-        public void OpenTickets() => btnNavTickets_Click(btnNavTickets, EventArgs.Empty);
+        public void OpenStudentDashboard() => btnNavRequestApproval_Click(btnNavRequestApproval, EventArgs.Empty);
+        public void OpenTickets() => btnNavSpareParts_Click(btnNavSpareParts.AccessibilityObject, EventArgs.Empty);
+       
 
 
 
@@ -54,7 +57,7 @@ namespace ComLabManager.UI
 
 
 
-        //Button Logics etc...
+        //Nav Button Higlihghting Logics etc...
 
         private Button _activeButton;
 

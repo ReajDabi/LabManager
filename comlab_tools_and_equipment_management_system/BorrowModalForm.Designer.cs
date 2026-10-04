@@ -49,7 +49,6 @@
             // 
             cmbScope.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbScope.FormattingEnabled = true;
-            cmbScope.Items.AddRange(new object[] { "Borrow Entire Room", "Borrow ComLab PC", "Borrow Lab Equipment" });
             cmbScope.Location = new Point(75, 133);
             cmbScope.Name = "cmbScope";
             cmbScope.Size = new Size(233, 33);
@@ -59,7 +58,6 @@
             // 
             cmbItem.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbItem.FormattingEnabled = true;
-            cmbItem.Items.AddRange(new object[] { "Borrow Entire Room", "Borrow ComLab PC", "Borrow Lab Equipment" });
             cmbItem.Location = new Point(75, 217);
             cmbItem.Name = "cmbItem";
             cmbItem.Size = new Size(233, 33);
