@@ -198,7 +198,7 @@
         btnSignOut.FlatAppearance.MouseOverBackColor = Color.Gray;
         btnSignOut.FlatStyle = FlatStyle.Flat;
         btnSignOut.ForeColor = Color.White;
-        btnSignOut.Location = new Point(0, 599);
+        btnSignOut.Location = new Point(0, 714);
         btnSignOut.Margin = new Padding(2);
         btnSignOut.Name = "btnSignOut";
         btnSignOut.Padding = new Padding(15, 0, 0, 10);
@@ -307,7 +307,7 @@
         pnlSidebar.Location = new Point(0, 0);
         pnlSidebar.Margin = new Padding(2);
         pnlSidebar.Name = "pnlSidebar";
-        pnlSidebar.Size = new Size(220, 644);
+        pnlSidebar.Size = new Size(220, 759);
         pnlSidebar.TabIndex = 1;
         // 
         // btnNavRequestApproval
@@ -370,7 +370,7 @@
         pnlMainContent.Location = new Point(220, 80);
         pnlMainContent.Margin = new Padding(2);
         pnlMainContent.Name = "pnlMainContent";
-        pnlMainContent.Size = new Size(958, 564);
+        pnlMainContent.Size = new Size(958, 679);
         pnlMainContent.TabIndex = 2;
         // 
         // MainForm
@@ -378,7 +378,7 @@
         AutoScaleDimensions = new SizeF(10F, 25F);
         AutoScaleMode = AutoScaleMode.Font;
         BackColor = Color.FromArgb(248, 249, 250);
-        ClientSize = new Size(1178, 644);
+        ClientSize = new Size(1178, 759);
         Controls.Add(pnlMainContent);
         Controls.Add(pnlHeader);
         Controls.Add(pnlSidebar);

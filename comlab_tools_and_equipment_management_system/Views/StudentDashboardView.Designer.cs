@@ -39,12 +39,12 @@
             StartTime = new DataGridViewTextBoxColumn();
             EndTime = new DataGridViewTextBoxColumn();
             pnlBorrow = new Panel();
+            btnNewRequest = new Button();
             dgvMyRequests = new DataGridView();
             Target = new DataGridViewTextBoxColumn();
             Date = new DataGridViewTextBoxColumn();
             Time = new DataGridViewTextBoxColumn();
             Status = new DataGridViewTextBoxColumn();
-            btnNewRequest = new Button();
             pnlHeader.SuspendLayout();
             pnlSchedules.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvSchedules).BeginInit();
@@ -158,6 +158,20 @@
             pnlBorrow.Size = new Size(958, 484);
             pnlBorrow.TabIndex = 4;
             // 
+            // btnNewRequest
+            // 
+            btnNewRequest.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnNewRequest.BackColor = Color.Green;
+            btnNewRequest.FlatStyle = FlatStyle.Flat;
+            btnNewRequest.ForeColor = SystemColors.ButtonFace;
+            btnNewRequest.Location = new Point(708, 17);
+            btnNewRequest.Name = "btnNewRequest";
+            btnNewRequest.Size = new Size(233, 41);
+            btnNewRequest.TabIndex = 3;
+            btnNewRequest.Text = "+ New Borrow Request\r\n";
+            btnNewRequest.UseVisualStyleBackColor = false;
+            btnNewRequest.Click += btnNewRequest_Click;
+            // 
             // dgvMyRequests
             // 
             dgvMyRequests.BackgroundColor = SystemColors.ButtonHighlight;
@@ -198,20 +212,6 @@
             Status.MinimumWidth = 8;
             Status.Name = "Status";
             Status.Width = 150;
-            // 
-            // btnNewRequest
-            // 
-            btnNewRequest.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnNewRequest.BackColor = Color.Green;
-            btnNewRequest.FlatStyle = FlatStyle.Flat;
-            btnNewRequest.ForeColor = SystemColors.ButtonFace;
-            btnNewRequest.Location = new Point(708, 17);
-            btnNewRequest.Name = "btnNewRequest";
-            btnNewRequest.Size = new Size(233, 41);
-            btnNewRequest.TabIndex = 3;
-            btnNewRequest.Text = "+ New Borrow Request\r\n";
-            btnNewRequest.UseVisualStyleBackColor = false;
-            btnNewRequest.Click += btnNewRequest_Click;
             // 
             // StudentDashboardView
             // 
