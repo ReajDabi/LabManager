@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -8,6 +8,7 @@ namespace ComLabManager.Core.Models
     {
         public int Id { get; set; }
         public int LogId { get; set; }
-        public int SpareEquipmentId { get; set; }
+        public int SparePartId { get; set; }
+        public int Quantity { get; set; }
     }
 }

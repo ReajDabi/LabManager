@@ -1,3 +1,4 @@
+using ComlabManager.Core.Interfaces;
 using ComLabManager.Core.Interfaces;
 using ComLabManager.Core.Models;
 using ComLabManager.UI.NavigationStrategies;
@@ -8,20 +9,24 @@ namespace ComLabManager.UI
     public partial class MainForm : Form
     {
         private readonly IEquipmentRepository _equipmentRepository;
+        private readonly IMaintenanceRepository _maintenanceRepository;
+        private readonly IUserRepository _userRepository;
         private User _currentUser;
 
 
-        public MainForm(IEquipmentRepository equipmentRepository)
+        public MainForm(IEquipmentRepository equipmentRepository, IMaintenanceRepository maintenanceRepository, IUserRepository userRepository)
         {
             InitializeComponent();
 
             _equipmentRepository = equipmentRepository;
+            _maintenanceRepository = maintenanceRepository;
+            _userRepository = userRepository;
         }
 
         //Mu auto open depende sa role
         public void OpenDashboard() => btnNavDashboard_Click(btnNavDashboard, EventArgs.Empty);
         public void OpenStudentDashboard() => btnNavRequestApproval_Click(btnNavRequestApproval, EventArgs.Empty);
-        public void OpenTickets() => btnNavSpareParts_Click(btnNavSpareParts.AccessibilityObject, EventArgs.Empty);
+        public void OpenTickets() => btnNavTickets_Click(btnNavTickets, EventArgs.Empty);
        
 
 
@@ -123,7 +128,7 @@ namespace ComLabManager.UI
             HighlightActiveButton((Button)sender);
             lblPageTitle.Text = "Maintenance Tickets";
 
-            MaintenanceView maintenanceView = new MaintenanceView();
+            MaintenanceView maintenanceView = new MaintenanceView(_maintenanceRepository, _equipmentRepository, _userRepository, _currentUser);
             LoadView(maintenanceView);
         }
 
