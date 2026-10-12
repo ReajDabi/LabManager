@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             txtAssetTag = new TextBox();
-            txtEquipmentName = new TextBox();
-            txtStationNumber = new TextBox();
+            txtName = new TextBox();
+            txtLocation = new TextBox();
             cmbCategory = new ComboBox();
             cmbStatus = new ComboBox();
-            dtpDateAquired = new DateTimePicker();
+            dtpDateAcquired = new DateTimePicker();
             btnCancel = new Button();
             btnSave = new Button();
             label1 = new Label();
@@ -54,23 +54,23 @@
             txtAssetTag.Size = new Size(243, 31);
             txtAssetTag.TabIndex = 0;
             // 
-            // txtEquipmentName
+            // txtName
             // 
-            txtEquipmentName.BorderStyle = BorderStyle.FixedSingle;
-            txtEquipmentName.Location = new Point(418, 159);
-            txtEquipmentName.Multiline = true;
-            txtEquipmentName.Name = "txtEquipmentName";
-            txtEquipmentName.Size = new Size(243, 31);
-            txtEquipmentName.TabIndex = 0;
+            txtName.BorderStyle = BorderStyle.FixedSingle;
+            txtName.Location = new Point(418, 159);
+            txtName.Multiline = true;
+            txtName.Name = "txtName";
+            txtName.Size = new Size(243, 31);
+            txtName.TabIndex = 0;
             // 
-            // txtStationNumber
+            // txtLocation
             // 
-            txtStationNumber.BorderStyle = BorderStyle.FixedSingle;
-            txtStationNumber.Location = new Point(72, 357);
-            txtStationNumber.Multiline = true;
-            txtStationNumber.Name = "txtStationNumber";
-            txtStationNumber.Size = new Size(243, 31);
-            txtStationNumber.TabIndex = 0;
+            txtLocation.BorderStyle = BorderStyle.FixedSingle;
+            txtLocation.Location = new Point(72, 357);
+            txtLocation.Multiline = true;
+            txtLocation.Name = "txtLocation";
+            txtLocation.Size = new Size(243, 31);
+            txtLocation.TabIndex = 0;
             // 
             // cmbCategory
             // 
@@ -88,13 +88,13 @@
             cmbStatus.Size = new Size(243, 33);
             cmbStatus.TabIndex = 1;
             // 
-            // dtpDateAquired
+            // dtpDateAcquired
             // 
-            dtpDateAquired.Format = DateTimePickerFormat.Short;
-            dtpDateAquired.Location = new Point(418, 357);
-            dtpDateAquired.Name = "dtpDateAquired";
-            dtpDateAquired.Size = new Size(243, 31);
-            dtpDateAquired.TabIndex = 2;
+            dtpDateAcquired.Format = DateTimePickerFormat.Short;
+            dtpDateAcquired.Location = new Point(418, 357);
+            dtpDateAcquired.Name = "dtpDateAcquired";
+            dtpDateAcquired.Size = new Size(243, 31);
+            dtpDateAcquired.TabIndex = 2;
             // 
             // btnCancel
             // 
@@ -198,11 +198,11 @@
             Controls.Add(label1);
             Controls.Add(btnSave);
             Controls.Add(btnCancel);
-            Controls.Add(dtpDateAquired);
+            Controls.Add(dtpDateAcquired);
             Controls.Add(cmbStatus);
             Controls.Add(cmbCategory);
-            Controls.Add(txtStationNumber);
-            Controls.Add(txtEquipmentName);
+            Controls.Add(txtLocation);
+            Controls.Add(txtName);
             Controls.Add(txtAssetTag);
             MaximizeBox = false;
             MinimizeBox = false;
@@ -216,11 +216,11 @@
         #endregion
 
         private TextBox txtAssetTag;
-        private TextBox txtEquipmentName;
-        private TextBox txtStationNumber;
+        private TextBox txtName;
+        private TextBox txtLocation;
         private ComboBox cmbCategory;
         private ComboBox cmbStatus;
-        private DateTimePicker dtpDateAquired;
+        private DateTimePicker dtpDateAcquired;
         private Button btnCancel;
         private Button btnSave;
         private Label label1;

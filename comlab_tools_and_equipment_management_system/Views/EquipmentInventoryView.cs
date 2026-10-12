@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ComlabManager.Infrastructure.Repositories;
+using ComLabManager.Core.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -10,9 +12,12 @@ namespace ComLabManager.UI.Views
 {
     public partial class EquipmentInventoryView : UserControl
     {
-        public EquipmentInventoryView()
+        private readonly IEquipmentRepository _equipmentRepo;
+        public EquipmentInventoryView(IEquipmentRepository equipmentRepo)
         {
             InitializeComponent();
+
+            _equipmentRepo = equipmentRepo;
         }
 
         private void EquipmentInventoryView_Load(object sender, EventArgs e)

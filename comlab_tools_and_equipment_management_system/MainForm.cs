@@ -26,14 +26,14 @@ namespace ComLabManager.UI
             _equipmentRepository = equipmentRepository;
 
 
-            _navigationMap = new Dictionary<Button, (string, Func<UserControl>)>
+            _navigationMap = new Dictionary<Button, (string, Func<UserControl> ViewFactory)>
             {
-                { btnNavDashboard, ("Dashboard", () => new DashboardView()) },
-                { btnNavEquipment, ("Equipment Inventory", () => new EquipmentInventoryView()) },
-                { btnNavTickets, ("Maintenance Tickets", () => new MaintenanceView()) },
-                { btnNavSpareParts, ("Spare Parts", () => new SparePartsView()) },
+                { btnNavDashboard, ("Dashboard", () => (UserControl)new DashboardView()) },
+                { btnNavEquipment, ("Equipment Inventory", () =>(UserControl) new EquipmentInventoryView(_equipmentRepository)) },
+                { btnNavTickets, ("Maintenance Tickets", () =>(UserControl) new MaintenanceView()) },
+                { btnNavSpareParts, ("Spare Parts", () =>(UserControl) new SparePartsView()) },
                 { btnNavScheduler, ("Maintenance Scheduler", () => new PreventiveMaintenanceView()) },
-                { btnNavUser, ("User Management", () => new UserManagementView()) }
+                { btnNavUser, ("User Management", () =>(UserControl) new UserManagementView()) }
 
 
             };
@@ -50,11 +50,11 @@ namespace ComLabManager.UI
 
             if (_currentUser.Role == "Admin")
             {
-                _navigationMap[btnNavRequestApproval] = ("Pending Requests", () => new AdminApprovalsView());
+                _navigationMap[btnNavRequestApproval] = ("Pending Requests", () => (UserControl)new AdminApprovalsView());
             }
             else if (_currentUser.Role == "Student" || _currentUser.Role == "Technician")
             {
-                _navigationMap[btnNavRequestApproval] = ("My Requests", () => new StudentDashboardView(_equipmentRepository));
+                _navigationMap[btnNavRequestApproval] = ("My Requests", () => (UserControl)new StudentDashboardView(_equipmentRepository));
             }
 
 
