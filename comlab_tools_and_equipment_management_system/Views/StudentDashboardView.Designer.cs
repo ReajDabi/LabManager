@@ -171,10 +171,9 @@
             btnNewRequest.BackColor = Color.Green;
             btnNewRequest.FlatStyle = FlatStyle.Flat;
             btnNewRequest.ForeColor = SystemColors.ButtonFace;
-            btnNewRequest.Location = new Point(485, 12);
-            btnNewRequest.Margin = new Padding(2, 2, 2, 2);
+            btnNewRequest.Location = new Point(708, 17);
             btnNewRequest.Name = "btnNewRequest";
-            btnNewRequest.Size = new Size(163, 25);
+            btnNewRequest.Size = new Size(233, 41);
             btnNewRequest.TabIndex = 3;
             btnNewRequest.Text = "+ New Borrow Request\r\n";
             btnNewRequest.UseVisualStyleBackColor = false;

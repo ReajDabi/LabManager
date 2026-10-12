@@ -107,7 +107,6 @@
         btnNavDashboard.Text = "Dashboard";
         btnNavDashboard.TextAlign = ContentAlignment.MiddleLeft;
         btnNavDashboard.UseVisualStyleBackColor = false;
-        btnNavDashboard.Click += btnNavDashboard_Click;
         // 
         // btnNavEquipment
         // 
@@ -127,7 +126,6 @@
         btnNavEquipment.Text = "Inventory";
         btnNavEquipment.TextAlign = ContentAlignment.MiddleLeft;
         btnNavEquipment.UseVisualStyleBackColor = false;
-        btnNavEquipment.Click += btnNavEquipment_Click;
         // 
         // btnNavTickets
         // 
@@ -147,7 +145,6 @@
         btnNavTickets.Text = "Maintenance ";
         btnNavTickets.TextAlign = ContentAlignment.MiddleLeft;
         btnNavTickets.UseVisualStyleBackColor = false;
-        btnNavTickets.Click += btnNavTickets_Click;
         // 
         // btnNavSpareParts
         // 
@@ -167,7 +164,6 @@
         btnNavSpareParts.Text = "Spare Parts";
         btnNavSpareParts.TextAlign = ContentAlignment.MiddleLeft;
         btnNavSpareParts.UseVisualStyleBackColor = false;
-        btnNavSpareParts.Click += btnNavSpareParts_Click;
         // 
         // btnNavScheduler
         // 
@@ -187,7 +183,6 @@
         btnNavScheduler.Text = "PM Scheduler";
         btnNavScheduler.TextAlign = ContentAlignment.MiddleLeft;
         btnNavScheduler.UseVisualStyleBackColor = false;
-        btnNavScheduler.Click += btnNavScheduler_Click;
         // 
         // btnSignOut
         // 
@@ -198,8 +193,8 @@
         btnSignOut.FlatAppearance.MouseOverBackColor = Color.Gray;
         btnSignOut.FlatStyle = FlatStyle.Flat;
         btnSignOut.ForeColor = Color.White;
-        btnSignOut.Location = new Point(0, 359);
-        btnSignOut.Margin = new Padding(1);
+        btnSignOut.Location = new Point(0, 714);
+        btnSignOut.Margin = new Padding(2);
         btnSignOut.Name = "btnSignOut";
         btnSignOut.Padding = new Padding(10, 0, 0, 6);
         btnSignOut.Size = new Size(154, 27);
@@ -307,7 +302,7 @@
         pnlSidebar.Location = new Point(0, 0);
         pnlSidebar.Margin = new Padding(1);
         pnlSidebar.Name = "pnlSidebar";
-        pnlSidebar.Size = new Size(154, 386);
+        pnlSidebar.Size = new Size(220, 759);
         pnlSidebar.TabIndex = 1;
         // 
         // btnNavRequestApproval
@@ -328,7 +323,6 @@
         btnNavRequestApproval.Text = "Requests Approval";
         btnNavRequestApproval.TextAlign = ContentAlignment.MiddleLeft;
         btnNavRequestApproval.UseVisualStyleBackColor = false;
-        btnNavRequestApproval.Click += btnNavRequestApproval_Click;
         // 
         // btnNavUser
         // 
@@ -348,7 +342,6 @@
         btnNavUser.Text = "Users";
         btnNavUser.TextAlign = ContentAlignment.MiddleLeft;
         btnNavUser.UseVisualStyleBackColor = false;
-        btnNavUser.Click += btnNavUser_Click;
         // 
         // lblUM
         // 
@@ -370,7 +363,7 @@
         pnlMainContent.Location = new Point(154, 48);
         pnlMainContent.Margin = new Padding(1);
         pnlMainContent.Name = "pnlMainContent";
-        pnlMainContent.Size = new Size(671, 338);
+        pnlMainContent.Size = new Size(958, 679);
         pnlMainContent.TabIndex = 2;
         // 
         // MainForm
@@ -378,7 +371,7 @@
         AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
         BackColor = Color.FromArgb(248, 249, 250);
-        ClientSize = new Size(825, 386);
+        ClientSize = new Size(1178, 759);
         Controls.Add(pnlMainContent);
         Controls.Add(pnlHeader);
         Controls.Add(pnlSidebar);
@@ -406,7 +399,6 @@
     private Button btnNavTickets;
     private Button btnNavSpareParts;
     private Button btnNavScheduler;
-    private Button btnSignOut;
     private Panel pnlLogo;
     private Label lblLogo;
     private Label lblMonitor;
@@ -418,5 +410,6 @@
     private Button btnNavUser;
     private Label lblUM;
     private Button btnNavRequestApproval;
+    private Button btnSignOut;
 }
 
