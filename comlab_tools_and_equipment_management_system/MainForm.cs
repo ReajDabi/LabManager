@@ -6,7 +6,7 @@ using ComLabManager.Core.Interfaces;
 using ComLabManager.Core.Models;
 using ComLabManager.UI.NavigationStrategies;
 using ComLabManager.UI.Views;
-
+using ComlabManager.Core.Interfaces;
 namespace ComLabManager.UI
 {
     public partial class MainForm : Form

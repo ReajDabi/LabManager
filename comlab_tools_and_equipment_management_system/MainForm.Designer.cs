@@ -60,20 +60,20 @@
         pnlHeader.Controls.Add(lblPageTitle);
         pnlHeader.Controls.Add(lblCurrentUser);
         pnlHeader.Dock = DockStyle.Top;
-        pnlHeader.Location = new Point(154, 0);
-        pnlHeader.Margin = new Padding(1);
+        pnlHeader.Location = new Point(314, 0);
+        pnlHeader.Margin = new Padding(1, 2, 1, 2);
         pnlHeader.Name = "pnlHeader";
-        pnlHeader.Size = new Size(671, 48);
+        pnlHeader.Size = new Size(931, 80);
         pnlHeader.TabIndex = 1;
         // 
         // lblPageTitle
         // 
         lblPageTitle.AutoSize = true;
         lblPageTitle.Font = new Font("Segoe UI", 14F, FontStyle.Bold, GraphicsUnit.Point, 0);
-        lblPageTitle.Location = new Point(41, 11);
+        lblPageTitle.Location = new Point(59, 18);
         lblPageTitle.Margin = new Padding(1, 0, 1, 0);
         lblPageTitle.Name = "lblPageTitle";
-        lblPageTitle.Size = new Size(109, 25);
+        lblPageTitle.Size = new Size(159, 38);
         lblPageTitle.TabIndex = 2;
         lblPageTitle.Text = "Dashboard";
         // 
@@ -83,10 +83,10 @@
         lblCurrentUser.AutoSize = true;
         lblCurrentUser.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
         lblCurrentUser.ForeColor = Color.DarkGray;
-        lblCurrentUser.Location = new Point(580, 16);
+        lblCurrentUser.Location = new Point(801, 27);
         lblCurrentUser.Margin = new Padding(1, 0, 1, 0);
         lblCurrentUser.Name = "lblCurrentUser";
-        lblCurrentUser.Size = new Size(0, 19);
+        lblCurrentUser.Size = new Size(0, 28);
         lblCurrentUser.TabIndex = 6;
         // 
         // btnNavDashboard
@@ -98,11 +98,11 @@
         btnNavDashboard.FlatAppearance.MouseOverBackColor = Color.FromArgb(51, 65, 85);
         btnNavDashboard.FlatStyle = FlatStyle.Flat;
         btnNavDashboard.ForeColor = Color.White;
-        btnNavDashboard.Location = new Point(0, 70);
-        btnNavDashboard.Margin = new Padding(1);
+        btnNavDashboard.Location = new Point(0, 116);
+        btnNavDashboard.Margin = new Padding(1, 2, 1, 2);
         btnNavDashboard.Name = "btnNavDashboard";
-        btnNavDashboard.Padding = new Padding(10, 0, 0, 0);
-        btnNavDashboard.Size = new Size(154, 27);
+        btnNavDashboard.Padding = new Padding(14, 0, 0, 0);
+        btnNavDashboard.Size = new Size(314, 45);
         btnNavDashboard.TabIndex = 0;
         btnNavDashboard.Text = "Dashboard";
         btnNavDashboard.TextAlign = ContentAlignment.MiddleLeft;
@@ -117,11 +117,11 @@
         btnNavEquipment.FlatAppearance.MouseOverBackColor = Color.FromArgb(51, 65, 85);
         btnNavEquipment.FlatStyle = FlatStyle.Flat;
         btnNavEquipment.ForeColor = Color.White;
-        btnNavEquipment.Location = new Point(0, 125);
-        btnNavEquipment.Margin = new Padding(1);
+        btnNavEquipment.Location = new Point(0, 207);
+        btnNavEquipment.Margin = new Padding(1, 2, 1, 2);
         btnNavEquipment.Name = "btnNavEquipment";
-        btnNavEquipment.Padding = new Padding(10, 0, 0, 0);
-        btnNavEquipment.Size = new Size(154, 27);
+        btnNavEquipment.Padding = new Padding(14, 0, 0, 0);
+        btnNavEquipment.Size = new Size(314, 45);
         btnNavEquipment.TabIndex = 1;
         btnNavEquipment.Text = "Inventory";
         btnNavEquipment.TextAlign = ContentAlignment.MiddleLeft;
@@ -136,11 +136,11 @@
         btnNavTickets.FlatAppearance.MouseOverBackColor = Color.FromArgb(51, 65, 85);
         btnNavTickets.FlatStyle = FlatStyle.Flat;
         btnNavTickets.ForeColor = Color.White;
-        btnNavTickets.Location = new Point(0, 180);
-        btnNavTickets.Margin = new Padding(1);
+        btnNavTickets.Location = new Point(0, 298);
+        btnNavTickets.Margin = new Padding(1, 2, 1, 2);
         btnNavTickets.Name = "btnNavTickets";
-        btnNavTickets.Padding = new Padding(10, 0, 0, 0);
-        btnNavTickets.Size = new Size(154, 27);
+        btnNavTickets.Padding = new Padding(14, 0, 0, 0);
+        btnNavTickets.Size = new Size(314, 45);
         btnNavTickets.TabIndex = 2;
         btnNavTickets.Text = "Maintenance ";
         btnNavTickets.TextAlign = ContentAlignment.MiddleLeft;
@@ -155,11 +155,11 @@
         btnNavSpareParts.FlatAppearance.MouseOverBackColor = Color.FromArgb(51, 65, 85);
         btnNavSpareParts.FlatStyle = FlatStyle.Flat;
         btnNavSpareParts.ForeColor = Color.White;
-        btnNavSpareParts.Location = new Point(0, 207);
-        btnNavSpareParts.Margin = new Padding(1);
+        btnNavSpareParts.Location = new Point(0, 343);
+        btnNavSpareParts.Margin = new Padding(1, 2, 1, 2);
         btnNavSpareParts.Name = "btnNavSpareParts";
-        btnNavSpareParts.Padding = new Padding(10, 0, 0, 0);
-        btnNavSpareParts.Size = new Size(154, 27);
+        btnNavSpareParts.Padding = new Padding(14, 0, 0, 0);
+        btnNavSpareParts.Size = new Size(314, 45);
         btnNavSpareParts.TabIndex = 3;
         btnNavSpareParts.Text = "Spare Parts";
         btnNavSpareParts.TextAlign = ContentAlignment.MiddleLeft;
@@ -174,11 +174,11 @@
         btnNavScheduler.FlatAppearance.MouseOverBackColor = Color.FromArgb(51, 65, 85);
         btnNavScheduler.FlatStyle = FlatStyle.Flat;
         btnNavScheduler.ForeColor = Color.White;
-        btnNavScheduler.Location = new Point(0, 234);
-        btnNavScheduler.Margin = new Padding(1);
+        btnNavScheduler.Location = new Point(0, 388);
+        btnNavScheduler.Margin = new Padding(1, 2, 1, 2);
         btnNavScheduler.Name = "btnNavScheduler";
-        btnNavScheduler.Padding = new Padding(10, 0, 0, 0);
-        btnNavScheduler.Size = new Size(154, 27);
+        btnNavScheduler.Padding = new Padding(14, 0, 0, 0);
+        btnNavScheduler.Size = new Size(314, 45);
         btnNavScheduler.TabIndex = 4;
         btnNavScheduler.Text = "PM Scheduler";
         btnNavScheduler.TextAlign = ContentAlignment.MiddleLeft;
@@ -193,11 +193,10 @@
         btnSignOut.FlatAppearance.MouseOverBackColor = Color.Gray;
         btnSignOut.FlatStyle = FlatStyle.Flat;
         btnSignOut.ForeColor = Color.White;
-        btnSignOut.Location = new Point(0, 714);
-        btnSignOut.Margin = new Padding(2);
+        btnSignOut.Location = new Point(0, 668);
         btnSignOut.Name = "btnSignOut";
-        btnSignOut.Padding = new Padding(10, 0, 0, 6);
-        btnSignOut.Size = new Size(154, 27);
+        btnSignOut.Padding = new Padding(14, 0, 0, 10);
+        btnSignOut.Size = new Size(314, 45);
         btnSignOut.TabIndex = 4;
         btnSignOut.Text = "Sign Out";
         btnSignOut.TextAlign = ContentAlignment.MiddleLeft;
@@ -211,18 +210,18 @@
         pnlLogo.Controls.Add(lblLogo);
         pnlLogo.Dock = DockStyle.Top;
         pnlLogo.Location = new Point(0, 0);
-        pnlLogo.Margin = new Padding(1);
+        pnlLogo.Margin = new Padding(1, 2, 1, 2);
         pnlLogo.Name = "pnlLogo";
-        pnlLogo.Size = new Size(154, 42);
+        pnlLogo.Size = new Size(314, 70);
         pnlLogo.TabIndex = 5;
         // 
         // pbLogo
         // 
         pbLogo.Image = (Image)resources.GetObject("pbLogo.Image");
-        pbLogo.Location = new Point(8, 7);
-        pbLogo.Margin = new Padding(1);
+        pbLogo.Location = new Point(11, 12);
+        pbLogo.Margin = new Padding(1, 2, 1, 2);
         pbLogo.Name = "pbLogo";
-        pbLogo.Size = new Size(34, 29);
+        pbLogo.Size = new Size(49, 48);
         pbLogo.SizeMode = PictureBoxSizeMode.Zoom;
         pbLogo.TabIndex = 7;
         pbLogo.TabStop = false;
@@ -232,11 +231,11 @@
         lblLogo.AutoSize = true;
         lblLogo.Font = new Font("Segoe UI", 8F, FontStyle.Bold, GraphicsUnit.Point, 0);
         lblLogo.ForeColor = Color.FromArgb(148, 163, 184);
-        lblLogo.Location = new Point(46, 6);
+        lblLogo.Location = new Point(66, 10);
         lblLogo.Margin = new Padding(1, 0, 1, 0);
         lblLogo.Name = "lblLogo";
-        lblLogo.Padding = new Padding(0, 9, 4, 6);
-        lblLogo.Size = new Size(89, 28);
+        lblLogo.Padding = new Padding(0, 15, 6, 10);
+        lblLogo.Size = new Size(125, 46);
         lblLogo.TabIndex = 6;
         lblLogo.Text = "LABMANAGER";
         // 
@@ -246,11 +245,11 @@
         lblMonitor.Dock = DockStyle.Top;
         lblMonitor.Font = new Font("Segoe UI", 8F, FontStyle.Bold, GraphicsUnit.Point, 0);
         lblMonitor.ForeColor = Color.FromArgb(148, 163, 184);
-        lblMonitor.Location = new Point(0, 97);
+        lblMonitor.Location = new Point(0, 161);
         lblMonitor.Margin = new Padding(1, 0, 1, 0);
         lblMonitor.Name = "lblMonitor";
-        lblMonitor.Padding = new Padding(0, 9, 4, 6);
-        lblMonitor.Size = new Size(63, 28);
+        lblMonitor.Padding = new Padding(0, 15, 6, 10);
+        lblMonitor.Size = new Size(91, 46);
         lblMonitor.TabIndex = 6;
         lblMonitor.Text = "MONITOR";
         // 
@@ -260,11 +259,11 @@
         lblAssets.Dock = DockStyle.Top;
         lblAssets.Font = new Font("Segoe UI", 8F, FontStyle.Bold, GraphicsUnit.Point, 0);
         lblAssets.ForeColor = Color.FromArgb(148, 163, 184);
-        lblAssets.Location = new Point(0, 42);
+        lblAssets.Location = new Point(0, 70);
         lblAssets.Margin = new Padding(1, 0, 1, 0);
         lblAssets.Name = "lblAssets";
-        lblAssets.Padding = new Padding(0, 9, 4, 6);
-        lblAssets.Size = new Size(49, 28);
+        lblAssets.Padding = new Padding(0, 15, 6, 10);
+        lblAssets.Size = new Size(72, 46);
         lblAssets.TabIndex = 6;
         lblAssets.Text = "ASSETS";
         // 
@@ -274,11 +273,11 @@
         lblMaintenance.Dock = DockStyle.Top;
         lblMaintenance.Font = new Font("Segoe UI", 8F, FontStyle.Bold, GraphicsUnit.Point, 0);
         lblMaintenance.ForeColor = Color.FromArgb(148, 163, 184);
-        lblMaintenance.Location = new Point(0, 152);
+        lblMaintenance.Location = new Point(0, 252);
         lblMaintenance.Margin = new Padding(1, 0, 1, 0);
         lblMaintenance.Name = "lblMaintenance";
-        lblMaintenance.Padding = new Padding(0, 9, 4, 6);
-        lblMaintenance.Size = new Size(93, 28);
+        lblMaintenance.Padding = new Padding(0, 15, 6, 10);
+        lblMaintenance.Size = new Size(134, 46);
         lblMaintenance.TabIndex = 6;
         lblMaintenance.Text = "MAINTENANCE";
         // 
@@ -300,9 +299,9 @@
         pnlSidebar.Controls.Add(btnSignOut);
         pnlSidebar.Dock = DockStyle.Left;
         pnlSidebar.Location = new Point(0, 0);
-        pnlSidebar.Margin = new Padding(1);
+        pnlSidebar.Margin = new Padding(1, 2, 1, 2);
         pnlSidebar.Name = "pnlSidebar";
-        pnlSidebar.Size = new Size(220, 759);
+        pnlSidebar.Size = new Size(314, 713);
         pnlSidebar.TabIndex = 1;
         // 
         // btnNavRequestApproval
@@ -314,11 +313,11 @@
         btnNavRequestApproval.FlatAppearance.MouseOverBackColor = Color.FromArgb(51, 65, 85);
         btnNavRequestApproval.FlatStyle = FlatStyle.Flat;
         btnNavRequestApproval.ForeColor = Color.White;
-        btnNavRequestApproval.Location = new Point(0, 316);
-        btnNavRequestApproval.Margin = new Padding(1);
+        btnNavRequestApproval.Location = new Point(0, 524);
+        btnNavRequestApproval.Margin = new Padding(1, 2, 1, 2);
         btnNavRequestApproval.Name = "btnNavRequestApproval";
-        btnNavRequestApproval.Padding = new Padding(10, 0, 0, 0);
-        btnNavRequestApproval.Size = new Size(154, 27);
+        btnNavRequestApproval.Padding = new Padding(14, 0, 0, 0);
+        btnNavRequestApproval.Size = new Size(314, 45);
         btnNavRequestApproval.TabIndex = 9;
         btnNavRequestApproval.Text = "Requests Approval";
         btnNavRequestApproval.TextAlign = ContentAlignment.MiddleLeft;
@@ -333,11 +332,11 @@
         btnNavUser.FlatAppearance.MouseOverBackColor = Color.FromArgb(51, 65, 85);
         btnNavUser.FlatStyle = FlatStyle.Flat;
         btnNavUser.ForeColor = Color.White;
-        btnNavUser.Location = new Point(0, 289);
-        btnNavUser.Margin = new Padding(1);
+        btnNavUser.Location = new Point(0, 479);
+        btnNavUser.Margin = new Padding(1, 2, 1, 2);
         btnNavUser.Name = "btnNavUser";
-        btnNavUser.Padding = new Padding(10, 0, 0, 0);
-        btnNavUser.Size = new Size(154, 27);
+        btnNavUser.Padding = new Padding(14, 0, 0, 0);
+        btnNavUser.Size = new Size(314, 45);
         btnNavUser.TabIndex = 8;
         btnNavUser.Text = "Users";
         btnNavUser.TextAlign = ContentAlignment.MiddleLeft;
@@ -349,33 +348,33 @@
         lblUM.Dock = DockStyle.Top;
         lblUM.Font = new Font("Segoe UI", 8F, FontStyle.Bold, GraphicsUnit.Point, 0);
         lblUM.ForeColor = Color.FromArgb(148, 163, 184);
-        lblUM.Location = new Point(0, 261);
+        lblUM.Location = new Point(0, 433);
         lblUM.Margin = new Padding(1, 0, 1, 0);
         lblUM.Name = "lblUM";
-        lblUM.Padding = new Padding(0, 9, 4, 6);
-        lblUM.Size = new Size(123, 28);
+        lblUM.Padding = new Padding(0, 15, 6, 10);
+        lblUM.Size = new Size(176, 46);
         lblUM.TabIndex = 7;
         lblUM.Text = "USER MANAGEMENT";
         // 
         // pnlMainContent
         // 
         pnlMainContent.Dock = DockStyle.Fill;
-        pnlMainContent.Location = new Point(154, 48);
-        pnlMainContent.Margin = new Padding(1);
+        pnlMainContent.Location = new Point(314, 80);
+        pnlMainContent.Margin = new Padding(1, 2, 1, 2);
         pnlMainContent.Name = "pnlMainContent";
-        pnlMainContent.Size = new Size(958, 679);
+        pnlMainContent.Size = new Size(931, 633);
         pnlMainContent.TabIndex = 2;
         // 
         // MainForm
         // 
-        AutoScaleDimensions = new SizeF(7F, 15F);
+        AutoScaleDimensions = new SizeF(10F, 25F);
         AutoScaleMode = AutoScaleMode.Font;
         BackColor = Color.FromArgb(248, 249, 250);
-        ClientSize = new Size(1178, 759);
+        ClientSize = new Size(1245, 713);
         Controls.Add(pnlMainContent);
         Controls.Add(pnlHeader);
         Controls.Add(pnlSidebar);
-        Margin = new Padding(1);
+        Margin = new Padding(1, 2, 1, 2);
         Name = "MainForm";
         StartPosition = FormStartPosition.CenterScreen;
         Text = "LabManager-Computer Laboratory System";
