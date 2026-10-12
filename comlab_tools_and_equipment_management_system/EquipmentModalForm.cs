@@ -8,11 +8,15 @@ using System.Windows.Forms;
 
 namespace ComLabManager.UI
 {
-    public partial class EquipmentForm : Form
+    public partial class EquipmentModalForm : Form
     {
-        public EquipmentForm()
+        public EquipmentModalForm()
         {
             InitializeComponent();
+        }
+
+        private void label5_Clic(object sender, EventArgs e)
+    
         }
     }
 }

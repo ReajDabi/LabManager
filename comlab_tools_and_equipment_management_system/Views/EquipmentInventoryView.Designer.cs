@@ -28,19 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             pnlHeader = new Panel();
             btnAddEquipment = new Button();
             pnlFilters = new Panel();
+            cmbStatusFilter = new ComboBox();
             cmbCategoryFilter = new ComboBox();
             txtSearch = new TextBox();
-            button1 = new Button();
-            cmbStatusFilter = new ComboBox();
             pnlGridContainer = new Panel();
             dgvEquipment = new DataGridView();
             Id = new DataGridViewTextBoxColumn();
             AssetTag = new DataGridViewTextBoxColumn();
-            Name = new DataGridViewTextBoxColumn();
+            EquipmentName = new DataGridViewTextBoxColumn();
             Category = new DataGridViewTextBoxColumn();
             Status = new DataGridViewTextBoxColumn();
             Location = new DataGridViewTextBoxColumn();
@@ -77,52 +76,39 @@
             pnlFilters.Controls.Add(cmbStatusFilter);
             pnlFilters.Controls.Add(cmbCategoryFilter);
             pnlFilters.Controls.Add(txtSearch);
-            pnlFilters.Controls.Add(button1);
             pnlFilters.Dock = DockStyle.Top;
             pnlFilters.Location = new Point(0, 80);
             pnlFilters.Name = "pnlFilters";
             pnlFilters.Size = new Size(958, 80);
             pnlFilters.TabIndex = 1;
             // 
+            // cmbStatusFilter
+            // 
+            cmbStatusFilter.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbStatusFilter.FormattingEnabled = true;
+            cmbStatusFilter.Items.AddRange(new object[] { "All Status", "Active", "High Usage", "Under Repair", "Decommissioned" });
+            cmbStatusFilter.Location = new Point(565, 18);
+            cmbStatusFilter.Name = "cmbStatusFilter";
+            cmbStatusFilter.Size = new Size(148, 33);
+            cmbStatusFilter.TabIndex = 1;
+            // 
             // cmbCategoryFilter
             // 
             cmbCategoryFilter.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbCategoryFilter.FormattingEnabled = true;
             cmbCategoryFilter.Items.AddRange(new object[] { "All Categories", "System Unit", "Monitor", "Peripheral", "Tool" });
-            cmbCategoryFilter.Location = new Point(397, 18);
+            cmbCategoryFilter.Location = new Point(343, 20);
             cmbCategoryFilter.Name = "cmbCategoryFilter";
             cmbCategoryFilter.Size = new Size(148, 33);
             cmbCategoryFilter.TabIndex = 1;
             // 
             // txtSearch
             // 
-            txtSearch.Location = new Point(46, 20);
+            txtSearch.Location = new Point(20, 20);
             txtSearch.Name = "txtSearch";
             txtSearch.PlaceholderText = "Search Asset Tag or Name";
             txtSearch.Size = new Size(272, 31);
             txtSearch.TabIndex = 1;
-            // 
-            // button1
-            // 
-            button1.Anchor = AnchorStyles.Right;
-            button1.BackColor = Color.FromArgb(25, 135, 84);
-            button1.FlatStyle = FlatStyle.Flat;
-            button1.Location = new Point(1518, 10);
-            button1.Name = "button1";
-            button1.Size = new Size(177, 43);
-            button1.TabIndex = 0;
-            button1.Text = "+ Add Equipment";
-            button1.UseVisualStyleBackColor = false;
-            // 
-            // cmbStatusFilter
-            // 
-            cmbStatusFilter.DropDownStyle = ComboBoxStyle.DropDownList;
-            cmbStatusFilter.FormattingEnabled = true;
-            cmbStatusFilter.Items.AddRange(new object[] { "All Status", "Active", "High Usage", "Under Repair", "Decommissioned" });
-            cmbStatusFilter.Location = new Point(602, 20);
-            cmbStatusFilter.Name = "cmbStatusFilter";
-            cmbStatusFilter.Size = new Size(148, 33);
-            cmbStatusFilter.TabIndex = 1;
             // 
             // pnlGridContainer
             // 
@@ -139,7 +125,7 @@
             dgvEquipment.BackgroundColor = SystemColors.ButtonHighlight;
             dgvEquipment.BorderStyle = BorderStyle.None;
             dgvEquipment.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvEquipment.Columns.AddRange(new DataGridViewColumn[] { Id, AssetTag, Name, Category, Status, Location, UsageCount });
+            dgvEquipment.Columns.AddRange(new DataGridViewColumn[] { Id, AssetTag, EquipmentName, Category, Status, Location, UsageCount });
             dgvEquipment.Dock = DockStyle.Fill;
             dgvEquipment.Location = new Point(20, 20);
             dgvEquipment.Name = "dgvEquipment";
@@ -166,13 +152,13 @@
             AssetTag.Name = "AssetTag";
             AssetTag.Width = 118;
             // 
-            // Name
+            // EquipmentName
             // 
-            Name.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            Name.HeaderText = "Name";
-            Name.MinimumWidth = 8;
-            Name.Name = "Name";
-            Name.Width = 95;
+            EquipmentName.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            EquipmentName.HeaderText = "Name";
+            EquipmentName.MinimumWidth = 8;
+            EquipmentName.Name = "EquipmentName";
+            EquipmentName.Width = 95;
             // 
             // Category
             // 
@@ -201,8 +187,8 @@
             // UsageCount
             // 
             UsageCount.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            UsageCount.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            UsageCount.DefaultCellStyle = dataGridViewCellStyle1;
             UsageCount.HeaderText = "Usage Count";
             UsageCount.MinimumWidth = 8;
             UsageCount.Name = "UsageCount";
@@ -234,13 +220,13 @@
         private Panel pnlFilters;
         private ComboBox cmbCategoryFilter;
         private TextBox txtSearch;
-        private Button button1;
         private ComboBox cmbStatusFilter;
         private Panel pnlGridContainer;
         private DataGridView dgvEquipment;
         private DataGridViewTextBoxColumn Id;
         private DataGridViewTextBoxColumn AssetTag;
-        private DataGridViewTextBoxColumn Name;
+        private DataGridViewTextBoxColumn EquipmentName;
+       
         private DataGridViewTextBoxColumn Category;
         private DataGridViewTextBoxColumn Status;
         private DataGridViewTextBoxColumn Location;

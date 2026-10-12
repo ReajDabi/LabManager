@@ -114,7 +114,7 @@ namespace ComLabManager.UI
             HighlightActiveButton((Button)sender);
             lblPageTitle.Text = "Equipment Inventory";
 
-            EquipmentView equipView = new EquipmentView();
+            EquipmentInventoryView equipView = new EquipmentInventoryView();
             LoadView(equipView);
         }
 
