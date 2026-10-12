@@ -12,6 +12,8 @@ namespace ComLabManager.UI
     public partial class MainForm : Form
     {
         private readonly IEquipmentRepository _equipmentRepository;
+        private readonly IMaintenanceRepository _maintenanceRepository;
+        private readonly IUserRepository _userRepository;
         private User _currentUser;
 
 

@@ -54,12 +54,14 @@
             // 
             // pnlHeader
             // 
+            pnlHeader.Controls.Add(btnNewRequest);
             pnlHeader.Controls.Add(btnToggleSchedule);
             pnlHeader.Controls.Add(btnToggleBorrow);
             pnlHeader.Dock = DockStyle.Top;
             pnlHeader.Location = new Point(0, 0);
+            pnlHeader.Margin = new Padding(2, 2, 2, 2);
             pnlHeader.Name = "pnlHeader";
-            pnlHeader.Size = new Size(958, 80);
+            pnlHeader.Size = new Size(671, 48);
             pnlHeader.TabIndex = 0;
             // 
             // btnToggleSchedule
@@ -67,9 +69,10 @@
             btnToggleSchedule.BackColor = SystemColors.Highlight;
             btnToggleSchedule.FlatStyle = FlatStyle.Flat;
             btnToggleSchedule.ForeColor = SystemColors.ButtonFace;
-            btnToggleSchedule.Location = new Point(26, 12);
+            btnToggleSchedule.Location = new Point(18, 7);
+            btnToggleSchedule.Margin = new Padding(2, 2, 2, 2);
             btnToggleSchedule.Name = "btnToggleSchedule";
-            btnToggleSchedule.Size = new Size(164, 50);
+            btnToggleSchedule.Size = new Size(115, 30);
             btnToggleSchedule.TabIndex = 2;
             btnToggleSchedule.Text = "My Schedule";
             btnToggleSchedule.UseVisualStyleBackColor = false;
@@ -80,9 +83,10 @@
             btnToggleBorrow.BackColor = Color.FromArgb(30, 41, 59);
             btnToggleBorrow.FlatStyle = FlatStyle.Flat;
             btnToggleBorrow.ForeColor = SystemColors.ButtonFace;
-            btnToggleBorrow.Location = new Point(186, 12);
+            btnToggleBorrow.Location = new Point(130, 7);
+            btnToggleBorrow.Margin = new Padding(2, 2, 2, 2);
             btnToggleBorrow.Name = "btnToggleBorrow";
-            btnToggleBorrow.Size = new Size(214, 50);
+            btnToggleBorrow.Size = new Size(150, 30);
             btnToggleBorrow.TabIndex = 2;
             btnToggleBorrow.Text = "My Borrow Requests";
             btnToggleBorrow.UseVisualStyleBackColor = false;
@@ -93,17 +97,19 @@
             pnlSchedules.Controls.Add(cmbLabFilter);
             pnlSchedules.Controls.Add(dgvSchedules);
             pnlSchedules.Dock = DockStyle.Fill;
-            pnlSchedules.Location = new Point(0, 80);
+            pnlSchedules.Location = new Point(0, 48);
+            pnlSchedules.Margin = new Padding(2, 2, 2, 2);
             pnlSchedules.Name = "pnlSchedules";
-            pnlSchedules.Size = new Size(958, 484);
+            pnlSchedules.Size = new Size(671, 290);
             pnlSchedules.TabIndex = 1;
             // 
             // cmbLabFilter
             // 
             cmbLabFilter.FormattingEnabled = true;
-            cmbLabFilter.Location = new Point(734, 17);
+            cmbLabFilter.Location = new Point(514, 10);
+            cmbLabFilter.Margin = new Padding(2, 2, 2, 2);
             cmbLabFilter.Name = "cmbLabFilter";
-            cmbLabFilter.Size = new Size(207, 33);
+            cmbLabFilter.Size = new Size(146, 23);
             cmbLabFilter.TabIndex = 0;
             // 
             // dgvSchedules
@@ -113,11 +119,12 @@
             dgvSchedules.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvSchedules.Columns.AddRange(new DataGridViewColumn[] { Subject, Instructor, StartTime, EndTime });
             dgvSchedules.Location = new Point(0, 0);
+            dgvSchedules.Margin = new Padding(2, 2, 2, 2);
             dgvSchedules.Name = "dgvSchedules";
             dgvSchedules.RowHeadersVisible = false;
             dgvSchedules.RowHeadersWidth = 62;
             dgvSchedules.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvSchedules.Size = new Size(958, 449);
+            dgvSchedules.Size = new Size(671, 269);
             dgvSchedules.TabIndex = 1;
             // 
             // Subject
@@ -150,12 +157,12 @@
             // 
             // pnlBorrow
             // 
-            pnlBorrow.Controls.Add(btnNewRequest);
             pnlBorrow.Controls.Add(dgvMyRequests);
             pnlBorrow.Dock = DockStyle.Fill;
-            pnlBorrow.Location = new Point(0, 80);
+            pnlBorrow.Location = new Point(0, 48);
+            pnlBorrow.Margin = new Padding(2, 2, 2, 2);
             pnlBorrow.Name = "pnlBorrow";
-            pnlBorrow.Size = new Size(958, 484);
+            pnlBorrow.Size = new Size(671, 290);
             pnlBorrow.TabIndex = 4;
             // 
             // btnNewRequest
@@ -179,10 +186,11 @@
             dgvMyRequests.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvMyRequests.Columns.AddRange(new DataGridViewColumn[] { Target, Date, Time, Status });
             dgvMyRequests.Location = new Point(0, 0);
+            dgvMyRequests.Margin = new Padding(2, 2, 2, 2);
             dgvMyRequests.Name = "dgvMyRequests";
             dgvMyRequests.RowHeadersVisible = false;
             dgvMyRequests.RowHeadersWidth = 62;
-            dgvMyRequests.Size = new Size(958, 484);
+            dgvMyRequests.Size = new Size(671, 290);
             dgvMyRequests.TabIndex = 4;
             // 
             // Target
@@ -215,14 +223,15 @@
             // 
             // StudentDashboardView
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(248, 249, 250);
             Controls.Add(pnlBorrow);
             Controls.Add(pnlSchedules);
             Controls.Add(pnlHeader);
+            Margin = new Padding(2, 2, 2, 2);
             Name = "StudentDashboardView";
-            Size = new Size(958, 564);
+            Size = new Size(671, 338);
             pnlHeader.ResumeLayout(false);
             pnlSchedules.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dgvSchedules).EndInit();

@@ -1,10 +1,15 @@
-﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using ComLabManager.Core.Models;
 
 namespace ComLabManager.Core.Interfaces
 {
-    internal interface IMaintenanceRepository
+    public interface IMaintenanceRepository
     {
+        List<MaintenanceTicket> GetAllTickets();
+        int CreateTicket(MaintenanceLog log);
+        void AssignTechnician(int ticketId, int technicianId);
+        void StartRepair(int ticketId, int? technicianId);
+        void ResolveTicket(int ticketId, int? sparePartId);
+        List<SparePart> GetAllSpareParts();
     }
 }
