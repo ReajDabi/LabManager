@@ -1,3 +1,7 @@
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Windows.Forms;
 using ComLabManager.Core.Interfaces;
 using ComLabManager.Core.Models;
 using ComLabManager.UI.NavigationStrategies;
@@ -11,27 +15,47 @@ namespace ComLabManager.UI
         private User _currentUser;
 
 
+        private UserControl _currentActiveView;
+        private Button _activeButton;
+
+        private readonly Dictionary<Button, (string Title, Func<UserControl> ViewFactory)> _navigationMap;
+
         public MainForm(IEquipmentRepository equipmentRepository)
         {
             InitializeComponent();
-
             _equipmentRepository = equipmentRepository;
+
+
+            _navigationMap = new Dictionary<Button, (string, Func<UserControl>)>
+            {
+                { btnNavDashboard, ("Dashboard", () => new DashboardView()) },
+                { btnNavEquipment, ("Equipment Inventory", () => new EquipmentInventoryView()) },
+                { btnNavTickets, ("Maintenance Tickets", () => new MaintenanceView()) },
+                { btnNavSpareParts, ("Spare Parts", () => new SparePartsView()) },
+                { btnNavScheduler, ("Maintenance Scheduler", () => new PreventiveMaintenanceView()) },
+                { btnNavUser, ("User Management", () => new UserManagementView()) }
+
+
+            };
+
+
+            AttachNavigationEvents();
         }
 
-        //Mu auto open depende sa role
-        public void OpenDashboard() => btnNavDashboard_Click(btnNavDashboard, EventArgs.Empty);
-        public void OpenStudentDashboard() => btnNavRequestApproval_Click(btnNavRequestApproval, EventArgs.Empty);
-        public void OpenTickets() => btnNavSpareParts_Click(btnNavSpareParts.AccessibilityObject, EventArgs.Empty);
-       
-
-
-
-
-        //Limit other Users to certain views based on their role
         public void SetCurrentUser(User user, IRoleNavigationStrategy accessStrategy)
         {
             _currentUser = user;
             lblCurrentUser.Text = $"Viewing as: {_currentUser.UserName} ({_currentUser.Role})";
+
+
+            if (_currentUser.Role == "Admin")
+            {
+                _navigationMap[btnNavRequestApproval] = ("Pending Requests", () => new AdminApprovalsView());
+            }
+            else if (_currentUser.Role == "Student" || _currentUser.Role == "Technician")
+            {
+                _navigationMap[btnNavRequestApproval] = ("My Requests", () => new StudentDashboardView(_equipmentRepository));
+            }
 
 
             btnNavDashboard.Visible = accessStrategy.CanViewDashboard;
@@ -40,11 +64,9 @@ namespace ComLabManager.UI
             btnNavSpareParts.Visible = accessStrategy.CanViewSpareParts;
             btnNavScheduler.Visible = accessStrategy.CanViewScheduler;
             btnNavUser.Visible = accessStrategy.CanViewUsers;
-            
 
             lblMonitor.Visible = accessStrategy.CanViewDashboard;
             lblAssets.Visible = accessStrategy.CanViewEquipment;
-
             lblUM.Visible = accessStrategy.CanViewUsers;
             lblMaintenance.Visible = accessStrategy.CanViewTickets || accessStrategy.CanViewSpareParts;
 
@@ -55,104 +77,72 @@ namespace ComLabManager.UI
         }
 
 
+        public void OpenDashboard() => UniversalNavigation_Click(btnNavDashboard, EventArgs.Empty);
+        public void OpenStudentDashboard() => UniversalNavigation_Click(btnNavRequestApproval, EventArgs.Empty);
+        public void OpenTickets() => UniversalNavigation_Click(btnNavSpareParts, EventArgs.Empty);
 
 
-        //Nav Button Higlihghting Logics etc...
+        private void UniversalNavigation_Click(object sender, EventArgs e)
+        {
+            if (sender is Button clickedButton && _navigationMap.TryGetValue(clickedButton, out var route))
+            {
+                HighlightActiveButton(clickedButton);
+                lblPageTitle.Text = route.Title;
+                LoadView(route.ViewFactory.Invoke());
+            }
+        }
 
-        private Button _activeButton;
+        private void AttachNavigationEvents()
+        {
+            foreach (var button in _navigationMap.Keys)
+            {
+
+                button.Click += UniversalNavigation_Click;
+            }
+
+
+            btnNavRequestApproval.Click += UniversalNavigation_Click;
+        }
 
         private void HighlightActiveButton(Button clickedButton)
         {
-
             if (clickedButton == _activeButton) return;
 
+
             Color defaultColor = Color.FromArgb(30, 41, 59);
-            btnNavDashboard.BackColor = defaultColor;
-            btnNavEquipment.BackColor = defaultColor;
-            btnNavTickets.BackColor = defaultColor;
-            btnNavSpareParts.BackColor = defaultColor;
-            btnNavScheduler.BackColor = defaultColor;
-            btnNavUser.BackColor = defaultColor;
+            foreach (var button in _navigationMap.Keys)
+            {
+                button.BackColor = defaultColor;
+            }
+
             btnNavRequestApproval.BackColor = defaultColor;
-
             clickedButton.BackColor = Color.FromArgb(0, 120, 215);
-
-
             _activeButton = clickedButton;
         }
-
-
 
         private void LoadView(UserControl view)
         {
 
-            pnlMainContent.Controls.Clear();
+            if (_currentActiveView != null)
+            {
+                pnlMainContent.Controls.Remove(_currentActiveView);
+                _currentActiveView.Dispose();
+            }
 
-
-            view.Dock = DockStyle.Fill;
-
-
-            pnlMainContent.Controls.Add(view);
-        }
-
-
-
-
-        //Click Events
-
-        private void btnNavDashboard_Click(object sender, EventArgs e)
-        {
-            HighlightActiveButton((Button)sender);
-            lblPageTitle.Text = "Dashboard";
-
-            DashboardView dashView = new DashboardView();
-            LoadView(dashView);
-        }
-
-        private void btnNavEquipment_Click(object sender, EventArgs e)
-        {
-            HighlightActiveButton((Button)sender);
-            lblPageTitle.Text = "Equipment Inventory";
-
-            EquipmentInventoryView equipView = new EquipmentInventoryView();
-            LoadView(equipView);
-        }
-
-        private void btnNavTickets_Click(object sender, EventArgs e)
-        {
-            HighlightActiveButton((Button)sender);
-            lblPageTitle.Text = "Maintenance Tickets";
-
-            MaintenanceView maintenanceView = new MaintenanceView();
-            LoadView(maintenanceView);
-        }
-
-        private void btnNavSpareParts_Click(object sender, EventArgs e)
-        {
-            HighlightActiveButton((Button)sender);
-            lblPageTitle.Text = "Spare Parts";
-
-            SparePartsView sparepartview = new SparePartsView();
-            LoadView(sparepartview);
-        }
-
-        private void btnNavScheduler_Click(object sender, EventArgs e)
-        {
-            HighlightActiveButton((Button)sender);
-            lblPageTitle.Text = "Maintenance Scheduler";
-
-            PreventiveMaintenanceView preventivemaintenance = new PreventiveMaintenanceView();
-            LoadView(preventivemaintenance);
+            _currentActiveView = view;
+            _currentActiveView.Dock = DockStyle.Fill;
+            pnlMainContent.Controls.Add(_currentActiveView);
+            _currentActiveView.BringToFront();
         }
 
         private void btnSignOut_Click(object sender, EventArgs e)
         {
             DialogResult result = MessageBox.Show(
-        "Are you sure you want to log out?",
-        "Confirm Logout",
-        MessageBoxButtons.YesNo,
-        MessageBoxIcon.Question
-    );
+                "Are you sure you want to log out?",
+                "Confirm Logout",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question
+            );
 
             if (result == DialogResult.Yes)
             {
@@ -160,42 +150,5 @@ namespace ComLabManager.UI
                 Environment.Exit(0);
             }
         }
-
-
-        private void btnNavUser_Click(object sender, EventArgs e)
-        {
-            HighlightActiveButton((Button)sender);
-            lblPageTitle.Text = "User Management";
-
-            UserManagementView usermanagement = new UserManagementView();
-            LoadView(usermanagement);
-        }
-
-        private void btnNavRequestApproval_Click(object sender, EventArgs e)
-        {
-            HighlightActiveButton((Button)sender);
-            lblPageTitle.Text = "Pending Requests";
-
-            switch (_currentUser.Role)
-            {
-                case "Admin":
-                    AdminApprovalsView adminapprovals = new AdminApprovalsView();
-                    LoadView(adminapprovals);
-                    break;
-                case "Student":
-                    StudentDashboardView studentview = new StudentDashboardView(_equipmentRepository);
-                   
-                    LoadView(studentview);
-                    break;
-               /* case "Technician":
-                    StudentDashboardView studentview = new StudentDashboardView(_equipmentRepository);
-                    LoadView(studentview);
-                    break;
-                */
-            }
-
-        }
     }
-
 }
-    

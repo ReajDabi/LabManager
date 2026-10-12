@@ -15,8 +15,6 @@ namespace ComLabManager.UI
             InitializeComponent();
         }
 
-        private void label5_Clic(object sender, EventArgs e)
-    
-        }
+        
     }
 }

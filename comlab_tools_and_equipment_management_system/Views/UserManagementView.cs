@@ -16,13 +16,12 @@ namespace ComLabManager.UI
             InitializeComponent();
         }
 
-        //Add user button click event handler
         private void btnAddUser_Click(object sender, EventArgs e)
         {
             UserModalForm form = new UserModalForm();
            if (form.ShowDialog() == DialogResult.OK)
             {
-                // Execute SQL INSERT using form.EditingUserId
+                
             }
         }
 
@@ -31,7 +30,6 @@ namespace ComLabManager.UI
 
 
 
-        //Delete user button click event handler
         private void btnDel_Click(object sender, EventArgs e)
         {
            /*

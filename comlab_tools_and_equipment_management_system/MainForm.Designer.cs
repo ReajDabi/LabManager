@@ -107,7 +107,6 @@
         btnNavDashboard.Text = "Dashboard";
         btnNavDashboard.TextAlign = ContentAlignment.MiddleLeft;
         btnNavDashboard.UseVisualStyleBackColor = false;
-        btnNavDashboard.Click += btnNavDashboard_Click;
         // 
         // btnNavEquipment
         // 
@@ -127,7 +126,6 @@
         btnNavEquipment.Text = "Inventory";
         btnNavEquipment.TextAlign = ContentAlignment.MiddleLeft;
         btnNavEquipment.UseVisualStyleBackColor = false;
-        btnNavEquipment.Click += btnNavEquipment_Click;
         // 
         // btnNavTickets
         // 
@@ -147,7 +145,6 @@
         btnNavTickets.Text = "Maintenance ";
         btnNavTickets.TextAlign = ContentAlignment.MiddleLeft;
         btnNavTickets.UseVisualStyleBackColor = false;
-        btnNavTickets.Click += btnNavTickets_Click;
         // 
         // btnNavSpareParts
         // 
@@ -167,7 +164,6 @@
         btnNavSpareParts.Text = "Spare Parts";
         btnNavSpareParts.TextAlign = ContentAlignment.MiddleLeft;
         btnNavSpareParts.UseVisualStyleBackColor = false;
-        btnNavSpareParts.Click += btnNavSpareParts_Click;
         // 
         // btnNavScheduler
         // 
@@ -187,7 +183,6 @@
         btnNavScheduler.Text = "PM Scheduler";
         btnNavScheduler.TextAlign = ContentAlignment.MiddleLeft;
         btnNavScheduler.UseVisualStyleBackColor = false;
-        btnNavScheduler.Click += btnNavScheduler_Click;
         // 
         // btnSignOut
         // 
@@ -328,7 +323,6 @@
         btnNavRequestApproval.Text = "Requests Approval";
         btnNavRequestApproval.TextAlign = ContentAlignment.MiddleLeft;
         btnNavRequestApproval.UseVisualStyleBackColor = false;
-        btnNavRequestApproval.Click += btnNavRequestApproval_Click;
         // 
         // btnNavUser
         // 
@@ -348,7 +342,6 @@
         btnNavUser.Text = "Users";
         btnNavUser.TextAlign = ContentAlignment.MiddleLeft;
         btnNavUser.UseVisualStyleBackColor = false;
-        btnNavUser.Click += btnNavUser_Click;
         // 
         // lblUM
         // 
@@ -406,7 +399,6 @@
     private Button btnNavTickets;
     private Button btnNavSpareParts;
     private Button btnNavScheduler;
-    private Button btnSignOut;
     private Panel pnlLogo;
     private Label lblLogo;
     private Label lblMonitor;
@@ -418,5 +410,6 @@
     private Button btnNavUser;
     private Label lblUM;
     private Button btnNavRequestApproval;
+    private Button btnSignOut;
 }
 

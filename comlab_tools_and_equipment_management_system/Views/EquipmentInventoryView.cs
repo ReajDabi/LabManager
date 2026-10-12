@@ -26,23 +26,32 @@ namespace ComLabManager.UI.Views
             {
                 string status = dgvEquipment.Rows[e.RowIndex].Cells["Status"].Value.ToString();
 
-                  DataGridViewRow row = dgvEquipment.Rows[e.RowIndex];
+                DataGridViewRow row = dgvEquipment.Rows[e.RowIndex];
 
                 if (status == "High Usage")
                 {
-                    row.DefaultCellStyle.BackColor = Color.FromArgb(255, 243, 205); // Soft Yellow/Orange alert
-                    row.DefaultCellStyle.ForeColor = Color.FromArgb(133, 100, 4);   // Dark Warning Text
+                    row.DefaultCellStyle.BackColor = Color.FromArgb(255, 243, 205); 
+                    row.DefaultCellStyle.ForeColor = Color.FromArgb(133, 100, 4);  
                 }
                 else if (status == "Under Repair")
                 {
-                    row.DefaultCellStyle.BackColor = Color.FromArgb(248, 215, 218); // Soft Red alert
-                    row.DefaultCellStyle.ForeColor = Color.FromArgb(114, 28, 36);   // Dark Danger Text
+                    row.DefaultCellStyle.BackColor = Color.FromArgb(248, 215, 218); 
+                    row.DefaultCellStyle.ForeColor = Color.FromArgb(114, 28, 36);   
                 }
                 else
                 {
                     row.DefaultCellStyle.BackColor = Color.White;
                     row.DefaultCellStyle.ForeColor = Color.Black;
                 }
+            }
+        }
+
+        private void btnAddEquipment_Click(object sender, EventArgs e)
+        {
+            EquipmentModalForm form = new EquipmentModalForm();
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+
             }
         }
     }

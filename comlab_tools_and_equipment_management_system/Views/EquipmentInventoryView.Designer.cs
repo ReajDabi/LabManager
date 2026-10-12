@@ -64,15 +64,18 @@
             btnAddEquipment.Anchor = AnchorStyles.Right;
             btnAddEquipment.BackColor = Color.FromArgb(25, 135, 84);
             btnAddEquipment.FlatStyle = FlatStyle.Flat;
+            btnAddEquipment.ForeColor = SystemColors.ButtonHighlight;
             btnAddEquipment.Location = new Point(760, 20);
             btnAddEquipment.Name = "btnAddEquipment";
             btnAddEquipment.Size = new Size(177, 43);
             btnAddEquipment.TabIndex = 0;
             btnAddEquipment.Text = "+ Add Equipment";
             btnAddEquipment.UseVisualStyleBackColor = false;
+            btnAddEquipment.Click += btnAddEquipment_Click;
             // 
             // pnlFilters
             // 
+            pnlFilters.BackColor = Color.FromArgb(224, 224, 224);
             pnlFilters.Controls.Add(cmbStatusFilter);
             pnlFilters.Controls.Add(cmbCategoryFilter);
             pnlFilters.Controls.Add(txtSearch);
