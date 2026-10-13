@@ -28,7 +28,8 @@ namespace ComLabManager.UI
 
         private void LoadMetrics()
         {
-            
+            lblValueEq.Text = _equipmentRepo.GetTotalActiveCount().ToString();
+            lblValueUsage.Text = _equipmentRepo.GetHighUsageCount().ToString();
         }
     }
 }

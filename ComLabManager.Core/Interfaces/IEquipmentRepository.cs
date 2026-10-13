@@ -13,5 +13,8 @@ namespace ComLabManager.Core.Interfaces
         List<Equipment> SearchEquipment(string keyword);
 
         IEnumerable<Equipment> GetEquipmentByCategory(string category);
+
+        int GetTotalActiveCount();
+        int GetHighUsageCount();
     }
 }
