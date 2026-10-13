@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
-using ComLabManager.Core.Models; 
+using ComLabManager.Core.Models;
 
 namespace ComLabManager.UI
 {
@@ -13,16 +13,19 @@ namespace ComLabManager.UI
         public EquipmentModalForm()
         {
             InitializeComponent();
-            this.Text = "Add New Equipment";
+            PopulateDropdowns(); 
 
+            this.Text = "Add New Equipment";
             _existingId = 0;
             _existingUsageCount = 0;
             dtpDateAcquired.Value = DateTime.Now;
         }
 
-         public EquipmentModalForm(Equipment equipmentToEdit)
+        public EquipmentModalForm(Equipment equipmentToEdit)
         {
             InitializeComponent();
+            PopulateDropdowns(); 
+
             this.Text = "Edit Equipment";
             _existingId = equipmentToEdit.Id;
             _existingUsageCount = equipmentToEdit.UsageCount;
@@ -33,6 +36,15 @@ namespace ComLabManager.UI
             cmbStatus.SelectedItem = equipmentToEdit.Status;
             txtLocation.Text = equipmentToEdit.StationNumber;
             dtpDateAcquired.Value = equipmentToEdit.DateAcquired;
+        }
+
+        private void PopulateDropdowns()
+        {
+            cmbCategory.Items.Clear();
+            cmbCategory.Items.AddRange(new string[] { "System Unit", "Monitor", "Peripheral", "Networking", "Tool" });
+
+            cmbStatus.Items.Clear();
+            cmbStatus.Items.AddRange(new string[] { "Active", "High Usage", "Under Repair", "Decommissioned" });
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -54,7 +66,7 @@ namespace ComLabManager.UI
                 Category = cmbCategory.SelectedItem.ToString(),
                 Status = cmbStatus.SelectedItem.ToString(),
                 StationNumber = txtLocation.Text.Trim(),
-                UsageCount = _existingUsageCount, 
+                UsageCount = _existingUsageCount,
                 DateAcquired = dtpDateAcquired.Value.Date
             };
 
