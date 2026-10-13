@@ -30,7 +30,7 @@ namespace ComLabManager.UI
 
             _navigationMap = new Dictionary<Button, (string, Func<UserControl> ViewFactory)>
             {
-                { btnNavDashboard, ("Dashboard", () => (UserControl)new DashboardView()) },
+                { btnNavDashboard, ("Dashboard", () => (UserControl)new DashboardView(_equipmentRepository)) },
                 { btnNavEquipment, ("Equipment Inventory", () =>(UserControl) new EquipmentInventoryView(_equipmentRepository)) },
                 { btnNavTickets, ("Maintenance Tickets", () =>(UserControl) new MaintenanceView()) },
                 { btnNavSpareParts, ("Spare Parts", () =>(UserControl) new SparePartsView()) },
