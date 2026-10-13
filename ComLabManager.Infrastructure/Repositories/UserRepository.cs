@@ -37,5 +37,18 @@ namespace ComlabManager.Infrastructure.Repositories
                 throw new Exception("Unable to connect to the database. Please check if the server is running.", ex);
             }
         }
+
+        public List<User> GetUsersByRole(string role)
+        {
+            using (var connection = new MySqlConnection(_connectionString))
+            {
+                string sql = @"SELECT Id, Username, Role, FirstName, LastName, CreatedAt
+                               FROM Users
+                               WHERE Role = @Role
+                               ORDER BY FirstName, LastName, Username";
+
+                return connection.Query<User>(sql, new { Role = role }).ToList();
+            }
+        }
     }
 }

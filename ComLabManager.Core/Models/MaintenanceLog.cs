@@ -13,5 +13,6 @@ namespace ComLabManager.Core.Models
         public string Status { get; set; }
         public DateTime DateReported { get; set; }
         public DateTime? DateResolved { get; set; }
+        public int? AssignedTechnicianId { get; set; }
     }
 }

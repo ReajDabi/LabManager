@@ -25,6 +25,7 @@ namespace ComLabManager.UI
 
             services.AddTransient<IEquipmentRepository>(provider => new EquipmentRepository(connectionString));
             services.AddTransient<IUserRepository>(provider => new UserRepository(connectionString));
+            services.AddTransient<IMaintenanceRepository>(provider => new MaintenanceRepository(connectionString));
 
             services.AddTransient<MainForm>();
             services.AddTransient<LoginForm>();
