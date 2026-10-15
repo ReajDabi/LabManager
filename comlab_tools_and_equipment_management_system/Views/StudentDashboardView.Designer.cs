@@ -90,7 +90,7 @@
             // 
             // btnNewRequest
             // 
-            btnNewRequest.Anchor = AnchorStyles.Right;
+            btnNewRequest.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnNewRequest.BackColor = Color.Green;
             btnNewRequest.FlatStyle = FlatStyle.Flat;
             btnNewRequest.ForeColor = SystemColors.ButtonFace;
