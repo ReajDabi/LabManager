@@ -15,7 +15,7 @@ namespace ComLabManager.UI
             InitializeComponent();
             PopulateDropdowns(); 
 
-            this.Text = "Add New Equipment";
+            lblTitle.Text = "Add New Equipment";
             _existingId = 0;
             _existingUsageCount = 0;
             dtpDateAcquired.Value = DateTime.Now;
@@ -26,7 +26,7 @@ namespace ComLabManager.UI
             InitializeComponent();
             PopulateDropdowns(); 
 
-            this.Text = "Edit Equipment";
+            lblTitle.Text = "Edit Equipment";
             _existingId = equipmentToEdit.Id;
             _existingUsageCount = equipmentToEdit.UsageCount;
 
