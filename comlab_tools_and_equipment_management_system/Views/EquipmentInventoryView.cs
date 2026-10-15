@@ -83,7 +83,6 @@ namespace ComLabManager.UI.Views
             if (dgvEquipment.SelectedRows.Count == 0) return;
 
             Equipment selectedEquipment = (Equipment)dgvEquipment.SelectedRows[0].DataBoundItem;
-
             EquipmentModalForm form = new EquipmentModalForm(selectedEquipment);
             if (form.ShowDialog() == DialogResult.OK)
             {
