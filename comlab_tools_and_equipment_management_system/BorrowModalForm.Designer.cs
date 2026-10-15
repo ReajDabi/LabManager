@@ -30,7 +30,7 @@
         {
             cmbScope = new ComboBox();
             cmbItem = new ComboBox();
-            textBox1 = new TextBox();
+            txtPurpose = new TextBox();
             lblTitle = new Label();
             lblScope = new Label();
             lblItem = new Label();
@@ -40,7 +40,7 @@
             lblStartTime = new Label();
             dtpStartTime = new DateTimePicker();
             lblEndTime = new Label();
-            dateTimePicker1 = new DateTimePicker();
+            dtpEndTime = new DateTimePicker();
             btnSubmit = new Button();
             btnCancel = new Button();
             SuspendLayout();
@@ -53,6 +53,7 @@
             cmbScope.Name = "cmbScope";
             cmbScope.Size = new Size(233, 33);
             cmbScope.TabIndex = 0;
+            cmbScope.SelectedIndexChanged += cmbScope_SelectedIndexChanged;
             // 
             // cmbItem
             // 
@@ -63,14 +64,14 @@
             cmbItem.Size = new Size(233, 33);
             cmbItem.TabIndex = 0;
             // 
-            // textBox1
+            // txtPurpose
             // 
-            textBox1.BorderStyle = BorderStyle.FixedSingle;
-            textBox1.Location = new Point(357, 133);
-            textBox1.Multiline = true;
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(363, 382);
-            textBox1.TabIndex = 1;
+            txtPurpose.BorderStyle = BorderStyle.FixedSingle;
+            txtPurpose.Location = new Point(357, 133);
+            txtPurpose.Multiline = true;
+            txtPurpose.Name = "txtPurpose";
+            txtPurpose.Size = new Size(363, 382);
+            txtPurpose.TabIndex = 1;
             // 
             // lblTitle
             // 
@@ -153,19 +154,18 @@
             lblEndTime.TabIndex = 3;
             lblEndTime.Text = "End Time:";
             // 
-            // dateTimePicker1
+            // dtpEndTime
             // 
-            dateTimePicker1.Format = DateTimePickerFormat.Time;
-            dateTimePicker1.Location = new Point(75, 484);
-            dateTimePicker1.Name = "dateTimePicker1";
-            dateTimePicker1.ShowUpDown = true;
-            dateTimePicker1.Size = new Size(230, 31);
-            dateTimePicker1.TabIndex = 4;
+            dtpEndTime.Format = DateTimePickerFormat.Time;
+            dtpEndTime.Location = new Point(75, 484);
+            dtpEndTime.Name = "dtpEndTime";
+            dtpEndTime.ShowUpDown = true;
+            dtpEndTime.Size = new Size(230, 31);
+            dtpEndTime.TabIndex = 4;
             // 
             // btnSubmit
             // 
             btnSubmit.BackColor = Color.FromArgb(25, 135, 84);
-            btnSubmit.DialogResult = DialogResult.OK;
             btnSubmit.FlatStyle = FlatStyle.Flat;
             btnSubmit.ForeColor = Color.White;
             btnSubmit.Location = new Point(561, 592);
@@ -174,6 +174,7 @@
             btnSubmit.TabIndex = 5;
             btnSubmit.Text = "Submit Request";
             btnSubmit.UseVisualStyleBackColor = false;
+            btnSubmit.Click += btnSubmit_Click;
             // 
             // btnCancel
             // 
@@ -187,6 +188,7 @@
             btnCancel.TabIndex = 5;
             btnCancel.Text = "Cancel\r\n";
             btnCancel.UseVisualStyleBackColor = false;
+            btnCancel.Click += btnCancel_Click;
             // 
             // BorrowModalForm
             // 
@@ -195,7 +197,7 @@
             ClientSize = new Size(777, 665);
             Controls.Add(btnCancel);
             Controls.Add(btnSubmit);
-            Controls.Add(dateTimePicker1);
+            Controls.Add(dtpEndTime);
             Controls.Add(dtpStartTime);
             Controls.Add(dtpRequestedDate);
             Controls.Add(lblEndTime);
@@ -205,7 +207,7 @@
             Controls.Add(lblPurpose);
             Controls.Add(lblScope);
             Controls.Add(lblTitle);
-            Controls.Add(textBox1);
+            Controls.Add(txtPurpose);
             Controls.Add(cmbItem);
             Controls.Add(cmbScope);
             MaximizeBox = false;
@@ -221,7 +223,7 @@
 
         private ComboBox cmbScope;
         private ComboBox cmbItem;
-        private TextBox textBox1;
+        private TextBox txtPurpose;
         private Label lblTitle;
         private Label lblScope;
         private Label lblItem;
@@ -231,7 +233,7 @@
         private Label lblStartTime;
         private DateTimePicker dtpStartTime;
         private Label lblEndTime;
-        private DateTimePicker dateTimePicker1;
+        private DateTimePicker dtpEndTime;
         private Button btnSubmit;
         private Button btnCancel;
     }

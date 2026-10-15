@@ -26,13 +26,12 @@ namespace ComLabManager.UI
             services.AddTransient<IEquipmentRepository>(provider => new EquipmentRepository(connectionString));
             services.AddTransient<IUserRepository>(provider => new UserRepository(connectionString));
             services.AddTransient<IMaintenanceRepository>(provider => new MaintenanceRepository(connectionString));
-
+            services.AddTransient<IBorrowRequestRepository>(provider => new BorrowRequestRepository(connectionString));
             services.AddTransient<MainForm>();
             services.AddTransient<LoginForm>();
 
             var serviceProvider = services.BuildServiceProvider();
 
-            // Temporary Admin Password Seeding
             using (var connection = new MySqlConnection(connectionString))
             {
                
