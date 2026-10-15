@@ -90,11 +90,11 @@
             // 
             // btnNewRequest
             // 
-            btnNewRequest.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnNewRequest.Anchor = AnchorStyles.Right;
             btnNewRequest.BackColor = Color.Green;
             btnNewRequest.FlatStyle = FlatStyle.Flat;
             btnNewRequest.ForeColor = SystemColors.ButtonFace;
-            btnNewRequest.Location = new Point(685, 8);
+            btnNewRequest.Location = new Point(707, 10);
             btnNewRequest.Margin = new Padding(4, 5, 4, 5);
             btnNewRequest.Name = "btnNewRequest";
             btnNewRequest.Size = new Size(223, 45);
@@ -191,6 +191,7 @@
             // 
             // Target
             // 
+            Target.DataPropertyName = "TargetLocation";
             Target.HeaderText = "Target";
             Target.MinimumWidth = 8;
             Target.Name = "Target";
@@ -198,6 +199,7 @@
             // 
             // Date
             // 
+            Date.DataPropertyName = "RequestedDate";
             Date.HeaderText = "Date";
             Date.MinimumWidth = 8;
             Date.Name = "Date";
@@ -205,6 +207,7 @@
             // 
             // Time
             // 
+            Time.DataPropertyName = "StartTime";
             Time.HeaderText = "Time";
             Time.MinimumWidth = 8;
             Time.Name = "Time";
@@ -212,6 +215,7 @@
             // 
             // Status
             // 
+            Status.DataPropertyName = "Status";
             Status.HeaderText = "Status";
             Status.MinimumWidth = 8;
             Status.Name = "Status";
@@ -222,8 +226,8 @@
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(248, 249, 250);
-            Controls.Add(pnlBorrow);
             Controls.Add(pnlSchedules);
+            Controls.Add(pnlBorrow);
             Controls.Add(pnlHeader);
             Name = "StudentDashboardView";
             Size = new Size(959, 563);
@@ -249,10 +253,10 @@
         private DataGridViewTextBoxColumn StartTime;
         private DataGridViewTextBoxColumn EndTime;
         private DataGridView dgvMyRequests;
+        private Button btnToggleSchedule;
         private DataGridViewTextBoxColumn Target;
         private DataGridViewTextBoxColumn Date;
         private DataGridViewTextBoxColumn Time;
         private DataGridViewTextBoxColumn Status;
-        private Button btnToggleSchedule;
     }
 }
