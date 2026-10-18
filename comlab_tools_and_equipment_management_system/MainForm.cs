@@ -17,8 +17,6 @@ namespace ComLabManager.UI
         private readonly IBorrowRequestRepository _borrowRepository;
         private readonly IComLabScheduleRepository _scheduleRepository;
         private User _currentUser;
-
-
         private UserControl _currentActiveView;
         private Button _activeButton;
 

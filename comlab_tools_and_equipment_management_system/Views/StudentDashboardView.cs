@@ -1,7 +1,9 @@
 ﻿using ComLabManager.Core.Interfaces;
 using ComLabManager.Core.Models;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace ComLabManager.UI.Views
@@ -14,33 +16,46 @@ namespace ComLabManager.UI.Views
         private readonly Dictionary<string, Color> _statusColors;
         private readonly int _studentId;
 
-        public StudentDashboardView(IEquipmentRepository equipmentRepo, IBorrowRequestRepository borrowRepo, IComLabScheduleRepository scheduleRepo,int studentId)
+        public StudentDashboardView(IEquipmentRepository equipmentRepo, IBorrowRequestRepository borrowRepo, IComLabScheduleRepository scheduleRepo, int studentId)
         {
             InitializeComponent();
             _equipmentRepo = equipmentRepo ?? throw new ArgumentNullException(nameof(equipmentRepo));
             _borrowRepo = borrowRepo ?? throw new ArgumentNullException(nameof(borrowRepo));
-            _studentId = studentId;
             _scheduleRepo = scheduleRepo ?? throw new ArgumentNullException(nameof(scheduleRepo));
+            _studentId = studentId;
+
             _statusColors = new Dictionary<string, Color>
-    {
-        { "Pending", Color.FromArgb(255, 193, 7) }, 
-        { "Approved", Color.FromArgb(25, 135, 84) }, 
-        { "Denied", Color.FromArgb(220, 53, 69) }    
-    };
-            SetupGrid(); 
+            {
+                { "Pending", Color.FromArgb(255, 193, 7) },
+                { "Approved", Color.FromArgb(25, 135, 84) },
+                { "Denied", Color.FromArgb(220, 53, 69) }
+            };
+
+            
+            SetupGrid();
+
+            
             RefreshGrid();
-            RefreshScheduleGrid();      
+
+            
+            PopulateRoomFilter();
         }
 
         private void SetupGrid()
         {
-            dgvMyRequests.AutoGenerateColumns = false;
-
            
+            dgvMyRequests.AutoGenerateColumns = false;
+            dgvSchedules.AutoGenerateColumns = false;
+
             Target.DataPropertyName = "TargetLocation";
             Date.DataPropertyName = "RequestedDate";
             Status.DataPropertyName = "Status";
+
             
+            Subject.DataPropertyName = "SubjectCode";
+            Instructor.DataPropertyName = "InstructorName";
+            StartTime.DataPropertyName = "StartTime";
+            EndTime.DataPropertyName = "EndTime";
         }
 
         private void RefreshGrid()
@@ -52,32 +67,58 @@ namespace ComLabManager.UI.Views
             }
         }
 
-
-        private void RefreshScheduleGrid()
+        private void PopulateRoomFilter()
         {
-            if (_scheduleRepo != null)
-            {
-                var schedules = _scheduleRepo.GetAllSchedules();
+            if (_scheduleRepo == null) return;
 
-                dgvSchedules.AutoGenerateColumns = false;
-                dgvSchedules.DataSource = schedules;
+            var allSchedules = _scheduleRepo.GetAllSchedules();
+            var uniqueRooms = allSchedules.Select(s => s.ComLabName).Distinct().ToList();
+
+            cmbRoomFilter.Items.Clear();
+            cmbRoomFilter.Items.Add("All Rooms");
+            cmbRoomFilter.Items.AddRange(uniqueRooms.ToArray());
+
+            if (cmbRoomFilter.Items.Count > 0)
+            {
+                
+                cmbRoomFilter.SelectedIndex = 0;
             }
         }
 
+        private void ApplyScheduleFilter()
+        {
+            if (_scheduleRepo == null) return;
+
+            string selectedRoom = cmbRoomFilter.SelectedItem?.ToString() ?? "All Rooms";
+            var allSchedules = _scheduleRepo.GetAllSchedules();
+
+            if (selectedRoom == "All Rooms")
+            {
+                dgvSchedules.DataSource = allSchedules;
+            }
+            else
+            {
+                var filteredSchedules = allSchedules.Where(s => s.ComLabName == selectedRoom).ToList();
+                dgvSchedules.DataSource = filteredSchedules;
+            }
+        }
+
+        private void cmbRoomFilter_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ApplyScheduleFilter();
+        }
 
         private void dgvSchedules_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (e.RowIndex >= 0 && (dgvSchedules.Columns[e.ColumnIndex].Name == "StartTime" || dgvSchedules.Columns[e.ColumnIndex].Name == "EndTime"))
+            
+            if (e.RowIndex >= 0 && e.Value is TimeSpan timeValue &&
+               (dgvSchedules.Columns[e.ColumnIndex].Name == "StartTime" || dgvSchedules.Columns[e.ColumnIndex].Name == "EndTime"))
             {
-                if (e.Value is TimeSpan timeValue)
-                {
-                    DateTime time = DateTime.Today.Add(timeValue);
-                    e.Value = time.ToString("h:mm tt");
-                    e.FormattingApplied = true;
-                }
+                DateTime time = DateTime.Today.Add(timeValue);
+                e.Value = time.ToString("h:mm tt");
+                e.FormattingApplied = true;
             }
         }
-
 
         private void dgvMyRequests_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
@@ -91,15 +132,14 @@ namespace ComLabManager.UI.Views
                     string columnName = dgvMyRequests.Columns[e.ColumnIndex].Name;
 
                    
-                    if (columnName == "colTime") 
+                    if (columnName == "colTime")
                     {
                         DateTime start = DateTime.Today.Add(request.StartTime);
                         DateTime end = DateTime.Today.Add(request.EndTime);
-                        e.Value = $"{start:h:mm tt} - {end:h:mm tt}";
+                        e.Value = $"{start:h:mm tt} - {end:h:mm tt}"; 
                         e.FormattingApplied = true;
                     }
 
-                  
                     if (columnName == "Status")
                     {
                         if (_statusColors.TryGetValue(request.Status, out Color statusColor))
@@ -115,7 +155,7 @@ namespace ComLabManager.UI.Views
         {
             using (BorrowModalForm form = new BorrowModalForm(_equipmentRepo, _studentId))
             {
-                if (form.ShowDialog() == DialogResult.OK)
+                if (form.ShowDialog() == DialogResult.OK && form.ProcessedRequest != null)
                 {
                     _borrowRepo.AddRequest(form.ProcessedRequest);
                     RefreshGrid();
