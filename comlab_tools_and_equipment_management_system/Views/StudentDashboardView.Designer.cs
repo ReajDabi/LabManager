@@ -43,7 +43,7 @@
             dgvMyRequests = new DataGridView();
             Target = new DataGridViewTextBoxColumn();
             Date = new DataGridViewTextBoxColumn();
-            Time = new DataGridViewTextBoxColumn();
+            colTime = new DataGridViewTextBoxColumn();
             Status = new DataGridViewTextBoxColumn();
             pnlHeader.SuspendLayout();
             pnlSchedules.SuspendLayout();
@@ -180,7 +180,7 @@
             dgvMyRequests.BackgroundColor = SystemColors.ButtonHighlight;
             dgvMyRequests.BorderStyle = BorderStyle.None;
             dgvMyRequests.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvMyRequests.Columns.AddRange(new DataGridViewColumn[] { Target, Date, Time, Status });
+            dgvMyRequests.Columns.AddRange(new DataGridViewColumn[] { Target, Date, colTime, Status });
             dgvMyRequests.Dock = DockStyle.Fill;
             dgvMyRequests.Location = new Point(0, 0);
             dgvMyRequests.Name = "dgvMyRequests";
@@ -205,13 +205,13 @@
             Date.Name = "Date";
             Date.Width = 150;
             // 
-            // Time
+            // colTime
             // 
-            Time.DataPropertyName = "StartTime";
-            Time.HeaderText = "Time";
-            Time.MinimumWidth = 8;
-            Time.Name = "Time";
-            Time.Width = 150;
+            colTime.DataPropertyName = "colTime";
+            colTime.HeaderText = "Time";
+            colTime.MinimumWidth = 8;
+            colTime.Name = "colTime";
+            colTime.Width = 150;
             // 
             // Status
             // 
@@ -256,7 +256,7 @@
         private Button btnToggleSchedule;
         private DataGridViewTextBoxColumn Target;
         private DataGridViewTextBoxColumn Date;
-        private DataGridViewTextBoxColumn Time;
+        private DataGridViewTextBoxColumn colTime;
         private DataGridViewTextBoxColumn Status;
     }
 }

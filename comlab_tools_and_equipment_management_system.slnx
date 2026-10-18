@@ -1,6 +1,10 @@
 <Solution>
   <Folder Name="/Database/">
     <File Path="01_LabManager_Init_And_Seed.sql" />
+    <File Path="02_LabManager_Reset_Schema_And_Seed.sql" />
+    <File Path="02_Maintenance_Task_Board_Migration.sql" />
+    <File Path="03_Assigned_Technician_Migration.sql" />
+    <File Path="04_ComLabSchedule_Migration.sql" />
   </Folder>
   <Folder Name="/Solution Items/">
     <File Path="ProjectDocumentation.md" />
