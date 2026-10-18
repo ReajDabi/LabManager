@@ -23,9 +23,9 @@ namespace ComLabManager.UI.Views
             _scheduleRepo = scheduleRepo ?? throw new ArgumentNullException(nameof(scheduleRepo));
             _statusColors = new Dictionary<string, Color>
     {
-        { "Pending", Color.FromArgb(255, 193, 7) },  // Amber
-        { "Approved", Color.FromArgb(25, 135, 84) }, // Green
-        { "Denied", Color.FromArgb(220, 53, 69) }    // Red
+        { "Pending", Color.FromArgb(255, 193, 7) }, 
+        { "Approved", Color.FromArgb(25, 135, 84) }, 
+        { "Denied", Color.FromArgb(220, 53, 69) }    
     };
             SetupGrid(); 
             RefreshGrid();
