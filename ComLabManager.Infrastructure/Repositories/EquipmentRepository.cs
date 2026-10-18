@@ -1,17 +1,17 @@
-﻿using ComLabManager.Core.Interfaces;
-using ComLabManager.Core.Models;
-using Dapper;
-using MySql.Data.MySqlClient;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using Dapper;
+using MySql.Data.MySqlClient;
+using ComLabManager.Core.Interfaces;
+using ComLabManager.Core.Models;
+
 
 namespace ComlabManager.Infrastructure.Repositories
 {
     public class EquipmentRepository : IEquipmentRepository
     {
         private readonly string _connectionString;
-
 
         public EquipmentRepository(string connectionString)
         {
@@ -20,72 +20,89 @@ namespace ComlabManager.Infrastructure.Repositories
 
         public List<Equipment> GetAllEquipment()
         {
-
-            using (var connection = new MySqlConnection(_connectionString))
+            using (IDbConnection db = new MySqlConnection(_connectionString))
             {
-                string sql = "SELECT * FROM Equipment";
-                return connection.Query<Equipment>(sql).ToList();
-            }
-        }
-
-        public void AddEquipment(Equipment equipment)
-        {
-            using (var connection = new MySqlConnection(_connectionString))
-            {
-
-                string sql = @"INSERT INTO Equipment (Name, SerialNumber, Category, Status, Location, DateAcquired) 
-                       VALUES (@Name, @SerialNumber, @Category, @Status, @Location, @DateAcquired)";
-
-                connection.Execute(sql, equipment);
-            }
-        }
-
-        public void UpdateEquipment(Equipment equipment)
-        {
-            using (var connection = new MySqlConnection(_connectionString))
-            {
-                string sql = @"UPDATE Equipment 
-                       SET Name = @Name, SerialNumber = @SerialNumber, 
-                           Category = @Category, Status = @Status, 
-                           Location = @Location, DateAcquired = @DateAcquired 
-                       WHERE Id = @Id";
-
-                connection.Execute(sql, equipment);
-            }
-        }
-
-        public void DeleteEquipment(int id)
-        {
-            using (var connection = new MySqlConnection(_connectionString))
-            {
-                string sql = "DELETE FROM Equipment WHERE Id = @Id";
-                connection.Execute(sql, new { Id = id });
-            }
-        }
-
-
-        public List<Equipment> SearchEquipment(string keyword)
-        {
-            using (var connection = new MySqlConnection(_connectionString))
-            {
-
-                string sql = @"SELECT * FROM Equipment 
-                       WHERE Name LIKE @Search 
-                       OR SerialNumber LIKE @Search 
-                       OR Category LIKE @Search 
-                       OR Status LIKE @Search";
-
-                return connection.Query<Equipment>(sql, new { Search = $"%{keyword}%" }).ToList();
+                return db.Query<Equipment>("SELECT * FROM Equipment ORDER BY Category, Name").ToList();
             }
         }
 
         public IEnumerable<Equipment> GetEquipmentByCategory(string category)
         {
-            using (IDbConnection connection = new MySqlConnection(_connectionString))
+            using (IDbConnection db = new MySqlConnection(_connectionString))
             {
                 string sql = "SELECT * FROM Equipment WHERE Category = @Category";
+                return db.Query<Equipment>(sql, new { Category = category }).ToList();
+            }
+        }
 
-                return connection.Query<Equipment>(sql, new { Category = category }).ToList();
+        public void AddEquipment(Equipment equipment)
+        {
+            using (IDbConnection db = new MySqlConnection(_connectionString))
+            {
+                string sql = @"INSERT INTO Equipment 
+                               (AssetTag, Name, Category, Status, StationNumber, UsageCount, DateAcquired) 
+                               VALUES (@AssetTag, @Name, @Category, @Status, @StationNumber, @UsageCount, @DateAcquired)";
+
+                db.Execute(sql, equipment);
+            }
+        }
+
+        public void UpdateEquipment(Equipment equipment)
+        {
+            using (IDbConnection db = new MySqlConnection(_connectionString))
+            {
+                string sql = @"UPDATE Equipment 
+                               SET AssetTag = @AssetTag, 
+                                   Name = @Name, 
+                                   Category = @Category, 
+                                   Status = @Status, 
+                                   StationNumber = @StationNumber, 
+                                   UsageCount = @UsageCount, 
+                                   DateAcquired = @DateAcquired 
+                               WHERE Id = @Id";
+
+                db.Execute(sql, equipment);
+            }
+        }
+
+        public void DeleteEquipment(int id)
+        {
+            using (IDbConnection db = new MySqlConnection(_connectionString))
+            {
+                db.Execute("DELETE FROM Equipment WHERE Id = @Id", new { Id = id });
+            }
+        }
+
+        
+        public List<Equipment> SearchEquipment(string keyword)
+        {
+            using (IDbConnection db = new MySqlConnection(_connectionString))
+            {
+                string sql = @"SELECT * FROM Equipment 
+                               WHERE AssetTag LIKE @Keyword 
+                                  OR Name LIKE @Keyword 
+                                  OR StationNumber LIKE @Keyword 
+                               ORDER BY Category, Name";
+
+               
+                return db.Query<Equipment>(sql, new { Keyword = $"%{keyword}%" }).ToList();
+            }
+        }
+
+        
+        public int GetTotalActiveCount()
+        {
+            using (IDbConnection db = new MySqlConnection(_connectionString))
+            {
+                return db.ExecuteScalar<int>("SELECT COUNT(*) FROM Equipment WHERE Status = 'Active'");
+            }
+        }
+
+        public int GetHighUsageCount()
+        {
+            using (IDbConnection db = new MySqlConnection(_connectionString))
+            {
+                return db.ExecuteScalar<int>("SELECT COUNT(*) FROM Equipment WHERE Status = 'High Usage'");
             }
         }
     }

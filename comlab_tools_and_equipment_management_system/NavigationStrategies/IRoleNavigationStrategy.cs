@@ -12,6 +12,7 @@ namespace ComLabManager.UI.NavigationStrategies
         bool CanViewSpareParts { get; }
         bool CanViewScheduler { get; }
         bool CanViewUsers { get; }
+        bool CanViewRequest { get; }
         string TicketButtonText { get; }
         string RequestButtonText { get; }
         void LoadInitialView(MainForm form);

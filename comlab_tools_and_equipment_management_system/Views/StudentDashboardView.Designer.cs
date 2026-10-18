@@ -35,16 +35,16 @@
             pnlSchedules = new Panel();
             cmbLabFilter = new ComboBox();
             dgvSchedules = new DataGridView();
-            Subject = new DataGridViewTextBoxColumn();
-            Instructor = new DataGridViewTextBoxColumn();
-            StartTime = new DataGridViewTextBoxColumn();
-            EndTime = new DataGridViewTextBoxColumn();
             pnlBorrow = new Panel();
             dgvMyRequests = new DataGridView();
             Target = new DataGridViewTextBoxColumn();
             Date = new DataGridViewTextBoxColumn();
-            Time = new DataGridViewTextBoxColumn();
+            colTime = new DataGridViewTextBoxColumn();
             Status = new DataGridViewTextBoxColumn();
+            Subject = new DataGridViewTextBoxColumn();
+            InstructorName = new DataGridViewTextBoxColumn();
+            StartTime = new DataGridViewTextBoxColumn();
+            EndTime = new DataGridViewTextBoxColumn();
             pnlHeader.SuspendLayout();
             pnlSchedules.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvSchedules).BeginInit();
@@ -71,7 +71,7 @@
             btnToggleSchedule.Name = "btnToggleSchedule";
             btnToggleSchedule.Size = new Size(164, 50);
             btnToggleSchedule.TabIndex = 2;
-            btnToggleSchedule.Text = "My Schedule";
+            btnToggleSchedule.Text = "ComLab Schedule";
             btnToggleSchedule.UseVisualStyleBackColor = false;
             btnToggleSchedule.Click += btnToggleSchedule_Click;
             // 
@@ -94,7 +94,7 @@
             btnNewRequest.BackColor = Color.Green;
             btnNewRequest.FlatStyle = FlatStyle.Flat;
             btnNewRequest.ForeColor = SystemColors.ButtonFace;
-            btnNewRequest.Location = new Point(685, 8);
+            btnNewRequest.Location = new Point(707, 10);
             btnNewRequest.Margin = new Padding(4, 5, 4, 5);
             btnNewRequest.Name = "btnNewRequest";
             btnNewRequest.Size = new Size(223, 45);
@@ -127,7 +127,7 @@
             dgvSchedules.BackgroundColor = SystemColors.ButtonHighlight;
             dgvSchedules.BorderStyle = BorderStyle.None;
             dgvSchedules.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvSchedules.Columns.AddRange(new DataGridViewColumn[] { Subject, Instructor, StartTime, EndTime });
+            dgvSchedules.Columns.AddRange(new DataGridViewColumn[] { Subject, InstructorName, StartTime, EndTime });
             dgvSchedules.Dock = DockStyle.Fill;
             dgvSchedules.Location = new Point(0, 0);
             dgvSchedules.Name = "dgvSchedules";
@@ -136,34 +136,6 @@
             dgvSchedules.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvSchedules.Size = new Size(959, 483);
             dgvSchedules.TabIndex = 1;
-            // 
-            // Subject
-            // 
-            Subject.HeaderText = "Subject";
-            Subject.MinimumWidth = 8;
-            Subject.Name = "Subject";
-            Subject.Width = 150;
-            // 
-            // Instructor
-            // 
-            Instructor.HeaderText = "Instructor";
-            Instructor.MinimumWidth = 8;
-            Instructor.Name = "Instructor";
-            Instructor.Width = 150;
-            // 
-            // StartTime
-            // 
-            StartTime.HeaderText = "Start Time";
-            StartTime.MinimumWidth = 8;
-            StartTime.Name = "StartTime";
-            StartTime.Width = 150;
-            // 
-            // EndTime
-            // 
-            EndTime.HeaderText = "End Time";
-            EndTime.MinimumWidth = 8;
-            EndTime.Name = "EndTime";
-            EndTime.Width = 150;
             // 
             // pnlBorrow
             // 
@@ -180,7 +152,7 @@
             dgvMyRequests.BackgroundColor = SystemColors.ButtonHighlight;
             dgvMyRequests.BorderStyle = BorderStyle.None;
             dgvMyRequests.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvMyRequests.Columns.AddRange(new DataGridViewColumn[] { Target, Date, Time, Status });
+            dgvMyRequests.Columns.AddRange(new DataGridViewColumn[] { Target, Date, colTime, Status });
             dgvMyRequests.Dock = DockStyle.Fill;
             dgvMyRequests.Location = new Point(0, 0);
             dgvMyRequests.Name = "dgvMyRequests";
@@ -191,6 +163,7 @@
             // 
             // Target
             // 
+            Target.DataPropertyName = "TargetLocation";
             Target.HeaderText = "Target";
             Target.MinimumWidth = 8;
             Target.Name = "Target";
@@ -198,32 +171,67 @@
             // 
             // Date
             // 
+            Date.DataPropertyName = "RequestedDate";
             Date.HeaderText = "Date";
             Date.MinimumWidth = 8;
             Date.Name = "Date";
             Date.Width = 150;
             // 
-            // Time
+            // colTime
             // 
-            Time.HeaderText = "Time";
-            Time.MinimumWidth = 8;
-            Time.Name = "Time";
-            Time.Width = 150;
+            colTime.DataPropertyName = "colTime";
+            colTime.HeaderText = "Time";
+            colTime.MinimumWidth = 8;
+            colTime.Name = "colTime";
+            colTime.Width = 150;
             // 
             // Status
             // 
+            Status.DataPropertyName = "Status";
             Status.HeaderText = "Status";
             Status.MinimumWidth = 8;
             Status.Name = "Status";
             Status.Width = 150;
+            // 
+            // Subject
+            // 
+            Subject.DataPropertyName = "SubjectCode";
+            Subject.HeaderText = "Subject";
+            Subject.MinimumWidth = 8;
+            Subject.Name = "Subject";
+            Subject.Width = 150;
+            // 
+            // InstructorName
+            // 
+            InstructorName.DataPropertyName = "InstructorName";
+            InstructorName.HeaderText = "Instructor";
+            InstructorName.MinimumWidth = 8;
+            InstructorName.Name = "InstructorName";
+            InstructorName.Width = 150;
+            // 
+            // StartTime
+            // 
+            StartTime.DataPropertyName = "StartTime";
+            StartTime.HeaderText = "Start Time";
+            StartTime.MinimumWidth = 8;
+            StartTime.Name = "StartTime";
+            StartTime.Width = 150;
+            // 
+            // EndTime
+            // 
+            EndTime.DataPropertyName = "EndTime";
+            EndTime.HeaderText = "End Time";
+            EndTime.MinimumWidth = 8;
+            EndTime.Name = "EndTime";
+            EndTime.Width = 150;
             // 
             // StudentDashboardView
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(248, 249, 250);
-            Controls.Add(pnlBorrow);
             Controls.Add(pnlSchedules);
+            Controls.Add(pnlBorrow);
             Controls.Add(pnlHeader);
             Name = "StudentDashboardView";
             Size = new Size(959, 563);
@@ -244,15 +252,15 @@
         private ComboBox cmbLabFilter;
         private Panel pnlBorrow;
         private Button btnNewRequest;
-        private DataGridViewTextBoxColumn Subject;
-        private DataGridViewTextBoxColumn Instructor;
-        private DataGridViewTextBoxColumn StartTime;
-        private DataGridViewTextBoxColumn EndTime;
         private DataGridView dgvMyRequests;
+        private Button btnToggleSchedule;
         private DataGridViewTextBoxColumn Target;
         private DataGridViewTextBoxColumn Date;
-        private DataGridViewTextBoxColumn Time;
+        private DataGridViewTextBoxColumn colTime;
         private DataGridViewTextBoxColumn Status;
-        private Button btnToggleSchedule;
+        private DataGridViewTextBoxColumn Subject;
+        private DataGridViewTextBoxColumn InstructorName;
+        private DataGridViewTextBoxColumn StartTime;
+        private DataGridViewTextBoxColumn EndTime;
     }
 }

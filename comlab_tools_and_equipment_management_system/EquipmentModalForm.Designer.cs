@@ -99,6 +99,7 @@
             // btnCancel
             // 
             btnCancel.BackColor = Color.DarkGray;
+            btnCancel.DialogResult = DialogResult.Cancel;
             btnCancel.FlatStyle = FlatStyle.Flat;
             btnCancel.ForeColor = SystemColors.Control;
             btnCancel.Location = new Point(72, 446);
@@ -119,6 +120,7 @@
             btnSave.TabIndex = 3;
             btnSave.Text = "Save";
             btnSave.UseVisualStyleBackColor = false;
+            btnSave.Click += btnSave_Click;
             // 
             // label1
             // 

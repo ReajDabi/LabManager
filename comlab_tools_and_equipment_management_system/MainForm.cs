@@ -14,6 +14,8 @@ namespace ComLabManager.UI
         private readonly IEquipmentRepository _equipmentRepository;
         private readonly IMaintenanceRepository _maintenanceRepository;
         private readonly IUserRepository _userRepository;
+        private readonly IBorrowRequestRepository _borrowRepository;
+        private readonly IComLabScheduleRepository _scheduleRepository;
         private User _currentUser;
 
 
@@ -22,15 +24,16 @@ namespace ComLabManager.UI
 
         private readonly Dictionary<Button, (string Title, Func<UserControl> ViewFactory)> _navigationMap;
 
-        public MainForm(IEquipmentRepository equipmentRepository)
+        public MainForm(IEquipmentRepository equipmentRepository, IBorrowRequestRepository borrowRepository, IComLabScheduleRepository scheduleRepository)
         {
             InitializeComponent();
             _equipmentRepository = equipmentRepository;
-
+            _borrowRepository = borrowRepository;
+            _scheduleRepository = scheduleRepository;
 
             _navigationMap = new Dictionary<Button, (string, Func<UserControl> ViewFactory)>
             {
-                { btnNavDashboard, ("Dashboard", () => (UserControl)new DashboardView(_equipmentRepository)) },
+                { btnNavDashboard, ("Dashboard", () => (UserControl)new DashboardView(_equipmentRepository, _borrowRepository)) },
                 { btnNavEquipment, ("Equipment Inventory", () =>(UserControl) new EquipmentInventoryView(_equipmentRepository)) },
                 { btnNavTickets, ("Maintenance Tickets", () =>(UserControl) new MaintenanceView()) },
                 { btnNavSpareParts, ("Spare Parts", () =>(UserControl) new SparePartsView()) },
@@ -56,7 +59,7 @@ namespace ComLabManager.UI
             }
             else if (_currentUser.Role == "Student" || _currentUser.Role == "Technician")
             {
-                _navigationMap[btnNavRequestApproval] = ("My Requests", () => (UserControl)new StudentDashboardView(_equipmentRepository));
+                _navigationMap[btnNavRequestApproval] = ("My Requests", () => (UserControl)new StudentDashboardView(_equipmentRepository, _borrowRepository, _scheduleRepository, _currentUser.Id));
             }
 
 
@@ -66,6 +69,7 @@ namespace ComLabManager.UI
             btnNavSpareParts.Visible = accessStrategy.CanViewSpareParts;
             btnNavScheduler.Visible = accessStrategy.CanViewScheduler;
             btnNavUser.Visible = accessStrategy.CanViewUsers;
+            btnNavRequestApproval.Visible = accessStrategy.CanViewRequest;
 
             lblMonitor.Visible = accessStrategy.CanViewDashboard;
             lblAssets.Visible = accessStrategy.CanViewEquipment;

@@ -10,10 +10,11 @@ using ComLabManager.Core.Interfaces;
 namespace ComLabManager.UI
 {
     public partial class DashboardView : UserControl
-    {
+    {   
         private readonly IEquipmentRepository _equipmentRepo;
-        
-        public DashboardView(IEquipmentRepository equipmentRepo)
+        IBorrowRequestRepository _borrowRepo;
+
+        public DashboardView(IEquipmentRepository equipmentRepo, IBorrowRequestRepository borrowRepo)
         {
             InitializeComponent();
             _equipmentRepo = equipmentRepo;
@@ -28,7 +29,9 @@ namespace ComLabManager.UI
 
         private void LoadMetrics()
         {
-            
+            lblValueBorrows.Text = _borrowRepo.GetPendingCount().ToString();
+            lblValueEq.Text = _equipmentRepo.GetTotalActiveCount().ToString();
+            lblValueUsage.Text = _equipmentRepo.GetHighUsageCount().ToString();
         }
     }
 }

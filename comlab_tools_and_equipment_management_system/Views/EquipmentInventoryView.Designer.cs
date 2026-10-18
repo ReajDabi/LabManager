@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             pnlHeader = new Panel();
             btnAddEquipment = new Button();
             pnlFilters = new Panel();
@@ -44,6 +44,8 @@
             Status = new DataGridViewTextBoxColumn();
             Location = new DataGridViewTextBoxColumn();
             UsageCount = new DataGridViewTextBoxColumn();
+            btnEditEquipment = new Button();
+            btnDeleteEquipment = new Button();
             pnlHeader.SuspendLayout();
             pnlFilters.SuspendLayout();
             pnlGridContainer.SuspendLayout();
@@ -52,6 +54,8 @@
             // 
             // pnlHeader
             // 
+            pnlHeader.Controls.Add(btnDeleteEquipment);
+            pnlHeader.Controls.Add(btnEditEquipment);
             pnlHeader.Controls.Add(btnAddEquipment);
             pnlHeader.Dock = DockStyle.Top;
             pnlHeader.Location = new Point(0, 0);
@@ -89,11 +93,12 @@
             // 
             cmbStatusFilter.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbStatusFilter.FormattingEnabled = true;
-            cmbStatusFilter.Items.AddRange(new object[] { "All Status", "Active", "High Usage", "Under Repair", "Decommissioned" });
+            cmbStatusFilter.Items.AddRange(new object[] { "All Statuses", "Active", "High Usage", "Under Repair", "Decommissioned" });
             cmbStatusFilter.Location = new Point(565, 18);
             cmbStatusFilter.Name = "cmbStatusFilter";
             cmbStatusFilter.Size = new Size(148, 33);
             cmbStatusFilter.TabIndex = 1;
+            cmbStatusFilter.SelectedIndexChanged += cmbStatusFilter_SelectedIndexChanged;
             // 
             // cmbCategoryFilter
             // 
@@ -104,6 +109,7 @@
             cmbCategoryFilter.Name = "cmbCategoryFilter";
             cmbCategoryFilter.Size = new Size(148, 33);
             cmbCategoryFilter.TabIndex = 1;
+            cmbCategoryFilter.SelectedIndexChanged += cmbCategoryFilter_SelectedIndexChanged;
             // 
             // txtSearch
             // 
@@ -112,6 +118,7 @@
             txtSearch.PlaceholderText = "Search Asset Tag or Name";
             txtSearch.Size = new Size(272, 31);
             txtSearch.TabIndex = 1;
+            txtSearch.TextChanged += txtSearch_TextChanged;
             // 
             // pnlGridContainer
             // 
@@ -150,6 +157,7 @@
             // AssetTag
             // 
             AssetTag.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            AssetTag.DataPropertyName = "AssetTag";
             AssetTag.HeaderText = "AssetTag";
             AssetTag.MinimumWidth = 8;
             AssetTag.Name = "AssetTag";
@@ -158,6 +166,7 @@
             // EquipmentName
             // 
             EquipmentName.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            EquipmentName.DataPropertyName = "Name";
             EquipmentName.HeaderText = "Name";
             EquipmentName.MinimumWidth = 8;
             EquipmentName.Name = "EquipmentName";
@@ -166,6 +175,7 @@
             // Category
             // 
             Category.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            Category.DataPropertyName = "Category";
             Category.HeaderText = "Category";
             Category.MinimumWidth = 8;
             Category.Name = "Category";
@@ -174,6 +184,7 @@
             // Status
             // 
             Status.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            Status.DataPropertyName = "Status";
             Status.HeaderText = "Status";
             Status.MinimumWidth = 8;
             Status.Name = "Status";
@@ -182,6 +193,7 @@
             // Location
             // 
             Location.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            Location.DataPropertyName = "StationNumber";
             Location.HeaderText = "Location";
             Location.MinimumWidth = 8;
             Location.Name = "Location";
@@ -190,12 +202,41 @@
             // UsageCount
             // 
             UsageCount.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            UsageCount.DefaultCellStyle = dataGridViewCellStyle1;
+            UsageCount.DataPropertyName = "UsageCount";
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            UsageCount.DefaultCellStyle = dataGridViewCellStyle2;
             UsageCount.HeaderText = "Usage Count";
             UsageCount.MinimumWidth = 8;
             UsageCount.Name = "UsageCount";
             UsageCount.Width = 150;
+            // 
+            // btnEditEquipment
+            // 
+            btnEditEquipment.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnEditEquipment.BackColor = Color.FromArgb(13, 110, 253);
+            btnEditEquipment.FlatStyle = FlatStyle.Flat;
+            btnEditEquipment.ForeColor = SystemColors.ButtonHighlight;
+            btnEditEquipment.Location = new Point(599, 20);
+            btnEditEquipment.Name = "btnEditEquipment";
+            btnEditEquipment.Size = new Size(118, 43);
+            btnEditEquipment.TabIndex = 0;
+            btnEditEquipment.Text = "Edit";
+            btnEditEquipment.UseVisualStyleBackColor = false;
+            btnEditEquipment.Click += btnEditEquipment_Click;
+            // 
+            // btnDeleteEquipment
+            // 
+            btnDeleteEquipment.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnDeleteEquipment.BackColor = Color.FromArgb(220, 53, 69);
+            btnDeleteEquipment.FlatStyle = FlatStyle.Flat;
+            btnDeleteEquipment.ForeColor = SystemColors.ButtonHighlight;
+            btnDeleteEquipment.Location = new Point(452, 20);
+            btnDeleteEquipment.Name = "btnDeleteEquipment";
+            btnDeleteEquipment.Size = new Size(104, 43);
+            btnDeleteEquipment.TabIndex = 0;
+            btnDeleteEquipment.Text = "Delete";
+            btnDeleteEquipment.UseVisualStyleBackColor = false;
+            btnDeleteEquipment.Click += btnDeleteEquipment_Click;
             // 
             // EquipmentInventoryView
             // 
@@ -229,10 +270,11 @@
         private DataGridViewTextBoxColumn Id;
         private DataGridViewTextBoxColumn AssetTag;
         private DataGridViewTextBoxColumn EquipmentName;
-       
         private DataGridViewTextBoxColumn Category;
         private DataGridViewTextBoxColumn Status;
         private DataGridViewTextBoxColumn Location;
         private DataGridViewTextBoxColumn UsageCount;
+        private Button btnDeleteEquipment;
+        private Button btnEditEquipment;
     }
 }
