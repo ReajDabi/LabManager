@@ -1,8 +1,9 @@
 using ComlabManager.Core.Interfaces;
 using ComlabManager.Infrastructure.Repositories;
 using ComLabManager.Core.Interfaces;
+using ComLabManager.Infrastructure.Repositories;
 using ComLabManager.UI;
-using ComLabManager.UI.NavigationStrategies; // Required for your new strategies
+using ComLabManager.UI.NavigationStrategies; 
 using Dapper;
 using Microsoft.Extensions.DependencyInjection;
 using MySql.Data.MySqlClient;
@@ -27,6 +28,8 @@ namespace ComLabManager.UI
             services.AddTransient<IUserRepository>(provider => new UserRepository(connectionString));
             services.AddTransient<IMaintenanceRepository>(provider => new MaintenanceRepository(connectionString));
             services.AddTransient<IBorrowRequestRepository>(provider => new BorrowRequestRepository(connectionString));
+            services.AddTransient<IComLabScheduleRepository>(provider => new ComLabScheduleRepository(connectionString));
+
             services.AddTransient<MainForm>();
             services.AddTransient<LoginForm>();
 

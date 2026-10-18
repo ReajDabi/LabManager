@@ -10,17 +10,26 @@ namespace ComLabManager.UI.Views
     {
         private readonly IEquipmentRepository _equipmentRepo;
         private readonly IBorrowRequestRepository _borrowRepo;
+        private readonly IComLabScheduleRepository _scheduleRepo;
+        private readonly Dictionary<string, Color> _statusColors;
         private readonly int _studentId;
 
-        public StudentDashboardView(IEquipmentRepository equipmentRepo, IBorrowRequestRepository borrowRepo, int studentId)
+        public StudentDashboardView(IEquipmentRepository equipmentRepo, IBorrowRequestRepository borrowRepo, IComLabScheduleRepository scheduleRepo,int studentId)
         {
             InitializeComponent();
             _equipmentRepo = equipmentRepo ?? throw new ArgumentNullException(nameof(equipmentRepo));
             _borrowRepo = borrowRepo ?? throw new ArgumentNullException(nameof(borrowRepo));
             _studentId = studentId;
-
-            SetupGrid();
+            _scheduleRepo = scheduleRepo ?? throw new ArgumentNullException(nameof(scheduleRepo));
+            _statusColors = new Dictionary<string, Color>
+    {
+        { "Pending", Color.FromArgb(255, 193, 7) }, 
+        { "Approved", Color.FromArgb(25, 135, 84) }, 
+        { "Denied", Color.FromArgb(220, 53, 69) }    
+    };
+            SetupGrid(); 
             RefreshGrid();
+            RefreshScheduleGrid();      
         }
 
         private void SetupGrid()
@@ -43,7 +52,33 @@ namespace ComLabManager.UI.Views
             }
         }
 
-       
+
+        private void RefreshScheduleGrid()
+        {
+            if (_scheduleRepo != null)
+            {
+                var schedules = _scheduleRepo.GetAllSchedules();
+
+                dgvSchedules.AutoGenerateColumns = false;
+                dgvSchedules.DataSource = schedules;
+            }
+        }
+
+
+        private void dgvSchedules_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (e.RowIndex >= 0 && (dgvSchedules.Columns[e.ColumnIndex].Name == "StartTime" || dgvSchedules.Columns[e.ColumnIndex].Name == "EndTime"))
+            {
+                if (e.Value is TimeSpan timeValue)
+                {
+                    DateTime time = DateTime.Today.Add(timeValue);
+                    e.Value = time.ToString("h:mm tt");
+                    e.FormattingApplied = true;
+                }
+            }
+        }
+
+
         private void dgvMyRequests_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             if (e.RowIndex >= 0)
@@ -53,25 +88,24 @@ namespace ComLabManager.UI.Views
 
                 if (request != null)
                 {
+                    string columnName = dgvMyRequests.Columns[e.ColumnIndex].Name;
+
                    
-                    if (e.ColumnIndex == 2)
+                    if (columnName == "colTime") 
                     {
-                       
                         DateTime start = DateTime.Today.Add(request.StartTime);
                         DateTime end = DateTime.Today.Add(request.EndTime);
                         e.Value = $"{start:h:mm tt} - {end:h:mm tt}";
                         e.FormattingApplied = true;
                     }
 
-                
-                    if (dgvMyRequests.Columns[e.ColumnIndex].Name == "Status") 
+                  
+                    if (columnName == "Status")
                     {
-                        if (request.Status == "Pending")
-                            row.Cells[e.ColumnIndex].Style.ForeColor = Color.FromArgb(255, 193, 7); 
-                        else if (request.Status == "Approved")
-                            row.Cells[e.ColumnIndex].Style.ForeColor = Color.FromArgb(25, 135, 84); 
-                        else if (request.Status == "Denied")
-                            row.Cells[e.ColumnIndex].Style.ForeColor = Color.FromArgb(220, 53, 69); 
+                        if (_statusColors.TryGetValue(request.Status, out Color statusColor))
+                        {
+                            row.Cells[e.ColumnIndex].Style.ForeColor = statusColor;
+                        }
                     }
                 }
             }
