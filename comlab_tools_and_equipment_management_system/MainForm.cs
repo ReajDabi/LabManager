@@ -67,6 +67,7 @@ namespace ComLabManager.UI
             btnNavSpareParts.Visible = accessStrategy.CanViewSpareParts;
             btnNavScheduler.Visible = accessStrategy.CanViewScheduler;
             btnNavUser.Visible = accessStrategy.CanViewUsers;
+            btnNavRequestApproval.Visible = accessStrategy.CanViewRequest;
 
             lblMonitor.Visible = accessStrategy.CanViewDashboard;
             lblAssets.Visible = accessStrategy.CanViewEquipment;
