@@ -15,7 +15,7 @@ namespace ComLabManager.UI.NavigationStrategies
 
       public bool CanViewUsers => false;
         public bool CanViewScheduler => false;
-        public bool CanViewRequest => true;
+        public bool CanViewRequest => false;
 
         public string TicketButtonText => "My Tasks";
         public string RequestButtonText => "Requests";
