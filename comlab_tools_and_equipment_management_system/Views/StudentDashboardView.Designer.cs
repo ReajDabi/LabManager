@@ -33,7 +33,7 @@
             btnToggleBorrow = new Button();
             btnNewRequest = new Button();
             pnlSchedules = new Panel();
-            cmbLabFilter = new ComboBox();
+            cmbRoomFilter = new ComboBox();
             dgvSchedules = new DataGridView();
             pnlBorrow = new Panel();
             dgvMyRequests = new DataGridView();
@@ -42,7 +42,7 @@
             colTime = new DataGridViewTextBoxColumn();
             Status = new DataGridViewTextBoxColumn();
             Subject = new DataGridViewTextBoxColumn();
-            InstructorName = new DataGridViewTextBoxColumn();
+            Instructor = new DataGridViewTextBoxColumn();
             StartTime = new DataGridViewTextBoxColumn();
             EndTime = new DataGridViewTextBoxColumn();
             pnlHeader.SuspendLayout();
@@ -105,7 +105,7 @@
             // 
             // pnlSchedules
             // 
-            pnlSchedules.Controls.Add(cmbLabFilter);
+            pnlSchedules.Controls.Add(cmbRoomFilter);
             pnlSchedules.Controls.Add(dgvSchedules);
             pnlSchedules.Dock = DockStyle.Fill;
             pnlSchedules.Location = new Point(0, 80);
@@ -113,21 +113,23 @@
             pnlSchedules.Size = new Size(959, 483);
             pnlSchedules.TabIndex = 1;
             // 
-            // cmbLabFilter
+            // cmbRoomFilter
             // 
-            cmbLabFilter.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            cmbLabFilter.FormattingEnabled = true;
-            cmbLabFilter.Location = new Point(734, 17);
-            cmbLabFilter.Name = "cmbLabFilter";
-            cmbLabFilter.Size = new Size(207, 33);
-            cmbLabFilter.TabIndex = 0;
+            cmbRoomFilter.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            cmbRoomFilter.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbRoomFilter.FormattingEnabled = true;
+            cmbRoomFilter.Location = new Point(734, 17);
+            cmbRoomFilter.Name = "cmbRoomFilter";
+            cmbRoomFilter.Size = new Size(207, 33);
+            cmbRoomFilter.TabIndex = 0;
+            cmbRoomFilter.SelectedIndexChanged += cmbRoomFilter_SelectedIndexChanged;
             // 
             // dgvSchedules
             // 
             dgvSchedules.BackgroundColor = SystemColors.ButtonHighlight;
             dgvSchedules.BorderStyle = BorderStyle.None;
             dgvSchedules.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvSchedules.Columns.AddRange(new DataGridViewColumn[] { Subject, InstructorName, StartTime, EndTime });
+            dgvSchedules.Columns.AddRange(new DataGridViewColumn[] { Subject, Instructor, StartTime, EndTime });
             dgvSchedules.Dock = DockStyle.Fill;
             dgvSchedules.Location = new Point(0, 0);
             dgvSchedules.Name = "dgvSchedules";
@@ -201,13 +203,13 @@
             Subject.Name = "Subject";
             Subject.Width = 150;
             // 
-            // InstructorName
+            // Instructor
             // 
-            InstructorName.DataPropertyName = "InstructorName";
-            InstructorName.HeaderText = "Instructor";
-            InstructorName.MinimumWidth = 8;
-            InstructorName.Name = "InstructorName";
-            InstructorName.Width = 150;
+            Instructor.DataPropertyName = "InstructorName";
+            Instructor.HeaderText = "Instructor";
+            Instructor.MinimumWidth = 8;
+            Instructor.Name = "Instructor";
+            Instructor.Width = 150;
             // 
             // StartTime
             // 
@@ -249,7 +251,7 @@
         private Button btnToggleBorrow;
         private Panel pnlSchedules;
         private DataGridView dgvSchedules;
-        private ComboBox cmbLabFilter;
+        private ComboBox cmbRoomFilter;
         private Panel pnlBorrow;
         private Button btnNewRequest;
         private DataGridView dgvMyRequests;
@@ -259,7 +261,7 @@
         private DataGridViewTextBoxColumn colTime;
         private DataGridViewTextBoxColumn Status;
         private DataGridViewTextBoxColumn Subject;
-        private DataGridViewTextBoxColumn InstructorName;
+        private DataGridViewTextBoxColumn Instructor;
         private DataGridViewTextBoxColumn StartTime;
         private DataGridViewTextBoxColumn EndTime;
     }

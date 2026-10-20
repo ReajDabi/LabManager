@@ -11,8 +11,10 @@ namespace ComLabManager.Core.Interfaces
 
         IEnumerable<BorrowRequest> GetPendingRequests();
         void UpdateRequestStatus(int requestId, string newStatus);
+        IEnumerable<BorrowRequest> GetAllRequests();
+       
 
-      
+
         int GetPendingCount();
     }
 }

@@ -16,20 +16,20 @@ namespace ComLabManager.UI
         private readonly IUserRepository _userRepository;
         private readonly IBorrowRequestRepository _borrowRepository;
         private readonly IComLabScheduleRepository _scheduleRepository;
+        private readonly ISparePartRequestRepository _partRepository;
         private User _currentUser;
-
-
         private UserControl _currentActiveView;
         private Button _activeButton;
 
         private readonly Dictionary<Button, (string Title, Func<UserControl> ViewFactory)> _navigationMap;
 
-        public MainForm(IEquipmentRepository equipmentRepository, IBorrowRequestRepository borrowRepository, IComLabScheduleRepository scheduleRepository)
+        public MainForm(IEquipmentRepository equipmentRepository, IBorrowRequestRepository borrowRepository, IComLabScheduleRepository scheduleRepository, ISparePartRequestRepository partRepository)
         {
             InitializeComponent();
             _equipmentRepository = equipmentRepository;
             _borrowRepository = borrowRepository;
             _scheduleRepository = scheduleRepository;
+            _partRepository = partRepository;
 
             _navigationMap = new Dictionary<Button, (string, Func<UserControl> ViewFactory)>
             {
@@ -55,7 +55,7 @@ namespace ComLabManager.UI
 
             if (_currentUser.Role == "Admin")
             {
-                _navigationMap[btnNavRequestApproval] = ("Pending Requests", () => (UserControl)new AdminApprovalsView());
+                _navigationMap[btnNavRequestApproval] = ("Pending Requests", () => (UserControl)new AdminApprovalsView(_borrowRepository, _partRepository));
             }
             else if (_currentUser.Role == "Student" || _currentUser.Role == "Technician")
             {
