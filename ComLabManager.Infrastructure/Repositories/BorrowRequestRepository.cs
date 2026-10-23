@@ -18,6 +18,22 @@ namespace ComlabManager.Infrastructure.Repositories
             _connectionString = connectionString;
         }
 
+
+        public IEnumerable<BorrowRequest> GetAllRequests()
+        {
+            using (IDbConnection db = new MySqlConnection(_connectionString))
+            {
+                string sql = @"
+            SELECT 
+                br.*, 
+                u.UserName AS StudentName 
+            FROM BorrowRequests br 
+            JOIN Users u ON br.StudentId = u.Id 
+            ORDER BY br.RequestedDate DESC";
+
+                return db.Query<BorrowRequest>(sql).ToList();
+            }
+        }
         public void AddRequest(BorrowRequest request)
         {
             using (IDbConnection db = new MySqlConnection(_connectionString))

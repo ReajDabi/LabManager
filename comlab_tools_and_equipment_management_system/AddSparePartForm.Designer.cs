@@ -30,8 +30,6 @@
         {
             groupBox1 = new GroupBox();
             button2 = new Button();
-            textBox2 = new TextBox();
-            label3 = new Label();
             label2 = new Label();
             textBox1 = new TextBox();
             button1 = new Button();
@@ -42,16 +40,14 @@
             // groupBox1
             // 
             groupBox1.Controls.Add(button2);
-            groupBox1.Controls.Add(textBox2);
-            groupBox1.Controls.Add(label3);
             groupBox1.Controls.Add(label2);
             groupBox1.Controls.Add(textBox1);
             groupBox1.Controls.Add(button1);
             groupBox1.Controls.Add(label1);
             groupBox1.Location = new Point(26, 2);
-            groupBox1.Margin = new Padding(4, 4, 4, 4);
+            groupBox1.Margin = new Padding(4);
             groupBox1.Name = "groupBox1";
-            groupBox1.Padding = new Padding(4, 4, 4, 4);
+            groupBox1.Padding = new Padding(4);
             groupBox1.Size = new Size(459, 416);
             groupBox1.TabIndex = 0;
             groupBox1.TabStop = false;
@@ -63,33 +59,12 @@
             button2.FlatStyle = FlatStyle.Flat;
             button2.ForeColor = Color.White;
             button2.Location = new Point(17, 326);
-            button2.Margin = new Padding(4, 4, 4, 4);
+            button2.Margin = new Padding(4);
             button2.Name = "button2";
             button2.Size = new Size(135, 47);
             button2.TabIndex = 6;
             button2.Text = "Cancel";
             button2.UseVisualStyleBackColor = false;
-            // 
-            // textBox2
-            // 
-            textBox2.BorderStyle = BorderStyle.FixedSingle;
-            textBox2.Cursor = Cursors.Hand;
-            textBox2.Location = new Point(17, 245);
-            textBox2.Margin = new Padding(4, 4, 4, 4);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(426, 31);
-            textBox2.TabIndex = 5;
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Font = new Font("Segoe UI", 10F);
-            label3.Location = new Point(17, 213);
-            label3.Margin = new Padding(4, 0, 4, 0);
-            label3.Name = "label3";
-            label3.Size = new Size(96, 28);
-            label3.TabIndex = 4;
-            label3.Text = "Unit Price";
             // 
             // label2
             // 
@@ -107,7 +82,7 @@
             textBox1.BorderStyle = BorderStyle.FixedSingle;
             textBox1.Cursor = Cursors.Hand;
             textBox1.Location = new Point(17, 134);
-            textBox1.Margin = new Padding(4, 4, 4, 4);
+            textBox1.Margin = new Padding(4);
             textBox1.Name = "textBox1";
             textBox1.Size = new Size(426, 31);
             textBox1.TabIndex = 2;
@@ -119,7 +94,7 @@
             button1.FlatStyle = FlatStyle.Flat;
             button1.ForeColor = Color.White;
             button1.Location = new Point(308, 326);
-            button1.Margin = new Padding(4, 4, 4, 4);
+            button1.Margin = new Padding(4);
             button1.Name = "button1";
             button1.Size = new Size(135, 47);
             button1.TabIndex = 1;
@@ -143,7 +118,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(510, 420);
             Controls.Add(groupBox1);
-            Margin = new Padding(4, 4, 4, 4);
+            Margin = new Padding(4);
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "AddSparePartForm";
@@ -159,8 +134,6 @@
         private GroupBox groupBox1;
         private Button button1;
         private Label label1;
-        private TextBox textBox2;
-        private Label label3;
         private Label label2;
         private TextBox textBox1;
         private Button button2;

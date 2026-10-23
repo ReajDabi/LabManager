@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             dataGridView1 = new DataGridView();
-            euipmentname = new DataGridViewTextBoxColumn();
+            colName = new DataGridViewTextBoxColumn();
             category = new DataGridViewTextBoxColumn();
             quantity = new DataGridViewTextBoxColumn();
             minus = new DataGridViewButtonColumn();
@@ -37,10 +37,10 @@
             restock = new DataGridViewTextBoxColumn();
             restockminus = new DataGridViewButtonColumn();
             restockplus = new DataGridViewButtonColumn();
-            unitprice = new DataGridViewTextBoxColumn();
             buttonAddSparePart = new Button();
             buttonDelete = new Button();
             pnlActionBar = new Panel();
+            btnRequestPart = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             pnlActionBar.SuspendLayout();
             SuspendLayout();
@@ -55,7 +55,7 @@
             dataGridView1.BorderStyle = BorderStyle.None;
             dataGridView1.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { euipmentname, category, quantity, minus, plus, restock, restockminus, restockplus, unitprice });
+            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { colName, category, quantity, minus, plus, restock, restockminus, restockplus });
             dataGridView1.Location = new Point(0, 69);
             dataGridView1.Margin = new Padding(4);
             dataGridView1.Name = "dataGridView1";
@@ -65,17 +65,20 @@
             dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridView1.Size = new Size(958, 495);
             dataGridView1.TabIndex = 0;
+            dataGridView1.CellFormatting += dataGridView1_CellFormatting;
             // 
-            // euipmentname
+            // colName
             // 
-            euipmentname.FillWeight = 188.396683F;
-            euipmentname.HeaderText = "Equipment Name";
-            euipmentname.MinimumWidth = 6;
-            euipmentname.Name = "euipmentname";
-            euipmentname.ReadOnly = true;
+            colName.DataPropertyName = "Name";
+            colName.FillWeight = 188.396683F;
+            colName.HeaderText = "Equipment Name";
+            colName.MinimumWidth = 6;
+            colName.Name = "colName";
+            colName.ReadOnly = true;
             // 
             // category
             // 
+            category.DataPropertyName = "Category";
             category.FillWeight = 153.706024F;
             category.HeaderText = "Category";
             category.MinimumWidth = 6;
@@ -84,6 +87,7 @@
             // 
             // quantity
             // 
+            quantity.DataPropertyName = "Quantity";
             quantity.FillWeight = 153.706024F;
             quantity.HeaderText = "Quantity";
             quantity.MinimumWidth = 6;
@@ -113,6 +117,7 @@
             // 
             // restock
             // 
+            restock.DataPropertyName = "RestockLevel";
             restock.FillWeight = 153.706024F;
             restock.HeaderText = "Restock";
             restock.MinimumWidth = 6;
@@ -139,18 +144,10 @@
             restockplus.Text = "+";
             restockplus.UseColumnTextForButtonValue = true;
             // 
-            // unitprice
-            // 
-            unitprice.FillWeight = 153.706024F;
-            unitprice.HeaderText = "Unit Price";
-            unitprice.MinimumWidth = 6;
-            unitprice.Name = "unitprice";
-            unitprice.ReadOnly = true;
-            // 
             // buttonAddSparePart
             // 
-            buttonAddSparePart.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            buttonAddSparePart.BackColor = Color.Navy;
+            buttonAddSparePart.Anchor = AnchorStyles.Right;
+            buttonAddSparePart.BackColor = Color.Green;
             buttonAddSparePart.FlatAppearance.BorderSize = 0;
             buttonAddSparePart.FlatStyle = FlatStyle.Flat;
             buttonAddSparePart.ForeColor = Color.White;
@@ -165,12 +162,12 @@
             // 
             // buttonDelete
             // 
-            buttonDelete.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            buttonDelete.Anchor = AnchorStyles.Right;
             buttonDelete.BackColor = Color.Red;
             buttonDelete.FlatAppearance.BorderSize = 0;
             buttonDelete.FlatStyle = FlatStyle.Flat;
             buttonDelete.ForeColor = Color.White;
-            buttonDelete.Location = new Point(554, 10);
+            buttonDelete.Location = new Point(558, 10);
             buttonDelete.Margin = new Padding(4);
             buttonDelete.Name = "buttonDelete";
             buttonDelete.Size = new Size(177, 42);
@@ -182,12 +179,29 @@
             // pnlActionBar
             // 
             pnlActionBar.Controls.Add(buttonAddSparePart);
+            pnlActionBar.Controls.Add(btnRequestPart);
             pnlActionBar.Controls.Add(buttonDelete);
             pnlActionBar.Dock = DockStyle.Top;
             pnlActionBar.Location = new Point(0, 0);
             pnlActionBar.Name = "pnlActionBar";
             pnlActionBar.Size = new Size(958, 62);
             pnlActionBar.TabIndex = 3;
+            // 
+            // btnRequestPart
+            // 
+            btnRequestPart.Anchor = AnchorStyles.Right;
+            btnRequestPart.BackColor = Color.Navy;
+            btnRequestPart.FlatAppearance.BorderSize = 0;
+            btnRequestPart.FlatStyle = FlatStyle.Flat;
+            btnRequestPart.ForeColor = Color.White;
+            btnRequestPart.Location = new Point(361, 10);
+            btnRequestPart.Margin = new Padding(4);
+            btnRequestPart.Name = "btnRequestPart";
+            btnRequestPart.Size = new Size(177, 42);
+            btnRequestPart.TabIndex = 2;
+            btnRequestPart.Text = "Request Part";
+            btnRequestPart.UseVisualStyleBackColor = false;
+            btnRequestPart.Click += btnRequestPart_Click;
             // 
             // SparePartsView
             // 
@@ -208,7 +222,11 @@
         #endregion
 
         private DataGridView dataGridView1;
-        private DataGridViewTextBoxColumn euipmentname;
+        private Button buttonAddSparePart;
+        private Button buttonDelete;
+        private Panel pnlActionBar;
+        private Button btnRequestPart;
+        private DataGridViewTextBoxColumn colName;
         private DataGridViewTextBoxColumn category;
         private DataGridViewTextBoxColumn quantity;
         private DataGridViewButtonColumn minus;
@@ -216,9 +234,5 @@
         private DataGridViewTextBoxColumn restock;
         private DataGridViewButtonColumn restockminus;
         private DataGridViewButtonColumn restockplus;
-        private DataGridViewTextBoxColumn unitprice;
-        private Button buttonAddSparePart;
-        private Button buttonDelete;
-        private Panel pnlActionBar;
     }
 }
