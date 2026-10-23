@@ -6,6 +6,8 @@ using System.Windows.Forms;
 
 namespace ComLabManager.UI 
 {
+
+    //TODO: make the add and minus button sa grid works, then dapat dili pede mag add og minus button ang tech
     public partial class SparePartsView : UserControl
     {
         private readonly int _currentUserId;

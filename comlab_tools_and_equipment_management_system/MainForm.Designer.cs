@@ -164,6 +164,7 @@
         btnNavSpareParts.Text = "Spare Parts";
         btnNavSpareParts.TextAlign = ContentAlignment.MiddleLeft;
         btnNavSpareParts.UseVisualStyleBackColor = false;
+        btnNavSpareParts.Click += UniversalNavigation_Click;
         // 
         // btnNavScheduler
         // 
