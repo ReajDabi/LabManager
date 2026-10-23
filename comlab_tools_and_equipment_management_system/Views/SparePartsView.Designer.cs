@@ -195,10 +195,10 @@
             btnRequestPart.FlatAppearance.BorderSize = 0;
             btnRequestPart.FlatStyle = FlatStyle.Flat;
             btnRequestPart.ForeColor = Color.White;
-            btnRequestPart.Location = new Point(361, 10);
+            btnRequestPart.Location = new Point(770, 10);
             btnRequestPart.Margin = new Padding(4);
             btnRequestPart.Name = "btnRequestPart";
-            btnRequestPart.Size = new Size(177, 42);
+            btnRequestPart.Size = new Size(167, 42);
             btnRequestPart.TabIndex = 2;
             btnRequestPart.Text = "Request Part";
             btnRequestPart.UseVisualStyleBackColor = false;
