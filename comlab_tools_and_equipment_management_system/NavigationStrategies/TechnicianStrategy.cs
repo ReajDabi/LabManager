@@ -12,8 +12,9 @@ namespace ComLabManager.UI.NavigationStrategies
 
         public bool CanViewTickets => true;
         public bool CanViewSpareParts => true;
-
-      public bool CanViewUsers => false;
+        public bool CanEditInventory => false;
+        public bool UsesAdminApprovalView => false;
+        public bool CanViewUsers => false;
         public bool CanViewScheduler => false;
         public bool CanViewRequest => false;
 

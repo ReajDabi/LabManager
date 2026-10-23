@@ -4,6 +4,7 @@ using Dapper;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 
 namespace ComlabManager.Infrastructure.Repositories
@@ -139,6 +140,15 @@ namespace ComlabManager.Infrastructure.Repositories
             {
                 string sql = "SELECT Id, Name, Category, Quantity, RestockLevel FROM SpareParts ORDER BY Name";
                 return connection.Query<SparePart>(sql).ToList();
+            }
+        }
+        public void UpdateSparePart(SparePart part)
+        {
+            using (IDbConnection db = new MySqlConnection(_connectionString))
+            {
+                
+                string sql = "UPDATE SpareParts SET Quantity = @Quantity, RestockLevel = @RestockLevel WHERE Id = @Id";
+                db.Execute(sql, part);
             }
         }
     }

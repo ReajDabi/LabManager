@@ -61,18 +61,21 @@ namespace ComLabManager.UI
             _currentUser = user ?? throw new ArgumentNullException(nameof(user));
             lblCurrentUser.Text = $"Viewing as: {_currentUser.UserName} ({_currentUser.Role})";
 
-           
-            _navigationMap[btnNavSpareParts] = ("Spare Parts", () => (UserControl)new SparePartsView(_currentUser.Id, _currentUser.Role, _maintenanceRepository, _partRepository));
+            _navigationMap[btnNavSpareParts] = ("Spare Parts", () =>
+                (UserControl)new SparePartsView(_currentUser.Id, accessStrategy.CanEditInventory, _maintenanceRepository, _partRepository));
 
-            if (_currentUser.Role == "Admin")
+            if (accessStrategy.UsesAdminApprovalView)
             {
-                
-                _navigationMap[btnNavRequestApproval] = ("Pending Requests", () => (UserControl)new     AdminApprovalsView(_borrowRepository, _partRepository));
+                _navigationMap[btnNavRequestApproval] = ("Pending Requests", () =>
+                    (UserControl)new AdminApprovalsView(_borrowRepository, _partRepository));
             }
-            else if (_currentUser.Role == "Student" || _currentUser.Role == "Technician")
+            else
             {
-                _navigationMap[btnNavRequestApproval] = ("My Requests", () => (UserControl)new StudentDashboardView(_equipmentRepository, _borrowRepository, _scheduleRepository, _currentUser.Id));
+                _navigationMap[btnNavRequestApproval] = ("My Requests", () =>
+                    (UserControl)new StudentDashboardView(_equipmentRepository, _borrowRepository, _scheduleRepository, _currentUser.Id));
             }
+
+            btnNavDashboard.Visible = accessStrategy.CanViewDashboard;
 
             btnNavDashboard.Visible = accessStrategy.CanViewDashboard;
             btnNavEquipment.Visible = accessStrategy.CanViewEquipment;
@@ -92,6 +95,8 @@ namespace ComLabManager.UI
 
             accessStrategy.LoadInitialView(this);
         }
+
+        
 
         public void OpenDashboard() => UniversalNavigation_Click(btnNavDashboard, EventArgs.Empty);
         public void OpenStudentDashboard() => UniversalNavigation_Click(btnNavRequestApproval, EventArgs.Empty);

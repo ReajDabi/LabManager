@@ -15,6 +15,8 @@ namespace ComLabManager.UI.NavigationStrategies
         bool CanViewRequest { get; }
         string TicketButtonText { get; }
         string RequestButtonText { get; }
+        bool CanEditInventory { get; }
+        bool UsesAdminApprovalView { get; }
         void LoadInitialView(MainForm form);
     }
 }
