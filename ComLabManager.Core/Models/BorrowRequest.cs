@@ -6,6 +6,7 @@ namespace ComLabManager.Core.Models
     {
         public int Id { get; set; }
         public int StudentId { get; set; }
+        public string StudentName { get; set; }
         public int? EquipmentId { get; set; } 
         public string TargetLocation { get; set; }
         public string Purpose { get; set; }
