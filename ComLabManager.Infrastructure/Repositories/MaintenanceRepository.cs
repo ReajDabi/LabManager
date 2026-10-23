@@ -151,5 +151,25 @@ namespace ComlabManager.Infrastructure.Repositories
                 db.Execute(sql, part);
             }
         }
+
+        public void AddSparePart(SparePart part)
+        {
+            using (IDbConnection db = new MySqlConnection(_connectionString))
+            {
+                string sql = @"
+            INSERT INTO SpareParts (Name, Category, Quantity, RestockLevel) 
+            VALUES (@Name, @Category, @Quantity, @RestockLevel)";
+                db.Execute(sql, part);
+            }
+        }
+
+        public void DeleteSparePart(int id)
+        {
+            using (IDbConnection db = new MySqlConnection(_connectionString))
+            {
+                string sql = "DELETE FROM SpareParts WHERE Id = @Id";
+                db.Execute(sql, new { Id = id });
+            }
+        }
     }
 }

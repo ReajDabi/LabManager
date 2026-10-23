@@ -60,16 +60,38 @@ namespace ComLabManager.UI
 
         private void buttonDelete_Click(object sender, EventArgs e)
         {
-            DeleteSparePartForm deletesparepartform = new DeleteSparePartForm();
-            deletesparepartform.ShowDialog();
-            RefreshGrid();
+            if (dataGridView1.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Please select a spare part row to delete.", "No Selection", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            var selectedPart = (SparePart)dataGridView1.SelectedRows[0].DataBoundItem;
+            var result = MessageBox.Show($"Are you sure you want to delete '{selectedPart.Name}'?", "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+            if (result == DialogResult.Yes)
+            {
+                try
+                {
+                    _maintenanceRepo.DeleteSparePart(selectedPart.Id);
+                    RefreshGrid();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Cannot delete this part because it is currently linked to an active request.", "Delete Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
 
         private void buttonAddSparePart_Click(object sender, EventArgs e)
         {
-            AddSparePartForm addsparepartform = new AddSparePartForm();
-            addsparepartform.ShowDialog();
-            RefreshGrid();
+            using (AddSparePartForm addForm = new AddSparePartForm(_maintenanceRepo))
+            {
+                if (addForm.ShowDialog() == DialogResult.OK)
+                {
+                    RefreshGrid(); 
+                }
+            }
         }
 
         private void btnRequestPart_Click(object sender, EventArgs e)

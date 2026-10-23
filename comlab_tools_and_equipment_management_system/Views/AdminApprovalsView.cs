@@ -52,7 +52,7 @@ namespace ComLabManager.UI.Views
            
             colPartRequestId.DataPropertyName = "Id";
             colPartTech.DataPropertyName = "TechName";
-            colRequestedPart.DataPropertyName = "PartName";
+            colRequestedPart.DataPropertyName = "Name";
             Quantity.DataPropertyName = "Quantity";
             colPartReason.DataPropertyName = "Reason";
             colParrtStatus.DataPropertyName = "Status";
