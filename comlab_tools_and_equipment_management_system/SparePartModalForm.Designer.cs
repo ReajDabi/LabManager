@@ -46,7 +46,7 @@
             cmbSparePart.FormattingEnabled = true;
             cmbSparePart.Location = new Point(102, 153);
             cmbSparePart.Name = "cmbSparePart";
-            cmbSparePart.Size = new Size(168, 33);
+            cmbSparePart.Size = new Size(243, 33);
             cmbSparePart.TabIndex = 0;
             // 
             // numQuantity
