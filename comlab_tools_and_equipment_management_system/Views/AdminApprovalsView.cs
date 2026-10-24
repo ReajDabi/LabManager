@@ -76,26 +76,45 @@ namespace ComLabManager.UI.Views
         {
             if (_activeTab == ActiveRequestTab.Borrow)
             {
-                if (dgvBorrowRequests.SelectedRows.Count == 0) return;
-                var selectedReq = (BorrowRequest)dgvBorrowRequests.SelectedRows[0].DataBoundItem;
-
-                if (selectedReq.Status != "Pending") { ShowWarning(); return; }
-                if (ConfirmAction(newStatus) == DialogResult.Yes)
-                {
-                    _borrowRepo.UpdateRequestStatus(selectedReq.Id, newStatus);
-                    RefreshBorrowGrid();
-                }
+                ExecuteApprovalFlow(dgvBorrowRequests, newStatus, _borrowRepo.UpdateRequestStatus, RefreshBorrowGrid);
             }
+
             else if (_activeTab == ActiveRequestTab.Parts)
             {
-                if (dgvPartRequests.SelectedRows.Count == 0) return;
-                var selectedReq = (SparePartRequest)dgvPartRequests.SelectedRows[0].DataBoundItem;
-
-                if (selectedReq.Status != "Pending") { ShowWarning(); return; }
-                if (ConfirmAction(newStatus) == DialogResult.Yes)
+                Action<int, string> action = (id, status) =>
                 {
-                    _partRepo.UpdateRequestStatus(selectedReq.Id, newStatus);
-                    RefreshPartGrid();
+                    if (status == "Approved") _partRepo.ApproveAndDeductInventory(id);
+                    else _partRepo.UpdateRequestStatus(id, status);
+                };
+
+                ExecuteApprovalFlow(dgvPartRequests, newStatus, action, RefreshPartGrid);
+            }
+        }
+
+
+
+        private void ExecuteApprovalFlow(DataGridView grid, string newStatus, Action<int, string> repoAction, Action refreshAction)
+        {
+            if (grid.SelectedRows.Count == 0) return;
+
+            var selectedReq = (IApprovalRequest)grid.SelectedRows[0].DataBoundItem;
+
+            if (selectedReq.Status != "Pending")
+            {
+                ShowWarning();
+                return;
+            }
+
+            if (ConfirmAction(newStatus) == DialogResult.Yes)
+            {
+                try
+                {
+                    repoAction(selectedReq.Id, newStatus);
+                    refreshAction();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Action Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }

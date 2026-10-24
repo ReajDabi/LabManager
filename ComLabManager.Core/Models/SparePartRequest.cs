@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using ComLabManager.Core.Interfaces;
 
 namespace ComLabManager.Core.Models
 {
-    public class SparePartRequest
+    public class SparePartRequest: IApprovalRequest
     {
         public int Id { get; set; }
         public int TechId { get; set; }

@@ -51,12 +51,46 @@ namespace ComLabManager.Infrastructure.Repositories
             }
         }
 
+
+
+     
         public void UpdateRequestStatus(int requestId, string status)
         {
             using (IDbConnection db = new MySqlConnection(_connectionString))
             {
                 string sql = "UPDATE SparePartRequests SET Status = @Status WHERE Id = @Id";
                 db.Execute(sql, new { Status = status, Id = requestId });
+            }
+        }
+
+        public void ApproveAndDeductInventory(int requestId)
+        {
+            using (IDbConnection db = new MySqlConnection(_connectionString))
+            {
+                db.Open();
+                using (var transaction = db.BeginTransaction())
+                {
+                    try
+                    {
+                        var request = db.QuerySingle<SparePartRequest>("SELECT * FROM SparePartRequests WHERE Id = @Id", new { Id = requestId }, transaction);
+                        var part = db.QuerySingle<SparePart>("SELECT * FROM SpareParts WHERE Id = @Id", new { Id = request.RequestPartId }, transaction);
+
+                        if (part.Quantity < request.Quantity)
+                        {
+                            throw new InvalidOperationException($"Insufficient stock.\nAvailable: {part.Quantity}\nRequested: {request.Quantity}");
+                        }
+
+                        db.Execute("UPDATE SpareParts SET Quantity = Quantity - @Qty WHERE Id = @PartId", new { Qty = request.Quantity, PartId = request.RequestPartId }, transaction);
+                        db.Execute("UPDATE SparePartRequests SET Status = 'Approved' WHERE Id = @Id", new { Id = requestId }, transaction);
+
+                        transaction.Commit();
+                    }
+                    catch
+                    {
+                        transaction.Rollback();
+                        throw;
+                    }
+                }
             }
         }
     }
