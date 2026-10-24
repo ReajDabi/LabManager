@@ -154,7 +154,7 @@ namespace ComLabManager.UI
 
         private void btnSignOut_Click(object sender, EventArgs e)
         {
-            DialogResult result = MessageBox.Show(
+            DialogResult result = MessageBox.Show(this,
                 "Are you sure you want to log out?",
                 "Confirm Logout",
                 MessageBoxButtons.YesNo,

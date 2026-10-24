@@ -17,14 +17,40 @@ namespace ComLabManager.Infrastructure.Repositories
             _connectionString = connectionString;
         }
 
-        public IEnumerable<ComLabSchedule> GetAllSchedules()
+
+        public IEnumerable<UnifiedScheduleDto> GetUnifiedComLabSchedules()
         {
             using (IDbConnection db = new MySqlConnection(_connectionString))
             {
-                string sql = @"SELECT * FROM ComLabSchedules 
-                               ORDER BY FIELD(DayOfWeek, 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'), StartTime";
+                string sql = @"
+            SELECT 
+                ComLabName, 
+                SubjectCode AS Subject, 
+                InstructorName AS Instructor, 
+                DayOfWeek, 
+                StartTime, 
+                EndTime,
+                'Class' AS BookingType
+            FROM ComLabSchedules
+            
+            UNION ALL
+            
+            SELECT 
+                br.TargetLocation AS ComLabName, 
+                br.Purpose AS Subject, 
+                u.Username AS Instructor, 
+                DAYNAME(br.RequestedDate) AS DayOfWeek, 
+                br.StartTime, 
+                br.EndTime,
+                'Reservation' AS BookingType
+            FROM BorrowRequests br
+            JOIN Users u ON br.StudentId = u.Id
+            WHERE br.Status = 'Approved'
+            
+            ORDER BY FIELD(DayOfWeek, 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'), StartTime;
+        ";
 
-                return db.Query<ComLabSchedule>(sql).ToList();
+                return db.Query<UnifiedScheduleDto>(sql).ToList();
             }
         }
     }

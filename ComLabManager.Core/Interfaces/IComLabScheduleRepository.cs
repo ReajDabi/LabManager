@@ -7,6 +7,6 @@ namespace ComLabManager.Core.Interfaces
 {
     public interface IComLabScheduleRepository
     {
-        IEnumerable<ComLabSchedule> GetAllSchedules();
+        IEnumerable<UnifiedScheduleDto> GetUnifiedComLabSchedules();
     }
 }

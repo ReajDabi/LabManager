@@ -9,7 +9,6 @@ namespace ComLabManager.UI.Views
 {
     public partial class AdminApprovalsView : UserControl
     {
-        
         private readonly IBorrowRequestRepository _borrowRepo;
         private readonly ISparePartRequestRepository _partRepo;
         private readonly Dictionary<string, Color> _statusColors;
@@ -35,7 +34,8 @@ namespace ComLabManager.UI.Views
             RefreshBorrowGrid();
             RefreshPartGrid();
 
-            btnToggleBorrow_Click(this, EventArgs.Empty);
+            
+            SetActiveTab(ActiveRequestTab.Borrow);
         }
 
         private void SetupGrids()
@@ -49,7 +49,6 @@ namespace ComLabManager.UI.Views
             Purpose.DataPropertyName = "Purpose";
             Status.DataPropertyName = "Status";
 
-           
             colPartRequestId.DataPropertyName = "Id";
             colPartTech.DataPropertyName = "TechName";
             colRequestedPart.DataPropertyName = "PartName";
@@ -68,35 +67,32 @@ namespace ComLabManager.UI.Views
             if (_partRepo != null) dgvPartRequests.DataSource = _partRepo.GetAllRequests();
         }
 
-        
         private void btnApprove_Click(object sender, EventArgs e) => ProcessSelectedRequest("Approved");
         private void btnDeny_Click(object sender, EventArgs e) => ProcessSelectedRequest("Denied");
 
-       private void ProcessSelectedRequest(string newStatus)
-{
-    if (_activeTab == ActiveRequestTab.Borrow)
-    {
-        Action<int, string> action = (id, status) => 
+        private void ProcessSelectedRequest(string newStatus)
         {
-            if (status == "Approved") _borrowRepo.ApproveAndLockEquipment(id);
-            else _borrowRepo.UpdateRequestStatus(id, status);
-        };
+            if (_activeTab == ActiveRequestTab.Borrow)
+            {
+                Action<int, string> action = (id, status) =>
+                {
+                    if (status == "Approved") _borrowRepo.ApproveAndLockEquipment(id);
+                    else _borrowRepo.UpdateRequestStatus(id, status);
+                };
 
-        ExecuteApprovalFlow(dgvBorrowRequests, newStatus, action, RefreshBorrowGrid);
-    }
-    else if (_activeTab == ActiveRequestTab.Parts)
-    {
-        Action<int, string> action = (id, status) => 
-        {
-            if (status == "Approved") _partRepo.ApproveAndDeductInventory(id);
-            else _partRepo.UpdateRequestStatus(id, status);
-        };
+                ExecuteApprovalFlow(dgvBorrowRequests, newStatus, action, RefreshBorrowGrid);
+            }
+            else if (_activeTab == ActiveRequestTab.Parts)
+            {
+                Action<int, string> action = (id, status) =>
+                {
+                    if (status == "Approved") _partRepo.ApproveAndDeductInventory(id);
+                    else _partRepo.UpdateRequestStatus(id, status);
+                };
 
-        ExecuteApprovalFlow(dgvPartRequests, newStatus, action, RefreshPartGrid);
-    }
-}
-
-
+                ExecuteApprovalFlow(dgvPartRequests, newStatus, action, RefreshPartGrid);
+            }
+        }
 
         private void ExecuteApprovalFlow(DataGridView grid, string newStatus, Action<int, string> repoAction, Action refreshAction)
         {
@@ -127,21 +123,51 @@ namespace ComLabManager.UI.Views
         private void ShowWarning() => MessageBox.Show("You can only modify Pending requests.", "Invalid Action", MessageBoxButtons.OK, MessageBoxIcon.Information);
         private DialogResult ConfirmAction(string status) => MessageBox.Show($"Are you sure you want to mark this request as {status}?", "Confirm Action", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
-       
-        private void btnToggleBorrow_Click(object sender, EventArgs e)
+        
+        private void SetActiveTab(ActiveRequestTab tab)
         {
-            _activeTab = ActiveRequestTab.Borrow;
-            pnlBorrowRequests.BringToFront();
-            btnToggleBorrow.BackColor = Color.FromArgb(0, 120, 215);
-            btnToggleParts.BackColor = Color.FromArgb(30, 41, 59);
+            _activeTab = tab;
+            bool isBorrowTab = (_activeTab == ActiveRequestTab.Borrow);
+
+      
+            if (isBorrowTab) pnlBorrowRequests.BringToFront();
+            else pnlPartRequests.BringToFront();
+
+        
+            btnToggleBorrow.BackColor = isBorrowTab ? Color.FromArgb(0, 120, 215) : Color.FromArgb(30, 41, 59);
+            btnToggleParts.BackColor = !isBorrowTab ? Color.FromArgb(0, 120, 215) : Color.FromArgb(30, 41, 59);
+
+           
+            btnReturnEquipment.Visible = isBorrowTab;
         }
 
-        private void btnToggleParts_Click(object sender, EventArgs e)
+        private void btnToggleBorrow_Click(object sender, EventArgs e) => SetActiveTab(ActiveRequestTab.Borrow);
+        private void btnToggleParts_Click(object sender, EventArgs e) => SetActiveTab(ActiveRequestTab.Parts);
+
+        private void btnReturnEquipment_Click(object sender, EventArgs e)
         {
-            _activeTab = ActiveRequestTab.Parts;
-            pnlPartRequests.BringToFront();
-            btnToggleParts.BackColor = Color.FromArgb(0, 120, 215);
-            btnToggleBorrow.BackColor = Color.FromArgb(30, 41, 59);
+            if (dgvBorrowRequests.SelectedRows.Count == 0) return;
+
+            var selectedReq = (BorrowRequest)dgvBorrowRequests.SelectedRows[0].DataBoundItem;
+
+            if (selectedReq.Status != "Approved")
+            {
+                MessageBox.Show("You can only return equipment that is currently marked as Approved.", "Invalid Action", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (MessageBox.Show("Confirm this equipment has been returned?", "Confirm Return", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                try
+                {
+                    _borrowRepo.ReturnEquipment(selectedReq.Id);
+                    RefreshBorrowGrid();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Return Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
     }
 }

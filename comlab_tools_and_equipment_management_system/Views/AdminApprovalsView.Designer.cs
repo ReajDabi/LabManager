@@ -31,6 +31,7 @@
             btnApprove = new Button();
             btnDeny = new Button();
             pnlActions = new Panel();
+            btnReturnEquipment = new Button();
             dgvBorrowRequests = new DataGridView();
             RequestId = new DataGridViewTextBoxColumn();
             StudentName = new DataGridViewTextBoxColumn();
@@ -40,16 +41,16 @@
             Status = new DataGridViewTextBoxColumn();
             pnlPartRequests = new Panel();
             dgvPartRequests = new DataGridView();
-            pnlBorrowRequests = new Panel();
-            btnToggleBorrow = new Button();
-            pnlHeader = new Panel();
-            btnToggleParts = new Button();
             colPartRequestId = new DataGridViewTextBoxColumn();
             colPartTech = new DataGridViewTextBoxColumn();
             colRequestedPart = new DataGridViewTextBoxColumn();
             Quantity = new DataGridViewTextBoxColumn();
             colPartReason = new DataGridViewTextBoxColumn();
             colPartStatus = new DataGridViewTextBoxColumn();
+            pnlBorrowRequests = new Panel();
+            btnToggleBorrow = new Button();
+            pnlHeader = new Panel();
+            btnToggleParts = new Button();
             pnlActions.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvBorrowRequests).BeginInit();
             pnlPartRequests.SuspendLayout();
@@ -90,12 +91,28 @@
             // pnlActions
             // 
             pnlActions.Controls.Add(btnDeny);
+            pnlActions.Controls.Add(btnReturnEquipment);
             pnlActions.Controls.Add(btnApprove);
             pnlActions.Dock = DockStyle.Bottom;
             pnlActions.Location = new Point(0, 504);
             pnlActions.Name = "pnlActions";
             pnlActions.Size = new Size(958, 60);
             pnlActions.TabIndex = 2;
+            // 
+            // btnReturnEquipment
+            // 
+            btnReturnEquipment.Anchor = AnchorStyles.Left;
+            btnReturnEquipment.BackColor = Color.Navy;
+            btnReturnEquipment.FlatStyle = FlatStyle.Flat;
+            btnReturnEquipment.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
+            btnReturnEquipment.ForeColor = SystemColors.ButtonHighlight;
+            btnReturnEquipment.Location = new Point(23, 9);
+            btnReturnEquipment.Name = "btnReturnEquipment";
+            btnReturnEquipment.Size = new Size(204, 41);
+            btnReturnEquipment.TabIndex = 1;
+            btnReturnEquipment.Text = "Equipment Returned";
+            btnReturnEquipment.UseVisualStyleBackColor = false;
+            btnReturnEquipment.Click += btnReturnEquipment_Click;
             // 
             // dgvBorrowRequests
             // 
@@ -180,51 +197,6 @@
             dgvPartRequests.Size = new Size(958, 424);
             dgvPartRequests.TabIndex = 0;
             // 
-            // pnlBorrowRequests
-            // 
-            pnlBorrowRequests.Controls.Add(dgvBorrowRequests);
-            pnlBorrowRequests.Dock = DockStyle.Fill;
-            pnlBorrowRequests.Location = new Point(0, 80);
-            pnlBorrowRequests.Name = "pnlBorrowRequests";
-            pnlBorrowRequests.Size = new Size(958, 484);
-            pnlBorrowRequests.TabIndex = 1;
-            // 
-            // btnToggleBorrow
-            // 
-            btnToggleBorrow.BackColor = SystemColors.Highlight;
-            btnToggleBorrow.FlatStyle = FlatStyle.Flat;
-            btnToggleBorrow.ForeColor = SystemColors.ButtonFace;
-            btnToggleBorrow.Location = new Point(23, 17);
-            btnToggleBorrow.Name = "btnToggleBorrow";
-            btnToggleBorrow.Size = new Size(180, 48);
-            btnToggleBorrow.TabIndex = 1;
-            btnToggleBorrow.Text = "Student Requests";
-            btnToggleBorrow.UseVisualStyleBackColor = false;
-            btnToggleBorrow.Click += btnToggleBorrow_Click;
-            // 
-            // pnlHeader
-            // 
-            pnlHeader.Controls.Add(btnToggleParts);
-            pnlHeader.Controls.Add(btnToggleBorrow);
-            pnlHeader.Dock = DockStyle.Top;
-            pnlHeader.Location = new Point(0, 0);
-            pnlHeader.Name = "pnlHeader";
-            pnlHeader.Size = new Size(958, 80);
-            pnlHeader.TabIndex = 0;
-            // 
-            // btnToggleParts
-            // 
-            btnToggleParts.BackColor = Color.FromArgb(30, 41, 59);
-            btnToggleParts.FlatStyle = FlatStyle.Flat;
-            btnToggleParts.ForeColor = SystemColors.ButtonFace;
-            btnToggleParts.Location = new Point(194, 17);
-            btnToggleParts.Name = "btnToggleParts";
-            btnToggleParts.Size = new Size(171, 48);
-            btnToggleParts.TabIndex = 1;
-            btnToggleParts.Text = "Tech Requests";
-            btnToggleParts.UseVisualStyleBackColor = false;
-            btnToggleParts.Click += btnToggleParts_Click;
-            // 
             // colPartRequestId
             // 
             colPartRequestId.HeaderText = "RequestId";
@@ -270,6 +242,51 @@
             colPartStatus.Name = "colPartStatus";
             colPartStatus.Width = 150;
             // 
+            // pnlBorrowRequests
+            // 
+            pnlBorrowRequests.Controls.Add(dgvBorrowRequests);
+            pnlBorrowRequests.Dock = DockStyle.Fill;
+            pnlBorrowRequests.Location = new Point(0, 80);
+            pnlBorrowRequests.Name = "pnlBorrowRequests";
+            pnlBorrowRequests.Size = new Size(958, 484);
+            pnlBorrowRequests.TabIndex = 1;
+            // 
+            // btnToggleBorrow
+            // 
+            btnToggleBorrow.BackColor = SystemColors.Highlight;
+            btnToggleBorrow.FlatStyle = FlatStyle.Flat;
+            btnToggleBorrow.ForeColor = SystemColors.ButtonFace;
+            btnToggleBorrow.Location = new Point(23, 17);
+            btnToggleBorrow.Name = "btnToggleBorrow";
+            btnToggleBorrow.Size = new Size(180, 48);
+            btnToggleBorrow.TabIndex = 1;
+            btnToggleBorrow.Text = "Student Requests";
+            btnToggleBorrow.UseVisualStyleBackColor = false;
+            btnToggleBorrow.Click += btnToggleBorrow_Click;
+            // 
+            // pnlHeader
+            // 
+            pnlHeader.Controls.Add(btnToggleParts);
+            pnlHeader.Controls.Add(btnToggleBorrow);
+            pnlHeader.Dock = DockStyle.Top;
+            pnlHeader.Location = new Point(0, 0);
+            pnlHeader.Name = "pnlHeader";
+            pnlHeader.Size = new Size(958, 80);
+            pnlHeader.TabIndex = 0;
+            // 
+            // btnToggleParts
+            // 
+            btnToggleParts.BackColor = Color.FromArgb(30, 41, 59);
+            btnToggleParts.FlatStyle = FlatStyle.Flat;
+            btnToggleParts.ForeColor = SystemColors.ButtonFace;
+            btnToggleParts.Location = new Point(194, 17);
+            btnToggleParts.Name = "btnToggleParts";
+            btnToggleParts.Size = new Size(171, 48);
+            btnToggleParts.TabIndex = 1;
+            btnToggleParts.Text = "Tech Requests";
+            btnToggleParts.UseVisualStyleBackColor = false;
+            btnToggleParts.Click += btnToggleParts_Click;
+            // 
             // AdminApprovalsView
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
@@ -314,5 +331,6 @@
         private DataGridViewTextBoxColumn Quantity;
         private DataGridViewTextBoxColumn colPartReason;
         private DataGridViewTextBoxColumn colPartStatus;
+        private Button btnReturnEquipment;
     }
 }
