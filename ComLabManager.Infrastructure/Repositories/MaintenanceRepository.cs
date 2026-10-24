@@ -134,42 +134,6 @@ namespace ComlabManager.Infrastructure.Repositories
             }
         }
 
-        public List<SparePart> GetAllSpareParts()
-        {
-            using (var connection = new MySqlConnection(_connectionString))
-            {
-                string sql = "SELECT Id, Name, Category, Quantity, RestockLevel FROM SpareParts ORDER BY Name";
-                return connection.Query<SparePart>(sql).ToList();
-            }
-        }
-        public void UpdateSparePart(SparePart part)
-        {
-            using (IDbConnection db = new MySqlConnection(_connectionString))
-            {
-                
-                string sql = "UPDATE SpareParts SET Quantity = @Quantity, RestockLevel = @RestockLevel WHERE Id = @Id";
-                db.Execute(sql, part);
-            }
-        }
-
-        public void AddSparePart(SparePart part)
-        {
-            using (IDbConnection db = new MySqlConnection(_connectionString))
-            {
-                string sql = @"
-            INSERT INTO SpareParts (Name, Category, Quantity, RestockLevel) 
-            VALUES (@Name, @Category, @Quantity, @RestockLevel)";
-                db.Execute(sql, part);
-            }
-        }
-
-        public void DeleteSparePart(int id)
-        {
-            using (IDbConnection db = new MySqlConnection(_connectionString))
-            {
-                string sql = "DELETE FROM SpareParts WHERE Id = @Id";
-                db.Execute(sql, new { Id = id });
-            }
-        }
+        
     }
 }

@@ -12,17 +12,15 @@ namespace ComLabManager.UI
     {
         private readonly int _currentUserId;
         private readonly bool _canEditInventory;
-        private readonly IMaintenanceRepository _maintenanceRepo;
+        private readonly ISparePartRepository _sparePartRepo;
         private readonly ISparePartRequestRepository _partRequestRepo;
-     
 
-        public SparePartsView(int currentUserId,  bool canEditInventory, IMaintenanceRepository maintenanceRepo, ISparePartRequestRepository partRequestRepo)
+        public SparePartsView(int currentUserId, bool canEditInventory, ISparePartRepository sparePartRepo, ISparePartRequestRepository partRequestRepo)
         {
             InitializeComponent();
 
             _currentUserId = currentUserId;
-           
-            _maintenanceRepo = maintenanceRepo ?? throw new ArgumentNullException(nameof(maintenanceRepo));
+            _sparePartRepo = sparePartRepo ?? throw new ArgumentNullException(nameof(sparePartRepo));
             _partRequestRepo = partRequestRepo ?? throw new ArgumentNullException(nameof(partRequestRepo));
             _canEditInventory = canEditInventory;
 
@@ -51,10 +49,10 @@ namespace ComLabManager.UI
 
         private void RefreshGrid()
         {
-            if (_maintenanceRepo != null)
+            if (_sparePartRepo != null)
             {
                 dataGridView1.AutoGenerateColumns = false;
-                dataGridView1.DataSource = _maintenanceRepo.GetAllSpareParts();
+                dataGridView1.DataSource = _sparePartRepo.GetAllSpareParts();
             }
         }
 
@@ -73,30 +71,30 @@ namespace ComLabManager.UI
             {
                 try
                 {
-                    _maintenanceRepo.DeleteSparePart(selectedPart.Id);
+                    _sparePartRepo.DeleteSparePart(selectedPart.Id);
                     RefreshGrid();
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Cannot delete this part because it is currently linked to an active request.", "Delete Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(ex.Message, "Delete Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
 
         private void buttonAddSparePart_Click(object sender, EventArgs e)
         {
-            using (AddSparePartForm addForm = new AddSparePartForm(_maintenanceRepo))
+            using (AddSparePartForm addForm = new AddSparePartForm(_sparePartRepo))
             {
                 if (addForm.ShowDialog() == DialogResult.OK)
                 {
-                    RefreshGrid(); 
+                    RefreshGrid();
                 }
             }
         }
 
         private void btnRequestPart_Click(object sender, EventArgs e)
         {
-            var availableParts = _maintenanceRepo.GetAllSpareParts();
+            var availableParts = _sparePartRepo.GetAllSpareParts();
 
             if (availableParts == null || !availableParts.Any())
             {
@@ -149,13 +147,13 @@ namespace ComLabManager.UI
                     part.RestockLevel++;
                     break;
                 default:
-                    needsUpdate = false; 
+                    needsUpdate = false;
                     break;
             }
 
             if (needsUpdate)
             {
-                _maintenanceRepo.UpdateSparePart(part);
+                _sparePartRepo.UpdateSparePart(part);
                 RefreshGrid();
             }
         }
