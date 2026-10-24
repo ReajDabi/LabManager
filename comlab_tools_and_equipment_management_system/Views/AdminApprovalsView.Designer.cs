@@ -45,7 +45,7 @@
             colRequestedPart = new DataGridViewTextBoxColumn();
             Quantity = new DataGridViewTextBoxColumn();
             colPartReason = new DataGridViewTextBoxColumn();
-            colParrtStatus = new DataGridViewTextBoxColumn();
+            colPartStatus = new DataGridViewTextBoxColumn();
             pnlBorrowRequests = new Panel();
             btnToggleBorrow = new Button();
             pnlHeader = new Panel();
@@ -71,6 +71,7 @@
             btnApprove.TabIndex = 1;
             btnApprove.Text = "Approve";
             btnApprove.UseVisualStyleBackColor = false;
+            btnApprove.Click += btnApprove_Click;
             // 
             // btnDeny
             // 
@@ -111,6 +112,7 @@
             dgvBorrowRequests.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvBorrowRequests.Size = new Size(958, 484);
             dgvBorrowRequests.TabIndex = 0;
+            dgvBorrowRequests.CellFormatting += dgvBorrowRequests_CellFormatting;
             // 
             // RequestId
             // 
@@ -170,7 +172,7 @@
             dgvPartRequests.BackgroundColor = SystemColors.Control;
             dgvPartRequests.BorderStyle = BorderStyle.None;
             dgvPartRequests.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvPartRequests.Columns.AddRange(new DataGridViewColumn[] { colPartRequestId, colPartTech, colRequestedPart, Quantity, colPartReason, colParrtStatus });
+            dgvPartRequests.Columns.AddRange(new DataGridViewColumn[] { colPartRequestId, colPartTech, colRequestedPart, Quantity, colPartReason, colPartStatus });
             dgvPartRequests.Dock = DockStyle.Fill;
             dgvPartRequests.Location = new Point(0, 0);
             dgvPartRequests.Name = "dgvPartRequests";
@@ -179,6 +181,7 @@
             dgvPartRequests.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvPartRequests.Size = new Size(958, 424);
             dgvPartRequests.TabIndex = 0;
+            dgvPartRequests.CellFormatting += dgvPartRequests_CellFormatting;
             // 
             // colPartRequestId
             // 
@@ -217,12 +220,12 @@
             colPartReason.MinimumWidth = 8;
             colPartReason.Name = "colPartReason";
             // 
-            // colParrtStatus
+            // colPartStatus
             // 
-            colParrtStatus.HeaderText = "Status";
-            colParrtStatus.MinimumWidth = 8;
-            colParrtStatus.Name = "colParrtStatus";
-            colParrtStatus.Width = 150;
+            colPartStatus.HeaderText = "Status";
+            colPartStatus.MinimumWidth = 8;
+            colPartStatus.Name = "colPartStatus";
+            colPartStatus.Width = 150;
             // 
             // pnlBorrowRequests
             // 
@@ -303,15 +306,15 @@
         private DataGridViewTextBoxColumn Status;
         private Panel pnlPartRequests;
         private DataGridView dgvPartRequests;
+        private Panel pnlBorrowRequests;
+        private Button btnToggleBorrow;
+        private Panel pnlHeader;
+        private Button btnToggleParts;
         private DataGridViewTextBoxColumn colPartRequestId;
         private DataGridViewTextBoxColumn colPartTech;
         private DataGridViewTextBoxColumn colRequestedPart;
         private DataGridViewTextBoxColumn Quantity;
         private DataGridViewTextBoxColumn colPartReason;
-        private DataGridViewTextBoxColumn colParrtStatus;
-        private Panel pnlBorrowRequests;
-        private Button btnToggleBorrow;
-        private Panel pnlHeader;
-        private Button btnToggleParts;
+        private DataGridViewTextBoxColumn colPartStatus;
     }
 }
