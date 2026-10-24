@@ -31,7 +31,7 @@ namespace ComLabManager.UI
             services.AddTransient<IBorrowRequestRepository>(provider => new BorrowRequestRepository(connectionString));
             services.AddTransient<IComLabScheduleRepository>(provider => new ComLabScheduleRepository(connectionString));
             services.AddTransient<ISparePartRequestRepository>(provider => new SparePartRequestRepository(connectionString)); 
-
+            services.AddTransient<ISparePartRepository>(provider => new SparePartRepository(connectionString));
             services.AddTransient<MainForm>();
             services.AddTransient<LoginForm>();
 
