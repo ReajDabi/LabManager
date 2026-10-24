@@ -64,16 +64,38 @@ namespace ComlabManager.Infrastructure.Repositories
                 return db.Query<BorrowRequest>(sql).ToList();
             }
         }
-
-        public IEnumerable<BorrowRequest> GetAllRequests()
+        public void ApproveAndLockEquipment(int requestId)
         {
             using (IDbConnection db = new MySqlConnection(_connectionString))
             {
-               
-                string sql = "SELECT * FROM BorrowRequests ORDER BY RequestedDate DESC, StartTime DESC";
-                return db.Query<BorrowRequest>(sql).ToList();
+                db.Open();
+                using (var transaction = db.BeginTransaction())
+                {
+                    try
+                    {
+                        var request = db.QuerySingle<BorrowRequest>("SELECT * FROM BorrowRequests WHERE Id = @Id", new { Id = requestId }, transaction);
+                        var equipmentStatus = db.QuerySingle<string>("SELECT Status FROM Equipment WHERE Id = @Id", new { Id = request.EquipmentId }, transaction);
+
+                        
+                        if (equipmentStatus != "Available")
+                        {
+                            throw new InvalidOperationException($"This equipment cannot be approved because its current status is: {equipmentStatus}");
+                        }
+
+                        db.Execute("UPDATE Equipment SET Status = 'In Use' WHERE Id = @Id", new { Id = request.EquipmentId }, transaction);
+                        db.Execute("UPDATE BorrowRequests SET Status = 'Approved' WHERE Id = @Id", new { Id = requestId }, transaction);
+
+                        transaction.Commit();
+                    }
+                    catch
+                    {
+                        transaction.Rollback();
+                        throw;
+                    }
+                }
             }
         }
+
 
         public void UpdateRequestStatus(int requestId, string status)
         {

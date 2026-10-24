@@ -52,10 +52,10 @@ namespace ComLabManager.UI.Views
            
             colPartRequestId.DataPropertyName = "Id";
             colPartTech.DataPropertyName = "TechName";
-            colRequestedPart.DataPropertyName = "Name";
+            colRequestedPart.DataPropertyName = "PartName";
             Quantity.DataPropertyName = "Quantity";
             colPartReason.DataPropertyName = "Reason";
-            colParrtStatus.DataPropertyName = "Status";
+            colPartStatus.DataPropertyName = "Status";
         }
 
         private void RefreshBorrowGrid()
@@ -72,24 +72,29 @@ namespace ComLabManager.UI.Views
         private void btnApprove_Click(object sender, EventArgs e) => ProcessSelectedRequest("Approved");
         private void btnDeny_Click(object sender, EventArgs e) => ProcessSelectedRequest("Denied");
 
-        private void ProcessSelectedRequest(string newStatus)
+       private void ProcessSelectedRequest(string newStatus)
+{
+    if (_activeTab == ActiveRequestTab.Borrow)
+    {
+        Action<int, string> action = (id, status) => 
         {
-            if (_activeTab == ActiveRequestTab.Borrow)
-            {
-                ExecuteApprovalFlow(dgvBorrowRequests, newStatus, _borrowRepo.UpdateRequestStatus, RefreshBorrowGrid);
-            }
+            if (status == "Approved") _borrowRepo.ApproveAndLockEquipment(id);
+            else _borrowRepo.UpdateRequestStatus(id, status);
+        };
 
-            else if (_activeTab == ActiveRequestTab.Parts)
-            {
-                Action<int, string> action = (id, status) =>
-                {
-                    if (status == "Approved") _partRepo.ApproveAndDeductInventory(id);
-                    else _partRepo.UpdateRequestStatus(id, status);
-                };
+        ExecuteApprovalFlow(dgvBorrowRequests, newStatus, action, RefreshBorrowGrid);
+    }
+    else if (_activeTab == ActiveRequestTab.Parts)
+    {
+        Action<int, string> action = (id, status) => 
+        {
+            if (status == "Approved") _partRepo.ApproveAndDeductInventory(id);
+            else _partRepo.UpdateRequestStatus(id, status);
+        };
 
-                ExecuteApprovalFlow(dgvPartRequests, newStatus, action, RefreshPartGrid);
-            }
-        }
+        ExecuteApprovalFlow(dgvPartRequests, newStatus, action, RefreshPartGrid);
+    }
+}
 
 
 

@@ -40,16 +40,16 @@
             Status = new DataGridViewTextBoxColumn();
             pnlPartRequests = new Panel();
             dgvPartRequests = new DataGridView();
+            pnlBorrowRequests = new Panel();
+            btnToggleBorrow = new Button();
+            pnlHeader = new Panel();
+            btnToggleParts = new Button();
             colPartRequestId = new DataGridViewTextBoxColumn();
             colPartTech = new DataGridViewTextBoxColumn();
             colRequestedPart = new DataGridViewTextBoxColumn();
             Quantity = new DataGridViewTextBoxColumn();
             colPartReason = new DataGridViewTextBoxColumn();
             colPartStatus = new DataGridViewTextBoxColumn();
-            pnlBorrowRequests = new Panel();
-            btnToggleBorrow = new Button();
-            pnlHeader = new Panel();
-            btnToggleParts = new Button();
             pnlActions.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvBorrowRequests).BeginInit();
             pnlPartRequests.SuspendLayout();
@@ -86,7 +86,6 @@
             btnDeny.TabIndex = 1;
             btnDeny.Text = "Deny";
             btnDeny.UseVisualStyleBackColor = false;
-          
             // 
             // pnlActions
             // 
@@ -112,7 +111,6 @@
             dgvBorrowRequests.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvBorrowRequests.Size = new Size(958, 484);
             dgvBorrowRequests.TabIndex = 0;
-            dgvBorrowRequests.CellFormatting += dgvBorrowRequests_CellFormatting;
             // 
             // RequestId
             // 
@@ -181,51 +179,6 @@
             dgvPartRequests.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvPartRequests.Size = new Size(958, 424);
             dgvPartRequests.TabIndex = 0;
-            dgvPartRequests.CellFormatting += dgvPartRequests_CellFormatting;
-            // 
-            // colPartRequestId
-            // 
-            colPartRequestId.HeaderText = "RequestId";
-            colPartRequestId.MinimumWidth = 8;
-            colPartRequestId.Name = "colPartRequestId";
-            colPartRequestId.Visible = false;
-            colPartRequestId.Width = 150;
-            // 
-            // colPartTech
-            // 
-            colPartTech.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            colPartTech.HeaderText = "Technician";
-            colPartTech.MinimumWidth = 8;
-            colPartTech.Name = "colPartTech";
-            colPartTech.Width = 127;
-            // 
-            // colRequestedPart
-            // 
-            colRequestedPart.HeaderText = "Requested Part";
-            colRequestedPart.MinimumWidth = 8;
-            colRequestedPart.Name = "colRequestedPart";
-            colRequestedPart.Width = 150;
-            // 
-            // Quantity
-            // 
-            Quantity.HeaderText = "Quantity";
-            Quantity.MinimumWidth = 8;
-            Quantity.Name = "Quantity";
-            Quantity.Width = 150;
-            // 
-            // colPartReason
-            // 
-            colPartReason.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            colPartReason.HeaderText = "Reason";
-            colPartReason.MinimumWidth = 8;
-            colPartReason.Name = "colPartReason";
-            // 
-            // colPartStatus
-            // 
-            colPartStatus.HeaderText = "Status";
-            colPartStatus.MinimumWidth = 8;
-            colPartStatus.Name = "colPartStatus";
-            colPartStatus.Width = 150;
             // 
             // pnlBorrowRequests
             // 
@@ -271,6 +224,51 @@
             btnToggleParts.Text = "Tech Requests";
             btnToggleParts.UseVisualStyleBackColor = false;
             btnToggleParts.Click += btnToggleParts_Click;
+            // 
+            // colPartRequestId
+            // 
+            colPartRequestId.HeaderText = "RequestId";
+            colPartRequestId.MinimumWidth = 8;
+            colPartRequestId.Name = "colPartRequestId";
+            colPartRequestId.Visible = false;
+            colPartRequestId.Width = 150;
+            // 
+            // colPartTech
+            // 
+            colPartTech.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            colPartTech.HeaderText = "Technician";
+            colPartTech.MinimumWidth = 8;
+            colPartTech.Name = "colPartTech";
+            colPartTech.Width = 127;
+            // 
+            // colRequestedPart
+            // 
+            colRequestedPart.DataPropertyName = "Name";
+            colRequestedPart.HeaderText = "Requested Part";
+            colRequestedPart.MinimumWidth = 8;
+            colRequestedPart.Name = "colRequestedPart";
+            colRequestedPart.Width = 150;
+            // 
+            // Quantity
+            // 
+            Quantity.HeaderText = "Quantity";
+            Quantity.MinimumWidth = 8;
+            Quantity.Name = "Quantity";
+            Quantity.Width = 150;
+            // 
+            // colPartReason
+            // 
+            colPartReason.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            colPartReason.HeaderText = "Reason";
+            colPartReason.MinimumWidth = 8;
+            colPartReason.Name = "colPartReason";
+            // 
+            // colPartStatus
+            // 
+            colPartStatus.HeaderText = "Status";
+            colPartStatus.MinimumWidth = 8;
+            colPartStatus.Name = "colPartStatus";
+            colPartStatus.Width = 150;
             // 
             // AdminApprovalsView
             // 
