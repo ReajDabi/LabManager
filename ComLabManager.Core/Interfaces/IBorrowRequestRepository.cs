@@ -13,7 +13,6 @@ namespace ComLabManager.Core.Interfaces
         IEnumerable<BorrowRequest> GetPendingRequests();
        
 
-      
         int GetPendingCount();
     }
 }

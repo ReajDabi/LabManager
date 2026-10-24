@@ -65,12 +65,22 @@ namespace ComlabManager.Infrastructure.Repositories
             }
         }
 
-        public void UpdateRequestStatus(int requestId, string newStatus)
+        public IEnumerable<BorrowRequest> GetAllRequests()
+        {
+            using (IDbConnection db = new MySqlConnection(_connectionString))
+            {
+               
+                string sql = "SELECT * FROM BorrowRequests ORDER BY RequestedDate DESC, StartTime DESC";
+                return db.Query<BorrowRequest>(sql).ToList();
+            }
+        }
+
+        public void UpdateRequestStatus(int requestId, string status)
         {
             using (IDbConnection db = new MySqlConnection(_connectionString))
             {
                 string sql = "UPDATE BorrowRequests SET Status = @Status WHERE Id = @Id";
-                db.Execute(sql, new { Status = newStatus, Id = requestId });
+                db.Execute(sql, new { Status = status, Id = requestId });
             }
         }
 
