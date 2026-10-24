@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
-using ComLabManager.Core.Models;
+﻿using ComLabManager.Core.Models;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace ComLabManager.Core.Interfaces
 {
@@ -7,5 +9,6 @@ namespace ComLabManager.Core.Interfaces
     {
         IEnumerable<SparePartRequest> GetAllRequests();
         void UpdateRequestStatus(int requestId, string status);
+        void AddRequest(SparePartRequest request);
     }
 }

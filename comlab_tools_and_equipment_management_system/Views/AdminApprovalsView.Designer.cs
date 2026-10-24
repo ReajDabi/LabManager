@@ -86,7 +86,7 @@
             btnDeny.TabIndex = 1;
             btnDeny.Text = "Deny";
             btnDeny.UseVisualStyleBackColor = false;
-            btnDeny.Click += btnDeny_Click;
+          
             // 
             // pnlActions
             // 

@@ -1,12 +1,13 @@
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Windows.Forms;
+using ComlabManager.Core.Interfaces;
 using ComLabManager.Core.Interfaces;
 using ComLabManager.Core.Models;
 using ComLabManager.UI.NavigationStrategies;
 using ComLabManager.UI.Views;
-using ComlabManager.Core.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Windows.Forms;
+
 namespace ComLabManager.UI
 {
     public partial class MainForm : Form
@@ -16,52 +17,65 @@ namespace ComLabManager.UI
         private readonly IUserRepository _userRepository;
         private readonly IBorrowRequestRepository _borrowRepository;
         private readonly IComLabScheduleRepository _scheduleRepository;
-        private readonly ISparePartRequestRepository _partRepository;
+        private readonly ISparePartRequestRepository _partRepository; 
+
         private User _currentUser;
         private UserControl _currentActiveView;
         private Button _activeButton;
 
         private readonly Dictionary<Button, (string Title, Func<UserControl> ViewFactory)> _navigationMap;
 
-        public MainForm(IEquipmentRepository equipmentRepository, IBorrowRequestRepository borrowRepository, IComLabScheduleRepository scheduleRepository, ISparePartRequestRepository partRepository)
+       
+        public MainForm(
+            IEquipmentRepository equipmentRepository,
+            IBorrowRequestRepository borrowRepository,
+            IComLabScheduleRepository scheduleRepository,
+            IMaintenanceRepository maintenanceRepository,
+            ISparePartRequestRepository partRepository,
+            IUserRepository userRepository)
         {
             InitializeComponent();
-            _equipmentRepository = equipmentRepository;
-            _borrowRepository = borrowRepository;
-            _scheduleRepository = scheduleRepository;
-            _partRepository = partRepository;
 
+            _equipmentRepository = equipmentRepository ?? throw new ArgumentNullException(nameof(equipmentRepository));
+            _borrowRepository = borrowRepository ?? throw new ArgumentNullException(nameof(borrowRepository));
+            _scheduleRepository = scheduleRepository ?? throw new ArgumentNullException(nameof(scheduleRepository));
+            _maintenanceRepository = maintenanceRepository ?? throw new ArgumentNullException(nameof(maintenanceRepository));
+            _partRepository = partRepository ?? throw new ArgumentNullException(nameof(partRepository));
+            _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
+
+           
             _navigationMap = new Dictionary<Button, (string, Func<UserControl> ViewFactory)>
             {
                 { btnNavDashboard, ("Dashboard", () => (UserControl)new DashboardView(_equipmentRepository, _borrowRepository)) },
-                { btnNavEquipment, ("Equipment Inventory", () =>(UserControl) new EquipmentInventoryView(_equipmentRepository)) },
-                { btnNavTickets, ("Maintenance Tickets", () =>(UserControl) new MaintenanceView()) },
-                { btnNavSpareParts, ("Spare Parts", () =>(UserControl) new SparePartsView()) },
-                { btnNavScheduler, ("Maintenance Scheduler", () => new PreventiveMaintenanceView()) },
-                { btnNavUser, ("User Management", () =>(UserControl) new UserManagementView()) }
-
-
+                { btnNavEquipment, ("Equipment Inventory", () => (UserControl)new EquipmentInventoryView(_equipmentRepository)) },
+                { btnNavTickets, ("Maintenance Tickets", () => (UserControl)new MaintenanceView()) },
+                { btnNavScheduler, ("Maintenance Scheduler", () => (UserControl)new PreventiveMaintenanceView()) },
+                { btnNavUser, ("User Management", () => (UserControl)new UserManagementView()) }
             };
-
 
             AttachNavigationEvents();
         }
 
         public void SetCurrentUser(User user, IRoleNavigationStrategy accessStrategy)
         {
-            _currentUser = user;
+            _currentUser = user ?? throw new ArgumentNullException(nameof(user));
             lblCurrentUser.Text = $"Viewing as: {_currentUser.UserName} ({_currentUser.Role})";
 
+            _navigationMap[btnNavSpareParts] = ("Spare Parts", () =>
+                (UserControl)new SparePartsView(_currentUser.Id, accessStrategy.CanEditInventory, _maintenanceRepository, _partRepository));
 
-            if (_currentUser.Role == "Admin")
+            if (accessStrategy.UsesAdminApprovalView)
             {
-                _navigationMap[btnNavRequestApproval] = ("Pending Requests", () => (UserControl)new AdminApprovalsView(_borrowRepository, _partRepository));
+                _navigationMap[btnNavRequestApproval] = ("Pending Requests", () =>
+                    (UserControl)new AdminApprovalsView(_borrowRepository, _partRepository));
             }
-            else if (_currentUser.Role == "Student" || _currentUser.Role == "Technician")
+            else
             {
-                _navigationMap[btnNavRequestApproval] = ("My Requests", () => (UserControl)new StudentDashboardView(_equipmentRepository, _borrowRepository, _scheduleRepository, _currentUser.Id));
+                _navigationMap[btnNavRequestApproval] = ("My Requests", () =>
+                    (UserControl)new StudentDashboardView(_equipmentRepository, _borrowRepository, _scheduleRepository, _currentUser.Id));
             }
 
+            btnNavDashboard.Visible = accessStrategy.CanViewDashboard;
 
             btnNavDashboard.Visible = accessStrategy.CanViewDashboard;
             btnNavEquipment.Visible = accessStrategy.CanViewEquipment;
@@ -82,11 +96,11 @@ namespace ComLabManager.UI
             accessStrategy.LoadInitialView(this);
         }
 
+        
 
         public void OpenDashboard() => UniversalNavigation_Click(btnNavDashboard, EventArgs.Empty);
         public void OpenStudentDashboard() => UniversalNavigation_Click(btnNavRequestApproval, EventArgs.Empty);
         public void OpenTickets() => UniversalNavigation_Click(btnNavSpareParts, EventArgs.Empty);
-
 
         private void UniversalNavigation_Click(object sender, EventArgs e)
         {
@@ -102,18 +116,16 @@ namespace ComLabManager.UI
         {
             foreach (var button in _navigationMap.Keys)
             {
-
                 button.Click += UniversalNavigation_Click;
             }
-
-
+            
+            btnNavRequestApproval.Click -= UniversalNavigation_Click;
             btnNavRequestApproval.Click += UniversalNavigation_Click;
         }
 
         private void HighlightActiveButton(Button clickedButton)
         {
             if (clickedButton == _activeButton) return;
-
 
             Color defaultColor = Color.FromArgb(30, 41, 59);
             foreach (var button in _navigationMap.Keys)
@@ -128,7 +140,6 @@ namespace ComLabManager.UI
 
         private void LoadView(UserControl view)
         {
-
             if (_currentActiveView != null)
             {
                 pnlMainContent.Controls.Remove(_currentActiveView);

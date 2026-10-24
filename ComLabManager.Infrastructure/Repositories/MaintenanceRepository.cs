@@ -4,6 +4,7 @@ using Dapper;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 
 namespace ComlabManager.Infrastructure.Repositories
@@ -71,7 +72,6 @@ namespace ComlabManager.Infrastructure.Repositories
                 connection.Open();
                 using (var transaction = connection.BeginTransaction())
                 {
-                    // Keeps the technician an Admin already assigned; otherwise assigns the one starting the repair
                     string ticketSql = @"UPDATE MaintenanceLogs
                                          SET Status = 'Under Repair',
                                              AssignedTechnicianId = COALESCE(AssignedTechnicianId, @TechnicianId)
@@ -121,7 +121,7 @@ namespace ComlabManager.Infrastructure.Repositories
                         connection.Execute(partSql, new { LogId = ticketId, SparePartId = sparePartId.Value }, transaction);
                     }
 
-                    // The equipment stays Under Repair while another ticket is still being worked on
+                  
                     string equipmentSql = @"UPDATE Equipment e SET e.Status = 'Active'
                                             WHERE e.Id = (SELECT EquipmentId FROM MaintenanceLogs WHERE Id = @Id)
                                             AND e.Status = 'Under Repair'
@@ -138,8 +138,37 @@ namespace ComlabManager.Infrastructure.Repositories
         {
             using (var connection = new MySqlConnection(_connectionString))
             {
-                string sql = "SELECT Id, Name, Category, Quantity, UnitPrice FROM SpareParts ORDER BY Name";
+                string sql = "SELECT Id, Name, Category, Quantity, RestockLevel FROM SpareParts ORDER BY Name";
                 return connection.Query<SparePart>(sql).ToList();
+            }
+        }
+        public void UpdateSparePart(SparePart part)
+        {
+            using (IDbConnection db = new MySqlConnection(_connectionString))
+            {
+                
+                string sql = "UPDATE SpareParts SET Quantity = @Quantity, RestockLevel = @RestockLevel WHERE Id = @Id";
+                db.Execute(sql, part);
+            }
+        }
+
+        public void AddSparePart(SparePart part)
+        {
+            using (IDbConnection db = new MySqlConnection(_connectionString))
+            {
+                string sql = @"
+            INSERT INTO SpareParts (Name, Category, Quantity, RestockLevel) 
+            VALUES (@Name, @Category, @Quantity, @RestockLevel)";
+                db.Execute(sql, part);
+            }
+        }
+
+        public void DeleteSparePart(int id)
+        {
+            using (IDbConnection db = new MySqlConnection(_connectionString))
+            {
+                string sql = "DELETE FROM SpareParts WHERE Id = @Id";
+                db.Execute(sql, new { Id = id });
             }
         }
     }

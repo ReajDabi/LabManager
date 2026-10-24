@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS SpareParts (
     Name VARCHAR(100) NOT NULL UNIQUE,
     Category VARCHAR(50) NULL,
     Quantity INT NOT NULL DEFAULT 0,
-    UnitPrice DECIMAL(10,2) NOT NULL DEFAULT 0
+    RestockLevel INT NOT NULL DEFAULT 5
 );
 
 CREATE TABLE IF NOT EXISTS MaintenanceParts (
@@ -26,9 +26,9 @@ INSERT IGNORE INTO Equipment (AssetTag, Name, Category, Status, StationNumber, D
 ('UM-PER-001', 'Logitech K120 Keyboard', 'Peripheral', 'Active', 'CLV1-01', '2024-01-10'),
 ('UM-NET-001', 'TP-Link 24-Port Switch', 'Networking', 'Active', NULL, '2022-09-01');
 
-INSERT IGNORE INTO SpareParts (Name, Category, Quantity, UnitPrice) VALUES
-('8GB DDR4 RAM', 'Memory', 10, 1500.00),
-('500W Power Supply', 'Power', 5, 2200.00),
-('256GB SATA SSD', 'Storage', 8, 1800.00),
-('CMOS Battery CR2032', 'Power', 20, 50.00),
-('HDMI Cable', 'Cable', 0, 250.00);
+INSERT IGNORE INTO SpareParts (Name, Category, Quantity, RestockLevel) VALUES
+('8GB DDR4 RAM', 'Memory', 10, 5),
+('500W Power Supply', 'Power', 5, 5)
+('256GB SATA SSD', 'Storage', 8, 5),
+('CMOS Battery CR2032', 'Power', 20, 5),
+('HDMI Cable', 'Cable', 0, 5);

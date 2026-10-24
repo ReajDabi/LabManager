@@ -9,18 +9,18 @@ namespace ComLabManager.UI.Views
 {
     public partial class AdminApprovalsView : UserControl
     {
+        
         private readonly IBorrowRequestRepository _borrowRepo;
         private readonly ISparePartRequestRepository _partRepo;
         private readonly Dictionary<string, Color> _statusColors;
 
-       
         private enum ActiveRequestTab { Borrow, Parts }
         private ActiveRequestTab _activeTab;
 
-     
         public AdminApprovalsView(IBorrowRequestRepository borrowRepo, ISparePartRequestRepository partRepo)
         {
             InitializeComponent();
+
             _borrowRepo = borrowRepo ?? throw new ArgumentNullException(nameof(borrowRepo));
             _partRepo = partRepo ?? throw new ArgumentNullException(nameof(partRepo));
 
@@ -43,21 +43,19 @@ namespace ComLabManager.UI.Views
             dgvBorrowRequests.AutoGenerateColumns = false;
             dgvPartRequests.AutoGenerateColumns = false;
 
-            
             RequestId.DataPropertyName = "Id";
-            StudentName.DataPropertyName = "StudentName"; 
+            StudentName.DataPropertyName = "StudentName";
             TargetLocation.DataPropertyName = "TargetLocation";
             Purpose.DataPropertyName = "Purpose";
             Status.DataPropertyName = "Status";
-            
 
            
             colPartRequestId.DataPropertyName = "Id";
             colPartTech.DataPropertyName = "TechName";
-            colRequestedPart.DataPropertyName = "PartName";
+            colRequestedPart.DataPropertyName = "Name";
             Quantity.DataPropertyName = "Quantity";
             colPartReason.DataPropertyName = "Reason";
-            colPartStatus.DataPropertyName = "Status"; 
+            colParrtStatus.DataPropertyName = "Status";
         }
 
         private void RefreshBorrowGrid()
@@ -70,44 +68,7 @@ namespace ComLabManager.UI.Views
             if (_partRepo != null) dgvPartRequests.DataSource = _partRepo.GetAllRequests();
         }
 
-       
-
-        private void dgvBorrowRequests_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
-        {
-            if (e.RowIndex >= 0 && dgvBorrowRequests.Rows[e.RowIndex].DataBoundItem is BorrowRequest request)
-            {
-                string colName = dgvBorrowRequests.Columns[e.ColumnIndex].Name;
-
-                if (colName == "Schedule")
-                {
-                    DateTime start = DateTime.Today.Add(request.StartTime);
-                    DateTime end = DateTime.Today.Add(request.EndTime);
-                    e.Value = $"{start:h:mm tt} - {end:h:mm tt}";
-                    e.FormattingApplied = true;
-                }
-                else if (colName == "Status" && _statusColors.TryGetValue(request.Status, out Color color))
-                {
-                    dgvBorrowRequests.Rows[e.RowIndex].Cells[e.ColumnIndex].Style.ForeColor = color;
-                }
-            }
-        }
-
-        private void dgvPartRequests_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
-        {
-            if (e.RowIndex >= 0 && dgvPartRequests.Rows[e.RowIndex].DataBoundItem is SparePartRequest request)
-            {
-                string colName = dgvPartRequests.Columns[e.ColumnIndex].Name;
-
-              
-                if (colName == "colParrtStatus" && _statusColors.TryGetValue(request.Status, out Color color))
-                {
-                    dgvPartRequests.Rows[e.RowIndex].Cells[e.ColumnIndex].Style.ForeColor = color;
-                }
-            }
-        }
-
-       
-
+        
         private void btnApprove_Click(object sender, EventArgs e) => ProcessSelectedRequest("Approved");
         private void btnDeny_Click(object sender, EventArgs e) => ProcessSelectedRequest("Denied");
 
@@ -143,10 +104,9 @@ namespace ComLabManager.UI.Views
         private DialogResult ConfirmAction(string status) => MessageBox.Show($"Are you sure you want to mark this request as {status}?", "Confirm Action", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
        
-
         private void btnToggleBorrow_Click(object sender, EventArgs e)
         {
-            _activeTab = ActiveRequestTab.Borrow; 
+            _activeTab = ActiveRequestTab.Borrow;
             pnlBorrowRequests.BringToFront();
             btnToggleBorrow.BackColor = Color.FromArgb(0, 120, 215);
             btnToggleParts.BackColor = Color.FromArgb(30, 41, 59);
