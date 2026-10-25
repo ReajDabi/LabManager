@@ -19,7 +19,7 @@ namespace ComLabManager.UI
         private readonly IComLabScheduleRepository _scheduleRepository;
         private readonly ISparePartRequestRepository _partRepository;
         private readonly ISparePartRepository _sparePartRepository; 
-
+        private readonly IDashboardRepository _dashboardRepository; 
         private User _currentUser;
         private UserControl _currentActiveView;
         private Button _activeButton;
@@ -33,7 +33,8 @@ namespace ComLabManager.UI
             IMaintenanceRepository maintenanceRepository,
             ISparePartRequestRepository partRepository,
             IUserRepository userRepository,
-            ISparePartRepository sparePartRepository) 
+            ISparePartRepository sparePartRepository,
+            IDashboardRepository dashboardRepository) 
         {
             InitializeComponent();
 
@@ -44,11 +45,11 @@ namespace ComLabManager.UI
             _partRepository = partRepository ?? throw new ArgumentNullException(nameof(partRepository));
             _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
             _sparePartRepository = sparePartRepository ?? throw new ArgumentNullException(nameof(sparePartRepository));
-
+            _dashboardRepository = dashboardRepository ?? throw new ArgumentNullException(nameof(dashboardRepository));
 
             _navigationMap = new Dictionary<Button, (string, Func<UserControl> ViewFactory)>
 {
-    { btnNavDashboard, ("Dashboard", () => new DashboardView(_equipmentRepository, _borrowRepository, _scheduleRepository)) },
+    { btnNavDashboard, ("Dashboard", () => new DashboardView( _dashboardRepository,_scheduleRepository)) },
     { btnNavEquipment, ("Equipment Inventory", () => new EquipmentInventoryView(_equipmentRepository)) },
     
     
