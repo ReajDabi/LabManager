@@ -1,7 +1,8 @@
-﻿using System;
+﻿using ComLabManager.Core.Interfaces;
+using ComLabManager.Core.Models;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
-using ComLabManager.Core.Interfaces;
 
 namespace ComLabManager.UI
 {
@@ -20,6 +21,8 @@ namespace ComLabManager.UI
 
             dgvActionItems.DefaultCellStyle.ForeColor = Color.Black;
             dgvActionItems.AutoGenerateColumns = true;
+
+            LoadMetrics();
         }
 
         private void DashboardView_Load(object sender, EventArgs e)
@@ -27,6 +30,19 @@ namespace ComLabManager.UI
             LoadMetrics();
         }
 
+        private void dgvActionItems_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            
+            if (e.RowIndex >= 0 && dgvActionItems.Rows[e.RowIndex].DataBoundItem is Equipment currentEquipment)
+            {
+               
+                if (currentEquipment.UsageCount >= 15)
+                {
+                    dgvActionItems.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.LightGoldenrodYellow;
+                    dgvActionItems.Rows[e.RowIndex].DefaultCellStyle.ForeColor = Color.DarkGoldenrod; 
+                }
+            }
+        }
         private void LoadMetrics()
         {
             if (_dashboardRepo == null) return;

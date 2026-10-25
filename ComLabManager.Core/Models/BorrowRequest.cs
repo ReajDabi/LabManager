@@ -13,6 +13,7 @@ namespace ComLabManager.Core.Models
         public DateTime RequestedDate { get; set; }
         public TimeSpan StartTime { get; set; }
         public TimeSpan EndTime { get; set; }
+        public string Schedule => $"{StartTime:hh\\:mm} - {EndTime:hh\\:mm}";
         public string Status { get; set; }
     }
 }

@@ -42,6 +42,7 @@
             txtLastName = new TextBox();
             label1 = new Label();
             label2 = new Label();
+            chkIsSuspended = new CheckBox();
             SuspendLayout();
             // 
             // lblModalTitle
@@ -113,6 +114,7 @@
             cmbRole.Name = "cmbRole";
             cmbRole.Size = new Size(195, 33);
             cmbRole.TabIndex = 7;
+            cmbRole.SelectedIndexChanged += cmbRole_SelectedIndexChanged;
             // 
             // btnSave
             // 
@@ -196,11 +198,22 @@
             label2.TabIndex = 3;
             label2.Text = "Last Name";
             // 
+            // chkIsSuspended
+            // 
+            chkIsSuspended.AutoSize = true;
+            chkIsSuspended.Location = new Point(300, 371);
+            chkIsSuspended.Name = "chkIsSuspended";
+            chkIsSuspended.Size = new Size(177, 29);
+            chkIsSuspended.TabIndex = 10;
+            chkIsSuspended.Text = "Suspend Account";
+            chkIsSuspended.UseVisualStyleBackColor = true;
+            // 
             // UserModalForm
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(544, 539);
+            Controls.Add(chkIsSuspended);
             Controls.Add(btnCancel);
             Controls.Add(btnSave);
             Controls.Add(cmbRole);
@@ -240,5 +253,6 @@
         private TextBox txtLastName;
         private Label label1;
         private Label label2;
+        private CheckBox chkIsSuspended;
     }
 }

@@ -51,9 +51,6 @@
             pnlGridContainer = new Panel();
             btnManageSchedules = new Button();
             dgvActionItems = new DataGridView();
-            Type = new DataGridViewTextBoxColumn();
-            Details = new DataGridViewTextBoxColumn();
-            Date = new DataGridViewTextBoxColumn();
             lblGridTitle = new Label();
             pnlMetrics.SuspendLayout();
             pnlCardPM.SuspendLayout();
@@ -306,7 +303,6 @@
             dgvActionItems.BackgroundColor = Color.White;
             dgvActionItems.BorderStyle = BorderStyle.None;
             dgvActionItems.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvActionItems.Columns.AddRange(new DataGridViewColumn[] { Type, Details, Date });
             dgvActionItems.Dock = DockStyle.Fill;
             dgvActionItems.Location = new Point(20, 52);
             dgvActionItems.Name = "dgvActionItems";
@@ -315,27 +311,6 @@
             dgvActionItems.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvActionItems.Size = new Size(918, 282);
             dgvActionItems.TabIndex = 1;
-            // 
-            // Type
-            // 
-            Type.HeaderText = "Type";
-            Type.MinimumWidth = 8;
-            Type.Name = "Type";
-            Type.Width = 150;
-            // 
-            // Details
-            // 
-            Details.HeaderText = "Details";
-            Details.MinimumWidth = 8;
-            Details.Name = "Details";
-            Details.Width = 150;
-            // 
-            // Date
-            // 
-            Date.HeaderText = "Date";
-            Date.MinimumWidth = 8;
-            Date.Name = "Date";
-            Date.Width = 150;
             // 
             // lblGridTitle
             // 
@@ -402,9 +377,6 @@
         private Label lblValuePM;
         private Label lblTitlePM;
         private DataGridView dgvActionItems;
-        private DataGridViewTextBoxColumn Type;
-        private DataGridViewTextBoxColumn Details;
-        private DataGridViewTextBoxColumn Date;
         private Button btnManageSchedules;
     }
 }

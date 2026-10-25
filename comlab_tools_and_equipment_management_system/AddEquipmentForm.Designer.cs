@@ -1,6 +1,6 @@
 ﻿namespace ComLabManager.UI
 {
-    partial class EquipmentModalForm
+    partial class AddEquipmentForm
     {
         /// <summary>
         /// Required designer variable.
@@ -30,7 +30,6 @@
         {
             txtAssetTag = new TextBox();
             txtName = new TextBox();
-            txtLocation = new TextBox();
             cmbCategory = new ComboBox();
             cmbStatus = new ComboBox();
             dtpDateAcquired = new DateTimePicker();
@@ -43,6 +42,10 @@
             label5 = new Label();
             label6 = new Label();
             lblTitle = new Label();
+            numUsageCount = new NumericUpDown();
+            label2 = new Label();
+            cmbLocation = new ComboBox();
+            ((System.ComponentModel.ISupportInitialize)numUsageCount).BeginInit();
             SuspendLayout();
             // 
             // txtAssetTag
@@ -62,15 +65,6 @@
             txtName.Name = "txtName";
             txtName.Size = new Size(243, 31);
             txtName.TabIndex = 0;
-            // 
-            // txtLocation
-            // 
-            txtLocation.BorderStyle = BorderStyle.FixedSingle;
-            txtLocation.Location = new Point(72, 357);
-            txtLocation.Multiline = true;
-            txtLocation.Name = "txtLocation";
-            txtLocation.Size = new Size(243, 31);
-            txtLocation.TabIndex = 0;
             // 
             // cmbCategory
             // 
@@ -102,7 +96,7 @@
             btnCancel.DialogResult = DialogResult.Cancel;
             btnCancel.FlatStyle = FlatStyle.Flat;
             btnCancel.ForeColor = SystemColors.Control;
-            btnCancel.Location = new Point(72, 446);
+            btnCancel.Location = new Point(77, 553);
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new Size(174, 48);
             btnCancel.TabIndex = 3;
@@ -114,7 +108,7 @@
             btnSave.BackColor = Color.Green;
             btnSave.FlatStyle = FlatStyle.Flat;
             btnSave.ForeColor = SystemColors.ButtonHighlight;
-            btnSave.Location = new Point(487, 446);
+            btnSave.Location = new Point(487, 553);
             btnSave.Name = "btnSave";
             btnSave.Size = new Size(174, 48);
             btnSave.TabIndex = 3;
@@ -145,9 +139,9 @@
             label3.AutoSize = true;
             label3.Location = new Point(76, 329);
             label3.Name = "label3";
-            label3.Size = new Size(137, 25);
+            label3.Size = new Size(157, 25);
             label3.TabIndex = 4;
-            label3.Text = "Station Number";
+            label3.Text = "Assigned Location";
             // 
             // label4
             // 
@@ -186,11 +180,37 @@
             lblTitle.TabIndex = 4;
             lblTitle.Text = "Add Equipment";
             // 
-            // EquipmentModalForm
+            // numUsageCount
+            // 
+            numUsageCount.Location = new Point(418, 440);
+            numUsageCount.Name = "numUsageCount";
+            numUsageCount.Size = new Size(244, 31);
+            numUsageCount.TabIndex = 5;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(418, 412);
+            label2.Name = "label2";
+            label2.Size = new Size(161, 25);
+            label2.TabIndex = 4;
+            label2.Text = "Initial Usage Count";
+            // 
+            // cmbLocation
+            // 
+            cmbLocation.FormattingEnabled = true;
+            cmbLocation.Location = new Point(72, 359);
+            cmbLocation.Name = "cmbLocation";
+            cmbLocation.Size = new Size(243, 33);
+            cmbLocation.TabIndex = 1;
+            // 
+            // AddEquipmentForm
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(723, 534);
+            ClientSize = new Size(723, 605);
+            Controls.Add(numUsageCount);
+            Controls.Add(label2);
             Controls.Add(label6);
             Controls.Add(label5);
             Controls.Add(label4);
@@ -202,15 +222,16 @@
             Controls.Add(btnCancel);
             Controls.Add(dtpDateAcquired);
             Controls.Add(cmbStatus);
+            Controls.Add(cmbLocation);
             Controls.Add(cmbCategory);
-            Controls.Add(txtLocation);
             Controls.Add(txtName);
             Controls.Add(txtAssetTag);
             MaximizeBox = false;
             MinimizeBox = false;
-            Name = "EquipmentModalForm";
+            Name = "AddEquipmentForm";
             StartPosition = FormStartPosition.CenterParent;
             Text = "EquipmentModalForm";
+            ((System.ComponentModel.ISupportInitialize)numUsageCount).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -219,7 +240,6 @@
 
         private TextBox txtAssetTag;
         private TextBox txtName;
-        private TextBox txtLocation;
         private ComboBox cmbCategory;
         private ComboBox cmbStatus;
         private DateTimePicker dtpDateAcquired;
@@ -232,5 +252,8 @@
         private Label label5;
         private Label label6;
         private Label lblTitle;
+        private NumericUpDown numUsageCount;
+        private Label label2;
+        private ComboBox cmbLocation;
     }
 }

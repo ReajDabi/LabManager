@@ -23,32 +23,33 @@ namespace ComLabManager.Infrastructure.Repositories
             using (IDbConnection db = new MySqlConnection(_connectionString))
             {
                 string sql = @"
-            SELECT 
-                ComLabName, 
-                SubjectCode AS Subject, 
-                InstructorName AS Instructor, 
-                DayOfWeek, 
-                StartTime, 
-                EndTime,
-                'Class' AS BookingType
-            FROM ComLabSchedules
-            
-            UNION ALL
-            
-            SELECT 
-                br.TargetLocation AS ComLabName, 
-                br.Purpose AS Subject, 
-                u.Username AS Instructor, 
-                DAYNAME(br.RequestedDate) AS DayOfWeek, 
-                br.StartTime, 
-                br.EndTime,
-                'Reservation' AS BookingType
-            FROM BorrowRequests br
-            JOIN Users u ON br.StudentId = u.Id
-            WHERE br.Status = 'Approved'
-            
-            ORDER BY FIELD(DayOfWeek, 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'), StartTime;
-        ";
+    SELECT 
+        ComLabName, 
+        SubjectCode AS Subject, 
+        InstructorName AS Instructor, 
+        DayOfWeek, 
+        StartTime, 
+        EndTime, 
+        'Class' AS BookingType 
+    FROM ComLabSchedules 
+
+    UNION ALL 
+
+    SELECT 
+        br.TargetLocation AS ComLabName, 
+        br.Purpose AS Subject, 
+        u.Username AS Instructor, 
+        DAYNAME(br.RequestedDate) AS DayOfWeek, 
+        br.StartTime, 
+        br.EndTime, 
+        'Reservation' AS BookingType 
+    FROM BorrowRequests br 
+    JOIN Users u ON br.StudentId = u.Id 
+    WHERE br.Status = 'Approved' 
+      AND br.TargetLocation IS NOT NULL 
+      AND TRIM(br.TargetLocation) <> '' 
+
+    ORDER BY FIELD(DayOfWeek, 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'), StartTime";
 
                 return db.Query<UnifiedScheduleDto>(sql).ToList();
             }

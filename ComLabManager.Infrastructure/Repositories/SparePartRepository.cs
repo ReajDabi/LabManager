@@ -17,11 +17,19 @@ namespace ComLabManager.Infrastructure.Repositories
             _connectionString = connectionString;
         }
 
+        public void UpdateSparePartQuantity(int id, int newQuantity)
+        {
+            using (IDbConnection db = new MySqlConnection(_connectionString))
+            {
+                string sql = "UPDATE SpareParts SET Quantity = @Quantity WHERE Id = @Id";
+                db.Execute(sql, new { Quantity = newQuantity, Id = id });
+            }
+        }
         public IEnumerable<SparePart> GetAllSpareParts()
         {
             using (IDbConnection db = new MySqlConnection(_connectionString))
             {
-                string sql = "SELECT * FROM SpareParts WHERE IsDeleted = 0";
+                string sql = "SELECT * FROM SpareParts";
                 return db.Query<SparePart>(sql).ToList();
             }
         }

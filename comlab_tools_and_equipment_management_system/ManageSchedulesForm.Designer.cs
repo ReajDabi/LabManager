@@ -291,6 +291,7 @@
             Controls.Add(pnlHeader);
             Controls.Add(pnlAction);
             Name = "ManageSchedulesForm";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "ManageSchedulesForm";
             ((System.ComponentModel.ISupportInitialize)dgvSchedules).EndInit();
             pnlData.ResumeLayout(false);

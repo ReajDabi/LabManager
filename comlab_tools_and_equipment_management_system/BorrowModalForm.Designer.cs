@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             cmbScope = new ComboBox();
-            cmbItem = new ComboBox();
+            cmbEquipmentName = new ComboBox();
             txtPurpose = new TextBox();
             lblTitle = new Label();
             lblScope = new Label();
@@ -43,6 +43,8 @@
             dtpEndTime = new DateTimePicker();
             btnSubmit = new Button();
             btnCancel = new Button();
+            cmbAssetTag = new ComboBox();
+            label1 = new Label();
             SuspendLayout();
             // 
             // cmbScope
@@ -55,14 +57,17 @@
             cmbScope.TabIndex = 0;
             cmbScope.SelectedIndexChanged += cmbScope_SelectedIndexChanged;
             // 
-            // cmbItem
+            // cmbEquipmentName
             // 
-            cmbItem.DropDownStyle = ComboBoxStyle.DropDownList;
-            cmbItem.FormattingEnabled = true;
-            cmbItem.Location = new Point(75, 217);
-            cmbItem.Name = "cmbItem";
-            cmbItem.Size = new Size(233, 33);
-            cmbItem.TabIndex = 0;
+            cmbEquipmentName.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            cmbEquipmentName.AutoCompleteSource = AutoCompleteSource.ListItems;
+            cmbEquipmentName.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbEquipmentName.FormattingEnabled = true;
+            cmbEquipmentName.Location = new Point(75, 217);
+            cmbEquipmentName.Name = "cmbEquipmentName";
+            cmbEquipmentName.Size = new Size(233, 33);
+            cmbEquipmentName.TabIndex = 0;
+            cmbEquipmentName.SelectedIndexChanged += cmbEquipmentName_SelectedIndexChanged;
             // 
             // txtPurpose
             // 
@@ -70,7 +75,7 @@
             txtPurpose.Location = new Point(357, 133);
             txtPurpose.Multiline = true;
             txtPurpose.Name = "txtPurpose";
-            txtPurpose.Size = new Size(363, 382);
+            txtPurpose.Size = new Size(363, 464);
             txtPurpose.TabIndex = 1;
             // 
             // lblTitle
@@ -113,7 +118,7 @@
             // dtpRequestedDate
             // 
             dtpRequestedDate.Format = DateTimePickerFormat.Short;
-            dtpRequestedDate.Location = new Point(75, 301);
+            dtpRequestedDate.Location = new Point(75, 383);
             dtpRequestedDate.Name = "dtpRequestedDate";
             dtpRequestedDate.Size = new Size(230, 31);
             dtpRequestedDate.TabIndex = 4;
@@ -121,7 +126,7 @@
             // lblDate
             // 
             lblDate.AutoSize = true;
-            lblDate.Location = new Point(79, 271);
+            lblDate.Location = new Point(75, 355);
             lblDate.Name = "lblDate";
             lblDate.Size = new Size(120, 25);
             lblDate.TabIndex = 3;
@@ -130,7 +135,7 @@
             // lblStartTime
             // 
             lblStartTime.AutoSize = true;
-            lblStartTime.Location = new Point(75, 365);
+            lblStartTime.Location = new Point(79, 447);
             lblStartTime.Name = "lblStartTime";
             lblStartTime.Size = new Size(95, 25);
             lblStartTime.TabIndex = 3;
@@ -139,7 +144,7 @@
             // dtpStartTime
             // 
             dtpStartTime.Format = DateTimePickerFormat.Time;
-            dtpStartTime.Location = new Point(75, 393);
+            dtpStartTime.Location = new Point(75, 475);
             dtpStartTime.Name = "dtpStartTime";
             dtpStartTime.ShowUpDown = true;
             dtpStartTime.Size = new Size(230, 31);
@@ -148,7 +153,7 @@
             // lblEndTime
             // 
             lblEndTime.AutoSize = true;
-            lblEndTime.Location = new Point(75, 456);
+            lblEndTime.Location = new Point(78, 538);
             lblEndTime.Name = "lblEndTime";
             lblEndTime.Size = new Size(89, 25);
             lblEndTime.TabIndex = 3;
@@ -157,7 +162,7 @@
             // dtpEndTime
             // 
             dtpEndTime.Format = DateTimePickerFormat.Time;
-            dtpEndTime.Location = new Point(75, 484);
+            dtpEndTime.Location = new Point(75, 566);
             dtpEndTime.Name = "dtpEndTime";
             dtpEndTime.ShowUpDown = true;
             dtpEndTime.Size = new Size(230, 31);
@@ -168,7 +173,7 @@
             btnSubmit.BackColor = Color.FromArgb(25, 135, 84);
             btnSubmit.FlatStyle = FlatStyle.Flat;
             btnSubmit.ForeColor = Color.White;
-            btnSubmit.Location = new Point(561, 592);
+            btnSubmit.Location = new Point(561, 663);
             btnSubmit.Name = "btnSubmit";
             btnSubmit.Size = new Size(159, 50);
             btnSubmit.TabIndex = 5;
@@ -182,7 +187,7 @@
             btnCancel.DialogResult = DialogResult.Cancel;
             btnCancel.FlatStyle = FlatStyle.Flat;
             btnCancel.ForeColor = Color.White;
-            btnCancel.Location = new Point(357, 592);
+            btnCancel.Location = new Point(357, 663);
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new Size(159, 50);
             btnCancel.TabIndex = 5;
@@ -190,17 +195,38 @@
             btnCancel.UseVisualStyleBackColor = false;
             btnCancel.Click += btnCancel_Click;
             // 
+            // cmbAssetTag
+            // 
+            cmbAssetTag.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            cmbAssetTag.AutoCompleteSource = AutoCompleteSource.ListItems;
+            cmbAssetTag.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbAssetTag.FormattingEnabled = true;
+            cmbAssetTag.Location = new Point(75, 298);
+            cmbAssetTag.Name = "cmbAssetTag";
+            cmbAssetTag.Size = new Size(233, 33);
+            cmbAssetTag.TabIndex = 0;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(75, 268);
+            label1.Name = "label1";
+            label1.Size = new Size(91, 25);
+            label1.TabIndex = 3;
+            label1.Text = "Asset Tag:";
+            // 
             // BorrowModalForm
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(777, 665);
+            ClientSize = new Size(777, 725);
             Controls.Add(btnCancel);
             Controls.Add(btnSubmit);
             Controls.Add(dtpEndTime);
             Controls.Add(dtpStartTime);
             Controls.Add(dtpRequestedDate);
             Controls.Add(lblEndTime);
+            Controls.Add(label1);
             Controls.Add(lblItem);
             Controls.Add(lblStartTime);
             Controls.Add(lblDate);
@@ -208,7 +234,8 @@
             Controls.Add(lblScope);
             Controls.Add(lblTitle);
             Controls.Add(txtPurpose);
-            Controls.Add(cmbItem);
+            Controls.Add(cmbAssetTag);
+            Controls.Add(cmbEquipmentName);
             Controls.Add(cmbScope);
             MaximizeBox = false;
             MinimizeBox = false;
@@ -222,7 +249,7 @@
         #endregion
 
         private ComboBox cmbScope;
-        private ComboBox cmbItem;
+        private ComboBox cmbEquipmentName;
         private TextBox txtPurpose;
         private Label lblTitle;
         private Label lblScope;
@@ -236,5 +263,7 @@
         private DateTimePicker dtpEndTime;
         private Button btnSubmit;
         private Button btnCancel;
+        private ComboBox cmbAssetTag;
+        private Label label1;
     }
 }
