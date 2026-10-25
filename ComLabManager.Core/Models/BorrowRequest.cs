@@ -1,8 +1,8 @@
 ﻿using System;
-
+using ComLabManager.Core.Interfaces;
 namespace ComLabManager.Core.Models
 {
-    public class BorrowRequest
+    public class BorrowRequest: IApprovalRequest
     {
         public int Id { get; set; }
         public int StudentId { get; set; }

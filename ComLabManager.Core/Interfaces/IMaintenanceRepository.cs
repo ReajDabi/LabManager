@@ -10,9 +10,5 @@ namespace ComLabManager.Core.Interfaces
         void AssignTechnician(int ticketId, int technicianId);
         void StartRepair(int ticketId, int? technicianId);
         void ResolveTicket(int ticketId, int? sparePartId);
-        List<SparePart> GetAllSpareParts();
-        void UpdateSparePart(SparePart part);
-        void AddSparePart(SparePart part);
-        void DeleteSparePart(int id);
     }
 }

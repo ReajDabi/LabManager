@@ -9,19 +9,22 @@ namespace ComLabManager.UI
     public partial class ResolveTicketForm : Form
     {
         private readonly IMaintenanceRepository _maintenanceRepo;
+        private readonly ISparePartRepository _sparePartRepo;
         private readonly MaintenanceTicket _ticket;
 
-        public ResolveTicketForm(IMaintenanceRepository maintenanceRepo, MaintenanceTicket ticket)
+        public ResolveTicketForm(IMaintenanceRepository maintenanceRepo, ISparePartRepository sparePartRepo, MaintenanceTicket ticket)
         {
             InitializeComponent();
-            _maintenanceRepo = maintenanceRepo;
-            _ticket = ticket;
+            _maintenanceRepo = maintenanceRepo ?? throw new ArgumentNullException(nameof(maintenanceRepo));
+            _sparePartRepo = sparePartRepo ?? throw new ArgumentNullException(nameof(sparePartRepo));
+            _ticket = ticket ?? throw new ArgumentNullException(nameof(ticket));
 
-            lblTicket.Text = $"{ticket.AssetTag} - {ticket.EquipmentName}";
+            // Fixed the syntax error to compile safely
+            lblTicket.Text = $"{ticket.AssetTag}{Environment.NewLine}{ticket.EquipmentName}";
 
-            // Only parts that are in stock can be consumed
+            // Using the correct repository to fetch parts
             cmbSparePart.Items.Add(new SparePartOption(null, "(None)"));
-            cmbSparePart.Items.AddRange(_maintenanceRepo.GetAllSpareParts()
+            cmbSparePart.Items.AddRange(_sparePartRepo.GetAllSpareParts()
                 .Where(p => p.Quantity > 0)
                 .Select(p => new SparePartOption(p.Id, $"{p.Name} ({p.Quantity} in stock)"))
                 .ToArray());
@@ -32,7 +35,9 @@ namespace ComLabManager.UI
         {
             try
             {
-                var selectedPart = (SparePartOption)cmbSparePart.SelectedItem!;
+                var selectedPart = cmbSparePart.SelectedItem as SparePartOption;
+                if (selectedPart == null) return;
+
                 _maintenanceRepo.ResolveTicket(_ticket.Id, selectedPart.Id);
 
                 this.DialogResult = DialogResult.OK;
@@ -44,11 +49,7 @@ namespace ComLabManager.UI
             }
         }
 
-        private void btnCancel_Click(object sender, EventArgs e)
-        {
-            this.DialogResult = DialogResult.Cancel;
-            this.Close();
-        }
+        private void btnCancel_Click(object sender, EventArgs e) => this.Close();
 
         private class SparePartOption
         {

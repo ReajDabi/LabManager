@@ -17,7 +17,8 @@ namespace ComLabManager.UI
         private readonly IUserRepository _userRepository;
         private readonly IBorrowRequestRepository _borrowRepository;
         private readonly IComLabScheduleRepository _scheduleRepository;
-        private readonly ISparePartRequestRepository _partRepository; 
+        private readonly ISparePartRequestRepository _partRepository;
+        private readonly ISparePartRepository _sparePartRepository; 
 
         private User _currentUser;
         private UserControl _currentActiveView;
@@ -25,14 +26,14 @@ namespace ComLabManager.UI
 
         private readonly Dictionary<Button, (string Title, Func<UserControl> ViewFactory)> _navigationMap;
 
-       
         public MainForm(
             IEquipmentRepository equipmentRepository,
             IBorrowRequestRepository borrowRepository,
             IComLabScheduleRepository scheduleRepository,
             IMaintenanceRepository maintenanceRepository,
             ISparePartRequestRepository partRepository,
-            IUserRepository userRepository)
+            IUserRepository userRepository,
+            ISparePartRepository sparePartRepository) 
         {
             InitializeComponent();
 
@@ -42,16 +43,22 @@ namespace ComLabManager.UI
             _maintenanceRepository = maintenanceRepository ?? throw new ArgumentNullException(nameof(maintenanceRepository));
             _partRepository = partRepository ?? throw new ArgumentNullException(nameof(partRepository));
             _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
+            _sparePartRepository = sparePartRepository ?? throw new ArgumentNullException(nameof(sparePartRepository));
 
-           
+
             _navigationMap = new Dictionary<Button, (string, Func<UserControl> ViewFactory)>
-            {
-                { btnNavDashboard, ("Dashboard", () => (UserControl)new DashboardView(_equipmentRepository, _borrowRepository)) },
-                { btnNavEquipment, ("Equipment Inventory", () => (UserControl)new EquipmentInventoryView(_equipmentRepository)) },
-                { btnNavTickets, ("Maintenance Tickets", () => (UserControl)new MaintenanceView()) },
-                { btnNavScheduler, ("Maintenance Scheduler", () => (UserControl)new PreventiveMaintenanceView()) },
-                { btnNavUser, ("User Management", () => (UserControl)new UserManagementView()) }
-            };
+{
+    { btnNavDashboard, ("Dashboard", () => new DashboardView(_equipmentRepository, _borrowRepository, _scheduleRepository)) },
+    { btnNavEquipment, ("Equipment Inventory", () => new EquipmentInventoryView(_equipmentRepository)) },
+    
+    
+    { btnNavTickets, ("Maintenance Tickets", () => new MaintenanceView(_maintenanceRepository, _equipmentRepository, _userRepository, _sparePartRepository, _currentUser)) },
+
+    { btnNavScheduler, ("Maintenance Scheduler", () => new PreventiveMaintenanceView()) },
+    { btnNavUser, ("User Management", () => new UserManagementView()) },
+    { btnNavSpareParts, ("", () => null) }, 
+    { btnNavRequestApproval, ("", () => null) } 
+};
 
             AttachNavigationEvents();
         }
@@ -61,22 +68,22 @@ namespace ComLabManager.UI
             _currentUser = user ?? throw new ArgumentNullException(nameof(user));
             lblCurrentUser.Text = $"Viewing as: {_currentUser.UserName} ({_currentUser.Role})";
 
+            
             _navigationMap[btnNavSpareParts] = ("Spare Parts", () =>
-                (UserControl)new SparePartsView(_currentUser.Id, accessStrategy.CanEditInventory, _maintenanceRepository, _partRepository));
+                new SparePartsView(_currentUser.Id, accessStrategy.CanEditInventory, _sparePartRepository, _partRepository));
 
             if (accessStrategy.UsesAdminApprovalView)
             {
                 _navigationMap[btnNavRequestApproval] = ("Pending Requests", () =>
-                    (UserControl)new AdminApprovalsView(_borrowRepository, _partRepository));
+                    new AdminApprovalsView(_borrowRepository, _partRepository));
             }
             else
             {
                 _navigationMap[btnNavRequestApproval] = ("My Requests", () =>
-                    (UserControl)new StudentDashboardView(_equipmentRepository, _borrowRepository, _scheduleRepository, _currentUser.Id));
+                    new StudentDashboardView(_equipmentRepository, _borrowRepository, _scheduleRepository, _currentUser.Id));
             }
 
-            btnNavDashboard.Visible = accessStrategy.CanViewDashboard;
-
+          
             btnNavDashboard.Visible = accessStrategy.CanViewDashboard;
             btnNavEquipment.Visible = accessStrategy.CanViewEquipment;
             btnNavTickets.Visible = accessStrategy.CanViewTickets;
@@ -96,11 +103,9 @@ namespace ComLabManager.UI
             accessStrategy.LoadInitialView(this);
         }
 
-        
-
         public void OpenDashboard() => UniversalNavigation_Click(btnNavDashboard, EventArgs.Empty);
         public void OpenStudentDashboard() => UniversalNavigation_Click(btnNavRequestApproval, EventArgs.Empty);
-        public void OpenTickets() => UniversalNavigation_Click(btnNavSpareParts, EventArgs.Empty);
+        public void OpenTickets() => UniversalNavigation_Click(btnNavTickets, EventArgs.Empty); 
 
         private void UniversalNavigation_Click(object sender, EventArgs e)
         {
@@ -118,9 +123,6 @@ namespace ComLabManager.UI
             {
                 button.Click += UniversalNavigation_Click;
             }
-            
-            btnNavRequestApproval.Click -= UniversalNavigation_Click;
-            btnNavRequestApproval.Click += UniversalNavigation_Click;
         }
 
         private void HighlightActiveButton(Button clickedButton)
@@ -133,7 +135,6 @@ namespace ComLabManager.UI
                 button.BackColor = defaultColor;
             }
 
-            btnNavRequestApproval.BackColor = defaultColor;
             clickedButton.BackColor = Color.FromArgb(0, 120, 215);
             _activeButton = clickedButton;
         }
@@ -154,7 +155,7 @@ namespace ComLabManager.UI
 
         private void btnSignOut_Click(object sender, EventArgs e)
         {
-            DialogResult result = MessageBox.Show(
+            DialogResult result = MessageBox.Show(this,
                 "Are you sure you want to log out?",
                 "Confirm Logout",
                 MessageBoxButtons.YesNo,

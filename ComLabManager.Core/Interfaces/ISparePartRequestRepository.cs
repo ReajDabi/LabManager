@@ -8,7 +8,8 @@ namespace ComLabManager.Core.Interfaces
     public interface ISparePartRequestRepository
     {
         IEnumerable<SparePartRequest> GetAllRequests();
-        void UpdateRequestStatus(int requestId, string status);
+        void UpdateRequestStatus(int requestId, string status); 
+        void ApproveAndDeductInventory(int requestId);         
         void AddRequest(SparePartRequest request);
     }
 }

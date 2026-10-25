@@ -29,6 +29,10 @@
         private void InitializeComponent()
         {
             dataGridView1 = new DataGridView();
+            buttonAddSparePart = new Button();
+            buttonDelete = new Button();
+            pnlActionBar = new Panel();
+            btnRequestPart = new Button();
             colName = new DataGridViewTextBoxColumn();
             category = new DataGridViewTextBoxColumn();
             quantity = new DataGridViewTextBoxColumn();
@@ -37,10 +41,6 @@
             restock = new DataGridViewTextBoxColumn();
             restockminus = new DataGridViewButtonColumn();
             restockplus = new DataGridViewButtonColumn();
-            buttonAddSparePart = new Button();
-            buttonDelete = new Button();
-            pnlActionBar = new Panel();
-            btnRequestPart = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             pnlActionBar.SuspendLayout();
             SuspendLayout();
@@ -68,11 +68,70 @@
             dataGridView1.CellContentClick += dataGridView1_CellContentClick;
             dataGridView1.CellFormatting += dataGridView1_CellFormatting;
             // 
+            // buttonAddSparePart
+            // 
+            buttonAddSparePart.Anchor = AnchorStyles.Right;
+            buttonAddSparePart.BackColor = Color.Green;
+            buttonAddSparePart.FlatAppearance.BorderSize = 0;
+            buttonAddSparePart.FlatStyle = FlatStyle.Flat;
+            buttonAddSparePart.ForeColor = Color.White;
+            buttonAddSparePart.Location = new Point(770, 10);
+            buttonAddSparePart.Margin = new Padding(4);
+            buttonAddSparePart.Name = "buttonAddSparePart";
+            buttonAddSparePart.Size = new Size(167, 42);
+            buttonAddSparePart.TabIndex = 1;
+            buttonAddSparePart.Text = "Add Spare Part";
+            buttonAddSparePart.UseVisualStyleBackColor = false;
+            buttonAddSparePart.Click += buttonAddSparePart_Click;
+            // 
+            // buttonDelete
+            // 
+            buttonDelete.Anchor = AnchorStyles.Right;
+            buttonDelete.BackColor = Color.Red;
+            buttonDelete.FlatAppearance.BorderSize = 0;
+            buttonDelete.FlatStyle = FlatStyle.Flat;
+            buttonDelete.ForeColor = Color.White;
+            buttonDelete.Location = new Point(558, 10);
+            buttonDelete.Margin = new Padding(4);
+            buttonDelete.Name = "buttonDelete";
+            buttonDelete.Size = new Size(177, 42);
+            buttonDelete.TabIndex = 2;
+            buttonDelete.Text = "Delete Spare Part";
+            buttonDelete.UseVisualStyleBackColor = false;
+            buttonDelete.Click += buttonDelete_Click;
+            // 
+            // pnlActionBar
+            // 
+            pnlActionBar.Controls.Add(buttonAddSparePart);
+            pnlActionBar.Controls.Add(btnRequestPart);
+            pnlActionBar.Controls.Add(buttonDelete);
+            pnlActionBar.Dock = DockStyle.Top;
+            pnlActionBar.Location = new Point(0, 0);
+            pnlActionBar.Name = "pnlActionBar";
+            pnlActionBar.Size = new Size(958, 62);
+            pnlActionBar.TabIndex = 3;
+            // 
+            // btnRequestPart
+            // 
+            btnRequestPart.Anchor = AnchorStyles.Right;
+            btnRequestPart.BackColor = Color.Navy;
+            btnRequestPart.FlatAppearance.BorderSize = 0;
+            btnRequestPart.FlatStyle = FlatStyle.Flat;
+            btnRequestPart.ForeColor = Color.White;
+            btnRequestPart.Location = new Point(770, 10);
+            btnRequestPart.Margin = new Padding(4);
+            btnRequestPart.Name = "btnRequestPart";
+            btnRequestPart.Size = new Size(167, 42);
+            btnRequestPart.TabIndex = 2;
+            btnRequestPart.Text = "Request Part";
+            btnRequestPart.UseVisualStyleBackColor = false;
+            btnRequestPart.Click += btnRequestPart_Click;
+            // 
             // colName
             // 
             colName.DataPropertyName = "Name";
             colName.FillWeight = 188.396683F;
-            colName.HeaderText = "Equipment Name";
+            colName.HeaderText = "Spare Part Name";
             colName.MinimumWidth = 6;
             colName.Name = "colName";
             colName.ReadOnly = true;
@@ -144,65 +203,6 @@
             restockplus.ReadOnly = true;
             restockplus.Text = "+";
             restockplus.UseColumnTextForButtonValue = true;
-            // 
-            // buttonAddSparePart
-            // 
-            buttonAddSparePart.Anchor = AnchorStyles.Right;
-            buttonAddSparePart.BackColor = Color.Green;
-            buttonAddSparePart.FlatAppearance.BorderSize = 0;
-            buttonAddSparePart.FlatStyle = FlatStyle.Flat;
-            buttonAddSparePart.ForeColor = Color.White;
-            buttonAddSparePart.Location = new Point(770, 10);
-            buttonAddSparePart.Margin = new Padding(4);
-            buttonAddSparePart.Name = "buttonAddSparePart";
-            buttonAddSparePart.Size = new Size(167, 42);
-            buttonAddSparePart.TabIndex = 1;
-            buttonAddSparePart.Text = "Add Spare Part";
-            buttonAddSparePart.UseVisualStyleBackColor = false;
-            buttonAddSparePart.Click += buttonAddSparePart_Click;
-            // 
-            // buttonDelete
-            // 
-            buttonDelete.Anchor = AnchorStyles.Right;
-            buttonDelete.BackColor = Color.Red;
-            buttonDelete.FlatAppearance.BorderSize = 0;
-            buttonDelete.FlatStyle = FlatStyle.Flat;
-            buttonDelete.ForeColor = Color.White;
-            buttonDelete.Location = new Point(558, 10);
-            buttonDelete.Margin = new Padding(4);
-            buttonDelete.Name = "buttonDelete";
-            buttonDelete.Size = new Size(177, 42);
-            buttonDelete.TabIndex = 2;
-            buttonDelete.Text = "Delete Spare Part";
-            buttonDelete.UseVisualStyleBackColor = false;
-            buttonDelete.Click += buttonDelete_Click;
-            // 
-            // pnlActionBar
-            // 
-            pnlActionBar.Controls.Add(buttonAddSparePart);
-            pnlActionBar.Controls.Add(btnRequestPart);
-            pnlActionBar.Controls.Add(buttonDelete);
-            pnlActionBar.Dock = DockStyle.Top;
-            pnlActionBar.Location = new Point(0, 0);
-            pnlActionBar.Name = "pnlActionBar";
-            pnlActionBar.Size = new Size(958, 62);
-            pnlActionBar.TabIndex = 3;
-            // 
-            // btnRequestPart
-            // 
-            btnRequestPart.Anchor = AnchorStyles.Right;
-            btnRequestPart.BackColor = Color.Navy;
-            btnRequestPart.FlatAppearance.BorderSize = 0;
-            btnRequestPart.FlatStyle = FlatStyle.Flat;
-            btnRequestPart.ForeColor = Color.White;
-            btnRequestPart.Location = new Point(361, 10);
-            btnRequestPart.Margin = new Padding(4);
-            btnRequestPart.Name = "btnRequestPart";
-            btnRequestPart.Size = new Size(177, 42);
-            btnRequestPart.TabIndex = 2;
-            btnRequestPart.Text = "Request Part";
-            btnRequestPart.UseVisualStyleBackColor = false;
-            btnRequestPart.Click += btnRequestPart_Click;
             // 
             // SparePartsView
             // 

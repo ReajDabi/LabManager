@@ -7,12 +7,12 @@ namespace ComLabManager.UI
 {
     public partial class AddSparePartForm : Form
     {
-        private readonly IMaintenanceRepository _maintenanceRepo;
+        private readonly ISparePartRepository _sparePartRepo;
 
-        public AddSparePartForm(IMaintenanceRepository maintenanceRepo)
+        public AddSparePartForm(ISparePartRepository sparePartRepo)
         {
             InitializeComponent();
-            _maintenanceRepo = maintenanceRepo ?? throw new ArgumentNullException(nameof(maintenanceRepo));
+            _sparePartRepo = sparePartRepo ?? throw new ArgumentNullException(nameof(sparePartRepo));
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -31,7 +31,7 @@ namespace ComLabManager.UI
                 RestockLevel = (int)numRestock.Value
             };
 
-            _maintenanceRepo.AddSparePart(newPart);
+            _sparePartRepo.AddSparePart(newPart);
             MessageBox.Show("Spare part added successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             this.DialogResult = DialogResult.OK;

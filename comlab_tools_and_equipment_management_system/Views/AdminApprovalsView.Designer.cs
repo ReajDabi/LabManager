@@ -31,6 +31,7 @@
             btnApprove = new Button();
             btnDeny = new Button();
             pnlActions = new Panel();
+            btnReturnEquipment = new Button();
             dgvBorrowRequests = new DataGridView();
             RequestId = new DataGridViewTextBoxColumn();
             StudentName = new DataGridViewTextBoxColumn();
@@ -86,17 +87,32 @@
             btnDeny.TabIndex = 1;
             btnDeny.Text = "Deny";
             btnDeny.UseVisualStyleBackColor = false;
-          
             // 
             // pnlActions
             // 
             pnlActions.Controls.Add(btnDeny);
+            pnlActions.Controls.Add(btnReturnEquipment);
             pnlActions.Controls.Add(btnApprove);
             pnlActions.Dock = DockStyle.Bottom;
             pnlActions.Location = new Point(0, 504);
             pnlActions.Name = "pnlActions";
             pnlActions.Size = new Size(958, 60);
             pnlActions.TabIndex = 2;
+            // 
+            // btnReturnEquipment
+            // 
+            btnReturnEquipment.Anchor = AnchorStyles.Left;
+            btnReturnEquipment.BackColor = Color.Navy;
+            btnReturnEquipment.FlatStyle = FlatStyle.Flat;
+            btnReturnEquipment.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
+            btnReturnEquipment.ForeColor = SystemColors.ButtonHighlight;
+            btnReturnEquipment.Location = new Point(23, 9);
+            btnReturnEquipment.Name = "btnReturnEquipment";
+            btnReturnEquipment.Size = new Size(204, 41);
+            btnReturnEquipment.TabIndex = 1;
+            btnReturnEquipment.Text = "Equipment Returned";
+            btnReturnEquipment.UseVisualStyleBackColor = false;
+            btnReturnEquipment.Click += btnReturnEquipment_Click;
             // 
             // dgvBorrowRequests
             // 
@@ -112,7 +128,6 @@
             dgvBorrowRequests.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvBorrowRequests.Size = new Size(958, 484);
             dgvBorrowRequests.TabIndex = 0;
-            dgvBorrowRequests.CellFormatting += dgvBorrowRequests_CellFormatting;
             // 
             // RequestId
             // 
@@ -181,7 +196,6 @@
             dgvPartRequests.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvPartRequests.Size = new Size(958, 424);
             dgvPartRequests.TabIndex = 0;
-            dgvPartRequests.CellFormatting += dgvPartRequests_CellFormatting;
             // 
             // colPartRequestId
             // 
@@ -201,6 +215,7 @@
             // 
             // colRequestedPart
             // 
+            colRequestedPart.DataPropertyName = "Name";
             colRequestedPart.HeaderText = "Requested Part";
             colRequestedPart.MinimumWidth = 8;
             colRequestedPart.Name = "colRequestedPart";
@@ -316,5 +331,6 @@
         private DataGridViewTextBoxColumn Quantity;
         private DataGridViewTextBoxColumn colPartReason;
         private DataGridViewTextBoxColumn colPartStatus;
+        private Button btnReturnEquipment;
     }
 }

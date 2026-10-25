@@ -16,6 +16,9 @@ namespace ComLabManager.UI.Views
         private readonly Dictionary<string, Color> _statusColors;
         private readonly int _studentId;
 
+        private IEnumerable<UnifiedScheduleDto> _cachedSchedules;
+        private enum ActiveTab { Schedule, Borrow }
+
         public StudentDashboardView(IEquipmentRepository equipmentRepo, IBorrowRequestRepository borrowRepo, IComLabScheduleRepository scheduleRepo, int studentId)
         {
             InitializeComponent();
@@ -28,34 +31,22 @@ namespace ComLabManager.UI.Views
             {
                 { "Pending", Color.FromArgb(255, 193, 7) },
                 { "Approved", Color.FromArgb(25, 135, 84) },
-                { "Denied", Color.FromArgb(220, 53, 69) }
+                { "Denied", Color.FromArgb(220, 53, 69) },
+                { "Returned", Color.FromArgb(108, 117, 125) }
             };
 
-            
-            SetupGrid();
-
-            
+            SetupGrids();
             RefreshGrid();
+            PopulateRoomFilter();
 
             
-            PopulateRoomFilter();
+            SetActiveTab(ActiveTab.Schedule);
         }
 
-        private void SetupGrid()
+        private void SetupGrids()
         {
-           
-            dgvMyRequests.AutoGenerateColumns = false;
-            dgvSchedules.AutoGenerateColumns = false;
-
-            Target.DataPropertyName = "TargetLocation";
-            Date.DataPropertyName = "RequestedDate";
-            Status.DataPropertyName = "Status";
-
-            
-            Subject.DataPropertyName = "SubjectCode";
-            Instructor.DataPropertyName = "InstructorName";
-            StartTime.DataPropertyName = "StartTime";
-            EndTime.DataPropertyName = "EndTime";
+            dgvSchedules.AutoGenerateColumns = true;
+            dgvMyRequests.AutoGenerateColumns = true;
         }
 
         private void RefreshGrid()
@@ -64,6 +55,7 @@ namespace ComLabManager.UI.Views
             {
                 var myRequests = _borrowRepo.GetRequestsByStudent(_studentId);
                 dgvMyRequests.DataSource = myRequests;
+                FormatMyRequestsGridUI(); 
             }
         }
 
@@ -71,8 +63,8 @@ namespace ComLabManager.UI.Views
         {
             if (_scheduleRepo == null) return;
 
-            var allSchedules = _scheduleRepo.GetAllSchedules();
-            var uniqueRooms = allSchedules.Select(s => s.ComLabName).Distinct().ToList();
+            _cachedSchedules = _scheduleRepo.GetUnifiedComLabSchedules();
+            var uniqueRooms = _cachedSchedules.Select(s => (string)s.ComLabName).Distinct().OrderBy(r => r).ToList();
 
             cmbRoomFilter.Items.Clear();
             cmbRoomFilter.Items.Add("All Rooms");
@@ -80,76 +72,25 @@ namespace ComLabManager.UI.Views
 
             if (cmbRoomFilter.Items.Count > 0)
             {
-                
                 cmbRoomFilter.SelectedIndex = 0;
             }
         }
 
         private void ApplyScheduleFilter()
         {
-            if (_scheduleRepo == null) return;
+            if (_cachedSchedules == null) return;
 
             string selectedRoom = cmbRoomFilter.SelectedItem?.ToString() ?? "All Rooms";
-            var allSchedules = _scheduleRepo.GetAllSchedules();
 
             if (selectedRoom == "All Rooms")
-            {
-                dgvSchedules.DataSource = allSchedules;
-            }
+                dgvSchedules.DataSource = _cachedSchedules.ToList();
             else
-            {
-                var filteredSchedules = allSchedules.Where(s => s.ComLabName == selectedRoom).ToList();
-                dgvSchedules.DataSource = filteredSchedules;
-            }
+                dgvSchedules.DataSource = _cachedSchedules.Where(s => (string)s.ComLabName == selectedRoom).ToList();
+
+            FormatScheduleGridUI(); 
         }
 
-        private void cmbRoomFilter_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            ApplyScheduleFilter();
-        }
-
-        private void dgvSchedules_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
-        {
-            
-            if (e.RowIndex >= 0 && e.Value is TimeSpan timeValue &&
-               (dgvSchedules.Columns[e.ColumnIndex].Name == "StartTime" || dgvSchedules.Columns[e.ColumnIndex].Name == "EndTime"))
-            {
-                DateTime time = DateTime.Today.Add(timeValue);
-                e.Value = time.ToString("h:mm tt");
-                e.FormattingApplied = true;
-            }
-        }
-
-        private void dgvMyRequests_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
-        {
-            if (e.RowIndex >= 0)
-            {
-                var row = dgvMyRequests.Rows[e.RowIndex];
-                var request = row.DataBoundItem as BorrowRequest;
-
-                if (request != null)
-                {
-                    string columnName = dgvMyRequests.Columns[e.ColumnIndex].Name;
-
-                   
-                    if (columnName == "colTime")
-                    {
-                        DateTime start = DateTime.Today.Add(request.StartTime);
-                        DateTime end = DateTime.Today.Add(request.EndTime);
-                        e.Value = $"{start:h:mm tt} - {end:h:mm tt}"; 
-                        e.FormattingApplied = true;
-                    }
-
-                    if (columnName == "Status")
-                    {
-                        if (_statusColors.TryGetValue(request.Status, out Color statusColor))
-                        {
-                            row.Cells[e.ColumnIndex].Style.ForeColor = statusColor;
-                        }
-                    }
-                }
-            }
-        }
+        private void cmbRoomFilter_SelectedIndexChanged(object sender, EventArgs e) => ApplyScheduleFilter();
 
         private void btnNewRequest_Click(object sender, EventArgs e)
         {
@@ -163,18 +104,114 @@ namespace ComLabManager.UI.Views
             }
         }
 
-        private void btnToggleSchedule_Click(object sender, EventArgs e)
+        
+        private void SetActiveTab(ActiveTab tab)
         {
-            pnlSchedules.BringToFront();
-            btnToggleSchedule.BackColor = Color.FromArgb(0, 120, 215);
-            btnToggleBorrow.BackColor = Color.FromArgb(30, 41, 59);
+            bool isSchedule = (tab == ActiveTab.Schedule);
+
+          
+            if (isSchedule) pnlSchedules.BringToFront();
+            else pnlBorrow.BringToFront();
+
+          
+            btnToggleSchedule.BackColor = isSchedule ? Color.FromArgb(0, 120, 215) : Color.FromArgb(30, 41, 59);
+            btnToggleBorrow.BackColor = !isSchedule ? Color.FromArgb(0, 120, 215) : Color.FromArgb(30, 41, 59);
+
+           
+            cmbRoomFilter.Visible = isSchedule;
+            btnNewRequest.Visible = !isSchedule;
+            pnlHeader.Refresh();
         }
 
-        private void btnToggleBorrow_Click(object sender, EventArgs e)
+        private void btnToggleSchedule_Click(object sender, EventArgs e) => SetActiveTab(ActiveTab.Schedule);
+        private void btnToggleBorrow_Click(object sender, EventArgs e) => SetActiveTab(ActiveTab.Borrow);
+
+       
+
+        private void FormatScheduleGridUI()
         {
-            pnlBorrow.BringToFront();
-            btnToggleBorrow.BackColor = Color.FromArgb(0, 120, 215);
-            btnToggleSchedule.BackColor = Color.FromArgb(30, 41, 59);
+            if (dgvSchedules.Columns.Count == 0) return;
+
+            if (dgvSchedules.Columns["ComLabName"] != null) dgvSchedules.Columns["ComLabName"].HeaderText = "Room";
+            if (dgvSchedules.Columns["DayOfWeek"] != null) dgvSchedules.Columns["DayOfWeek"].HeaderText = "Day";
+            if (dgvSchedules.Columns["StartTime"] != null) dgvSchedules.Columns["StartTime"].HeaderText = "Start Time";
+            if (dgvSchedules.Columns["EndTime"] != null) dgvSchedules.Columns["EndTime"].HeaderText = "End Time";
+            if (dgvSchedules.Columns["BookingType"] != null) dgvSchedules.Columns["BookingType"].HeaderText = "Type";
+        }
+
+        private void FormatMyRequestsGridUI()
+        {
+            if (dgvMyRequests.Columns.Count == 0) return;
+
+            string[] columnsToHide = { "Id", "StudentId", "StudentName", "EquipmentId" };
+            foreach (string col in columnsToHide)
+            {
+                if (dgvMyRequests.Columns[col] != null) dgvMyRequests.Columns[col].Visible = false;
+            }
+
+            if (dgvMyRequests.Columns["TargetLocation"] != null) dgvMyRequests.Columns["TargetLocation"].HeaderText = "Target Room";
+            if (dgvMyRequests.Columns["RequestedDate"] != null) dgvMyRequests.Columns["RequestedDate"].HeaderText = "Date";
+            if (dgvMyRequests.Columns["StartTime"] != null) dgvMyRequests.Columns["StartTime"].HeaderText = "Start Time";
+            if (dgvMyRequests.Columns["EndTime"] != null) dgvMyRequests.Columns["EndTime"].HeaderText = "End Time";
+        }
+
+
+
+        private string FormatToAmPm(object val)
+        {
+            
+            if (val is TimeSpan ts)
+            {
+                return DateTime.Today.Add(ts).ToString("h:mm tt").ToLower();
+            }
+
+            if (val is DateTime dt)
+            {
+                return dt.ToString("h:mm tt").ToLower();
+            }
+
+            return val?.ToString();
+        }
+
+        private void dgvSchedules_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (e.RowIndex < 0) return;
+            string colName = dgvSchedules.Columns[e.ColumnIndex].Name;
+
+            if (colName == "StartTime" || colName == "EndTime")
+            {
+                e.Value = FormatToAmPm(e.Value);
+                e.FormattingApplied = true;
+            }
+        }
+
+        private void dgvMyRequests_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (e.RowIndex < 0) return;
+
+            var request = dgvMyRequests.Rows[e.RowIndex].DataBoundItem as BorrowRequest;
+            if (request == null) return;
+
+            string colName = dgvMyRequests.Columns[e.ColumnIndex].Name;
+
+            if (colName == "StartTime" || colName == "EndTime")
+            {
+                e.Value = FormatToAmPm(e.Value);
+                e.FormattingApplied = true;
+            }
+            else if (colName == "RequestedDate" && e.Value is DateTime dateValue)
+            {
+                e.Value = dateValue.ToString("MMM dd, yyyy");
+                e.FormattingApplied = true;
+            }
+            else if (colName == "Status")
+            {
+                if (_statusColors.TryGetValue(request.Status, out Color statusColor))
+                {
+                    dgvMyRequests.Rows[e.RowIndex].Cells[e.ColumnIndex].Style.ForeColor = statusColor;
+                    dgvMyRequests.Rows[e.RowIndex].Cells[e.ColumnIndex].Style.Font = new Font(dgvMyRequests.Font, FontStyle.Bold);
+                }
+            }
         }
     }
 }
