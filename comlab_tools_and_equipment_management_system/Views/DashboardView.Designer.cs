@@ -49,6 +49,7 @@
             pnlHeader = new Panel();
             label1 = new Label();
             pnlGridContainer = new Panel();
+            btnManageSchedules = new Button();
             dgvActionItems = new DataGridView();
             Type = new DataGridViewTextBoxColumn();
             Details = new DataGridViewTextBoxColumn();
@@ -275,6 +276,7 @@
             // pnlGridContainer
             // 
             pnlGridContainer.BackColor = Color.WhiteSmoke;
+            pnlGridContainer.Controls.Add(btnManageSchedules);
             pnlGridContainer.Controls.Add(dgvActionItems);
             pnlGridContainer.Controls.Add(lblGridTitle);
             pnlGridContainer.Dock = DockStyle.Fill;
@@ -283,6 +285,21 @@
             pnlGridContainer.Padding = new Padding(20);
             pnlGridContainer.Size = new Size(958, 354);
             pnlGridContainer.TabIndex = 2;
+            // 
+            // btnManageSchedules
+            // 
+            btnManageSchedules.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnManageSchedules.BackColor = Color.Navy;
+            btnManageSchedules.FlatAppearance.BorderSize = 0;
+            btnManageSchedules.FlatStyle = FlatStyle.Flat;
+            btnManageSchedules.ForeColor = SystemColors.ButtonHighlight;
+            btnManageSchedules.Location = new Point(738, 5);
+            btnManageSchedules.Name = "btnManageSchedules";
+            btnManageSchedules.Size = new Size(197, 39);
+            btnManageSchedules.TabIndex = 1;
+            btnManageSchedules.Text = "ManageSchedules";
+            btnManageSchedules.UseVisualStyleBackColor = false;
+            btnManageSchedules.Click += btnManageSchedules_Click;
             // 
             // dgvActionItems
             // 
@@ -388,5 +405,6 @@
         private DataGridViewTextBoxColumn Type;
         private DataGridViewTextBoxColumn Details;
         private DataGridViewTextBoxColumn Date;
+        private Button btnManageSchedules;
     }
 }

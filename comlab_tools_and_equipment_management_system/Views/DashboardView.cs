@@ -10,16 +10,19 @@ using ComLabManager.Core.Interfaces;
 namespace ComLabManager.UI
 {
     public partial class DashboardView : UserControl
-    {   
+    {
         private readonly IEquipmentRepository _equipmentRepo;
         IBorrowRequestRepository _borrowRepo;
+        private readonly IComLabScheduleRepository _scheduleRepo;
 
-        public DashboardView(IEquipmentRepository equipmentRepo, IBorrowRequestRepository borrowRepo)
+        public DashboardView(IEquipmentRepository equipmentRepo, IBorrowRequestRepository borrowRepo, IComLabScheduleRepository scheduleRepo)
         {
             InitializeComponent();
             _equipmentRepo = equipmentRepo;
+            _scheduleRepo = scheduleRepo ?? throw new ArgumentNullException(nameof(scheduleRepo));
+        
 
-            lblDate.Text = DateTime.Now.ToString("dddd, MMMM dd, yyyy");
+        lblDate.Text = DateTime.Now.ToString("dddd, MMMM dd, yyyy");
         }
 
         private void DashboardView_Load(object sender, EventArgs e)
@@ -32,6 +35,14 @@ namespace ComLabManager.UI
             lblValueBorrows.Text = _borrowRepo.GetPendingCount().ToString();
             lblValueEq.Text = _equipmentRepo.GetTotalActiveCount().ToString();
             lblValueUsage.Text = _equipmentRepo.GetHighUsageCount().ToString();
+        }
+
+        private void btnManageSchedules_Click(object sender, EventArgs e)
+        {
+            using (ManageSchedulesForm scheduleForm = new ManageSchedulesForm(_scheduleRepo))
+            {
+                scheduleForm.ShowDialog();
+            }
         }
     }
 }
