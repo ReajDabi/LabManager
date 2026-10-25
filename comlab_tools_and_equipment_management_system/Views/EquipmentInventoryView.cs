@@ -69,7 +69,7 @@ namespace ComLabManager.UI.Views
 
         private void btnAddEquipment_Click(object sender, EventArgs e)
         {
-            EquipmentModalForm form = new EquipmentModalForm();
+            AddEquipmentForm form = new AddEquipmentForm();
             if (form.ShowDialog() == DialogResult.OK)
             {
                
@@ -83,7 +83,7 @@ namespace ComLabManager.UI.Views
             if (dgvEquipment.SelectedRows.Count == 0) return;
 
             Equipment selectedEquipment = (Equipment)dgvEquipment.SelectedRows[0].DataBoundItem;
-            EquipmentModalForm form = new EquipmentModalForm(selectedEquipment);
+            AddEquipmentForm form = new AddEquipmentForm(selectedEquipment);
             if (form.ShowDialog() == DialogResult.OK)
             {
                 _equipmentRepo.UpdateEquipment(form.ProcessedEquipment);

@@ -1,6 +1,6 @@
 ﻿namespace ComLabManager.UI
 {
-    partial class EquipmentModalForm
+    partial class AddEquipmentForm
     {
         /// <summary>
         /// Required designer variable.
@@ -43,6 +43,9 @@
             label5 = new Label();
             label6 = new Label();
             lblTitle = new Label();
+            numUsageCount = new NumericUpDown();
+            label2 = new Label();
+            ((System.ComponentModel.ISupportInitialize)numUsageCount).BeginInit();
             SuspendLayout();
             // 
             // txtAssetTag
@@ -102,7 +105,7 @@
             btnCancel.DialogResult = DialogResult.Cancel;
             btnCancel.FlatStyle = FlatStyle.Flat;
             btnCancel.ForeColor = SystemColors.Control;
-            btnCancel.Location = new Point(72, 446);
+            btnCancel.Location = new Point(77, 553);
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new Size(174, 48);
             btnCancel.TabIndex = 3;
@@ -114,7 +117,7 @@
             btnSave.BackColor = Color.Green;
             btnSave.FlatStyle = FlatStyle.Flat;
             btnSave.ForeColor = SystemColors.ButtonHighlight;
-            btnSave.Location = new Point(487, 446);
+            btnSave.Location = new Point(487, 553);
             btnSave.Name = "btnSave";
             btnSave.Size = new Size(174, 48);
             btnSave.TabIndex = 3;
@@ -145,9 +148,9 @@
             label3.AutoSize = true;
             label3.Location = new Point(76, 329);
             label3.Name = "label3";
-            label3.Size = new Size(137, 25);
+            label3.Size = new Size(157, 25);
             label3.TabIndex = 4;
-            label3.Text = "Station Number";
+            label3.Text = "Assigned Location";
             // 
             // label4
             // 
@@ -186,11 +189,29 @@
             lblTitle.TabIndex = 4;
             lblTitle.Text = "Add Equipment";
             // 
-            // EquipmentModalForm
+            // numUsageCount
+            // 
+            numUsageCount.Location = new Point(418, 440);
+            numUsageCount.Name = "numUsageCount";
+            numUsageCount.Size = new Size(244, 31);
+            numUsageCount.TabIndex = 5;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(418, 412);
+            label2.Name = "label2";
+            label2.Size = new Size(161, 25);
+            label2.TabIndex = 4;
+            label2.Text = "Initial Usage Count";
+            // 
+            // AddEquipmentForm
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(723, 534);
+            ClientSize = new Size(723, 605);
+            Controls.Add(numUsageCount);
+            Controls.Add(label2);
             Controls.Add(label6);
             Controls.Add(label5);
             Controls.Add(label4);
@@ -208,9 +229,10 @@
             Controls.Add(txtAssetTag);
             MaximizeBox = false;
             MinimizeBox = false;
-            Name = "EquipmentModalForm";
+            Name = "AddEquipmentForm";
             StartPosition = FormStartPosition.CenterParent;
             Text = "EquipmentModalForm";
+            ((System.ComponentModel.ISupportInitialize)numUsageCount).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -232,5 +254,7 @@
         private Label label5;
         private Label label6;
         private Label lblTitle;
+        private NumericUpDown numUsageCount;
+        private Label label2;
     }
 }

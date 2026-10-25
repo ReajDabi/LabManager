@@ -25,10 +25,11 @@ namespace ComLabManager.Infrastructure.Repositories
             {
                 return new DashboardMetrics
                 {
-                    TotalActiveAssets = db.ExecuteScalar<int>("SELECT COUNT(*) FROM Equipment WHERE Status = 'Active'"),
-                    HighUsageFlags = db.ExecuteScalar<int>("SELECT COUNT(*) FROM Equipment WHERE Status = 'Under Repair'"),
-                    PendingBorrowReqs = db.ExecuteScalar<int>("SELECT COUNT(*) FROM BorrowRequests WHERE Status = 'Pending'"),
-                    UpcomingPMTasks = db.ExecuteScalar<int>("SELECT COUNT(*) FROM MaintenanceLogs WHERE Status = 'Open'")
+                    TotalActiveAssets = db.ExecuteScalar<int>("SELECT COUNT(*) FROM Equipment WHERE TRIM(Status) = 'Active'"),
+                   
+                    HighUsageFlags = db.ExecuteScalar<int>("SELECT COUNT(*) FROM Equipment WHERE UsageCount >= 15"),
+                    PendingBorrowReqs = db.ExecuteScalar<int>("SELECT COUNT(*) FROM BorrowRequests WHERE TRIM(Status) = 'Pending'"),
+                    UpcomingPMTasks = db.ExecuteScalar<int>("SELECT COUNT(*) FROM MaintenanceLogs WHERE TRIM(Status) = 'Open'")
                 };
             }
         }

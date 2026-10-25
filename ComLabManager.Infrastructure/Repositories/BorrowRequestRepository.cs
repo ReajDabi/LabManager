@@ -144,16 +144,19 @@ namespace ComlabManager.Infrastructure.Repositories
                     {
                         var request = db.QuerySingle<BorrowRequest>("SELECT * FROM BorrowRequests WHERE Id = @Id", new { Id = requestId }, transaction);
 
-                        
                         if (request.Status != "Approved")
                         {
                             throw new InvalidOperationException("Only approved and actively borrowed equipment can be returned.");
                         }
 
-                        
-                        db.Execute("UPDATE Equipment SET Status = 'Available' WHERE Id = @Id", new { Id = request.EquipmentId }, transaction);
+                   
+                        if (request.EquipmentId.HasValue)
+                        {
+                      
+                            string equipSql = "UPDATE Equipment SET Status = 'Available', UsageCount = UsageCount + 1 WHERE Id = @Id";
+                            db.Execute(equipSql, new { Id = request.EquipmentId.Value }, transaction);
+                        }
 
-                       
                         db.Execute("UPDATE BorrowRequests SET Status = 'Returned' WHERE Id = @Id", new { Id = requestId }, transaction);
 
                         transaction.Commit();
