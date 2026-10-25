@@ -1,4 +1,4 @@
-using ComlabManager.Core.Interfaces;
+
 using ComLabManager.Core.Interfaces;
 using ComLabManager.Core.Models;
 using ComLabManager.UI.NavigationStrategies;
@@ -55,7 +55,7 @@ namespace ComLabManager.UI
     { btnNavTickets, ("Maintenance Tickets", () => new MaintenanceView(_maintenanceRepository, _equipmentRepository, _userRepository, _sparePartRepository, _currentUser)) },
 
     { btnNavScheduler, ("Maintenance Scheduler", () => new PreventiveMaintenanceView()) },
-    { btnNavUser, ("User Management", () => new UserManagementView()) },
+    { btnNavUser, ("User Management", () => new UserManagementView(_userRepository)) },
     { btnNavSpareParts, ("", () => null) }, 
     { btnNavRequestApproval, ("", () => null) } 
 };
