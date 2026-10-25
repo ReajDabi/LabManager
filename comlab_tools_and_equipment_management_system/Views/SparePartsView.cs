@@ -34,7 +34,7 @@ namespace ComLabManager.UI
             buttonDelete.Visible = _canEditInventory;
             btnRequestPart.Visible = !_canEditInventory;
 
-            foreach (DataGridViewColumn col in dataGridView1.Columns)
+            foreach (DataGridViewColumn col in dgvSpareParts.Columns)
             {
                 if (!_canEditInventory && col.DataPropertyName != "Name" && col.DataPropertyName != "Category" && col.DataPropertyName != "Quantity")
                 {
@@ -51,20 +51,20 @@ namespace ComLabManager.UI
         {
             if (_sparePartRepo != null)
             {
-                dataGridView1.AutoGenerateColumns = false;
-                dataGridView1.DataSource = _sparePartRepo.GetAllSpareParts();
+                dgvSpareParts.AutoGenerateColumns = false;
+                dgvSpareParts.DataSource = _sparePartRepo.GetAllSpareParts();
             }
         }
 
         private void buttonDelete_Click(object sender, EventArgs e)
         {
-            if (dataGridView1.SelectedRows.Count == 0)
+            if (dgvSpareParts.SelectedRows.Count == 0)
             {
                 MessageBox.Show("Please select a spare part row to delete.", "No Selection", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            var selectedPart = (SparePart)dataGridView1.SelectedRows[0].DataBoundItem;
+            var selectedPart = (SparePart)dgvSpareParts.SelectedRows[0].DataBoundItem;
             var result = MessageBox.Show($"Are you sure you want to delete '{selectedPart.Name}'?", "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
             if (result == DialogResult.Yes)
@@ -80,7 +80,44 @@ namespace ComLabManager.UI
                 }
             }
         }
+        private void dgvSpareParts_CurrentCellDirtyStateChanged(object sender, EventArgs e)
+        {
+            if (dgvSpareParts.IsCurrentCellDirty)
+            {
+               
+                dgvSpareParts.CommitEdit(DataGridViewDataErrorContexts.Commit);
+            }
+        }
+        private void dgvSpareParts_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0) return;
 
+           string dataPropertyName = dgvSpareParts.Columns[e.ColumnIndex].DataPropertyName;
+
+            if (dataPropertyName == "Quantity")
+            {
+                var sparePart = dgvSpareParts.Rows[e.RowIndex].DataBoundItem as SparePart;
+                if (sparePart != null)
+                {
+                    try
+                    {
+                        if (sparePart.Quantity < 0)
+                        {
+                            MessageBox.Show("Quantity cannot be negative.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            RefreshGrid();
+                            return;
+                        }
+
+                        _sparePartRepo.UpdateSparePartQuantity(sparePart.Id, sparePart.Quantity);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Failed to update quantity: " + ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        RefreshGrid();
+                    }
+                }
+            }
+        }
         private void buttonAddSparePart_Click(object sender, EventArgs e)
         {
             using (AddSparePartForm addForm = new AddSparePartForm(_sparePartRepo))
@@ -112,24 +149,29 @@ namespace ComLabManager.UI
             }
         }
 
-        private void dataGridView1_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        private void dgvSpareParts_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (e.RowIndex >= 0 && dataGridView1.Rows[e.RowIndex].DataBoundItem is SparePart currentPart)
+            if (e.RowIndex >= 0 && dgvSpareParts.Rows[e.RowIndex].DataBoundItem is SparePart currentPart)
             {
                 if (currentPart.Quantity <= currentPart.RestockLevel)
                 {
-                    dataGridView1.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.FromArgb(255, 204, 204);
-                    dataGridView1.Rows[e.RowIndex].DefaultCellStyle.ForeColor = Color.DarkRed;
+                    
+                    e.CellStyle.BackColor = Color.FromArgb(255, 204, 204);
+                    e.CellStyle.ForeColor = Color.DarkRed;
+
+                  
+                    e.CellStyle.SelectionBackColor = Color.IndianRed;
+                    e.CellStyle.SelectionForeColor = Color.White;
                 }
             }
         }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void dgvSpareParts_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0 || !_canEditInventory) return;
 
-            string colName = dataGridView1.Columns[e.ColumnIndex].Name;
-            var part = (SparePart)dataGridView1.Rows[e.RowIndex].DataBoundItem;
+            string colName = dgvSpareParts.Columns[e.ColumnIndex].Name;
+            var part = (SparePart)dgvSpareParts.Rows[e.RowIndex].DataBoundItem;
             bool needsUpdate = true;
 
             switch (colName)

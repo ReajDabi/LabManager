@@ -28,45 +28,46 @@
         /// </summary>
         private void InitializeComponent()
         {
-            dataGridView1 = new DataGridView();
+            dgvSpareParts = new DataGridView();
             buttonAddSparePart = new Button();
             buttonDelete = new Button();
             pnlActionBar = new Panel();
             btnRequestPart = new Button();
             colName = new DataGridViewTextBoxColumn();
             category = new DataGridViewTextBoxColumn();
-            quantity = new DataGridViewTextBoxColumn();
+            colQuantity = new DataGridViewTextBoxColumn();
             minus = new DataGridViewButtonColumn();
             plus = new DataGridViewButtonColumn();
             restock = new DataGridViewTextBoxColumn();
             restockminus = new DataGridViewButtonColumn();
             restockplus = new DataGridViewButtonColumn();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgvSpareParts).BeginInit();
             pnlActionBar.SuspendLayout();
             SuspendLayout();
             // 
-            // dataGridView1
+            // dgvSpareParts
             // 
-            dataGridView1.AllowUserToAddRows = false;
-            dataGridView1.AllowUserToDeleteRows = false;
-            dataGridView1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridView1.BackgroundColor = Color.FromArgb(248, 249, 250);
-            dataGridView1.BorderStyle = BorderStyle.None;
-            dataGridView1.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { colName, category, quantity, minus, plus, restock, restockminus, restockplus });
-            dataGridView1.Location = new Point(0, 69);
-            dataGridView1.Margin = new Padding(4);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.ReadOnly = true;
-            dataGridView1.RowHeadersVisible = false;
-            dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridView1.Size = new Size(958, 495);
-            dataGridView1.TabIndex = 0;
-            dataGridView1.CellContentClick += dataGridView1_CellContentClick;
-            dataGridView1.CellFormatting += dataGridView1_CellFormatting;
+            dgvSpareParts.AllowUserToAddRows = false;
+            dgvSpareParts.AllowUserToDeleteRows = false;
+            dgvSpareParts.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            dgvSpareParts.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvSpareParts.BackgroundColor = Color.FromArgb(248, 249, 250);
+            dgvSpareParts.BorderStyle = BorderStyle.None;
+            dgvSpareParts.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+            dgvSpareParts.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvSpareParts.Columns.AddRange(new DataGridViewColumn[] { colName, category, colQuantity, minus, plus, restock, restockminus, restockplus });
+            dgvSpareParts.Location = new Point(0, 69);
+            dgvSpareParts.Margin = new Padding(4);
+            dgvSpareParts.Name = "dgvSpareParts";
+            dgvSpareParts.RowHeadersVisible = false;
+            dgvSpareParts.RowHeadersWidth = 51;
+            dgvSpareParts.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvSpareParts.Size = new Size(958, 495);
+            dgvSpareParts.TabIndex = 0;
+            dgvSpareParts.CellContentClick += dgvSpareParts_CellContentClick;
+            dgvSpareParts.CellEndEdit += dgvSpareParts_CellEndEdit;
+            dgvSpareParts.CellFormatting += dgvSpareParts_CellFormatting;
+            dgvSpareParts.CurrentCellChanged += dgvSpareParts_CurrentCellDirtyStateChanged;
             // 
             // buttonAddSparePart
             // 
@@ -134,7 +135,6 @@
             colName.HeaderText = "Spare Part Name";
             colName.MinimumWidth = 6;
             colName.Name = "colName";
-            colName.ReadOnly = true;
             // 
             // category
             // 
@@ -143,17 +143,15 @@
             category.HeaderText = "Category";
             category.MinimumWidth = 6;
             category.Name = "category";
-            category.ReadOnly = true;
             // 
-            // quantity
+            // colQuantity
             // 
-            quantity.DataPropertyName = "Quantity";
-            quantity.FillWeight = 153.706024F;
-            quantity.HeaderText = "Quantity";
-            quantity.MinimumWidth = 6;
-            quantity.Name = "quantity";
-            quantity.ReadOnly = true;
-            quantity.Resizable = DataGridViewTriState.True;
+            colQuantity.DataPropertyName = "Quantity";
+            colQuantity.FillWeight = 153.706024F;
+            colQuantity.HeaderText = "Quantity";
+            colQuantity.MinimumWidth = 6;
+            colQuantity.Name = "colQuantity";
+            colQuantity.Resizable = DataGridViewTriState.True;
             // 
             // minus
             // 
@@ -161,7 +159,6 @@
             minus.HeaderText = "";
             minus.MinimumWidth = 2;
             minus.Name = "minus";
-            minus.ReadOnly = true;
             minus.Text = "-";
             minus.UseColumnTextForButtonValue = true;
             // 
@@ -171,7 +168,6 @@
             plus.HeaderText = "";
             plus.MinimumWidth = 2;
             plus.Name = "plus";
-            plus.ReadOnly = true;
             plus.Text = "+";
             plus.UseColumnTextForButtonValue = true;
             // 
@@ -182,7 +178,6 @@
             restock.HeaderText = "Restock";
             restock.MinimumWidth = 6;
             restock.Name = "restock";
-            restock.ReadOnly = true;
             // 
             // restockminus
             // 
@@ -190,7 +185,6 @@
             restockminus.HeaderText = "";
             restockminus.MinimumWidth = 2;
             restockminus.Name = "restockminus";
-            restockminus.ReadOnly = true;
             restockminus.Text = "-";
             restockminus.UseColumnTextForButtonValue = true;
             // 
@@ -200,7 +194,6 @@
             restockplus.HeaderText = "";
             restockplus.MinimumWidth = 2;
             restockplus.Name = "restockplus";
-            restockplus.ReadOnly = true;
             restockplus.Text = "+";
             restockplus.UseColumnTextForButtonValue = true;
             // 
@@ -210,26 +203,26 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(248, 249, 250);
             Controls.Add(pnlActionBar);
-            Controls.Add(dataGridView1);
+            Controls.Add(dgvSpareParts);
             Cursor = Cursors.Hand;
             Margin = new Padding(4);
             Name = "SparePartsView";
             Size = new Size(958, 564);
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvSpareParts).EndInit();
             pnlActionBar.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         #endregion
 
-        private DataGridView dataGridView1;
+        private DataGridView dgvSpareParts;
         private Button buttonAddSparePart;
         private Button buttonDelete;
         private Panel pnlActionBar;
         private Button btnRequestPart;
         private DataGridViewTextBoxColumn colName;
         private DataGridViewTextBoxColumn category;
-        private DataGridViewTextBoxColumn quantity;
+        private DataGridViewTextBoxColumn colQuantity;
         private DataGridViewButtonColumn minus;
         private DataGridViewButtonColumn plus;
         private DataGridViewTextBoxColumn restock;
