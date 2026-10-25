@@ -10,19 +10,19 @@ namespace ComLabManager.UI
         public string RawPassword { get; private set; }
         private readonly int? _editingUserId;
 
-       
         public UserModalForm()
         {
             InitializeComponent();
             lblModalTitle.Text = "Add New User";
             _editingUserId = null;
+
+            if (chkIsSuspended != null) chkIsSuspended.Checked = false;
         }
 
-       
         public UserModalForm(User existingUser)
         {
             InitializeComponent();
-            lblModalTitle.Text = "   Edit User";
+            lblModalTitle.Text = "Edit User";
             _editingUserId = existingUser.Id;
 
             txtFirstName.Text = existingUser.FirstName;
@@ -30,12 +30,13 @@ namespace ComLabManager.UI
             txtUsername.Text = existingUser.UserName;
             cmbRole.SelectedItem = existingUser.Role;
 
+            if (chkIsSuspended != null) chkIsSuspended.Checked = existingUser.IsSuspended;
+
             if (lblEdit != null) lblEdit.Text = "(Leave password blank to keep current password)";
         }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-           
             this.DialogResult = DialogResult.None;
 
             if (string.IsNullOrWhiteSpace(txtFirstName.Text) || string.IsNullOrWhiteSpace(txtLastName.Text) ||
@@ -57,7 +58,8 @@ namespace ComLabManager.UI
                 FirstName = txtFirstName.Text.Trim(),
                 LastName = txtLastName.Text.Trim(),
                 UserName = txtUsername.Text.Trim(),
-                Role = cmbRole.SelectedItem.ToString()
+                Role = cmbRole.SelectedItem.ToString(),
+                IsSuspended = chkIsSuspended != null && chkIsSuspended.Checked 
             };
 
             RawPassword = txtPassword.Text;

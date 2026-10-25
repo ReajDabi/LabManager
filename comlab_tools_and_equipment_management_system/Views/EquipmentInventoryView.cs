@@ -47,26 +47,20 @@ namespace ComLabManager.UI.Views
 
         private void dgvEquipment_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (e.RowIndex >= 0 && dgvEquipment.Rows[e.RowIndex].Cells["Status"].Value != null)
+            if (e.RowIndex >= 0 && dgvEquipment.Rows[e.RowIndex].DataBoundItem is Equipment currentEquipment)
             {
-                string status = dgvEquipment.Rows[e.RowIndex].Cells["Status"].Value.ToString();
-                DataGridViewRow row = dgvEquipment.Rows[e.RowIndex];
+                if (currentEquipment.UsageCount >= 15)
+                {
+                   
+                    e.CellStyle.BackColor = Color.LightGoldenrodYellow;
+                    e.CellStyle.ForeColor = Color.DarkGoldenrod;
 
-                
-                if (_statusColors.TryGetValue(status, out var colors))
-                {
-                    row.DefaultCellStyle.BackColor = colors.Back;
-                    row.DefaultCellStyle.ForeColor = colors.Fore;
-                }
-                else
-                {
-                    
-                    row.DefaultCellStyle.BackColor = Color.White;
-                    row.DefaultCellStyle.ForeColor = Color.Black;
+                  
+                    e.CellStyle.SelectionBackColor = Color.Goldenrod;
+                    e.CellStyle.SelectionForeColor = Color.White;
                 }
             }
         }
-
         private void btnAddEquipment_Click(object sender, EventArgs e)
         {
             AddEquipmentForm form = new AddEquipmentForm();

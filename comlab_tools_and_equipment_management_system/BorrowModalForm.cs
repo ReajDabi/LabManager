@@ -13,16 +13,14 @@ namespace ComLabManager.UI
 
         private readonly IEquipmentRepository _equipmentRepo;
         private readonly int _studentId;
-
-       
-        private readonly Dictionary<string, Func<IEnumerable<string>>> _scopeDataLoaders;
-        private readonly Dictionary<string, Func<string, (int? EquipmentId, string TargetLocation)>> _scopeParsers;
+        private List<Equipment> _cachedAvailableEquipment;
 
         public BorrowModalForm(IEquipmentRepository equipmentRepo, int studentId)
         {
             InitializeComponent();
             _equipmentRepo = equipmentRepo;
             _studentId = studentId;
+            _cachedAvailableEquipment = new List<Equipment>();
 
             dtpRequestedDate.MinDate = DateTime.Today;
             dtpStartTime.Format = DateTimePickerFormat.Time;
@@ -30,54 +28,83 @@ namespace ComLabManager.UI
             dtpEndTime.Format = DateTimePickerFormat.Time;
             dtpEndTime.ShowUpDown = true;
 
-           
-            _scopeDataLoaders = new Dictionary<string, Func<IEnumerable<string>>>
-            {
-                { "Borrow Entire Room", () => new[] { "CLV1", "CLV2", "CLV3", "Engineering", "ICT" } },
-                { "Borrow ComLab PC", () => _equipmentRepo.GetEquipmentByCategory("System Unit").Select(e => e.AssetTag) },
-                { "Borrow Lab Equipment", () => _equipmentRepo.GetEquipmentByCategory("Tool").Select(e => e.Name) }
-            };
+      
+            cmbEquipmentName.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            cmbEquipmentName.AutoCompleteSource = AutoCompleteSource.ListItems;
 
-           
-            _scopeParsers = new Dictionary<string, Func<string, (int?, string)>>
-            {
-                { "Borrow Entire Room", (item) => (null, item) }, 
-                { "Borrow ComLab PC", (item) => {
-                    var eq = _equipmentRepo.GetAllEquipment().FirstOrDefault(e => e.AssetTag == item);
-                    return (eq?.Id, eq?.StationNumber);
-                }},
-                { "Borrow Lab Equipment", (item) => {
-                    var eq = _equipmentRepo.GetAllEquipment().FirstOrDefault(e => e.Name == item);
-                    return (eq?.Id, null);
-                }}
-            };
-
-            InitializeDropdowns();
-        }
-
-        private void InitializeDropdowns()
-        {
-            cmbScope.Items.Clear();
-            cmbScope.Items.AddRange(_scopeDataLoaders.Keys.ToArray());
+            cmbScope.Items.AddRange(new[] { "Borrow Entire Room", "Borrow ComLab PC", "Borrow Lab Equipment" });
         }
 
         private void cmbScope_SelectedIndexChanged(object sender, EventArgs e)
         {
-            cmbItem.Items.Clear();
+            cmbEquipmentName.Items.Clear();
+            cmbAssetTag.Items.Clear();
+            cmbEquipmentName.Text = string.Empty;
+            cmbAssetTag.Text = string.Empty;
 
-            if (cmbScope.SelectedItem is string selectedScope &&
-                _scopeDataLoaders.TryGetValue(selectedScope, out var dataLoader))
+            string selectedScope = cmbScope.SelectedItem?.ToString();
+
+            if (selectedScope == "Borrow Entire Room")
             {
-                var itemsToLoad = dataLoader.Invoke().ToArray();
-                cmbItem.Items.AddRange(itemsToLoad);
+                cmbAssetTag.Enabled = false; 
+                cmbEquipmentName.Items.AddRange(new[] { "CLV1", "CLV2", "CLV3", "Engineering", "ICT" });
+            }
+            else if (selectedScope == "Borrow ComLab PC" || selectedScope == "Borrow Lab Equipment")
+            {
+                cmbAssetTag.Enabled = true;
+                string targetCategory = selectedScope == "Borrow ComLab PC" ? "System Unit" : "Tool";
+
+               
+                _cachedAvailableEquipment = _equipmentRepo.GetAllEquipment()
+                    .Where(eq => eq.Category == targetCategory && eq.Status == "Available")
+                    .ToList();
+
+                
+                var uniqueNames = _cachedAvailableEquipment.Select(eq => eq.Name).Distinct().ToArray();
+                cmbEquipmentName.Items.AddRange(uniqueNames);
+            }
+        }
+
+        private void cmbEquipmentName_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            cmbAssetTag.Items.Clear();
+            cmbAssetTag.Text = string.Empty;
+
+            string selectedScope = cmbScope.SelectedItem?.ToString();
+            string selectedName = cmbEquipmentName.SelectedItem?.ToString();
+
+            if (selectedScope != "Borrow Entire Room" && !string.IsNullOrWhiteSpace(selectedName))
+            {
+                
+                var matchingTags = _cachedAvailableEquipment
+                    .Where(eq => eq.Name == selectedName)
+                    .Select(eq => eq.AssetTag)
+                    .ToArray();
+
+                cmbAssetTag.Items.AddRange(matchingTags);
+
+                if (cmbAssetTag.Items.Count == 1)
+                {
+                    cmbAssetTag.SelectedIndex = 0;
+                }
             }
         }
 
         private void btnSubmit_Click(object sender, EventArgs e)
         {
-            if (cmbScope.SelectedItem == null || cmbItem.SelectedItem == null || string.IsNullOrWhiteSpace(txtPurpose.Text))
+            this.DialogResult = DialogResult.None;
+
+            string scope = cmbScope.SelectedItem?.ToString();
+
+            if (string.IsNullOrWhiteSpace(scope) || cmbEquipmentName.SelectedItem == null || string.IsNullOrWhiteSpace(txtPurpose.Text))
             {
                 MessageBox.Show("Scope, Item, and Purpose are required.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (scope != "Borrow Entire Room" && cmbAssetTag.SelectedItem == null)
+            {
+                MessageBox.Show("Please select a specific Asset Tag.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -87,24 +114,30 @@ namespace ComLabManager.UI
                 return;
             }
 
-            string selectedScope = cmbScope.SelectedItem.ToString();
-            string selectedItem = cmbItem.SelectedItem.ToString();
+            int? finalEquipmentId = null;
+            string finalTargetLocation = null;
 
-            int? parsedEquipmentId = null;
-            string parsedTargetLocation = null;
-
-            if (_scopeParsers.TryGetValue(selectedScope, out var parser))
+            if (scope == "Borrow Entire Room")
             {
-                var result = parser(selectedItem);
-                parsedEquipmentId = result.EquipmentId;
-                parsedTargetLocation = result.TargetLocation;
+                finalTargetLocation = cmbEquipmentName.SelectedItem.ToString();
+            }
+            else
+            {
+                string selectedTag = cmbAssetTag.SelectedItem.ToString();
+                var specificEquipment = _cachedAvailableEquipment.FirstOrDefault(eq => eq.AssetTag == selectedTag);
+
+                if (specificEquipment != null)
+                {
+                    finalEquipmentId = specificEquipment.Id;
+                    finalTargetLocation = specificEquipment.StationNumber;
+                }
             }
 
             ProcessedRequest = new BorrowRequest
             {
                 StudentId = _studentId,
-                EquipmentId = parsedEquipmentId,
-                TargetLocation = parsedTargetLocation,
+                EquipmentId = finalEquipmentId,
+                TargetLocation = finalTargetLocation,
                 Purpose = txtPurpose.Text.Trim(),
                 RequestedDate = dtpRequestedDate.Value.Date,
                 StartTime = dtpStartTime.Value.TimeOfDay,

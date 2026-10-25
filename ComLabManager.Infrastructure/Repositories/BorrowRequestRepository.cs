@@ -38,15 +38,34 @@ namespace ComlabManager.Infrastructure.Repositories
         {
             using (IDbConnection db = new MySqlConnection(_connectionString))
             {
+              
+                bool isSuspended = db.ExecuteScalar<bool>("SELECT IsSuspended FROM Users WHERE Id = @StudentId", new { StudentId = request.StudentId });
+                if (isSuspended)
+                {
+                    throw new InvalidOperationException("Your account has been suspended by an Administrator. You cannot borrow equipment at this time.");
+                }
+
+                if (request.EquipmentId.HasValue)
+                {
+                    string locSql = "SELECT StationNumber FROM Equipment WHERE Id = @Id";
+                    string actualLocation = db.ExecuteScalar<string>(locSql, new { Id = request.EquipmentId.Value });
+
+                    if (string.IsNullOrWhiteSpace(actualLocation) || !actualLocation.Equals(request.TargetLocation, StringComparison.OrdinalIgnoreCase))
+                    {
+                        string displayLocation = string.IsNullOrWhiteSpace(actualLocation) ? "an unassigned location" : actualLocation;
+                        throw new InvalidOperationException($"The requested equipment is currently located in {displayLocation}, not {request.TargetLocation}. Please correct the room location.");
+                    }
+                }
+
+                // 3. Save Request (Your existing code)
                 string sql = @"INSERT INTO BorrowRequests 
-                               (StudentId, EquipmentId, TargetLocation, Purpose, RequestedDate, StartTime, EndTime, Status) 
-                               VALUES 
-                               (@StudentId, @EquipmentId, @TargetLocation, @Purpose, @RequestedDate, @StartTime, @EndTime, @Status)";
+                       (StudentId, EquipmentId, TargetLocation, Purpose, RequestedDate, StartTime, EndTime, Status) 
+                       VALUES 
+                       (@StudentId, @EquipmentId, @TargetLocation, @Purpose, @RequestedDate, @StartTime, @EndTime, @Status)";
 
                 db.Execute(sql, request);
             }
         }
-
         public IEnumerable<BorrowRequest> GetRequestsByStudent(int studentId)
         {
             using (IDbConnection db = new MySqlConnection(_connectionString))

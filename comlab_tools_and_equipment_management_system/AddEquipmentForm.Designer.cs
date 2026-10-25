@@ -30,7 +30,6 @@
         {
             txtAssetTag = new TextBox();
             txtName = new TextBox();
-            txtLocation = new TextBox();
             cmbCategory = new ComboBox();
             cmbStatus = new ComboBox();
             dtpDateAcquired = new DateTimePicker();
@@ -45,6 +44,7 @@
             lblTitle = new Label();
             numUsageCount = new NumericUpDown();
             label2 = new Label();
+            cmbLocation = new ComboBox();
             ((System.ComponentModel.ISupportInitialize)numUsageCount).BeginInit();
             SuspendLayout();
             // 
@@ -65,15 +65,6 @@
             txtName.Name = "txtName";
             txtName.Size = new Size(243, 31);
             txtName.TabIndex = 0;
-            // 
-            // txtLocation
-            // 
-            txtLocation.BorderStyle = BorderStyle.FixedSingle;
-            txtLocation.Location = new Point(72, 357);
-            txtLocation.Multiline = true;
-            txtLocation.Name = "txtLocation";
-            txtLocation.Size = new Size(243, 31);
-            txtLocation.TabIndex = 0;
             // 
             // cmbCategory
             // 
@@ -205,6 +196,14 @@
             label2.TabIndex = 4;
             label2.Text = "Initial Usage Count";
             // 
+            // cmbLocation
+            // 
+            cmbLocation.FormattingEnabled = true;
+            cmbLocation.Location = new Point(72, 359);
+            cmbLocation.Name = "cmbLocation";
+            cmbLocation.Size = new Size(243, 33);
+            cmbLocation.TabIndex = 1;
+            // 
             // AddEquipmentForm
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
@@ -223,8 +222,8 @@
             Controls.Add(btnCancel);
             Controls.Add(dtpDateAcquired);
             Controls.Add(cmbStatus);
+            Controls.Add(cmbLocation);
             Controls.Add(cmbCategory);
-            Controls.Add(txtLocation);
             Controls.Add(txtName);
             Controls.Add(txtAssetTag);
             MaximizeBox = false;
@@ -241,7 +240,6 @@
 
         private TextBox txtAssetTag;
         private TextBox txtName;
-        private TextBox txtLocation;
         private ComboBox cmbCategory;
         private ComboBox cmbStatus;
         private DateTimePicker dtpDateAcquired;
@@ -256,5 +254,6 @@
         private Label lblTitle;
         private NumericUpDown numUsageCount;
         private Label label2;
+        private ComboBox cmbLocation;
     }
 }

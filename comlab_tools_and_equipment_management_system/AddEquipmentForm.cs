@@ -8,7 +8,6 @@ namespace ComLabManager.UI
     {
         public Equipment ProcessedEquipment { get; private set; }
         private readonly int _existingId;
-       
 
         public AddEquipmentForm()
         {
@@ -17,7 +16,7 @@ namespace ComLabManager.UI
 
             lblTitle.Text = "Add New Equipment";
             _existingId = 0;
-            numUsageCount.Value = 0; 
+            numUsageCount.Value = 0;
             dtpDateAcquired.Value = DateTime.Now;
 
             SetupDynamicUI();
@@ -35,7 +34,13 @@ namespace ComLabManager.UI
             txtName.Text = equipmentToEdit.Name;
             cmbCategory.SelectedItem = equipmentToEdit.Category;
             cmbStatus.SelectedItem = equipmentToEdit.Status;
-            txtLocation.Text = equipmentToEdit.StationNumber;
+
+     
+            if (cmbLocation.Items.Contains(equipmentToEdit.StationNumber))
+                cmbLocation.SelectedItem = equipmentToEdit.StationNumber;
+            else
+                cmbLocation.Text = equipmentToEdit.StationNumber;
+
             dtpDateAcquired.Value = equipmentToEdit.DateAcquired;
             numUsageCount.Value = equipmentToEdit.UsageCount;
 
@@ -48,8 +53,10 @@ namespace ComLabManager.UI
             cmbCategory.Items.AddRange(new string[] { "System Unit", "Monitor", "Peripheral", "Networking", "Tool" });
 
             cmbStatus.Items.Clear();
-           
-            cmbStatus.Items.AddRange(new string[] { "Available", "Active", "Under Repair", "Decommissioned" });
+            cmbStatus.Items.AddRange(new string[] { "Available", "Active", "In Use", "Under Repair", "Decommissioned" });
+
+            cmbLocation.Items.Clear();
+            cmbLocation.Items.AddRange(new string[] { "CLV1", "CLV2", "CLV3", "Engineering", "ICT", "Storage" });
         }
 
         private void SetupDynamicUI()
@@ -62,14 +69,16 @@ namespace ComLabManager.UI
         {
             string currentStatus = cmbStatus.SelectedItem?.ToString();
 
-            if (currentStatus == "Available" || currentStatus == "Under Repair" || currentStatus == "Decommissioned")
+          
+            if (currentStatus == "Under Repair" || currentStatus == "Decommissioned")
             {
-                txtLocation.Clear();
-                txtLocation.Enabled = false;
+                cmbLocation.SelectedIndex = -1;
+                cmbLocation.Text = string.Empty;
+                cmbLocation.Enabled = false;
             }
             else
             {
-                txtLocation.Enabled = true;
+                cmbLocation.Enabled = true;
             }
         }
 
@@ -86,9 +95,9 @@ namespace ComLabManager.UI
                 return;
             }
 
-            if (txtLocation.Enabled && string.IsNullOrWhiteSpace(txtLocation.Text) && cmbCategory.SelectedItem.ToString() != "Tool")
+            if (cmbLocation.Enabled && string.IsNullOrWhiteSpace(cmbLocation.Text))
             {
-                MessageBox.Show("A Station Number is required when a non-tool asset is actively deployed.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("An Assigned Location is required when an asset is available or actively deployed.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -99,7 +108,7 @@ namespace ComLabManager.UI
                 Name = txtName.Text.Trim(),
                 Category = cmbCategory.SelectedItem.ToString(),
                 Status = cmbStatus.SelectedItem.ToString(),
-                StationNumber = txtLocation.Text.Trim(),
+                StationNumber = cmbLocation.Text.Trim(),
                 UsageCount = (int)numUsageCount.Value,
                 DateAcquired = dtpDateAcquired.Value.Date
             };

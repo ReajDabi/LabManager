@@ -156,14 +156,17 @@ namespace ComLabManager.UI
 
         private void btnSignOut_Click(object sender, EventArgs e)
         {
-            using (Form topmostForm = new Form { TopMost = true, TopLevel = true })
-            {
-                DialogResult result = MessageBox.Show(topmostForm,
+            
+         
+               
+                DialogResult result = MessageBox.Show(this,
                     "Are you sure you want to log out?",
                     "Confirm Logout",
                     MessageBoxButtons.YesNo,
                     MessageBoxIcon.Question
                 );
+
+             
 
                 if (result == DialogResult.Yes)
                 {
@@ -173,4 +176,4 @@ namespace ComLabManager.UI
             }
         }
     }
-}
+    
