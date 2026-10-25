@@ -114,6 +114,7 @@
             cmbRole.Name = "cmbRole";
             cmbRole.Size = new Size(195, 33);
             cmbRole.TabIndex = 7;
+            cmbRole.SelectedIndexChanged += cmbRole_SelectedIndexChanged;
             // 
             // btnSave
             // 

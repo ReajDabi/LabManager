@@ -38,14 +38,20 @@ namespace ComLabManager.Infrastructure.Repositories
             using (IDbConnection db = new MySqlConnection(_connectionString))
             {
                 string sql = @"
-                    SELECT 
-                        spr.*, 
-                        u.UserName AS TechName, 
-                        sp.Name AS PartName 
-                    FROM SparePartRequests spr 
-                    JOIN Users u ON spr.TechId = u.Id 
-                    JOIN SpareParts sp ON spr.RequestPartId = sp.Id
-                    ORDER BY spr.RequestDate DESC";
+    SELECT 
+        spr.Id, 
+        spr.TechId, 
+        spr.RequestedPartId, 
+        spr.Quantity, 
+        spr.Reason, 
+        spr.Status, 
+        spr.RequestDate,
+        u.Username AS TechnicianName,
+        sp.Name AS SparePartName
+    FROM SparePartRequests spr
+    JOIN Users u ON spr.TechId = u.Id
+    JOIN SpareParts sp ON spr.RequestedPartId = sp.Id
+    ORDER BY spr.RequestDate DESC";
 
                 return db.Query<SparePartRequest>(sql).ToList();
             }

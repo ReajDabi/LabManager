@@ -19,6 +19,20 @@ namespace ComLabManager.UI
             if (chkIsSuspended != null) chkIsSuspended.Checked = false;
         }
 
+        private void cmbRole_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (chkIsSuspended != null && cmbRole.SelectedItem != null)
+            {
+                
+                chkIsSuspended.Enabled = cmbRole.SelectedItem.ToString() == "Student";
+
+              
+                if (!chkIsSuspended.Enabled)
+                {
+                    chkIsSuspended.Checked = false;
+                }
+            }
+        }
         public UserModalForm(User existingUser)
         {
             InitializeComponent();

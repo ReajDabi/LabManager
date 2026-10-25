@@ -21,7 +21,7 @@ namespace ComLabManager.Infrastructure.Repositories
         {
             using (IDbConnection db = new MySqlConnection(_connectionString))
             {
-                string sql = "SELECT * FROM SpareParts WHERE IsDeleted = 0";
+                string sql = "SELECT * FROM SpareParts";
                 return db.Query<SparePart>(sql).ToList();
             }
         }
