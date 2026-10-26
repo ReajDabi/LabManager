@@ -33,6 +33,7 @@ namespace ComLabManager.UI
             services.AddTransient<ISparePartRequestRepository>(provider => new SparePartRequestRepository(connectionString)); 
             services.AddTransient<ISparePartRepository>(provider => new SparePartRepository(connectionString));
             services.AddTransient<IDashboardRepository>(provider => new DashboardRepository(connectionString));
+            services.AddTransient<IPreventiveMaintenanceRepository>(provider => new PreventiveMaintenanceRepository(connectionString));
             services.AddTransient<MainForm>();
             services.AddTransient<LoginForm>();
 
