@@ -14,7 +14,7 @@ namespace ComLabManager.Core.Models
         public string Reason { get; set; }
         public string Status { get; set; }
         public DateTime RequestDate { get; set; }
-        public string TechName { get; set; }
-        public string PartName { get; set; }
+        public string TechnicianName { get; set; }
+        public string SparePartName { get; set; }
     }
 }

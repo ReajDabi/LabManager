@@ -32,20 +32,26 @@ namespace ComLabManager.Infrastructure.Repositories
             }
         }
 
-     
+
         public IEnumerable<SparePartRequest> GetAllRequests()
         {
             using (IDbConnection db = new MySqlConnection(_connectionString))
             {
                 string sql = @"
-                    SELECT 
-                        spr.*, 
-                        u.UserName AS TechName, 
-                        sp.Name AS PartName 
-                    FROM SparePartRequests spr 
-                    JOIN Users u ON spr.TechId = u.Id 
-                    JOIN SpareParts sp ON spr.RequestPartId = sp.Id
-                    ORDER BY spr.RequestDate DESC";
+            SELECT 
+                spr.Id, 
+                spr.TechId, 
+                spr.RequestedPartId, 
+                spr.Quantity, 
+                spr.Reason, 
+                spr.Status, 
+                spr.RequestDate,
+                CONCAT(u.FirstName, ' ', u.LastName) AS TechnicianName,
+                sp.Name AS SparePartName
+            FROM SparePartRequests spr
+            JOIN Users u ON spr.TechId = u.Id
+            JOIN SpareParts sp ON spr.RequestedPartId = sp.Id
+            ORDER BY spr.RequestDate DESC";
 
                 return db.Query<SparePartRequest>(sql).ToList();
             }
@@ -53,7 +59,7 @@ namespace ComLabManager.Infrastructure.Repositories
 
 
 
-     
+
         public void UpdateRequestStatus(int requestId, string status)
         {
             using (IDbConnection db = new MySqlConnection(_connectionString))
@@ -70,28 +76,34 @@ namespace ComLabManager.Infrastructure.Repositories
                 db.Open();
                 using (var transaction = db.BeginTransaction())
                 {
-                    try
+                    string query = @"
+                SELECT spr.RequestedPartId, spr.Quantity, sp.Quantity AS CurrentStock, sp.Name 
+                FROM SparePartRequests spr
+                JOIN SpareParts sp ON spr.RequestedPartId = sp.Id
+                WHERE spr.Id = @RequestId";
+
+                    var req = db.QueryFirstOrDefault<dynamic>(query, new { RequestId = requestId }, transaction);
+
+                    if (req == null) throw new Exception("Request not found.");
+
+                    int requestedQty = (int)req.Quantity;
+                    int currentStock = (int)req.CurrentStock;
+
+                    if (currentStock < requestedQty)
                     {
-                        var request = db.QuerySingle<SparePartRequest>("SELECT * FROM SparePartRequests WHERE Id = @Id", new { Id = requestId }, transaction);
-                        var part = db.QuerySingle<SparePart>("SELECT * FROM SpareParts WHERE Id = @Id", new { Id = request.RequestPartId }, transaction);
-
-                        if (part.Quantity < request.Quantity)
-                        {
-                            throw new InvalidOperationException($"Insufficient stock.\nAvailable: {part.Quantity}\nRequested: {request.Quantity}");
-                        }
-
-                        db.Execute("UPDATE SpareParts SET Quantity = Quantity - @Qty WHERE Id = @PartId", new { Qty = request.Quantity, PartId = request.RequestPartId }, transaction);
-                        db.Execute("UPDATE SparePartRequests SET Status = 'Approved' WHERE Id = @Id", new { Id = requestId }, transaction);
-
-                        transaction.Commit();
+                        throw new InvalidOperationException($"Cannot approve request. Insufficient stock for '{req.Name}'. Available: {currentStock}, Requested: {requestedQty}.");
                     }
-                    catch
-                    {
-                        transaction.Rollback();
-                        throw;
-                    }
+
+                    db.Execute("UPDATE SpareParts SET Quantity = Quantity - @Qty WHERE Id = @PartId",
+                        new { Qty = requestedQty, PartId = (int)req.RequestedPartId }, transaction);
+
+                    db.Execute("UPDATE SparePartRequests SET Status = 'Approved' WHERE Id = @RequestId",
+                        new { RequestId = requestId }, transaction);
+
+                    transaction.Commit();
                 }
             }
         }
     }
+        
 }

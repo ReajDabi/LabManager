@@ -1,4 +1,4 @@
-using ComlabManager.Core.Interfaces;
+
 using ComLabManager.Core.Interfaces;
 using ComLabManager.Core.Models;
 using ComLabManager.UI.NavigationStrategies;
@@ -19,7 +19,7 @@ namespace ComLabManager.UI
         private readonly IComLabScheduleRepository _scheduleRepository;
         private readonly ISparePartRequestRepository _partRepository;
         private readonly ISparePartRepository _sparePartRepository; 
-
+        private readonly IDashboardRepository _dashboardRepository; 
         private User _currentUser;
         private UserControl _currentActiveView;
         private Button _activeButton;
@@ -33,7 +33,8 @@ namespace ComLabManager.UI
             IMaintenanceRepository maintenanceRepository,
             ISparePartRequestRepository partRepository,
             IUserRepository userRepository,
-            ISparePartRepository sparePartRepository) 
+            ISparePartRepository sparePartRepository,
+            IDashboardRepository dashboardRepository) 
         {
             InitializeComponent();
 
@@ -44,18 +45,18 @@ namespace ComLabManager.UI
             _partRepository = partRepository ?? throw new ArgumentNullException(nameof(partRepository));
             _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
             _sparePartRepository = sparePartRepository ?? throw new ArgumentNullException(nameof(sparePartRepository));
-
+            _dashboardRepository = dashboardRepository ?? throw new ArgumentNullException(nameof(dashboardRepository));
 
             _navigationMap = new Dictionary<Button, (string, Func<UserControl> ViewFactory)>
 {
-    { btnNavDashboard, ("Dashboard", () => new DashboardView(_equipmentRepository, _borrowRepository, _scheduleRepository)) },
+    { btnNavDashboard, ("Dashboard", () => new DashboardView( _dashboardRepository,_scheduleRepository)) },
     { btnNavEquipment, ("Equipment Inventory", () => new EquipmentInventoryView(_equipmentRepository)) },
     
     
     { btnNavTickets, ("Maintenance Tickets", () => new MaintenanceView(_maintenanceRepository, _equipmentRepository, _userRepository, _sparePartRepository, _currentUser)) },
 
     { btnNavScheduler, ("Maintenance Scheduler", () => new PreventiveMaintenanceView()) },
-    { btnNavUser, ("User Management", () => new UserManagementView()) },
+    { btnNavUser, ("User Management", () => new UserManagementView(_userRepository)) },
     { btnNavSpareParts, ("", () => null) }, 
     { btnNavRequestApproval, ("", () => null) } 
 };
@@ -155,18 +156,24 @@ namespace ComLabManager.UI
 
         private void btnSignOut_Click(object sender, EventArgs e)
         {
-            DialogResult result = MessageBox.Show(this,
-                "Are you sure you want to log out?",
-                "Confirm Logout",
-                MessageBoxButtons.YesNo,
-                MessageBoxIcon.Question
-            );
+            
+         
+               
+                DialogResult result = MessageBox.Show(this,
+                    "Are you sure you want to log out?",
+                    "Confirm Logout",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question
+                );
 
-            if (result == DialogResult.Yes)
-            {
-                Application.Restart();
-                Environment.Exit(0);
+             
+
+                if (result == DialogResult.Yes)
+                {
+                    Application.Restart();
+                    Environment.Exit(0);
+                }
             }
         }
     }
-}
+    

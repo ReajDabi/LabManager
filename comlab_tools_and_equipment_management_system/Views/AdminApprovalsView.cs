@@ -48,10 +48,12 @@ namespace ComLabManager.UI.Views
             TargetLocation.DataPropertyName = "TargetLocation";
             Purpose.DataPropertyName = "Purpose";
             Status.DataPropertyName = "Status";
+           
+            Schedule.DataPropertyName = "Schedule"; 
 
             colPartRequestId.DataPropertyName = "Id";
-            colPartTech.DataPropertyName = "TechName";
-            colRequestedPart.DataPropertyName = "PartName";
+            colPartTech.DataPropertyName = "TechnicianName";
+            colRequestedPart.DataPropertyName = "SparePartName";
             Quantity.DataPropertyName = "Quantity";
             colPartReason.DataPropertyName = "Reason";
             colPartStatus.DataPropertyName = "Status";

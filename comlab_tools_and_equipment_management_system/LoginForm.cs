@@ -5,7 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-using ComlabManager.Core.Interfaces;
+using ComLabManager.Core.Interfaces;
 using ComLabManager.Core.Models;
 
 

@@ -34,10 +34,6 @@
             btnEditUser = new Button();
             sqlCommandBuilder1 = new Microsoft.Data.SqlClient.SqlCommandBuilder();
             dgvUsers = new DataGridView();
-            userid = new DataGridViewTextBoxColumn();
-            username = new DataGridViewTextBoxColumn();
-            role = new DataGridViewTextBoxColumn();
-            datacreated = new DataGridViewTextBoxColumn();
             pnlHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvUsers).BeginInit();
             SuspendLayout();
@@ -111,46 +107,18 @@
             dgvUsers.BackgroundColor = Color.White;
             dgvUsers.BorderStyle = BorderStyle.None;
             dgvUsers.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvUsers.Columns.AddRange(new DataGridViewColumn[] { userid, username, role, datacreated });
             dgvUsers.Dock = DockStyle.Fill;
+            dgvUsers.GridColor = SystemColors.InactiveCaptionText;
             dgvUsers.Location = new Point(0, 100);
             dgvUsers.Margin = new Padding(4);
             dgvUsers.Name = "dgvUsers";
+            dgvUsers.ReadOnly = true;
             dgvUsers.RowHeadersVisible = false;
             dgvUsers.RowHeadersWidth = 51;
+            dgvUsers.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvUsers.Size = new Size(958, 464);
             dgvUsers.TabIndex = 4;
-            // 
-            // userid
-            // 
-            userid.HeaderText = "UserId";
-            userid.MinimumWidth = 6;
-            userid.Name = "userid";
-            userid.Visible = false;
-            userid.Width = 125;
-            // 
-            // username
-            // 
-            username.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            username.HeaderText = "Username";
-            username.MinimumWidth = 6;
-            username.Name = "username";
-            // 
-            // role
-            // 
-            role.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            role.HeaderText = "Role";
-            role.MinimumWidth = 6;
-            role.Name = "role";
-            role.Width = 82;
-            // 
-            // datacreated
-            // 
-            datacreated.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            datacreated.HeaderText = "Data Created";
-            datacreated.MinimumWidth = 6;
-            datacreated.Name = "datacreated";
-            datacreated.Width = 151;
+            dgvUsers.CellDoubleClick += dgvUsers_CellDoubleClick;
             // 
             // UserManagementView
             // 
@@ -176,9 +144,5 @@
         private Button btnEditUser;
         private Button btnDel;
         private DataGridView dgvUsers;
-        private DataGridViewTextBoxColumn userid;
-        private DataGridViewTextBoxColumn username;
-        private DataGridViewTextBoxColumn role;
-        private DataGridViewTextBoxColumn datacreated;
     }
 }

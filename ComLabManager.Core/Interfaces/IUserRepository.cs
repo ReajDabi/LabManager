@@ -1,11 +1,20 @@
-﻿
-using ComLabManager.Core.Models;
+﻿using ComLabManager.Core.Models;
+using System.Collections.Generic;
 
-namespace ComlabManager.Core.Interfaces
+namespace ComLabManager.Core.Interfaces
 {
     public interface IUserRepository
     {
         User AuthenticateUser(string username, string rawPassword);
         List<User> GetUsersByRole(string role);
+
+        IEnumerable<User> GetAllUsers();
+        void AddUser(User user, string rawPassword);
+        void UpdateUser(User user, string rawPassword);
+        void DeleteUser(int id);
+
+
+        IEnumerable<UserBorrowHistoryDto> GetUserBorrowHistory(int userId);
+        IEnumerable<UserMaintenanceHistoryDto> GetUserMaintenanceHistory(int userId);
     }
 }

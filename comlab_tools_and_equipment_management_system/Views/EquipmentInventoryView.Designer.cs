@@ -28,8 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             pnlHeader = new Panel();
+            btnDeleteEquipment = new Button();
+            btnEditEquipment = new Button();
             btnAddEquipment = new Button();
             pnlFilters = new Panel();
             cmbStatusFilter = new ComboBox();
@@ -44,8 +46,6 @@
             Status = new DataGridViewTextBoxColumn();
             Location = new DataGridViewTextBoxColumn();
             UsageCount = new DataGridViewTextBoxColumn();
-            btnEditEquipment = new Button();
-            btnDeleteEquipment = new Button();
             pnlHeader.SuspendLayout();
             pnlFilters.SuspendLayout();
             pnlGridContainer.SuspendLayout();
@@ -62,6 +62,34 @@
             pnlHeader.Name = "pnlHeader";
             pnlHeader.Size = new Size(958, 80);
             pnlHeader.TabIndex = 0;
+            // 
+            // btnDeleteEquipment
+            // 
+            btnDeleteEquipment.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnDeleteEquipment.BackColor = Color.FromArgb(220, 53, 69);
+            btnDeleteEquipment.FlatStyle = FlatStyle.Flat;
+            btnDeleteEquipment.ForeColor = SystemColors.ButtonHighlight;
+            btnDeleteEquipment.Location = new Point(452, 20);
+            btnDeleteEquipment.Name = "btnDeleteEquipment";
+            btnDeleteEquipment.Size = new Size(104, 43);
+            btnDeleteEquipment.TabIndex = 0;
+            btnDeleteEquipment.Text = "Delete";
+            btnDeleteEquipment.UseVisualStyleBackColor = false;
+            btnDeleteEquipment.Click += btnDeleteEquipment_Click;
+            // 
+            // btnEditEquipment
+            // 
+            btnEditEquipment.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnEditEquipment.BackColor = Color.FromArgb(13, 110, 253);
+            btnEditEquipment.FlatStyle = FlatStyle.Flat;
+            btnEditEquipment.ForeColor = SystemColors.ButtonHighlight;
+            btnEditEquipment.Location = new Point(599, 20);
+            btnEditEquipment.Name = "btnEditEquipment";
+            btnEditEquipment.Size = new Size(118, 43);
+            btnEditEquipment.TabIndex = 0;
+            btnEditEquipment.Text = "Edit";
+            btnEditEquipment.UseVisualStyleBackColor = false;
+            btnEditEquipment.Click += btnEditEquipment_Click;
             // 
             // btnAddEquipment
             // 
@@ -93,7 +121,7 @@
             // 
             cmbStatusFilter.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbStatusFilter.FormattingEnabled = true;
-            cmbStatusFilter.Items.AddRange(new object[] { "All Statuses", "Active", "High Usage", "Under Repair", "Decommissioned" });
+            cmbStatusFilter.Items.AddRange(new object[] { "All Statuses", "Active", "In Use", "Under Repair", "Decommissioned" });
             cmbStatusFilter.Location = new Point(565, 18);
             cmbStatusFilter.Name = "cmbStatusFilter";
             cmbStatusFilter.Size = new Size(148, 33);
@@ -203,40 +231,12 @@
             // 
             UsageCount.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             UsageCount.DataPropertyName = "UsageCount";
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            UsageCount.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            UsageCount.DefaultCellStyle = dataGridViewCellStyle1;
             UsageCount.HeaderText = "Usage Count";
             UsageCount.MinimumWidth = 8;
             UsageCount.Name = "UsageCount";
             UsageCount.Width = 150;
-            // 
-            // btnEditEquipment
-            // 
-            btnEditEquipment.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnEditEquipment.BackColor = Color.FromArgb(13, 110, 253);
-            btnEditEquipment.FlatStyle = FlatStyle.Flat;
-            btnEditEquipment.ForeColor = SystemColors.ButtonHighlight;
-            btnEditEquipment.Location = new Point(599, 20);
-            btnEditEquipment.Name = "btnEditEquipment";
-            btnEditEquipment.Size = new Size(118, 43);
-            btnEditEquipment.TabIndex = 0;
-            btnEditEquipment.Text = "Edit";
-            btnEditEquipment.UseVisualStyleBackColor = false;
-            btnEditEquipment.Click += btnEditEquipment_Click;
-            // 
-            // btnDeleteEquipment
-            // 
-            btnDeleteEquipment.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnDeleteEquipment.BackColor = Color.FromArgb(220, 53, 69);
-            btnDeleteEquipment.FlatStyle = FlatStyle.Flat;
-            btnDeleteEquipment.ForeColor = SystemColors.ButtonHighlight;
-            btnDeleteEquipment.Location = new Point(452, 20);
-            btnDeleteEquipment.Name = "btnDeleteEquipment";
-            btnDeleteEquipment.Size = new Size(104, 43);
-            btnDeleteEquipment.TabIndex = 0;
-            btnDeleteEquipment.Text = "Delete";
-            btnDeleteEquipment.UseVisualStyleBackColor = false;
-            btnDeleteEquipment.Click += btnDeleteEquipment_Click;
             // 
             // EquipmentInventoryView
             // 

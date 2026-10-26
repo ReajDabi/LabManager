@@ -64,11 +64,16 @@ namespace ComLabManager.UI.Views
             if (_scheduleRepo == null) return;
 
             _cachedSchedules = _scheduleRepo.GetUnifiedComLabSchedules();
-            var uniqueRooms = _cachedSchedules.Select(s => (string)s.ComLabName).Distinct().OrderBy(r => r).ToList();
+            var uniqueRooms = _cachedSchedules
+      .Where(s => !string.IsNullOrWhiteSpace(s.ComLabName))
+      .Select(s => s.ComLabName)
+      .Distinct()
+      .OrderBy(r => r)
+      .ToArray();
 
             cmbRoomFilter.Items.Clear();
             cmbRoomFilter.Items.Add("All Rooms");
-            cmbRoomFilter.Items.AddRange(uniqueRooms.ToArray());
+            cmbRoomFilter.Items.AddRange(uniqueRooms);
 
             if (cmbRoomFilter.Items.Count > 0)
             {
@@ -98,13 +103,28 @@ namespace ComLabManager.UI.Views
             {
                 if (form.ShowDialog() == DialogResult.OK && form.ProcessedRequest != null)
                 {
-                    _borrowRepo.AddRequest(form.ProcessedRequest);
-                    RefreshGrid();
+                    try
+                    {
+                       
+                        _borrowRepo.AddRequest(form.ProcessedRequest);
+                        RefreshGrid();
+                        MessageBox.Show("Borrow request submitted successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    catch (InvalidOperationException ex)
+                    {
+                        
+                        MessageBox.Show(ex.Message, "Request Denied", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                    catch (Exception ex)
+                    {
+                        
+                        MessageBox.Show("An unexpected error occurred: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
             }
         }
 
-        
+
         private void SetActiveTab(ActiveTab tab)
         {
             bool isSchedule = (tab == ActiveTab.Schedule);
@@ -208,8 +228,9 @@ namespace ComLabManager.UI.Views
             {
                 if (_statusColors.TryGetValue(request.Status, out Color statusColor))
                 {
-                    dgvMyRequests.Rows[e.RowIndex].Cells[e.ColumnIndex].Style.ForeColor = statusColor;
-                    dgvMyRequests.Rows[e.RowIndex].Cells[e.ColumnIndex].Style.Font = new Font(dgvMyRequests.Font, FontStyle.Bold);
+                   
+                    e.CellStyle.ForeColor = statusColor;
+                    e.CellStyle.Font = new Font(e.CellStyle.Font ?? dgvMyRequests.Font, FontStyle.Bold);
                 }
             }
         }
