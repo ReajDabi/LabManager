@@ -7,7 +7,7 @@ using ComLabManager.Core.Interfaces;
 using ComLabManager.Core.Models;
 
 
-namespace ComlabManager.Infrastructure.Repositories
+namespace ComLabManager.Infrastructure.Repositories
 {
     public class EquipmentRepository : IEquipmentRepository
     {
@@ -102,7 +102,7 @@ namespace ComlabManager.Infrastructure.Repositories
         {
             using (IDbConnection db = new MySqlConnection(_connectionString))
             {
-                return db.ExecuteScalar<int>("SELECT COUNT(*) FROM Equipment WHERE Status = 'High Usage'");
+                return db.ExecuteScalar<int>("SELECT COUNT(*) FROM Equipment WHERE UsageCount >= @Threshold", new { Threshold = Equipment.HighUsageThreshold });
             }
         }
     }

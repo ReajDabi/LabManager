@@ -1,5 +1,4 @@
 
-using ComlabManager.Infrastructure.Repositories;
 using ComLabManager.Core.Interfaces;
 using ComLabManager.Infrastructure.Repositories;
 using ComLabManager.UI;

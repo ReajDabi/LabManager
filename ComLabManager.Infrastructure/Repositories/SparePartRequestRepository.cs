@@ -26,8 +26,8 @@ namespace ComLabManager.Infrastructure.Repositories
             using (IDbConnection db = new MySqlConnection(_connectionString))
             {
                 string sql = @"
-                    INSERT INTO SparePartRequests (TechId, RequestPartId, Quantity, Reason, Status, RequestDate) 
-                    VALUES (@TechId, @RequestPartId, @Quantity, @Reason, @Status, @RequestDate)";
+                    INSERT INTO SparePartRequests (TechId, RequestedPartId, Quantity, Reason, Status, RequestDate)
+                    VALUES (@TechId, @RequestedPartId, @Quantity, @Reason, @Status, @RequestDate)";
                 db.Execute(sql, request);
             }
         }
@@ -64,8 +64,12 @@ namespace ComLabManager.Infrastructure.Repositories
         {
             using (IDbConnection db = new MySqlConnection(_connectionString))
             {
-                string sql = "UPDATE SparePartRequests SET Status = @Status WHERE Id = @Id";
-                db.Execute(sql, new { Status = status, Id = requestId });
+                string sql = "UPDATE SparePartRequests SET Status = @Status WHERE Id = @Id AND Status = 'Pending'";
+
+                if (db.Execute(sql, new { Status = status, Id = requestId }) == 0)
+                {
+                    throw new InvalidOperationException("This request has already been processed.");
+                }
             }
         }
 
@@ -77,14 +81,20 @@ namespace ComLabManager.Infrastructure.Repositories
                 using (var transaction = db.BeginTransaction())
                 {
                     string query = @"
-                SELECT spr.RequestedPartId, spr.Quantity, sp.Quantity AS CurrentStock, sp.Name 
+                SELECT spr.RequestedPartId, spr.Quantity, spr.Status, sp.Quantity AS CurrentStock, sp.Name
                 FROM SparePartRequests spr
                 JOIN SpareParts sp ON spr.RequestedPartId = sp.Id
-                WHERE spr.Id = @RequestId";
+                WHERE spr.Id = @RequestId
+                FOR UPDATE";
 
                     var req = db.QueryFirstOrDefault<dynamic>(query, new { RequestId = requestId }, transaction);
 
                     if (req == null) throw new Exception("Request not found.");
+
+                    if ((string)req.Status != "Pending")
+                    {
+                        throw new InvalidOperationException("This request has already been processed.");
+                    }
 
                     int requestedQty = (int)req.Quantity;
                     int currentStock = (int)req.CurrentStock;

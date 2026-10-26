@@ -27,7 +27,7 @@ namespace ComLabManager.Infrastructure.Repositories
                 {
                     TotalActiveAssets = db.ExecuteScalar<int>("SELECT COUNT(*) FROM Equipment WHERE TRIM(Status) = 'Active'"),
                    
-                    HighUsageFlags = db.ExecuteScalar<int>("SELECT COUNT(*) FROM Equipment WHERE UsageCount >= 15"),
+                    HighUsageFlags = db.ExecuteScalar<int>("SELECT COUNT(*) FROM Equipment WHERE UsageCount >= @Threshold", new { Threshold = Equipment.HighUsageThreshold }),
                     PendingBorrowReqs = db.ExecuteScalar<int>("SELECT COUNT(*) FROM BorrowRequests WHERE TRIM(Status) = 'Pending'"),
                     UpcomingPMTasks = db.ExecuteScalar<int>("SELECT COUNT(*) FROM PreventiveMaintenance WHERE NextDueDate <= CURDATE() + INTERVAL 7 DAY")
                 };

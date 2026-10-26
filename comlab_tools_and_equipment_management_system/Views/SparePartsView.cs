@@ -143,8 +143,15 @@ namespace ComLabManager.UI
             {
                 if (modal.ShowDialog() == DialogResult.OK && modal.ProcessedRequest != null)
                 {
-                    _partRequestRepo.AddRequest(modal.ProcessedRequest);
-                    MessageBox.Show("Part request submitted to the Admin for approval.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    try
+                    {
+                        _partRequestRepo.AddRequest(modal.ProcessedRequest);
+                        MessageBox.Show("Part request submitted to the Admin for approval.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"An error occurred while submitting the request: {ex.Message}", "System Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
             }
         }

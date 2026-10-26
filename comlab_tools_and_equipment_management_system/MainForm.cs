@@ -59,7 +59,7 @@ namespace ComLabManager.UI
     { btnNavTickets, ("Maintenance Tickets", () => new MaintenanceView(_maintenanceRepository, _equipmentRepository, _userRepository, _sparePartRepository, _currentUser)) },
 
     { btnNavScheduler, ("Maintenance Scheduler", () => new PreventiveMaintenanceView(_pmRepository, _equipmentRepository, _userRepository, _currentUser)) },
-    { btnNavUser, ("User Management", () => new UserManagementView(_userRepository)) },
+    { btnNavUser, ("User Management", () => new UserManagementView(_userRepository, _currentUser.Id)) },
     { btnNavSpareParts, ("", () => null) }, 
     { btnNavRequestApproval, ("", () => null) } 
 };

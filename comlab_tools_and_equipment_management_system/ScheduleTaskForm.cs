@@ -19,7 +19,7 @@ namespace ComLabManager.UI
             _pmRepo = pmRepo ?? throw new ArgumentNullException(nameof(pmRepo));
             _existingTask = existingTask;
 
-            comboBoxLocation.Items.AddRange(new string[] { "CLV1", "CLV2", "CLV3", "Engineering", "ICT", "Storage" });
+            comboBoxLocation.Items.AddRange(LabLocations.All);
             comboBoxFrequency.Items.AddRange(new string[] { "Weekly", "Monthly", "Quarterly", "Biannually", "Annually" });
 
             _equipment = equipmentRepo.GetAllEquipment();
