@@ -32,6 +32,7 @@ namespace ComLabManager.UI
 
         private void dgvActionItems_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
+          
             
             if (e.RowIndex >= 0 && dgvActionItems.Rows[e.RowIndex].DataBoundItem is Equipment currentEquipment)
             {

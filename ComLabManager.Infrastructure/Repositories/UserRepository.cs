@@ -125,5 +125,30 @@ namespace ComLabManager.Infrastructure.Repositories
                 connection.Execute(sql, new { Id = id });
             }
         }
+
+        public IEnumerable<UserBorrowHistoryDto> GetUserBorrowHistory(int userId)
+        {
+            using (var db = new MySqlConnection(_connectionString))
+            {
+                string sql = @"
+            SELECT IFNULL(TargetLocation, 'Room/Tool') AS Location, Purpose, 
+                   RequestedDate AS Date, StartTime, EndTime, Status 
+            FROM BorrowRequests WHERE StudentId = @UserId ORDER BY RequestedDate DESC";
+                return db.Query<UserBorrowHistoryDto>(sql, new { UserId = userId }).ToList();
+            }
+        }
+
+        public IEnumerable<UserMaintenanceHistoryDto> GetUserMaintenanceHistory(int userId)
+        {
+            using (var db = new MySqlConnection(_connectionString))
+            {
+                string sql = @"
+            SELECT e.AssetTag, m.IssueDescription AS Issue, m.Status, m.DateReported AS Reported 
+            FROM MaintenanceLogs m
+            JOIN Equipment e ON m.EquipmentId = e.Id
+            WHERE m.ReportedById = @UserId ORDER BY m.DateReported DESC";
+                return db.Query<UserMaintenanceHistoryDto>(sql, new { UserId = userId }).ToList();
+            }
+        }
     }
 }

@@ -112,11 +112,13 @@
             dgvUsers.Location = new Point(0, 100);
             dgvUsers.Margin = new Padding(4);
             dgvUsers.Name = "dgvUsers";
+            dgvUsers.ReadOnly = true;
             dgvUsers.RowHeadersVisible = false;
             dgvUsers.RowHeadersWidth = 51;
             dgvUsers.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvUsers.Size = new Size(958, 464);
             dgvUsers.TabIndex = 4;
+            dgvUsers.CellDoubleClick += dgvUsers_CellDoubleClick;
             // 
             // UserManagementView
             // 

@@ -300,6 +300,8 @@
             // 
             // dgvActionItems
             // 
+            dgvActionItems.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvActionItems.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dgvActionItems.BackgroundColor = Color.White;
             dgvActionItems.BorderStyle = BorderStyle.None;
             dgvActionItems.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;

@@ -12,5 +12,9 @@ namespace ComLabManager.Core.Interfaces
         void AddUser(User user, string rawPassword);
         void UpdateUser(User user, string rawPassword);
         void DeleteUser(int id);
+
+
+        IEnumerable<UserBorrowHistoryDto> GetUserBorrowHistory(int userId);
+        IEnumerable<UserMaintenanceHistoryDto> GetUserMaintenanceHistory(int userId);
     }
 }

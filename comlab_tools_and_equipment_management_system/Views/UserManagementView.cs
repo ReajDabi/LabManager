@@ -8,7 +8,7 @@ namespace ComLabManager.UI
     public partial class UserManagementView : UserControl
     {
         private readonly IUserRepository _userRepository;
-        
+
         public UserManagementView(IUserRepository userRepository)
         {
             InitializeComponent();
@@ -30,7 +30,7 @@ namespace ComLabManager.UI
         {
             using (UserModalForm form = new UserModalForm())
             {
-                if (form.ShowDialog() == DialogResult.OK && form.ProcessedUser != null) 
+                if (form.ShowDialog() == DialogResult.OK && form.ProcessedUser != null)
                 {
                     _userRepository.AddUser(form.ProcessedUser, form.RawPassword);
                     LoadUsers();
@@ -46,7 +46,7 @@ namespace ComLabManager.UI
 
             using (UserModalForm modal = new UserModalForm(selectedUser))
             {
-                if (modal.ShowDialog() == DialogResult.OK && modal.ProcessedUser != null) 
+                if (modal.ShowDialog() == DialogResult.OK && modal.ProcessedUser != null)
                 {
                     _userRepository.UpdateUser(modal.ProcessedUser, modal.RawPassword);
                     LoadUsers();
@@ -71,6 +71,19 @@ namespace ComLabManager.UI
                 _userRepository.DeleteUser(selectedUser.Id);
                 LoadUsers();
             }
+        }
+
+        private void dgvUsers_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0 && dgvUsers.Rows[e.RowIndex].DataBoundItem is User selectedUser)
+            {
+               
+                using (UserActivityForm profileForm = new UserActivityForm(selectedUser, _userRepository))
+                {
+                    profileForm.ShowDialog();
+                }
+            }
+
         }
     }
 }
