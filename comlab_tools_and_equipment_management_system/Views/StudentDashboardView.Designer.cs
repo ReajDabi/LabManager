@@ -114,21 +114,24 @@
             pnlSchedules.Dock = DockStyle.Fill;
             pnlSchedules.Location = new Point(0, 80);
             pnlSchedules.Name = "pnlSchedules";
+            pnlSchedules.Padding = new Padding(10);
             pnlSchedules.Size = new Size(959, 483);
             pnlSchedules.TabIndex = 1;
             // 
             // dgvSchedules
             // 
+            dgvSchedules.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvSchedules.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dgvSchedules.BackgroundColor = SystemColors.ButtonHighlight;
             dgvSchedules.BorderStyle = BorderStyle.None;
             dgvSchedules.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvSchedules.Dock = DockStyle.Fill;
-            dgvSchedules.Location = new Point(0, 0);
+            dgvSchedules.Location = new Point(10, 10);
             dgvSchedules.Name = "dgvSchedules";
             dgvSchedules.RowHeadersVisible = false;
             dgvSchedules.RowHeadersWidth = 62;
             dgvSchedules.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvSchedules.Size = new Size(959, 483);
+            dgvSchedules.Size = new Size(939, 463);
             dgvSchedules.TabIndex = 1;
             dgvSchedules.CellFormatting += dgvSchedules_CellFormatting;
             // 
@@ -138,20 +141,23 @@
             pnlBorrow.Dock = DockStyle.Fill;
             pnlBorrow.Location = new Point(0, 80);
             pnlBorrow.Name = "pnlBorrow";
+            pnlBorrow.Padding = new Padding(10);
             pnlBorrow.Size = new Size(959, 483);
             pnlBorrow.TabIndex = 4;
             // 
             // dgvMyRequests
             // 
+            dgvMyRequests.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvMyRequests.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dgvMyRequests.BackgroundColor = SystemColors.ButtonHighlight;
             dgvMyRequests.BorderStyle = BorderStyle.None;
             dgvMyRequests.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvMyRequests.Dock = DockStyle.Fill;
-            dgvMyRequests.Location = new Point(0, 0);
+            dgvMyRequests.Location = new Point(10, 10);
             dgvMyRequests.Name = "dgvMyRequests";
             dgvMyRequests.RowHeadersVisible = false;
             dgvMyRequests.RowHeadersWidth = 62;
-            dgvMyRequests.Size = new Size(959, 483);
+            dgvMyRequests.Size = new Size(939, 463);
             dgvMyRequests.TabIndex = 4;
             dgvMyRequests.CellFormatting += dgvMyRequests_CellFormatting;
             // 
