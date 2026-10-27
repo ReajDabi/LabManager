@@ -34,8 +34,10 @@
             btnEditUser = new Button();
             sqlCommandBuilder1 = new Microsoft.Data.SqlClient.SqlCommandBuilder();
             dgvUsers = new DataGridView();
+            pnlUsersGrid = new Panel();
             pnlHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvUsers).BeginInit();
+            pnlUsersGrid.SuspendLayout();
             SuspendLayout();
             // 
             // pnlHeader
@@ -47,7 +49,7 @@
             pnlHeader.Location = new Point(0, 0);
             pnlHeader.Margin = new Padding(4);
             pnlHeader.Name = "pnlHeader";
-            pnlHeader.Size = new Size(958, 100);
+            pnlHeader.Size = new Size(958, 92);
             pnlHeader.TabIndex = 0;
             // 
             // btnDel
@@ -56,7 +58,7 @@
             btnDel.BackColor = Color.FromArgb(229, 57, 69);
             btnDel.FlatAppearance.BorderSize = 0;
             btnDel.FlatStyle = FlatStyle.Flat;
-            btnDel.Location = new Point(508, 34);
+            btnDel.Location = new Point(508, 24);
             btnDel.Margin = new Padding(4);
             btnDel.Name = "btnDel";
             btnDel.Size = new Size(125, 38);
@@ -71,7 +73,7 @@
             btnAddUser.BackColor = Color.FromArgb(25, 135, 84);
             btnAddUser.FlatAppearance.BorderSize = 0;
             btnAddUser.FlatStyle = FlatStyle.Flat;
-            btnAddUser.Location = new Point(798, 34);
+            btnAddUser.Location = new Point(798, 24);
             btnAddUser.Margin = new Padding(4);
             btnAddUser.Name = "btnAddUser";
             btnAddUser.Size = new Size(125, 38);
@@ -86,7 +88,7 @@
             btnEditUser.BackColor = Color.FromArgb(30, 41, 59);
             btnEditUser.FlatAppearance.BorderSize = 0;
             btnEditUser.FlatStyle = FlatStyle.Flat;
-            btnEditUser.Location = new Point(651, 34);
+            btnEditUser.Location = new Point(651, 24);
             btnEditUser.Margin = new Padding(4);
             btnEditUser.Name = "btnEditUser";
             btnEditUser.Size = new Size(125, 38);
@@ -104,28 +106,40 @@
             // dgvUsers
             // 
             dgvUsers.AllowUserToAddRows = false;
+            dgvUsers.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvUsers.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dgvUsers.BackgroundColor = Color.White;
             dgvUsers.BorderStyle = BorderStyle.None;
             dgvUsers.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvUsers.Dock = DockStyle.Fill;
             dgvUsers.GridColor = SystemColors.InactiveCaptionText;
-            dgvUsers.Location = new Point(0, 100);
+            dgvUsers.Location = new Point(10, 10);
             dgvUsers.Margin = new Padding(4);
             dgvUsers.Name = "dgvUsers";
             dgvUsers.ReadOnly = true;
             dgvUsers.RowHeadersVisible = false;
             dgvUsers.RowHeadersWidth = 51;
             dgvUsers.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvUsers.Size = new Size(958, 464);
+            dgvUsers.Size = new Size(938, 452);
             dgvUsers.TabIndex = 4;
             dgvUsers.CellDoubleClick += dgvUsers_CellDoubleClick;
+            // 
+            // pnlUsersGrid
+            // 
+            pnlUsersGrid.Controls.Add(dgvUsers);
+            pnlUsersGrid.Dock = DockStyle.Fill;
+            pnlUsersGrid.Location = new Point(0, 92);
+            pnlUsersGrid.Name = "pnlUsersGrid";
+            pnlUsersGrid.Padding = new Padding(10);
+            pnlUsersGrid.Size = new Size(958, 472);
+            pnlUsersGrid.TabIndex = 5;
             // 
             // UserManagementView
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(248, 249, 250);
-            Controls.Add(dgvUsers);
+            Controls.Add(pnlUsersGrid);
             Controls.Add(pnlHeader);
             ForeColor = SystemColors.Control;
             Margin = new Padding(4);
@@ -133,6 +147,7 @@
             Size = new Size(958, 564);
             pnlHeader.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dgvUsers).EndInit();
+            pnlUsersGrid.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -144,5 +159,6 @@
         private Button btnEditUser;
         private Button btnDel;
         private DataGridView dgvUsers;
+        private Panel pnlUsersGrid;
     }
 }

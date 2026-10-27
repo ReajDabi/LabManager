@@ -66,7 +66,7 @@
             btnApprove.FlatStyle = FlatStyle.Flat;
             btnApprove.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
             btnApprove.ForeColor = SystemColors.ButtonHighlight;
-            btnApprove.Location = new Point(579, 9);
+            btnApprove.Location = new Point(569, 19);
             btnApprove.Name = "btnApprove";
             btnApprove.Size = new Size(158, 41);
             btnApprove.TabIndex = 1;
@@ -81,7 +81,7 @@
             btnDeny.FlatStyle = FlatStyle.Flat;
             btnDeny.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
             btnDeny.ForeColor = SystemColors.ButtonHighlight;
-            btnDeny.Location = new Point(785, 9);
+            btnDeny.Location = new Point(775, 19);
             btnDeny.Name = "btnDeny";
             btnDeny.Size = new Size(145, 41);
             btnDeny.TabIndex = 1;
@@ -96,6 +96,7 @@
             pnlActions.Dock = DockStyle.Bottom;
             pnlActions.Location = new Point(0, 504);
             pnlActions.Name = "pnlActions";
+            pnlActions.Padding = new Padding(10);
             pnlActions.Size = new Size(958, 60);
             pnlActions.TabIndex = 2;
             // 
@@ -106,7 +107,7 @@
             btnReturnEquipment.FlatStyle = FlatStyle.Flat;
             btnReturnEquipment.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
             btnReturnEquipment.ForeColor = SystemColors.ButtonHighlight;
-            btnReturnEquipment.Location = new Point(23, 9);
+            btnReturnEquipment.Location = new Point(33, 9);
             btnReturnEquipment.Name = "btnReturnEquipment";
             btnReturnEquipment.Size = new Size(204, 41);
             btnReturnEquipment.TabIndex = 1;
@@ -179,6 +180,7 @@
             pnlPartRequests.Dock = DockStyle.Fill;
             pnlPartRequests.Location = new Point(0, 80);
             pnlPartRequests.Name = "pnlPartRequests";
+            pnlPartRequests.Padding = new Padding(10);
             pnlPartRequests.Size = new Size(958, 424);
             pnlPartRequests.TabIndex = 2;
             // 
@@ -189,12 +191,12 @@
             dgvPartRequests.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvPartRequests.Columns.AddRange(new DataGridViewColumn[] { colPartRequestId, colPartTech, colRequestedPart, Quantity, colPartReason, colPartStatus });
             dgvPartRequests.Dock = DockStyle.Fill;
-            dgvPartRequests.Location = new Point(0, 0);
+            dgvPartRequests.Location = new Point(10, 10);
             dgvPartRequests.Name = "dgvPartRequests";
             dgvPartRequests.RowHeadersVisible = false;
             dgvPartRequests.RowHeadersWidth = 62;
             dgvPartRequests.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvPartRequests.Size = new Size(958, 424);
+            dgvPartRequests.Size = new Size(938, 404);
             dgvPartRequests.TabIndex = 0;
             // 
             // colPartRequestId

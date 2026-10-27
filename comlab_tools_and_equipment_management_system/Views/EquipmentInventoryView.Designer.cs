@@ -160,6 +160,8 @@
             // 
             // dgvEquipment
             // 
+            dgvEquipment.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvEquipment.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dgvEquipment.BackgroundColor = SystemColors.ButtonHighlight;
             dgvEquipment.BorderStyle = BorderStyle.None;
             dgvEquipment.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -176,67 +178,61 @@
             // 
             // Id
             // 
+            Id.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             Id.HeaderText = "Id";
             Id.MinimumWidth = 8;
             Id.Name = "Id";
             Id.Visible = false;
-            Id.Width = 150;
             // 
             // AssetTag
             // 
-            AssetTag.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            AssetTag.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             AssetTag.DataPropertyName = "AssetTag";
             AssetTag.HeaderText = "AssetTag";
             AssetTag.MinimumWidth = 8;
             AssetTag.Name = "AssetTag";
-            AssetTag.Width = 118;
             // 
             // EquipmentName
             // 
-            EquipmentName.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            EquipmentName.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             EquipmentName.DataPropertyName = "Name";
             EquipmentName.HeaderText = "Name";
             EquipmentName.MinimumWidth = 8;
             EquipmentName.Name = "EquipmentName";
-            EquipmentName.Width = 95;
             // 
             // Category
             // 
-            Category.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            Category.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             Category.DataPropertyName = "Category";
             Category.HeaderText = "Category";
             Category.MinimumWidth = 8;
             Category.Name = "Category";
-            Category.Width = 120;
             // 
             // Status
             // 
-            Status.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            Status.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             Status.DataPropertyName = "Status";
             Status.HeaderText = "Status";
             Status.MinimumWidth = 8;
             Status.Name = "Status";
-            Status.Width = 96;
             // 
             // Location
             // 
-            Location.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            Location.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             Location.DataPropertyName = "StationNumber";
             Location.HeaderText = "Location";
             Location.MinimumWidth = 8;
             Location.Name = "Location";
-            Location.Width = 115;
             // 
             // UsageCount
             // 
-            UsageCount.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            UsageCount.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             UsageCount.DataPropertyName = "UsageCount";
             dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
             UsageCount.DefaultCellStyle = dataGridViewCellStyle1;
             UsageCount.HeaderText = "Usage Count";
             UsageCount.MinimumWidth = 8;
             UsageCount.Name = "UsageCount";
-            UsageCount.Width = 150;
             // 
             // EquipmentInventoryView
             // 
@@ -267,6 +263,8 @@
         private ComboBox cmbStatusFilter;
         private Panel pnlGridContainer;
         private DataGridView dgvEquipment;
+        private Button btnDeleteEquipment;
+        private Button btnEditEquipment;
         private DataGridViewTextBoxColumn Id;
         private DataGridViewTextBoxColumn AssetTag;
         private DataGridViewTextBoxColumn EquipmentName;
@@ -274,7 +272,5 @@
         private DataGridViewTextBoxColumn Status;
         private DataGridViewTextBoxColumn Location;
         private DataGridViewTextBoxColumn UsageCount;
-        private Button btnDeleteEquipment;
-        private Button btnEditEquipment;
     }
 }
