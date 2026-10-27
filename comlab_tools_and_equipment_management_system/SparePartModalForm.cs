@@ -46,7 +46,7 @@ namespace ComLabManager.UI
             ProcessedRequest = new SparePartRequest
             {
                 TechId = _techId,
-                RequestPartId = (int)cmbSparePart.SelectedValue,
+                RequestedPartId = (int)cmbSparePart.SelectedValue,
                 Quantity = (int)numQuantity.Value,
                 Reason = txtReason.Text,
                 Status = "Pending",

@@ -1,5 +1,6 @@
 ﻿using ComLabManager.Core.Interfaces;
 using ComLabManager.Core.Models;
+using MySql.Data.MySqlClient;
 using System;
 using System.Windows.Forms;
 
@@ -31,11 +32,22 @@ namespace ComLabManager.UI
                 RestockLevel = (int)numRestock.Value
             };
 
-            _sparePartRepo.AddSparePart(newPart);
-            MessageBox.Show("Spare part added successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            try
+            {
+                _sparePartRepo.AddSparePart(newPart);
+                MessageBox.Show("Spare part added successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-            this.DialogResult = DialogResult.OK;
-            this.Close();
+                this.DialogResult = DialogResult.OK;
+                this.Close();
+            }
+            catch (MySqlException ex) when (ex.Number == 1062)
+            {
+                MessageBox.Show($"A spare part named '{newPart.Name}' already exists.", "Duplicate Spare Part", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred while saving the spare part: {ex.Message}", "System Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

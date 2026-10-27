@@ -29,7 +29,7 @@ namespace ComLabManager.Infrastructure.Repositories
         {
             using (IDbConnection db = new MySqlConnection(_connectionString))
             {
-                string sql = "SELECT * FROM SpareParts";
+                string sql = "SELECT * FROM SpareParts WHERE IsDeleted = 0";
                 return db.Query<SparePart>(sql).ToList();
             }
         }
@@ -38,6 +38,10 @@ namespace ComLabManager.Infrastructure.Repositories
         {
             using (IDbConnection db = new MySqlConnection(_connectionString))
             {
+                // A deleted part keeps its unique Name, so bring it back instead of inserting a duplicate
+                string restoreSql = "UPDATE SpareParts SET Category = @Category, Quantity = @Quantity, RestockLevel = @RestockLevel, IsDeleted = 0 WHERE Name = @Name AND IsDeleted = 1";
+                if (db.Execute(restoreSql, part) > 0) return;
+
                 string sql = "INSERT INTO SpareParts (Name, Category, Quantity, RestockLevel, IsDeleted) VALUES (@Name, @Category, @Quantity, @RestockLevel, 0)";
                 db.Execute(sql, part);
             }

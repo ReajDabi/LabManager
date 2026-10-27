@@ -22,7 +22,7 @@ namespace ComLabManager.UI
             dtpEndTime.Format = DateTimePickerFormat.Custom;
 
             
-            cmbRoom.Items.AddRange(new string[] { "CLV1", "CLV2", "ICT", "Engineering" });
+            cmbRoom.Items.AddRange(LabLocations.Rooms);
 
             LoadSchedules();
         }
@@ -89,13 +89,20 @@ namespace ComLabManager.UI
             return false;
         }
 
-        private void btnAdd_Click(object sender, EventArgs e)
+        private bool HasRequiredFields()
         {
             if (cmbRoom.SelectedItem == null || string.IsNullOrWhiteSpace(txtSubject.Text) || cmbDay.SelectedItem == null)
             {
                 MessageBox.Show("Room, Subject, and Day are required.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
+                return false;
             }
+
+            return true;
+        }
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            if (!HasRequiredFields()) return;
 
             TimeSpan newStart = dtpStartTime.Value.TimeOfDay;
             TimeSpan newEnd = dtpEndTime.Value.TimeOfDay;
@@ -113,9 +120,16 @@ namespace ComLabManager.UI
                 EndTime = newEnd
             };
 
-            _scheduleRepo.AddSchedule(newSchedule);
-            LoadSchedules();
-            MessageBox.Show("Schedule added successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            try
+            {
+                _scheduleRepo.AddSchedule(newSchedule);
+                LoadSchedules();
+                MessageBox.Show("Schedule added successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred while adding the schedule: {ex.Message}", "System Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
@@ -125,6 +139,8 @@ namespace ComLabManager.UI
                 MessageBox.Show("Please select a schedule from the list to update.", "Selection Required", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
+
+            if (!HasRequiredFields()) return;
 
             TimeSpan newStart = dtpStartTime.Value.TimeOfDay;
             TimeSpan newEnd = dtpEndTime.Value.TimeOfDay;
@@ -139,9 +155,16 @@ namespace ComLabManager.UI
             _selectedSchedule.StartTime = newStart;
             _selectedSchedule.EndTime = newEnd;
 
-            _scheduleRepo.UpdateSchedule(_selectedSchedule);
-            LoadSchedules();
-            MessageBox.Show("Schedule updated successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            try
+            {
+                _scheduleRepo.UpdateSchedule(_selectedSchedule);
+                LoadSchedules();
+                MessageBox.Show("Schedule updated successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred while updating the schedule: {ex.Message}", "System Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
@@ -152,8 +175,15 @@ namespace ComLabManager.UI
 
             if (result == DialogResult.Yes)
             {
-                _scheduleRepo.DeleteSchedule(_selectedSchedule.Id);
-                LoadSchedules();
+                try
+                {
+                    _scheduleRepo.DeleteSchedule(_selectedSchedule.Id);
+                    LoadSchedules();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"An error occurred while deleting the schedule: {ex.Message}", "System Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
     }

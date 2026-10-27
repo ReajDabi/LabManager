@@ -6,7 +6,7 @@ using MySql.Data.MySqlClient;
 using ComLabManager.Core.Interfaces;
 using ComLabManager.Core.Models;
 
-namespace ComlabManager.Infrastructure.Repositories
+namespace ComLabManager.Infrastructure.Repositories
 {
     public class BorrowRequestRepository : IBorrowRequestRepository
     {
@@ -26,7 +26,7 @@ namespace ComlabManager.Infrastructure.Repositories
                 string sql = @"
     SELECT 
         br.*, 
-        u.Firstname AS StudentName 
+        COALESCE(NULLIF(TRIM(CONCAT_WS(' ', u.FirstName, u.LastName)), ''), u.Username) AS StudentName
     FROM BorrowRequests br
     JOIN Users u ON br.StudentId = u.Id
     ORDER BY br.RequestedDate DESC";
@@ -73,7 +73,7 @@ namespace ComlabManager.Infrastructure.Repositories
                 string sql = @"
             SELECT 
                 br.*, 
-                u.Username AS StudentName 
+                COALESCE(NULLIF(TRIM(CONCAT_WS(' ', u.FirstName, u.LastName)), ''), u.Username) AS StudentName
             FROM BorrowRequests br
             JOIN Users u ON br.StudentId = u.Id
             WHERE br.StudentId = @StudentId 
@@ -100,33 +100,56 @@ namespace ComlabManager.Infrastructure.Repositories
                 {
                     try
                     {
-                        var request = db.QuerySingle<BorrowRequest>("SELECT * FROM BorrowRequests WHERE Id = @Id", new { Id = requestId }, transaction);
+                        var request = db.QuerySingle<BorrowRequest>("SELECT * FROM BorrowRequests WHERE Id = @Id FOR UPDATE", new { Id = requestId }, transaction);
+
+                        if (request.Status != "Pending")
+                            throw new InvalidOperationException("This request has already been processed.");
+
                         string dayOfWeek = request.RequestedDate.DayOfWeek.ToString(); // e.g., 'Monday'
 
-                        // Rule 1: Check against official ComLabSchedules
-                        string scheduleSql = @"
-                    SELECT COUNT(1) FROM ComLabSchedules 
-                    WHERE ComLabName = @TargetLocation 
-                      AND DayOfWeek = @DayOfWeek 
-                      AND StartTime < @EndTime 
+                        if (!request.EquipmentId.HasValue)
+                        {
+                            // Rule 1: A whole-room booking cannot overlap an official ComLabSchedule
+                            string scheduleSql = @"
+                    SELECT COUNT(1) FROM ComLabSchedules
+                    WHERE ComLabName = @TargetLocation
+                      AND DayOfWeek = @DayOfWeek
+                      AND StartTime < @EndTime
                       AND EndTime > @StartTime";
 
-                        int scheduleConflicts = db.ExecuteScalar<int>(scheduleSql, new { request.TargetLocation, DayOfWeek = dayOfWeek, request.StartTime, request.EndTime }, transaction);
-                        if (scheduleConflicts > 0)
-                            throw new InvalidOperationException($"Cannot approve. '{request.TargetLocation}' has an official class scheduled during this time.");
+                            int scheduleConflicts = db.ExecuteScalar<int>(scheduleSql, new { request.TargetLocation, DayOfWeek = dayOfWeek, request.StartTime, request.EndTime }, transaction);
+                            if (scheduleConflicts > 0)
+                                throw new InvalidOperationException($"Cannot approve. '{request.TargetLocation}' has an official class scheduled during this time.");
 
-                        // Rule 2: Check against other previously approved BorrowRequests
-                        string borrowSql = @"
-                    SELECT COUNT(1) FROM BorrowRequests 
-                    WHERE TargetLocation = @TargetLocation 
-                      AND Status = 'Approved' 
-                      AND DATE(RequestedDate) = DATE(@RequestedDate) 
-                      AND StartTime < @EndTime 
+                            // Rule 2: ...or another approved whole-room booking
+                            string roomSql = @"
+                    SELECT COUNT(1) FROM BorrowRequests
+                    WHERE TargetLocation = @TargetLocation
+                      AND EquipmentId IS NULL
+                      AND Status = 'Approved'
+                      AND DATE(RequestedDate) = DATE(@RequestedDate)
+                      AND StartTime < @EndTime
                       AND EndTime > @StartTime";
 
-                        int borrowConflicts = db.ExecuteScalar<int>(borrowSql, new { request.TargetLocation, request.RequestedDate, request.StartTime, request.EndTime }, transaction);
-                        if (borrowConflicts > 0)
-                            throw new InvalidOperationException($"Cannot approve. '{request.TargetLocation}' is already reserved by another student during this time.");
+                            int roomConflicts = db.ExecuteScalar<int>(roomSql, new { request.TargetLocation, request.RequestedDate, request.StartTime, request.EndTime }, transaction);
+                            if (roomConflicts > 0)
+                                throw new InvalidOperationException($"Cannot approve. '{request.TargetLocation}' is already reserved by another student during this time.");
+                        }
+                        else
+                        {
+                            // Rule 2: The same piece of equipment cannot be lent out twice for an overlapping time
+                            string equipmentSql = @"
+                    SELECT COUNT(1) FROM BorrowRequests
+                    WHERE EquipmentId = @EquipmentId
+                      AND Status = 'Approved'
+                      AND DATE(RequestedDate) = DATE(@RequestedDate)
+                      AND StartTime < @EndTime
+                      AND EndTime > @StartTime";
+
+                            int equipmentConflicts = db.ExecuteScalar<int>(equipmentSql, new { request.EquipmentId, request.RequestedDate, request.StartTime, request.EndTime }, transaction);
+                            if (equipmentConflicts > 0)
+                                throw new InvalidOperationException("Cannot approve. This equipment is already reserved by another student during this time.");
+                        }
 
                        
                         if (request.EquipmentId.HasValue)
@@ -193,8 +216,12 @@ namespace ComlabManager.Infrastructure.Repositories
         {
             using (IDbConnection db = new MySqlConnection(_connectionString))
             {
-                string sql = "UPDATE BorrowRequests SET Status = @Status WHERE Id = @Id";
-                db.Execute(sql, new { Status = status, Id = requestId });
+                string sql = "UPDATE BorrowRequests SET Status = @Status WHERE Id = @Id AND Status = 'Pending'";
+
+                if (db.Execute(sql, new { Status = status, Id = requestId }) == 0)
+                {
+                    throw new InvalidOperationException("This request has already been processed.");
+                }
             }
         }
 

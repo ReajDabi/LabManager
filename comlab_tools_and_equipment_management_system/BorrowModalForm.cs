@@ -47,16 +47,17 @@ namespace ComLabManager.UI
             if (selectedScope == "Borrow Entire Room")
             {
                 cmbAssetTag.Enabled = false; 
-                cmbEquipmentName.Items.AddRange(new[] { "CLV1", "CLV2", "CLV3", "Engineering", "ICT" });
+                cmbEquipmentName.Items.AddRange(LabLocations.Rooms);
             }
             else if (selectedScope == "Borrow ComLab PC" || selectedScope == "Borrow Lab Equipment")
             {
                 cmbAssetTag.Enabled = true;
-                string targetCategory = selectedScope == "Borrow ComLab PC" ? "System Unit" : "Tool";
+                bool isPc = selectedScope == "Borrow ComLab PC";
+                string targetCategory = isPc ? "System Unit" : "Tool";
 
-               
+                // Lab PCs sit at their stations as "Active"; tools wait in storage as "Available"
                 _cachedAvailableEquipment = _equipmentRepo.GetAllEquipment()
-                    .Where(eq => eq.Category == targetCategory && eq.Status == "Available")
+                    .Where(eq => eq.Category == targetCategory && (eq.Status == "Available" || (isPc && eq.Status == "Active")))
                     .ToList();
 
                 

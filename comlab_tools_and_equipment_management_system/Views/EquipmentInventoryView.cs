@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using ComLabManager.Core.Interfaces;
 using ComLabManager.Core.Models;
+using MySql.Data.MySqlClient;
 
 namespace ComLabManager.UI.Views
 {
@@ -22,7 +23,6 @@ namespace ComLabManager.UI.Views
             dgvEquipment.AutoGenerateColumns = false;
             _statusColors = new Dictionary<string, (Color, Color)>
             {
-                { "High Usage", (Color.FromArgb(255, 243, 205), Color.FromArgb(133, 100, 4)) },
                 { "Under Repair", (Color.FromArgb(248, 215, 218), Color.FromArgb(114, 28, 36)) },
                 { "Active", (Color.White, Color.Black) }
             };
@@ -49,7 +49,7 @@ namespace ComLabManager.UI.Views
         {
             if (e.RowIndex >= 0 && dgvEquipment.Rows[e.RowIndex].DataBoundItem is Equipment currentEquipment)
             {
-                if (currentEquipment.UsageCount >= 15)
+                if (currentEquipment.UsageCount >= Equipment.HighUsageThreshold)
                 {
                    
                     e.CellStyle.BackColor = Color.LightGoldenrodYellow;
@@ -63,13 +63,31 @@ namespace ComLabManager.UI.Views
         }
         private void btnAddEquipment_Click(object sender, EventArgs e)
         {
-            AddEquipmentForm form = new AddEquipmentForm();
-            if (form.ShowDialog() == DialogResult.OK)
+            using (AddEquipmentForm form = new AddEquipmentForm())
             {
-               
-                _equipmentRepo.AddEquipment(form.ProcessedEquipment);
-                RefreshGrid();
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    SaveEquipment(() => _equipmentRepo.AddEquipment(form.ProcessedEquipment), form.ProcessedEquipment.AssetTag, "adding");
+                }
             }
+        }
+
+        private void SaveEquipment(Action saveAction, string assetTag, string actionName)
+        {
+            try
+            {
+                saveAction();
+            }
+            catch (MySqlException ex) when (ex.Number == 1062)
+            {
+                MessageBox.Show($"The asset tag '{assetTag}' is already in use.", "Duplicate Asset Tag", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred while {actionName} the equipment: {ex.Message}", "System Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            ApplyFilters();
         }
 
         private void btnEditEquipment_Click(object sender, EventArgs e)
@@ -77,11 +95,12 @@ namespace ComLabManager.UI.Views
             if (dgvEquipment.SelectedRows.Count == 0) return;
 
             Equipment selectedEquipment = (Equipment)dgvEquipment.SelectedRows[0].DataBoundItem;
-            AddEquipmentForm form = new AddEquipmentForm(selectedEquipment);
-            if (form.ShowDialog() == DialogResult.OK)
+            using (AddEquipmentForm form = new AddEquipmentForm(selectedEquipment))
             {
-                _equipmentRepo.UpdateEquipment(form.ProcessedEquipment);
-                RefreshGrid();
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    SaveEquipment(() => _equipmentRepo.UpdateEquipment(form.ProcessedEquipment), form.ProcessedEquipment.AssetTag, "updating");
+                }
             }
         }
 
@@ -92,15 +111,15 @@ namespace ComLabManager.UI.Views
             Equipment selectedEquipment = (Equipment)dgvEquipment.SelectedRows[0].DataBoundItem;
 
             DialogResult result = MessageBox.Show(
-                $"Are you sure you want to permanently delete {selectedEquipment.AssetTag}?",
+                $"Are you sure you want to permanently delete {selectedEquipment.AssetTag}?{Environment.NewLine}{Environment.NewLine}" +
+                "This also removes its maintenance tickets, borrow requests, and preventive maintenance tasks.",
                 "Confirm Deletion",
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Warning);
 
             if (result == DialogResult.Yes)
             {
-                _equipmentRepo.DeleteEquipment(selectedEquipment.Id);
-                RefreshGrid();
+                SaveEquipment(() => _equipmentRepo.DeleteEquipment(selectedEquipment.Id), selectedEquipment.AssetTag, "deleting");
             }
         }
        
