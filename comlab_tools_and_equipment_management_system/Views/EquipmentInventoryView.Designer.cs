@@ -39,6 +39,7 @@
             txtSearch = new TextBox();
             pnlGridContainer = new Panel();
             dgvEquipment = new DataGridView();
+            filterBanner = new Controls.FilterBanner();
             Id = new DataGridViewTextBoxColumn();
             AssetTag = new DataGridViewTextBoxColumn();
             EquipmentName = new DataGridViewTextBoxColumn();
@@ -151,6 +152,7 @@
             // pnlGridContainer
             // 
             pnlGridContainer.Controls.Add(dgvEquipment);
+            pnlGridContainer.Controls.Add(filterBanner);
             pnlGridContainer.Dock = DockStyle.Fill;
             pnlGridContainer.Location = new Point(0, 160);
             pnlGridContainer.Name = "pnlGridContainer";
@@ -267,6 +269,7 @@
         private ComboBox cmbStatusFilter;
         private Panel pnlGridContainer;
         private DataGridView dgvEquipment;
+        private Controls.FilterBanner filterBanner;
         private DataGridViewTextBoxColumn Id;
         private DataGridViewTextBoxColumn AssetTag;
         private DataGridViewTextBoxColumn EquipmentName;

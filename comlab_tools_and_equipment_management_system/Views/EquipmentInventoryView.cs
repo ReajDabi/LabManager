@@ -4,13 +4,15 @@ using System.Drawing;
 using System.Windows.Forms;
 using ComLabManager.Core.Interfaces;
 using ComLabManager.Core.Models;
+using ComLabManager.UI.Navigation;
 using MySql.Data.MySqlClient;
 
 namespace ComLabManager.UI.Views
 {
-    public partial class EquipmentInventoryView : UserControl
+    public partial class EquipmentInventoryView : UserControl, IFilterableView
     {
         private readonly IEquipmentRepository _equipmentRepo;
+        private bool _highUsageOnly;
 
        
         private readonly Dictionary<string, (Color Back, Color Fore)> _statusColors;
@@ -26,6 +28,30 @@ namespace ComLabManager.UI.Views
                 { "Under Repair", (Color.FromArgb(248, 215, 218), Color.FromArgb(114, 28, 36)) },
                 { "Active", (Color.White, Color.Black) }
             };
+
+            filterBanner.Cleared += (s, e) =>
+            {
+                _highUsageOnly = false;
+                ApplyFilters();
+            };
+        }
+
+        public void ApplyFilter(ViewFilter filter)
+        {
+            switch (filter)
+            {
+                case ViewFilter.ActiveAssets:
+                    cmbStatusFilter.SelectedItem = "Active";
+                    break;
+                case ViewFilter.UnderRepair:
+                    cmbStatusFilter.SelectedItem = "Under Repair";
+                    break;
+                case ViewFilter.HighUsage:
+                    _highUsageOnly = true;
+                    filterBanner.ShowFilter($"High usage equipment ({Equipment.HighUsageThreshold}+ uses)");
+                    ApplyFilters();
+                    break;
+            }
         }
 
         private void EquipmentInventoryView_Load(object sender, EventArgs e)
@@ -138,7 +164,8 @@ namespace ComLabManager.UI.Views
            
             var filteredList = baseList.Where(e =>
                 (selectedCategory == "All Categories" || e.Category == selectedCategory) &&
-                (selectedStatus == "All Statuses" || e.Status == selectedStatus)
+                (selectedStatus == "All Statuses" || e.Status == selectedStatus) &&
+                (!_highUsageOnly || e.UsageCount >= Equipment.HighUsageThreshold)
             ).ToList();
 
           

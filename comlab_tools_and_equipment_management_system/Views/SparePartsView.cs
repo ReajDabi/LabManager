@@ -1,5 +1,6 @@
 ﻿using ComLabManager.Core.Interfaces;
 using ComLabManager.Core.Models;
+using ComLabManager.UI.Navigation;
 using ComLabManager.UI.Views;
 using System;
 using System.Drawing;
@@ -8,9 +9,10 @@ using System.Windows.Forms;
 
 namespace ComLabManager.UI
 {
-    public partial class SparePartsView : UserControl
+    public partial class SparePartsView : UserControl, IFilterableView
     {
         private readonly int _currentUserId;
+        private bool _lowStockOnly;
         private readonly bool _canEditInventory;
         private readonly ISparePartRepository _sparePartRepo;
         private readonly ISparePartRequestRepository _partRequestRepo;
@@ -25,6 +27,21 @@ namespace ComLabManager.UI
             _canEditInventory = canEditInventory;
 
             ConfigureUI();
+            RefreshGrid();
+
+            filterBanner.Cleared += (s, e) =>
+            {
+                _lowStockOnly = false;
+                RefreshGrid();
+            };
+        }
+
+        public void ApplyFilter(ViewFilter filter)
+        {
+            if (filter != ViewFilter.LowStock) return;
+
+            _lowStockOnly = true;
+            filterBanner.ShowFilter("Parts at or below their restock level");
             RefreshGrid();
         }
 
@@ -52,7 +69,10 @@ namespace ComLabManager.UI
             if (_sparePartRepo != null)
             {
                 dgvSpareParts.AutoGenerateColumns = false;
-                dgvSpareParts.DataSource = _sparePartRepo.GetAllSpareParts();
+                var parts = _sparePartRepo.GetAllSpareParts();
+                dgvSpareParts.DataSource = _lowStockOnly
+                    ? parts.Where(p => p.Quantity <= p.RestockLevel).ToList()
+                    : parts;
             }
         }
 

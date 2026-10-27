@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             dgvSpareParts = new DataGridView();
+            filterBanner = new Views.Controls.FilterBanner();
             buttonAddSparePart = new Button();
             buttonDelete = new Button();
             pnlActionBar = new Panel();
@@ -49,20 +50,20 @@
             // 
             dgvSpareParts.AllowUserToAddRows = false;
             dgvSpareParts.AllowUserToDeleteRows = false;
-            dgvSpareParts.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dgvSpareParts.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvSpareParts.BackgroundColor = Color.FromArgb(248, 249, 250);
             dgvSpareParts.BorderStyle = BorderStyle.None;
             dgvSpareParts.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dgvSpareParts.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvSpareParts.Columns.AddRange(new DataGridViewColumn[] { colName, category, colQuantity, minus, plus, restock, restockminus, restockplus });
-            dgvSpareParts.Location = new Point(0, 69);
+            dgvSpareParts.Dock = DockStyle.Fill;
+            dgvSpareParts.Location = new Point(0, 62);
             dgvSpareParts.Margin = new Padding(4);
             dgvSpareParts.Name = "dgvSpareParts";
             dgvSpareParts.RowHeadersVisible = false;
             dgvSpareParts.RowHeadersWidth = 51;
             dgvSpareParts.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvSpareParts.Size = new Size(958, 495);
+            dgvSpareParts.Size = new Size(958, 502);
             dgvSpareParts.TabIndex = 0;
             dgvSpareParts.CellContentClick += dgvSpareParts_CellContentClick;
             dgvSpareParts.CellEndEdit += dgvSpareParts_CellEndEdit;
@@ -202,8 +203,9 @@
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(248, 249, 250);
-            Controls.Add(pnlActionBar);
             Controls.Add(dgvSpareParts);
+            Controls.Add(filterBanner);
+            Controls.Add(pnlActionBar);
             Cursor = Cursors.Hand;
             Margin = new Padding(4);
             Name = "SparePartsView";
@@ -216,6 +218,7 @@
         #endregion
 
         private DataGridView dgvSpareParts;
+        private Views.Controls.FilterBanner filterBanner;
         private Button buttonAddSparePart;
         private Button buttonDelete;
         private Panel pnlActionBar;
