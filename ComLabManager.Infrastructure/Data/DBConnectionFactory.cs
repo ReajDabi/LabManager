@@ -1,7 +1,7 @@
 ﻿using System.Data;
 using MySql.Data.MySqlClient;
 
-namespace ComlabManager.Infrastructure.Data
+namespace ComLabManager.Infrastructure.Data
 {
     public class DbConnectionFactory
     {

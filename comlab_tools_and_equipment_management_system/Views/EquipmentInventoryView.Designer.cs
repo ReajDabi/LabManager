@@ -121,7 +121,7 @@
             // 
             cmbStatusFilter.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbStatusFilter.FormattingEnabled = true;
-            cmbStatusFilter.Items.AddRange(new object[] { "All Statuses", "Active", "In Use", "Under Repair", "Decommissioned" });
+            cmbStatusFilter.Items.AddRange(new object[] { "All Statuses", "Available", "Active", "In Use", "Under Repair", "Decommissioned" });
             cmbStatusFilter.Location = new Point(565, 18);
             cmbStatusFilter.Name = "cmbStatusFilter";
             cmbStatusFilter.Size = new Size(148, 33);

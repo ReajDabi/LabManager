@@ -56,7 +56,7 @@ namespace ComLabManager.UI
             cmbStatus.Items.AddRange(new string[] { "Available", "Active", "In Use", "Under Repair", "Decommissioned" });
 
             cmbLocation.Items.Clear();
-            cmbLocation.Items.AddRange(new string[] { "CLV1", "CLV2", "CLV3", "Engineering", "ICT", "Storage" });
+            cmbLocation.Items.AddRange(LabLocations.All);
         }
 
         private void SetupDynamicUI()

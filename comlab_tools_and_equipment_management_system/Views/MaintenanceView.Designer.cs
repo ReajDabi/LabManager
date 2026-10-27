@@ -40,8 +40,8 @@ namespace ComLabManager.UI
             issue = new DataGridViewTextBoxColumn();
             status = new DataGridViewTextBoxColumn();
             sparepart = new DataGridViewTextBoxColumn();
-            panel1 = new Panel();
             technician = new DataGridViewTextBoxColumn();
+            panel1 = new Panel();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             panel1.SuspendLayout();
             SuspendLayout();
@@ -50,7 +50,6 @@ namespace ComLabManager.UI
             // 
             buttonCreateTicket.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             buttonCreateTicket.BackColor = Color.Navy;
-            buttonCreateTicket.Cursor = Cursors.NoMove2D;
             buttonCreateTicket.FlatStyle = FlatStyle.Flat;
             buttonCreateTicket.ForeColor = SystemColors.ControlLight;
             buttonCreateTicket.Location = new Point(801, 9);
@@ -90,9 +89,9 @@ namespace ComLabManager.UI
             buttonStartRepair.Text = "Start Repair";
             buttonStartRepair.UseVisualStyleBackColor = false;
             buttonStartRepair.Click += buttonStartRepair_Click;
-            //
+            // 
             // buttonAssign
-            //
+            // 
             buttonAssign.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             buttonAssign.BackColor = Color.SteelBlue;
             buttonAssign.Cursor = Cursors.Hand;
@@ -105,7 +104,7 @@ namespace ComLabManager.UI
             buttonAssign.Text = "Assign";
             buttonAssign.UseVisualStyleBackColor = false;
             buttonAssign.Click += buttonAssign_Click;
-            //
+            // 
             // dataGridView1
             // 
             dataGridView1.AllowUserToAddRows = false;
@@ -175,6 +174,13 @@ namespace ComLabManager.UI
             sparepart.Name = "sparepart";
             sparepart.ReadOnly = true;
             // 
+            // technician
+            // 
+            technician.HeaderText = "Assigned Technician";
+            technician.MinimumWidth = 6;
+            technician.Name = "technician";
+            technician.ReadOnly = true;
+            // 
             // panel1
             // 
             panel1.Controls.Add(buttonAssign);
@@ -187,15 +193,9 @@ namespace ComLabManager.UI
             panel1.Size = new Size(958, 60);
             panel1.TabIndex = 2;
             // 
-            // technician
-            // 
-            technician.HeaderText = "Assigned Technician";
-            technician.Name = "technician";
-            technician.ReadOnly = true;
-            // 
             // MaintenanceView
             // 
-            AutoScaleDimensions = new SizeF(7F, 17F);
+            AutoScaleDimensions = new SizeF(9F, 23F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(248, 249, 250);
             BorderStyle = BorderStyle.FixedSingle;

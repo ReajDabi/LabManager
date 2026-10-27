@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 
-namespace ComlabManager.Infrastructure.Repositories
+namespace ComLabManager.Infrastructure.Repositories
 {
     public class MaintenanceRepository : IMaintenanceRepository
     {

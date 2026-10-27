@@ -19,7 +19,8 @@ namespace ComLabManager.UI
         private readonly IComLabScheduleRepository _scheduleRepository;
         private readonly ISparePartRequestRepository _partRepository;
         private readonly ISparePartRepository _sparePartRepository; 
-        private readonly IDashboardRepository _dashboardRepository; 
+        private readonly IDashboardRepository _dashboardRepository;
+        private readonly IPreventiveMaintenanceRepository _pmRepository;
         private User _currentUser;
         private UserControl _currentActiveView;
         private Button _activeButton;
@@ -34,7 +35,8 @@ namespace ComLabManager.UI
             ISparePartRequestRepository partRepository,
             IUserRepository userRepository,
             ISparePartRepository sparePartRepository,
-            IDashboardRepository dashboardRepository) 
+            IDashboardRepository dashboardRepository,
+            IPreventiveMaintenanceRepository pmRepository)
         {
             InitializeComponent();
 
@@ -46,6 +48,7 @@ namespace ComLabManager.UI
             _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
             _sparePartRepository = sparePartRepository ?? throw new ArgumentNullException(nameof(sparePartRepository));
             _dashboardRepository = dashboardRepository ?? throw new ArgumentNullException(nameof(dashboardRepository));
+            _pmRepository = pmRepository ?? throw new ArgumentNullException(nameof(pmRepository));
 
             _navigationMap = new Dictionary<Button, (string, Func<UserControl> ViewFactory)>
 {
@@ -55,8 +58,8 @@ namespace ComLabManager.UI
     
     { btnNavTickets, ("Maintenance Tickets", () => new MaintenanceView(_maintenanceRepository, _equipmentRepository, _userRepository, _sparePartRepository, _currentUser)) },
 
-    { btnNavScheduler, ("Maintenance Scheduler", () => new PreventiveMaintenanceView()) },
-    { btnNavUser, ("User Management", () => new UserManagementView(_userRepository)) },
+    { btnNavScheduler, ("Maintenance Scheduler", () => new PreventiveMaintenanceView(_pmRepository, _equipmentRepository, _userRepository, _currentUser)) },
+    { btnNavUser, ("User Management", () => new UserManagementView(_userRepository, _currentUser.Id)) },
     { btnNavSpareParts, ("", () => null) }, 
     { btnNavRequestApproval, ("", () => null) } 
 };

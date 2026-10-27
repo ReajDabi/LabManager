@@ -28,7 +28,11 @@ namespace ComLabManager.Infrastructure.Repositories
                     var user = connection.QuerySingleOrDefault<User>(sql, new { Username = username });
 
                     if (user != null && BCrypt.Net.BCrypt.Verify(rawPassword, user.PasswordHash))
+                    {
+                        // The hash is not needed after login, so keep it out of the session
+                        user.PasswordHash = string.Empty;
                         return user;
+                    }
 
                     return null;
                 }
@@ -43,7 +47,7 @@ namespace ComLabManager.Infrastructure.Repositories
         {
             using (var connection = new MySqlConnection(_connectionString))
             {
-                string sql = "SELECT Id, Username, Role, FirstName, LastName, CreatedAt FROM Users WHERE Role = @Role ORDER BY FirstName, LastName, Username";
+                string sql = "SELECT Id, Username, Role, FirstName, LastName, CreatedAt FROM Users WHERE Role = @Role AND IsSuspended = 0 ORDER BY FirstName, LastName, Username";
                 return connection.Query<User>(sql, new { Role = role }).ToList();
             }
         }
