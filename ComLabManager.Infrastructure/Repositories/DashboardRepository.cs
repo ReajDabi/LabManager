@@ -29,7 +29,7 @@ namespace ComLabManager.Infrastructure.Repositories
                    
                     HighUsageFlags = db.ExecuteScalar<int>("SELECT COUNT(*) FROM Equipment WHERE UsageCount >= 15"),
                     PendingBorrowReqs = db.ExecuteScalar<int>("SELECT COUNT(*) FROM BorrowRequests WHERE TRIM(Status) = 'Pending'"),
-                    UpcomingPMTasks = db.ExecuteScalar<int>("SELECT COUNT(*) FROM MaintenanceLogs WHERE TRIM(Status) = 'Open'")
+                    UpcomingPMTasks = db.ExecuteScalar<int>("SELECT COUNT(*) FROM PreventiveMaintenance WHERE NextDueDate <= CURDATE() + INTERVAL 7 DAY")
                 };
             }
         }
@@ -52,7 +52,15 @@ namespace ComLabManager.Infrastructure.Repositories
             FROM MaintenanceLogs m 
             JOIN Equipment e ON m.EquipmentId = e.Id 
             WHERE m.Status = 'Open'
-            
+
+            UNION ALL
+
+            SELECT 'Preventive Maintenance' AS Type,
+                   CONCAT(TargetLocation, ' - ', TaskName) AS Details,
+                   NextDueDate AS Date
+            FROM PreventiveMaintenance
+            WHERE NextDueDate <= CURDATE() + INTERVAL 7 DAY
+
             ORDER BY Date ASC LIMIT 10";
 
                 return db.Query<UrgentTask>(sql).ToList();
