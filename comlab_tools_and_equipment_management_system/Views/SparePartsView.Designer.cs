@@ -29,6 +29,11 @@
         private void InitializeComponent()
         {
             dgvSpareParts = new DataGridView();
+            filterBanner = new Views.Controls.FilterBanner();
+            buttonAddSparePart = new Button();
+            buttonDelete = new Button();
+            pnlActionBar = new Panel();
+            btnRequestPart = new Button();
             colName = new DataGridViewTextBoxColumn();
             category = new DataGridViewTextBoxColumn();
             colQuantity = new DataGridViewTextBoxColumn();
@@ -58,13 +63,13 @@
             dgvSpareParts.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvSpareParts.Columns.AddRange(new DataGridViewColumn[] { colName, category, colQuantity, minus, plus, restock, restockminus, restockplus });
             dgvSpareParts.Dock = DockStyle.Fill;
-            dgvSpareParts.Location = new Point(10, 10);
+            dgvSpareParts.Location = new Point(0, 62);
             dgvSpareParts.Margin = new Padding(4);
             dgvSpareParts.Name = "dgvSpareParts";
             dgvSpareParts.RowHeadersVisible = false;
             dgvSpareParts.RowHeadersWidth = 51;
             dgvSpareParts.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvSpareParts.Size = new Size(938, 482);
+            dgvSpareParts.Size = new Size(958, 502);
             dgvSpareParts.TabIndex = 0;
             dgvSpareParts.CellContentClick += dgvSpareParts_CellContentClick;
             dgvSpareParts.CellEndEdit += dgvSpareParts_CellEndEdit;
@@ -214,7 +219,8 @@
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(248, 249, 250);
-            Controls.Add(pnlSpareHolder);
+            Controls.Add(dgvSpareParts);
+            Controls.Add(filterBanner);
             Controls.Add(pnlActionBar);
             Cursor = Cursors.Hand;
             Margin = new Padding(4);
@@ -229,6 +235,7 @@
         #endregion
 
         private DataGridView dgvSpareParts;
+        private Views.Controls.FilterBanner filterBanner;
         private Button buttonAddSparePart;
         private Button buttonDelete;
         private Panel pnlActionBar;

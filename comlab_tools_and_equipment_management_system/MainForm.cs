@@ -1,6 +1,7 @@
 
 using ComLabManager.Core.Interfaces;
 using ComLabManager.Core.Models;
+using ComLabManager.UI.Navigation;
 using ComLabManager.UI.NavigationStrategies;
 using ComLabManager.UI.Views;
 using System;
@@ -26,6 +27,7 @@ namespace ComLabManager.UI
         private Button _activeButton;
 
         private readonly Dictionary<Button, (string Title, Func<UserControl> ViewFactory)> _navigationMap;
+        private readonly Dictionary<AppPage, Button> _pageButtons;
 
         public MainForm(
             IEquipmentRepository equipmentRepository,
@@ -52,7 +54,7 @@ namespace ComLabManager.UI
 
             _navigationMap = new Dictionary<Button, (string, Func<UserControl> ViewFactory)>
 {
-    { btnNavDashboard, ("Dashboard", () => new DashboardView( _dashboardRepository,_scheduleRepository)) },
+    { btnNavDashboard, ("Dashboard", () => new DashboardView(_dashboardRepository, _scheduleRepository, NavigateTo)) },
     { btnNavEquipment, ("Equipment Inventory", () => new EquipmentInventoryView(_equipmentRepository)) },
     
     
@@ -63,6 +65,14 @@ namespace ComLabManager.UI
     { btnNavSpareParts, ("", () => null) }, 
     { btnNavRequestApproval, ("", () => null) } 
 };
+
+            _pageButtons = new Dictionary<AppPage, Button>
+            {
+                { AppPage.Equipment, btnNavEquipment },
+                { AppPage.Approvals, btnNavRequestApproval },
+                { AppPage.SpareParts, btnNavSpareParts },
+                { AppPage.Scheduler, btnNavScheduler }
+            };
 
             AttachNavigationEvents();
         }
@@ -109,7 +119,20 @@ namespace ComLabManager.UI
 
         public void OpenDashboard() => UniversalNavigation_Click(btnNavDashboard, EventArgs.Empty);
         public void OpenStudentDashboard() => UniversalNavigation_Click(btnNavRequestApproval, EventArgs.Empty);
-        public void OpenTickets() => UniversalNavigation_Click(btnNavTickets, EventArgs.Empty); 
+        public void OpenTickets() => UniversalNavigation_Click(btnNavTickets, EventArgs.Empty);
+
+        // Opens a page the way its sidebar button would, then hands it the filter to start with
+        public void NavigateTo(AppPage page, ViewFilter filter)
+        {
+            if (!_pageButtons.TryGetValue(page, out var button) || !button.Visible) return;
+
+            UniversalNavigation_Click(button, EventArgs.Empty);
+
+            if (filter != ViewFilter.None && _currentActiveView is IFilterableView filterableView)
+            {
+                filterableView.ApplyFilter(filter);
+            }
+        }
 
         private void UniversalNavigation_Click(object sender, EventArgs e)
         {

@@ -16,5 +16,6 @@ namespace ComLabManager.Core.Interfaces
        
 
         int GetPendingCount();
+        int GetOverdueCount(int studentId);
     }
 }

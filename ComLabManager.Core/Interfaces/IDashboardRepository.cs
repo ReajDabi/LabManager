@@ -18,7 +18,11 @@ namespace ComLabManager.Core.Models
     {
         public int TotalActiveAssets { get; set; }
         public int HighUsageFlags { get; set; }
-        public int PendingBorrowReqs { get; set; }
+        public int PendingApprovals { get; set; }
+        public int DamagedEquipment { get; set; }
+        public int LowStockParts { get; set; }
+        public int ActiveBorrowers { get; set; }
+        public int OverdueItems { get; set; }
         public int UpcomingPMTasks { get; set; }
     }
 

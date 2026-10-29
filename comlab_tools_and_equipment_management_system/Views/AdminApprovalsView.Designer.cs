@@ -28,6 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
+            filterBanner = new Controls.FilterBanner();
+            overdueTimer = new System.Windows.Forms.Timer(components);
             btnApprove = new Button();
             btnDeny = new Button();
             pnlActions = new Panel();
@@ -87,6 +90,7 @@
             btnDeny.TabIndex = 1;
             btnDeny.Text = "Deny";
             btnDeny.UseVisualStyleBackColor = false;
+            btnDeny.Click += btnDeny_Click;
             // 
             // pnlActions
             // 
@@ -130,6 +134,7 @@
             dgvBorrowRequests.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvBorrowRequests.Size = new Size(938, 464);
             dgvBorrowRequests.TabIndex = 0;
+            dgvBorrowRequests.CellFormatting += dgvBorrowRequests_CellFormatting;
             // 
             // RequestId
             // 
@@ -304,14 +309,20 @@
             btnToggleParts.UseVisualStyleBackColor = false;
             btnToggleParts.Click += btnToggleParts_Click;
             // 
+            // overdueTimer
+            //
+            overdueTimer.Interval = 60000;
+            overdueTimer.Tick += overdueTimer_Tick;
+            //
             // AdminApprovalsView
-            // 
+            //
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(248, 249, 250);
             Controls.Add(pnlPartRequests);
             Controls.Add(pnlActions);
             Controls.Add(pnlBorrowRequests);
+            Controls.Add(filterBanner);
             Controls.Add(pnlHeader);
             Name = "AdminApprovalsView";
             Size = new Size(958, 564);
@@ -349,5 +360,7 @@
         private DataGridViewTextBoxColumn colPartReason;
         private DataGridViewTextBoxColumn colPartStatus;
         private Button btnReturnEquipment;
+        private Controls.FilterBanner filterBanner;
+        private System.Windows.Forms.Timer overdueTimer;
     }
 }
