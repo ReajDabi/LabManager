@@ -2,12 +2,12 @@
 {
     partial class DashboardView
     {
-        /// <summary> 
+        /// <summary>
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
@@ -22,29 +22,23 @@
 
         #region Component Designer generated code
 
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
+        /// <summary>
+        /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             pnlMetrics = new Panel();
-            pnlCardPM = new Panel();
-            pnlAccentPM = new Panel();
-            lblValuePM = new Label();
-            lblTitlePM = new Label();
-            pnlCardBorrows = new Panel();
-            pnlAccentBorrows = new Panel();
-            lblValueBorrows = new Label();
-            lblTitleBorrows = new Label();
-            pnlCardUsage = new Panel();
-            pnlAccentUsage = new Panel();
-            lblValueUsage = new Label();
-            lblTitleUsage = new Label();
-            pnlCardEq = new Panel();
-            lblValueEq = new Label();
-            lblTitleEq = new Label();
-            pnlAccentEq = new Panel();
+            tblCards = new TableLayoutPanel();
+            cardActiveAssets = new ComLabManager.UI.Views.Controls.KpiCard();
+            cardHighUsage = new ComLabManager.UI.Views.Controls.KpiCard();
+            cardPendingApprovals = new ComLabManager.UI.Views.Controls.KpiCard();
+            cardUpcomingPM = new ComLabManager.UI.Views.Controls.KpiCard();
+            cardDamaged = new ComLabManager.UI.Views.Controls.KpiCard();
+            cardLowStock = new ComLabManager.UI.Views.Controls.KpiCard();
+            cardActiveBorrowers = new ComLabManager.UI.Views.Controls.KpiCard();
+            cardOverdue = new ComLabManager.UI.Views.Controls.KpiCard();
             lblDate = new Label();
             pnlHeader = new Panel();
             label1 = new Label();
@@ -52,11 +46,9 @@
             btnManageSchedules = new Button();
             dgvActionItems = new DataGridView();
             lblGridTitle = new Label();
+            refreshTimer = new System.Windows.Forms.Timer(components);
             pnlMetrics.SuspendLayout();
-            pnlCardPM.SuspendLayout();
-            pnlCardBorrows.SuspendLayout();
-            pnlCardUsage.SuspendLayout();
-            pnlCardEq.SuspendLayout();
+            tblCards.SuspendLayout();
             pnlHeader.SuspendLayout();
             pnlGridContainer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvActionItems).BeginInit();
@@ -65,176 +57,143 @@
             // pnlMetrics
             // 
             pnlMetrics.BackColor = Color.WhiteSmoke;
-            pnlMetrics.Controls.Add(pnlCardPM);
-            pnlMetrics.Controls.Add(pnlCardBorrows);
-            pnlMetrics.Controls.Add(pnlCardUsage);
-            pnlMetrics.Controls.Add(pnlCardEq);
+            pnlMetrics.Controls.Add(tblCards);
             pnlMetrics.Dock = DockStyle.Top;
-            pnlMetrics.Location = new Point(0, 80);
+            pnlMetrics.Location = new Point(0, 64);
+            pnlMetrics.Margin = new Padding(2);
             pnlMetrics.Name = "pnlMetrics";
-            pnlMetrics.Padding = new Padding(10);
-            pnlMetrics.Size = new Size(958, 130);
+            pnlMetrics.Padding = new Padding(8, 0, 8, 0);
+            pnlMetrics.Size = new Size(766, 200);
             pnlMetrics.TabIndex = 0;
             // 
-            // pnlCardPM
+            // tblCards
             // 
-            pnlCardPM.BackColor = Color.White;
-            pnlCardPM.Controls.Add(pnlAccentPM);
-            pnlCardPM.Controls.Add(lblValuePM);
-            pnlCardPM.Controls.Add(lblTitlePM);
-            pnlCardPM.Dock = DockStyle.Left;
-            pnlCardPM.Location = new Point(655, 10);
-            pnlCardPM.Name = "pnlCardPM";
-            pnlCardPM.Size = new Size(215, 110);
-            pnlCardPM.TabIndex = 0;
+            tblCards.ColumnCount = 4;
+            tblCards.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
+            tblCards.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
+            tblCards.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
+            tblCards.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
+            tblCards.Controls.Add(cardActiveAssets, 0, 0);
+            tblCards.Controls.Add(cardHighUsage, 1, 0);
+            tblCards.Controls.Add(cardPendingApprovals, 2, 0);
+            tblCards.Controls.Add(cardUpcomingPM, 3, 0);
+            tblCards.Controls.Add(cardDamaged, 0, 1);
+            tblCards.Controls.Add(cardLowStock, 1, 1);
+            tblCards.Controls.Add(cardActiveBorrowers, 2, 1);
+            tblCards.Controls.Add(cardOverdue, 3, 1);
+            tblCards.Dock = DockStyle.Fill;
+            tblCards.Location = new Point(8, 0);
+            tblCards.Margin = new Padding(2);
+            tblCards.Name = "tblCards";
+            tblCards.RowCount = 2;
+            tblCards.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tblCards.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tblCards.Size = new Size(750, 200);
+            tblCards.TabIndex = 0;
             // 
-            // pnlAccentPM
+            // cardActiveAssets
             // 
-            pnlAccentPM.BackColor = Color.FromArgb(25, 135, 84);
-            pnlAccentPM.Dock = DockStyle.Left;
-            pnlAccentPM.Location = new Point(0, 0);
-            pnlAccentPM.Name = "pnlAccentPM";
-            pnlAccentPM.Size = new Size(5, 110);
-            pnlAccentPM.TabIndex = 9;
+            cardActiveAssets.AccentColor = SystemColors.Highlight;
+            cardActiveAssets.BackColor = Color.White;
+            cardActiveAssets.Dock = DockStyle.Fill;
+            cardActiveAssets.Location = new Point(5, 5);
+            cardActiveAssets.Margin = new Padding(5);
+            cardActiveAssets.Name = "cardActiveAssets";
+            cardActiveAssets.Size = new Size(177, 90);
+            cardActiveAssets.TabIndex = 0;
+            cardActiveAssets.Title = "Total Active Assets";
+            cardActiveAssets.Click += Card_Click;
             // 
-            // lblValuePM
+            // cardHighUsage
             // 
-            lblValuePM.AutoSize = true;
-            lblValuePM.Font = new Font("Segoe UI", 24F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblValuePM.Location = new Point(87, 7);
-            lblValuePM.Name = "lblValuePM";
-            lblValuePM.Size = new Size(56, 65);
-            lblValuePM.TabIndex = 7;
-            lblValuePM.Text = "0";
+            cardHighUsage.AccentColor = Color.FromArgb(255, 193, 7);
+            cardHighUsage.BackColor = Color.White;
+            cardHighUsage.Dock = DockStyle.Fill;
+            cardHighUsage.Location = new Point(192, 5);
+            cardHighUsage.Margin = new Padding(5);
+            cardHighUsage.Name = "cardHighUsage";
+            cardHighUsage.Size = new Size(177, 90);
+            cardHighUsage.TabIndex = 1;
+            cardHighUsage.Title = "High Usage Flags";
+            cardHighUsage.Click += Card_Click;
             // 
-            // lblTitlePM
+            // cardPendingApprovals
             // 
-            lblTitlePM.AutoSize = true;
-            lblTitlePM.Location = new Point(27, 72);
-            lblTitlePM.Name = "lblTitlePM";
-            lblTitlePM.Size = new Size(172, 25);
-            lblTitlePM.TabIndex = 8;
-            lblTitlePM.Text = "Upcoming PM Tasks";
+            cardPendingApprovals.AccentColor = Color.FromArgb(30, 41, 59);
+            cardPendingApprovals.BackColor = Color.White;
+            cardPendingApprovals.Dock = DockStyle.Fill;
+            cardPendingApprovals.Location = new Point(379, 5);
+            cardPendingApprovals.Margin = new Padding(5);
+            cardPendingApprovals.Name = "cardPendingApprovals";
+            cardPendingApprovals.Size = new Size(177, 90);
+            cardPendingApprovals.TabIndex = 2;
+            cardPendingApprovals.Title = "Pending Approvals";
+            cardPendingApprovals.Click += Card_Click;
             // 
-            // pnlCardBorrows
+            // cardUpcomingPM
             // 
-            pnlCardBorrows.BackColor = Color.White;
-            pnlCardBorrows.Controls.Add(pnlAccentBorrows);
-            pnlCardBorrows.Controls.Add(lblValueBorrows);
-            pnlCardBorrows.Controls.Add(lblTitleBorrows);
-            pnlCardBorrows.Dock = DockStyle.Left;
-            pnlCardBorrows.Location = new Point(440, 10);
-            pnlCardBorrows.Name = "pnlCardBorrows";
-            pnlCardBorrows.Size = new Size(215, 110);
-            pnlCardBorrows.TabIndex = 0;
+            cardUpcomingPM.AccentColor = Color.FromArgb(25, 135, 84);
+            cardUpcomingPM.BackColor = Color.White;
+            cardUpcomingPM.Dock = DockStyle.Fill;
+            cardUpcomingPM.Location = new Point(566, 5);
+            cardUpcomingPM.Margin = new Padding(5);
+            cardUpcomingPM.Name = "cardUpcomingPM";
+            cardUpcomingPM.Size = new Size(179, 90);
+            cardUpcomingPM.TabIndex = 3;
+            cardUpcomingPM.Title = "Upcoming PM Tasks";
+            cardUpcomingPM.Click += Card_Click;
             // 
-            // pnlAccentBorrows
+            // cardDamaged
             // 
-            pnlAccentBorrows.BackColor = Color.FromArgb(30, 41, 59);
-            pnlAccentBorrows.Dock = DockStyle.Left;
-            pnlAccentBorrows.Location = new Point(0, 0);
-            pnlAccentBorrows.Name = "pnlAccentBorrows";
-            pnlAccentBorrows.Size = new Size(5, 110);
-            pnlAccentBorrows.TabIndex = 6;
+            cardDamaged.AccentColor = Color.DarkOrange;
+            cardDamaged.BackColor = Color.White;
+            cardDamaged.Dock = DockStyle.Fill;
+            cardDamaged.Location = new Point(5, 105);
+            cardDamaged.Margin = new Padding(5);
+            cardDamaged.Name = "cardDamaged";
+            cardDamaged.Size = new Size(177, 90);
+            cardDamaged.TabIndex = 4;
+            cardDamaged.Title = "Damaged Equipment";
+            cardDamaged.Click += Card_Click;
             // 
-            // lblValueBorrows
+            // cardLowStock
             // 
-            lblValueBorrows.AutoSize = true;
-            lblValueBorrows.Font = new Font("Segoe UI", 24F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblValueBorrows.Location = new Point(86, 7);
-            lblValueBorrows.Name = "lblValueBorrows";
-            lblValueBorrows.Size = new Size(56, 65);
-            lblValueBorrows.TabIndex = 4;
-            lblValueBorrows.Text = "0";
+            cardLowStock.AccentColor = Color.IndianRed;
+            cardLowStock.BackColor = Color.White;
+            cardLowStock.Dock = DockStyle.Fill;
+            cardLowStock.Location = new Point(192, 105);
+            cardLowStock.Margin = new Padding(5);
+            cardLowStock.Name = "cardLowStock";
+            cardLowStock.Size = new Size(177, 90);
+            cardLowStock.TabIndex = 5;
+            cardLowStock.Title = "Low Stock Alerts";
+            cardLowStock.Click += Card_Click;
             // 
-            // lblTitleBorrows
+            // cardActiveBorrowers
             // 
-            lblTitleBorrows.AutoSize = true;
-            lblTitleBorrows.Location = new Point(21, 72);
-            lblTitleBorrows.Name = "lblTitleBorrows";
-            lblTitleBorrows.Size = new Size(181, 25);
-            lblTitleBorrows.TabIndex = 5;
-            lblTitleBorrows.Text = "Pending Borrow Reqs";
+            cardActiveBorrowers.AccentColor = Color.SteelBlue;
+            cardActiveBorrowers.BackColor = Color.White;
+            cardActiveBorrowers.Dock = DockStyle.Fill;
+            cardActiveBorrowers.Location = new Point(379, 105);
+            cardActiveBorrowers.Margin = new Padding(5);
+            cardActiveBorrowers.Name = "cardActiveBorrowers";
+            cardActiveBorrowers.Size = new Size(177, 90);
+            cardActiveBorrowers.TabIndex = 6;
+            cardActiveBorrowers.Title = "Active Borrowers";
+            cardActiveBorrowers.Click += Card_Click;
             // 
-            // pnlCardUsage
+            // cardOverdue
             // 
-            pnlCardUsage.BackColor = Color.White;
-            pnlCardUsage.Controls.Add(pnlAccentUsage);
-            pnlCardUsage.Controls.Add(lblValueUsage);
-            pnlCardUsage.Controls.Add(lblTitleUsage);
-            pnlCardUsage.Dock = DockStyle.Left;
-            pnlCardUsage.Location = new Point(225, 10);
-            pnlCardUsage.Name = "pnlCardUsage";
-            pnlCardUsage.Size = new Size(215, 110);
-            pnlCardUsage.TabIndex = 0;
-            // 
-            // pnlAccentUsage
-            // 
-            pnlAccentUsage.BackColor = Color.FromArgb(255, 193, 7);
-            pnlAccentUsage.Dock = DockStyle.Left;
-            pnlAccentUsage.Location = new Point(0, 0);
-            pnlAccentUsage.Name = "pnlAccentUsage";
-            pnlAccentUsage.Size = new Size(5, 110);
-            pnlAccentUsage.TabIndex = 3;
-            // 
-            // lblValueUsage
-            // 
-            lblValueUsage.AutoSize = true;
-            lblValueUsage.Font = new Font("Segoe UI", 24F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblValueUsage.Location = new Point(85, 7);
-            lblValueUsage.Name = "lblValueUsage";
-            lblValueUsage.Size = new Size(56, 65);
-            lblValueUsage.TabIndex = 2;
-            lblValueUsage.Text = "0";
-            // 
-            // lblTitleUsage
-            // 
-            lblTitleUsage.AutoSize = true;
-            lblTitleUsage.Location = new Point(33, 72);
-            lblTitleUsage.Name = "lblTitleUsage";
-            lblTitleUsage.Size = new Size(150, 25);
-            lblTitleUsage.TabIndex = 2;
-            lblTitleUsage.Text = "High Usage Flags";
-            // 
-            // pnlCardEq
-            // 
-            pnlCardEq.BackColor = Color.White;
-            pnlCardEq.Controls.Add(lblValueEq);
-            pnlCardEq.Controls.Add(lblTitleEq);
-            pnlCardEq.Controls.Add(pnlAccentEq);
-            pnlCardEq.Dock = DockStyle.Left;
-            pnlCardEq.Location = new Point(10, 10);
-            pnlCardEq.Name = "pnlCardEq";
-            pnlCardEq.Size = new Size(215, 110);
-            pnlCardEq.TabIndex = 0;
-            // 
-            // lblValueEq
-            // 
-            lblValueEq.AutoSize = true;
-            lblValueEq.Font = new Font("Segoe UI", 24F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblValueEq.Location = new Point(81, 7);
-            lblValueEq.Name = "lblValueEq";
-            lblValueEq.Size = new Size(56, 65);
-            lblValueEq.TabIndex = 2;
-            lblValueEq.Text = "0";
-            // 
-            // lblTitleEq
-            // 
-            lblTitleEq.AutoSize = true;
-            lblTitleEq.Location = new Point(29, 72);
-            lblTitleEq.Name = "lblTitleEq";
-            lblTitleEq.Size = new Size(158, 25);
-            lblTitleEq.TabIndex = 2;
-            lblTitleEq.Text = "Total Active Assets";
-            // 
-            // pnlAccentEq
-            // 
-            pnlAccentEq.BackColor = SystemColors.Highlight;
-            pnlAccentEq.Dock = DockStyle.Left;
-            pnlAccentEq.Location = new Point(0, 0);
-            pnlAccentEq.Name = "pnlAccentEq";
-            pnlAccentEq.Size = new Size(5, 110);
-            pnlAccentEq.TabIndex = 0;
+            cardOverdue.AccentColor = Color.FromArgb(220, 53, 69);
+            cardOverdue.BackColor = Color.White;
+            cardOverdue.Dock = DockStyle.Fill;
+            cardOverdue.Location = new Point(566, 105);
+            cardOverdue.Margin = new Padding(5);
+            cardOverdue.Name = "cardOverdue";
+            cardOverdue.Size = new Size(179, 90);
+            cardOverdue.TabIndex = 7;
+            cardOverdue.Title = "Overdue Items";
+            cardOverdue.Click += Card_Click;
             // 
             // lblDate
             // 
@@ -242,9 +201,10 @@
             lblDate.AutoSize = true;
             lblDate.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             lblDate.ForeColor = Color.FromArgb(30, 41, 59);
-            lblDate.Location = new Point(819, 12);
+            lblDate.Location = new Point(574, 25);
+            lblDate.Margin = new Padding(2, 0, 2, 0);
             lblDate.Name = "lblDate";
-            lblDate.Size = new Size(133, 28);
+            lblDate.Size = new Size(111, 23);
             lblDate.TabIndex = 0;
             lblDate.Text = "Today's Date";
             // 
@@ -255,8 +215,9 @@
             pnlHeader.Controls.Add(lblDate);
             pnlHeader.Dock = DockStyle.Top;
             pnlHeader.Location = new Point(0, 0);
+            pnlHeader.Margin = new Padding(2);
             pnlHeader.Name = "pnlHeader";
-            pnlHeader.Size = new Size(958, 80);
+            pnlHeader.Size = new Size(766, 64);
             pnlHeader.TabIndex = 1;
             // 
             // label1
@@ -264,9 +225,10 @@
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.ForeColor = Color.FromArgb(30, 41, 59);
-            label1.Location = new Point(15, 12);
+            label1.Location = new Point(12, 10);
+            label1.Margin = new Padding(2, 0, 2, 0);
             label1.Name = "label1";
-            label1.Size = new Size(309, 48);
+            label1.Size = new Size(259, 41);
             label1.TabIndex = 0;
             label1.Text = "System Overview";
             // 
@@ -277,10 +239,11 @@
             pnlGridContainer.Controls.Add(dgvActionItems);
             pnlGridContainer.Controls.Add(lblGridTitle);
             pnlGridContainer.Dock = DockStyle.Fill;
-            pnlGridContainer.Location = new Point(0, 210);
+            pnlGridContainer.Location = new Point(0, 264);
+            pnlGridContainer.Margin = new Padding(2);
             pnlGridContainer.Name = "pnlGridContainer";
-            pnlGridContainer.Padding = new Padding(20);
-            pnlGridContainer.Size = new Size(958, 354);
+            pnlGridContainer.Padding = new Padding(16);
+            pnlGridContainer.Size = new Size(766, 187);
             pnlGridContainer.TabIndex = 2;
             // 
             // btnManageSchedules
@@ -290,9 +253,10 @@
             btnManageSchedules.FlatAppearance.BorderSize = 0;
             btnManageSchedules.FlatStyle = FlatStyle.Flat;
             btnManageSchedules.ForeColor = SystemColors.ButtonHighlight;
-            btnManageSchedules.Location = new Point(738, 5);
+            btnManageSchedules.Location = new Point(590, 4);
+            btnManageSchedules.Margin = new Padding(2);
             btnManageSchedules.Name = "btnManageSchedules";
-            btnManageSchedules.Size = new Size(197, 39);
+            btnManageSchedules.Size = new Size(158, 31);
             btnManageSchedules.TabIndex = 1;
             btnManageSchedules.Text = "ManageSchedules";
             btnManageSchedules.UseVisualStyleBackColor = false;
@@ -300,18 +264,21 @@
             // 
             // dgvActionItems
             // 
+            dgvActionItems.AllowUserToAddRows = false;
             dgvActionItems.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvActionItems.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dgvActionItems.BackgroundColor = Color.White;
             dgvActionItems.BorderStyle = BorderStyle.None;
             dgvActionItems.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvActionItems.Dock = DockStyle.Fill;
-            dgvActionItems.Location = new Point(20, 52);
+            dgvActionItems.Location = new Point(16, 44);
+            dgvActionItems.Margin = new Padding(2);
             dgvActionItems.Name = "dgvActionItems";
+            dgvActionItems.ReadOnly = true;
             dgvActionItems.RowHeadersVisible = false;
             dgvActionItems.RowHeadersWidth = 62;
             dgvActionItems.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvActionItems.Size = new Size(918, 282);
+            dgvActionItems.Size = new Size(734, 127);
             dgvActionItems.TabIndex = 1;
             // 
             // lblGridTitle
@@ -321,31 +288,31 @@
             lblGridTitle.Dock = DockStyle.Top;
             lblGridTitle.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblGridTitle.ForeColor = Color.FromArgb(30, 41, 59);
-            lblGridTitle.Location = new Point(20, 20);
+            lblGridTitle.Location = new Point(16, 16);
+            lblGridTitle.Margin = new Padding(2, 0, 2, 0);
             lblGridTitle.Name = "lblGridTitle";
-            lblGridTitle.Size = new Size(358, 32);
+            lblGridTitle.Size = new Size(298, 28);
             lblGridTitle.TabIndex = 0;
             lblGridTitle.Text = "Requires Immediate Attention";
             // 
+            // refreshTimer
+            // 
+            refreshTimer.Interval = 60000;
+            refreshTimer.Tick += refreshTimer_Tick;
+            // 
             // DashboardView
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(248, 249, 250);
             Controls.Add(pnlGridContainer);
             Controls.Add(pnlMetrics);
             Controls.Add(pnlHeader);
+            Margin = new Padding(2);
             Name = "DashboardView";
-            Size = new Size(958, 564);
+            Size = new Size(766, 451);
             pnlMetrics.ResumeLayout(false);
-            pnlCardPM.ResumeLayout(false);
-            pnlCardPM.PerformLayout();
-            pnlCardBorrows.ResumeLayout(false);
-            pnlCardBorrows.PerformLayout();
-            pnlCardUsage.ResumeLayout(false);
-            pnlCardUsage.PerformLayout();
-            pnlCardEq.ResumeLayout(false);
-            pnlCardEq.PerformLayout();
+            tblCards.ResumeLayout(false);
             pnlHeader.ResumeLayout(false);
             pnlHeader.PerformLayout();
             pnlGridContainer.ResumeLayout(false);
@@ -357,28 +324,22 @@
         #endregion
 
         private Panel pnlMetrics;
+        private TableLayoutPanel tblCards;
+        private Views.Controls.KpiCard cardActiveAssets;
+        private Views.Controls.KpiCard cardHighUsage;
+        private Views.Controls.KpiCard cardPendingApprovals;
+        private Views.Controls.KpiCard cardUpcomingPM;
+        private Views.Controls.KpiCard cardDamaged;
+        private Views.Controls.KpiCard cardLowStock;
+        private Views.Controls.KpiCard cardActiveBorrowers;
+        private Views.Controls.KpiCard cardOverdue;
         private Label lblDate;
-        private Panel pnlCardEq;
         private Panel pnlHeader;
         private Panel pnlGridContainer;
         private Label lblGridTitle;
-        private Panel pnlCardUsage;
         private Label label1;
-        private Panel pnlCardPM;
-        private Panel pnlCardBorrows;
-        private Label lblValueEq;
-        private Label lblTitleEq;
-        private Panel pnlAccentEq;
-        private Panel pnlAccentUsage;
-        private Label lblValueUsage;
-        private Label lblTitleUsage;
-        private Panel pnlAccentBorrows;
-        private Label lblValueBorrows;
-        private Label lblTitleBorrows;
-        private Panel pnlAccentPM;
-        private Label lblValuePM;
-        private Label lblTitlePM;
         private DataGridView dgvActionItems;
         private Button btnManageSchedules;
+        private System.Windows.Forms.Timer refreshTimer;
     }
 }

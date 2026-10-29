@@ -99,6 +99,22 @@ namespace ComLabManager.UI.Views
 
         private void btnNewRequest_Click(object sender, EventArgs e)
         {
+            // Tell the student up front instead of after they fill in the form; AddRequest enforces it too
+            try
+            {
+                int overdueCount = _borrowRepo.GetOverdueCount(_studentId);
+                if (overdueCount > 0)
+                {
+                    MessageBox.Show($"You have {overdueCount} overdue item(s). Please return them before making a new request.", "Request Denied", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An unexpected error occurred: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             using (BorrowModalForm form = new BorrowModalForm(_equipmentRepo, _studentId))
             {
                 if (form.ShowDialog() == DialogResult.OK && form.ProcessedRequest != null)
@@ -163,7 +179,7 @@ namespace ComLabManager.UI.Views
         {
             if (dgvMyRequests.Columns.Count == 0) return;
 
-            string[] columnsToHide = { "Id", "StudentId", "StudentName", "EquipmentId" };
+            string[] columnsToHide = { "Id", "StudentId", "StudentName", "EquipmentId", "DueAt", "IsActiveLoan", "IsOverdue" };
             foreach (string col in columnsToHide)
             {
                 if (dgvMyRequests.Columns[col] != null) dgvMyRequests.Columns[col].Visible = false;
@@ -214,6 +230,16 @@ namespace ComLabManager.UI.Views
 
             string colName = dgvMyRequests.Columns[e.ColumnIndex].Name;
 
+            // Only this cell's style copy is touched, so the red never bleeds onto other rows
+            bool isOverdue = request.IsOverdue;
+            if (isOverdue)
+            {
+                e.CellStyle.BackColor = Color.FromArgb(255, 205, 210);
+                e.CellStyle.ForeColor = Color.DarkRed;
+                e.CellStyle.SelectionBackColor = Color.IndianRed;
+                e.CellStyle.SelectionForeColor = Color.White;
+            }
+
             if (colName == "StartTime" || colName == "EndTime")
             {
                 e.Value = FormatToAmPm(e.Value);
@@ -223,6 +249,12 @@ namespace ComLabManager.UI.Views
             {
                 e.Value = dateValue.ToString("MMM dd, yyyy");
                 e.FormattingApplied = true;
+            }
+            else if (colName == "Status" && isOverdue)
+            {
+                e.Value = "Overdue";
+                e.FormattingApplied = true;
+                e.CellStyle.Font = new Font(e.CellStyle.Font ?? dgvMyRequests.Font, FontStyle.Bold);
             }
             else if (colName == "Status")
             {

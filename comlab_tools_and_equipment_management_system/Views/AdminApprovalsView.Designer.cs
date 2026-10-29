@@ -28,6 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
+            filterBanner = new Controls.FilterBanner();
+            overdueTimer = new System.Windows.Forms.Timer(components);
             btnApprove = new Button();
             btnDeny = new Button();
             pnlActions = new Panel();
@@ -87,6 +90,7 @@
             btnDeny.TabIndex = 1;
             btnDeny.Text = "Deny";
             btnDeny.UseVisualStyleBackColor = false;
+            btnDeny.Click += btnDeny_Click;
             // 
             // pnlActions
             // 
@@ -122,19 +126,22 @@
             dgvBorrowRequests.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvBorrowRequests.Columns.AddRange(new DataGridViewColumn[] { RequestId, StudentName, TargetLocation, Purpose, Schedule, Status });
             dgvBorrowRequests.Dock = DockStyle.Fill;
-            dgvBorrowRequests.Location = new Point(0, 0);
+            dgvBorrowRequests.Location = new Point(10, 10);
             dgvBorrowRequests.Name = "dgvBorrowRequests";
+            dgvBorrowRequests.ReadOnly = true;
             dgvBorrowRequests.RowHeadersVisible = false;
             dgvBorrowRequests.RowHeadersWidth = 62;
             dgvBorrowRequests.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvBorrowRequests.Size = new Size(958, 484);
+            dgvBorrowRequests.Size = new Size(938, 464);
             dgvBorrowRequests.TabIndex = 0;
+            dgvBorrowRequests.CellFormatting += dgvBorrowRequests_CellFormatting;
             // 
             // RequestId
             // 
             RequestId.HeaderText = "RequestId";
             RequestId.MinimumWidth = 8;
             RequestId.Name = "RequestId";
+            RequestId.ReadOnly = true;
             RequestId.Visible = false;
             RequestId.Width = 150;
             // 
@@ -144,6 +151,7 @@
             StudentName.HeaderText = "Student Name";
             StudentName.MinimumWidth = 8;
             StudentName.Name = "StudentName";
+            StudentName.ReadOnly = true;
             StudentName.Width = 161;
             // 
             // TargetLocation
@@ -151,6 +159,7 @@
             TargetLocation.HeaderText = "Target";
             TargetLocation.MinimumWidth = 8;
             TargetLocation.Name = "TargetLocation";
+            TargetLocation.ReadOnly = true;
             TargetLocation.Width = 150;
             // 
             // Purpose
@@ -159,12 +168,14 @@
             Purpose.HeaderText = "Purpose";
             Purpose.MinimumWidth = 8;
             Purpose.Name = "Purpose";
+            Purpose.ReadOnly = true;
             // 
             // Schedule
             // 
             Schedule.HeaderText = "Schedule";
             Schedule.MinimumWidth = 8;
             Schedule.Name = "Schedule";
+            Schedule.ReadOnly = true;
             Schedule.Width = 150;
             // 
             // Status
@@ -172,6 +183,7 @@
             Status.HeaderText = "Status";
             Status.MinimumWidth = 8;
             Status.Name = "Status";
+            Status.ReadOnly = true;
             Status.Width = 150;
             // 
             // pnlPartRequests
@@ -193,6 +205,7 @@
             dgvPartRequests.Dock = DockStyle.Fill;
             dgvPartRequests.Location = new Point(10, 10);
             dgvPartRequests.Name = "dgvPartRequests";
+            dgvPartRequests.ReadOnly = true;
             dgvPartRequests.RowHeadersVisible = false;
             dgvPartRequests.RowHeadersWidth = 62;
             dgvPartRequests.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
@@ -204,6 +217,7 @@
             colPartRequestId.HeaderText = "RequestId";
             colPartRequestId.MinimumWidth = 8;
             colPartRequestId.Name = "colPartRequestId";
+            colPartRequestId.ReadOnly = true;
             colPartRequestId.Visible = false;
             colPartRequestId.Width = 150;
             // 
@@ -213,6 +227,7 @@
             colPartTech.HeaderText = "Technician";
             colPartTech.MinimumWidth = 8;
             colPartTech.Name = "colPartTech";
+            colPartTech.ReadOnly = true;
             colPartTech.Width = 127;
             // 
             // colRequestedPart
@@ -221,6 +236,7 @@
             colRequestedPart.HeaderText = "Requested Part";
             colRequestedPart.MinimumWidth = 8;
             colRequestedPart.Name = "colRequestedPart";
+            colRequestedPart.ReadOnly = true;
             colRequestedPart.Width = 150;
             // 
             // Quantity
@@ -228,6 +244,7 @@
             Quantity.HeaderText = "Quantity";
             Quantity.MinimumWidth = 8;
             Quantity.Name = "Quantity";
+            Quantity.ReadOnly = true;
             Quantity.Width = 150;
             // 
             // colPartReason
@@ -236,12 +253,14 @@
             colPartReason.HeaderText = "Reason";
             colPartReason.MinimumWidth = 8;
             colPartReason.Name = "colPartReason";
+            colPartReason.ReadOnly = true;
             // 
             // colPartStatus
             // 
             colPartStatus.HeaderText = "Status";
             colPartStatus.MinimumWidth = 8;
             colPartStatus.Name = "colPartStatus";
+            colPartStatus.ReadOnly = true;
             colPartStatus.Width = 150;
             // 
             // pnlBorrowRequests
@@ -250,6 +269,7 @@
             pnlBorrowRequests.Dock = DockStyle.Fill;
             pnlBorrowRequests.Location = new Point(0, 80);
             pnlBorrowRequests.Name = "pnlBorrowRequests";
+            pnlBorrowRequests.Padding = new Padding(10);
             pnlBorrowRequests.Size = new Size(958, 484);
             pnlBorrowRequests.TabIndex = 1;
             // 
@@ -289,14 +309,20 @@
             btnToggleParts.UseVisualStyleBackColor = false;
             btnToggleParts.Click += btnToggleParts_Click;
             // 
+            // overdueTimer
+            //
+            overdueTimer.Interval = 60000;
+            overdueTimer.Tick += overdueTimer_Tick;
+            //
             // AdminApprovalsView
-            // 
+            //
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(248, 249, 250);
             Controls.Add(pnlPartRequests);
             Controls.Add(pnlActions);
             Controls.Add(pnlBorrowRequests);
+            Controls.Add(filterBanner);
             Controls.Add(pnlHeader);
             Name = "AdminApprovalsView";
             Size = new Size(958, 564);
@@ -334,5 +360,7 @@
         private DataGridViewTextBoxColumn colPartReason;
         private DataGridViewTextBoxColumn colPartStatus;
         private Button btnReturnEquipment;
+        private Controls.FilterBanner filterBanner;
+        private System.Windows.Forms.Timer overdueTimer;
     }
 }

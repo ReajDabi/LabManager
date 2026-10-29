@@ -45,6 +45,12 @@ namespace ComLabManager.Infrastructure.Repositories
                     throw new InvalidOperationException("Your account has been suspended by an Administrator. You cannot borrow equipment at this time.");
                 }
 
+                int overdueCount = CountOverdue(db, request.StudentId);
+                if (overdueCount > 0)
+                {
+                    throw new InvalidOperationException($"You have {overdueCount} overdue item(s). Please return them before making a new request.");
+                }
+
                 if (request.EquipmentId.HasValue)
                 {
                     string locSql = "SELECT StationNumber FROM Equipment WHERE Id = @Id";
@@ -186,7 +192,7 @@ namespace ComLabManager.Infrastructure.Repositories
                     {
                         var request = db.QuerySingle<BorrowRequest>("SELECT * FROM BorrowRequests WHERE Id = @Id", new { Id = requestId }, transaction);
 
-                        if (request.Status != "Approved")
+                        if (Array.IndexOf(BorrowRequest.ActiveLoanStatuses, request.Status) < 0)
                         {
                             throw new InvalidOperationException("Only approved and actively borrowed equipment can be returned.");
                         }
@@ -231,6 +237,20 @@ namespace ComLabManager.Infrastructure.Repositories
             {
                 return db.ExecuteScalar<int>("SELECT COUNT(*) FROM BorrowRequests WHERE Status = 'Pending'");
             }
+        }
+
+        public int GetOverdueCount(int studentId)
+        {
+            using (IDbConnection db = new MySqlConnection(_connectionString))
+            {
+                return CountOverdue(db, studentId);
+            }
+        }
+
+        private static int CountOverdue(IDbConnection db, int studentId)
+        {
+            string sql = $"SELECT COUNT(*) FROM BorrowRequests br WHERE br.StudentId = @StudentId AND {BorrowRequestSql.OverdueCondition}";
+            return db.ExecuteScalar<int>(sql, new { StudentId = studentId });
         }
     }
 }
