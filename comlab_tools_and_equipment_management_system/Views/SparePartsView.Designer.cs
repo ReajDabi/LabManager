@@ -29,6 +29,13 @@
         private void InitializeComponent()
         {
             dgvSpareParts = new DataGridView();
+            filterBanner = new ComLabManager.UI.Views.Controls.FilterBanner();
+            buttonAddSparePart = new Button();
+            buttonDelete = new Button();
+            pnlActionBar = new Panel();
+            btnRequestPart = new Button();
+            pnlSpareHolder = new Panel();
+            pnlHolder = new Panel();
             colName = new DataGridViewTextBoxColumn();
             category = new DataGridViewTextBoxColumn();
             colQuantity = new DataGridViewTextBoxColumn();
@@ -37,13 +44,6 @@
             restock = new DataGridViewTextBoxColumn();
             restockminus = new DataGridViewButtonColumn();
             restockplus = new DataGridViewButtonColumn();
-            filterBanner = new ComLabManager.UI.Views.Controls.FilterBanner();
-            buttonAddSparePart = new Button();
-            buttonDelete = new Button();
-            pnlActionBar = new Panel();
-            btnRequestPart = new Button();
-            pnlSpareHolder = new Panel();
-            pnlHolder = new Panel();
             ((System.ComponentModel.ISupportInitialize)dgvSpareParts).BeginInit();
             pnlActionBar.SuspendLayout();
             pnlHolder.SuspendLayout();
@@ -72,75 +72,6 @@
             dgvSpareParts.CellEndEdit += dgvSpareParts_CellEndEdit;
             dgvSpareParts.CellFormatting += dgvSpareParts_CellFormatting;
             dgvSpareParts.CurrentCellChanged += dgvSpareParts_CurrentCellDirtyStateChanged;
-            // 
-            // colName
-            // 
-            colName.DataPropertyName = "Name";
-            colName.FillWeight = 188.396683F;
-            colName.HeaderText = "Spare Part Name";
-            colName.MinimumWidth = 6;
-            colName.Name = "colName";
-            // 
-            // category
-            // 
-            category.DataPropertyName = "Category";
-            category.FillWeight = 153.706024F;
-            category.HeaderText = "Category";
-            category.MinimumWidth = 6;
-            category.Name = "category";
-            // 
-            // colQuantity
-            // 
-            colQuantity.DataPropertyName = "Quantity";
-            colQuantity.FillWeight = 153.706024F;
-            colQuantity.HeaderText = "Quantity";
-            colQuantity.MinimumWidth = 6;
-            colQuantity.Name = "colQuantity";
-            colQuantity.Resizable = DataGridViewTriState.True;
-            // 
-            // minus
-            // 
-            minus.FillWeight = 23.34265F;
-            minus.HeaderText = "";
-            minus.MinimumWidth = 2;
-            minus.Name = "minus";
-            minus.Text = "-";
-            minus.UseColumnTextForButtonValue = true;
-            // 
-            // plus
-            // 
-            plus.FillWeight = 22.7077866F;
-            plus.HeaderText = "";
-            plus.MinimumWidth = 2;
-            plus.Name = "plus";
-            plus.Text = "+";
-            plus.UseColumnTextForButtonValue = true;
-            // 
-            // restock
-            // 
-            restock.DataPropertyName = "RestockLevel";
-            restock.FillWeight = 153.706024F;
-            restock.HeaderText = "Restock";
-            restock.MinimumWidth = 6;
-            restock.Name = "restock";
-            // 
-            // restockminus
-            // 
-            restockminus.FillWeight = 24.0641747F;
-            restockminus.HeaderText = "";
-            restockminus.MinimumWidth = 2;
-            restockminus.Name = "restockminus";
-            restockminus.Text = "-";
-            restockminus.UseColumnTextForButtonValue = true;
-            // 
-            // restockplus
-            // 
-            restockplus.FillWeight = 26.6647167F;
-            restockplus.HeaderText = "";
-            restockplus.MinimumWidth = 2;
-            restockplus.Name = "restockplus";
-            restockplus.Text = "+";
-            restockplus.UseColumnTextForButtonValue = true;
             // 
             // filterBanner
             // 
@@ -230,6 +161,77 @@
             pnlHolder.Size = new Size(958, 468);
             pnlHolder.TabIndex = 3;
             // 
+            // colName
+            // 
+            colName.DataPropertyName = "Name";
+            colName.FillWeight = 188.396683F;
+            colName.HeaderText = "Spare Part Name";
+            colName.MinimumWidth = 6;
+            colName.Name = "colName";
+            colName.ReadOnly = true;
+            // 
+            // category
+            // 
+            category.DataPropertyName = "Category";
+            category.FillWeight = 153.706024F;
+            category.HeaderText = "Category";
+            category.MinimumWidth = 6;
+            category.Name = "category";
+            category.ReadOnly = true;
+            // 
+            // colQuantity
+            // 
+            colQuantity.DataPropertyName = "Quantity";
+            colQuantity.FillWeight = 153.706024F;
+            colQuantity.HeaderText = "Quantity";
+            colQuantity.MinimumWidth = 6;
+            colQuantity.Name = "colQuantity";
+            colQuantity.Resizable = DataGridViewTriState.True;
+            // 
+            // minus
+            // 
+            minus.FillWeight = 23.34265F;
+            minus.HeaderText = "";
+            minus.MinimumWidth = 2;
+            minus.Name = "minus";
+            minus.Text = "-";
+            minus.UseColumnTextForButtonValue = true;
+            // 
+            // plus
+            // 
+            plus.FillWeight = 22.7077866F;
+            plus.HeaderText = "";
+            plus.MinimumWidth = 2;
+            plus.Name = "plus";
+            plus.Text = "+";
+            plus.UseColumnTextForButtonValue = true;
+            // 
+            // restock
+            // 
+            restock.DataPropertyName = "RestockLevel";
+            restock.FillWeight = 153.706024F;
+            restock.HeaderText = "Restock";
+            restock.MinimumWidth = 6;
+            restock.Name = "restock";
+            // 
+            // restockminus
+            // 
+            restockminus.FillWeight = 24.0641747F;
+            restockminus.HeaderText = "";
+            restockminus.MinimumWidth = 2;
+            restockminus.Name = "restockminus";
+            restockminus.Text = "-";
+            restockminus.UseColumnTextForButtonValue = true;
+            // 
+            // restockplus
+            // 
+            restockplus.FillWeight = 26.6647167F;
+            restockplus.HeaderText = "";
+            restockplus.MinimumWidth = 2;
+            restockplus.Name = "restockplus";
+            restockplus.Text = "+";
+            restockplus.UseColumnTextForButtonValue = true;
+            // 
             // SparePartsView
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
@@ -256,6 +258,8 @@
         private Button buttonDelete;
         private Panel pnlActionBar;
         private Button btnRequestPart;
+        private Panel pnlSpareHolder;
+        private Panel pnlHolder;
         private DataGridViewTextBoxColumn colName;
         private DataGridViewTextBoxColumn category;
         private DataGridViewTextBoxColumn colQuantity;
@@ -264,7 +268,5 @@
         private DataGridViewTextBoxColumn restock;
         private DataGridViewButtonColumn restockminus;
         private DataGridViewButtonColumn restockplus;
-        private Panel pnlSpareHolder;
-        private Panel pnlHolder;
     }
 }

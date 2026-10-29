@@ -64,6 +64,7 @@
             dgvBorrowHistory.Location = new Point(10, 10);
             dgvBorrowHistory.Margin = new Padding(0);
             dgvBorrowHistory.Name = "dgvBorrowHistory";
+            dgvBorrowHistory.ReadOnly = true;
             dgvBorrowHistory.RowHeadersVisible = false;
             dgvBorrowHistory.RowHeadersWidth = 62;
             dgvBorrowHistory.Size = new Size(507, 568);
@@ -80,6 +81,7 @@
             dgvMaintenanceHistory.Location = new Point(10, 10);
             dgvMaintenanceHistory.Margin = new Padding(0);
             dgvMaintenanceHistory.Name = "dgvMaintenanceHistory";
+            dgvMaintenanceHistory.ReadOnly = true;
             dgvMaintenanceHistory.RowHeadersVisible = false;
             dgvMaintenanceHistory.RowHeadersWidth = 62;
             dgvMaintenanceHistory.Size = new Size(506, 568);

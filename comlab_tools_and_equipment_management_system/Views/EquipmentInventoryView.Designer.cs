@@ -39,7 +39,6 @@
             txtSearch = new TextBox();
             pnlGridContainer = new Panel();
             dgvEquipment = new DataGridView();
-            filterBanner = new Controls.FilterBanner();
             Id = new DataGridViewTextBoxColumn();
             AssetTag = new DataGridViewTextBoxColumn();
             EquipmentName = new DataGridViewTextBoxColumn();
@@ -47,6 +46,7 @@
             Status = new DataGridViewTextBoxColumn();
             Location = new DataGridViewTextBoxColumn();
             UsageCount = new DataGridViewTextBoxColumn();
+            filterBanner = new ComLabManager.UI.Views.Controls.FilterBanner();
             pnlHeader.SuspendLayout();
             pnlFilters.SuspendLayout();
             pnlGridContainer.SuspendLayout();
@@ -169,12 +169,13 @@
             dgvEquipment.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvEquipment.Columns.AddRange(new DataGridViewColumn[] { Id, AssetTag, EquipmentName, Category, Status, Location, UsageCount });
             dgvEquipment.Dock = DockStyle.Fill;
-            dgvEquipment.Location = new Point(20, 20);
+            dgvEquipment.Location = new Point(20, 54);
             dgvEquipment.Name = "dgvEquipment";
+            dgvEquipment.ReadOnly = true;
             dgvEquipment.RowHeadersVisible = false;
             dgvEquipment.RowHeadersWidth = 62;
             dgvEquipment.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvEquipment.Size = new Size(918, 364);
+            dgvEquipment.Size = new Size(918, 330);
             dgvEquipment.TabIndex = 0;
             dgvEquipment.CellFormatting += dgvEquipment_CellFormatting;
             // 
@@ -184,6 +185,7 @@
             Id.HeaderText = "Id";
             Id.MinimumWidth = 8;
             Id.Name = "Id";
+            Id.ReadOnly = true;
             Id.Visible = false;
             // 
             // AssetTag
@@ -193,6 +195,7 @@
             AssetTag.HeaderText = "AssetTag";
             AssetTag.MinimumWidth = 8;
             AssetTag.Name = "AssetTag";
+            AssetTag.ReadOnly = true;
             // 
             // EquipmentName
             // 
@@ -201,6 +204,7 @@
             EquipmentName.HeaderText = "Name";
             EquipmentName.MinimumWidth = 8;
             EquipmentName.Name = "EquipmentName";
+            EquipmentName.ReadOnly = true;
             // 
             // Category
             // 
@@ -209,6 +213,7 @@
             Category.HeaderText = "Category";
             Category.MinimumWidth = 8;
             Category.Name = "Category";
+            Category.ReadOnly = true;
             // 
             // Status
             // 
@@ -217,6 +222,7 @@
             Status.HeaderText = "Status";
             Status.MinimumWidth = 8;
             Status.Name = "Status";
+            Status.ReadOnly = true;
             // 
             // Location
             // 
@@ -225,6 +231,7 @@
             Location.HeaderText = "Location";
             Location.MinimumWidth = 8;
             Location.Name = "Location";
+            Location.ReadOnly = true;
             // 
             // UsageCount
             // 
@@ -235,6 +242,17 @@
             UsageCount.HeaderText = "Usage Count";
             UsageCount.MinimumWidth = 8;
             UsageCount.Name = "UsageCount";
+            UsageCount.ReadOnly = true;
+            // 
+            // filterBanner
+            // 
+            filterBanner.BackColor = Color.FromArgb(255, 243, 205);
+            filterBanner.Dock = DockStyle.Top;
+            filterBanner.Location = new Point(20, 20);
+            filterBanner.Name = "filterBanner";
+            filterBanner.Size = new Size(918, 34);
+            filterBanner.TabIndex = 1;
+            filterBanner.Visible = false;
             // 
             // EquipmentInventoryView
             // 

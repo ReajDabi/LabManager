@@ -66,6 +66,7 @@
             dgvSchedules.Dock = DockStyle.Fill;
             dgvSchedules.Location = new Point(10, 10);
             dgvSchedules.Name = "dgvSchedules";
+            dgvSchedules.ReadOnly = true;
             dgvSchedules.RowHeadersVisible = false;
             dgvSchedules.RowHeadersWidth = 62;
             dgvSchedules.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
