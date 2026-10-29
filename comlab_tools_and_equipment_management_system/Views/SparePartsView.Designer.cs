@@ -29,11 +29,13 @@
         private void InitializeComponent()
         {
             dgvSpareParts = new DataGridView();
-            filterBanner = new Views.Controls.FilterBanner();
+            filterBanner = new ComLabManager.UI.Views.Controls.FilterBanner();
             buttonAddSparePart = new Button();
             buttonDelete = new Button();
             pnlActionBar = new Panel();
             btnRequestPart = new Button();
+            pnlSpareHolder = new Panel();
+            pnlHolder = new Panel();
             colName = new DataGridViewTextBoxColumn();
             category = new DataGridViewTextBoxColumn();
             colQuantity = new DataGridViewTextBoxColumn();
@@ -42,14 +44,9 @@
             restock = new DataGridViewTextBoxColumn();
             restockminus = new DataGridViewButtonColumn();
             restockplus = new DataGridViewButtonColumn();
-            buttonAddSparePart = new Button();
-            buttonDelete = new Button();
-            pnlActionBar = new Panel();
-            btnRequestPart = new Button();
-            pnlSpareHolder = new Panel();
             ((System.ComponentModel.ISupportInitialize)dgvSpareParts).BeginInit();
             pnlActionBar.SuspendLayout();
-            pnlSpareHolder.SuspendLayout();
+            pnlHolder.SuspendLayout();
             SuspendLayout();
             // 
             // dgvSpareParts
@@ -63,87 +60,28 @@
             dgvSpareParts.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvSpareParts.Columns.AddRange(new DataGridViewColumn[] { colName, category, colQuantity, minus, plus, restock, restockminus, restockplus });
             dgvSpareParts.Dock = DockStyle.Fill;
-            dgvSpareParts.Location = new Point(0, 62);
+            dgvSpareParts.Location = new Point(10, 10);
             dgvSpareParts.Margin = new Padding(4);
             dgvSpareParts.Name = "dgvSpareParts";
             dgvSpareParts.RowHeadersVisible = false;
             dgvSpareParts.RowHeadersWidth = 51;
             dgvSpareParts.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvSpareParts.Size = new Size(958, 502);
+            dgvSpareParts.Size = new Size(938, 448);
             dgvSpareParts.TabIndex = 0;
             dgvSpareParts.CellContentClick += dgvSpareParts_CellContentClick;
             dgvSpareParts.CellEndEdit += dgvSpareParts_CellEndEdit;
             dgvSpareParts.CellFormatting += dgvSpareParts_CellFormatting;
             dgvSpareParts.CurrentCellChanged += dgvSpareParts_CurrentCellDirtyStateChanged;
             // 
-            // colName
+            // filterBanner
             // 
-            colName.DataPropertyName = "Name";
-            colName.FillWeight = 188.396683F;
-            colName.HeaderText = "Spare Part Name";
-            colName.MinimumWidth = 6;
-            colName.Name = "colName";
-            // 
-            // category
-            // 
-            category.DataPropertyName = "Category";
-            category.FillWeight = 153.706024F;
-            category.HeaderText = "Category";
-            category.MinimumWidth = 6;
-            category.Name = "category";
-            // 
-            // colQuantity
-            // 
-            colQuantity.DataPropertyName = "Quantity";
-            colQuantity.FillWeight = 153.706024F;
-            colQuantity.HeaderText = "Quantity";
-            colQuantity.MinimumWidth = 6;
-            colQuantity.Name = "colQuantity";
-            colQuantity.Resizable = DataGridViewTriState.True;
-            // 
-            // minus
-            // 
-            minus.FillWeight = 23.34265F;
-            minus.HeaderText = "";
-            minus.MinimumWidth = 2;
-            minus.Name = "minus";
-            minus.Text = "-";
-            minus.UseColumnTextForButtonValue = true;
-            // 
-            // plus
-            // 
-            plus.FillWeight = 22.7077866F;
-            plus.HeaderText = "";
-            plus.MinimumWidth = 2;
-            plus.Name = "plus";
-            plus.Text = "+";
-            plus.UseColumnTextForButtonValue = true;
-            // 
-            // restock
-            // 
-            restock.DataPropertyName = "RestockLevel";
-            restock.FillWeight = 153.706024F;
-            restock.HeaderText = "Restock";
-            restock.MinimumWidth = 6;
-            restock.Name = "restock";
-            // 
-            // restockminus
-            // 
-            restockminus.FillWeight = 24.0641747F;
-            restockminus.HeaderText = "";
-            restockminus.MinimumWidth = 2;
-            restockminus.Name = "restockminus";
-            restockminus.Text = "-";
-            restockminus.UseColumnTextForButtonValue = true;
-            // 
-            // restockplus
-            // 
-            restockplus.FillWeight = 26.6647167F;
-            restockplus.HeaderText = "";
-            restockplus.MinimumWidth = 2;
-            restockplus.Name = "restockplus";
-            restockplus.Text = "+";
-            restockplus.UseColumnTextForButtonValue = true;
+            filterBanner.BackColor = Color.FromArgb(255, 243, 205);
+            filterBanner.Dock = DockStyle.Top;
+            filterBanner.Location = new Point(0, 62);
+            filterBanner.Name = "filterBanner";
+            filterBanner.Size = new Size(958, 34);
+            filterBanner.TabIndex = 1;
+            filterBanner.Visible = false;
             // 
             // buttonAddSparePart
             // 
@@ -206,7 +144,6 @@
             // 
             // pnlSpareHolder
             // 
-            pnlSpareHolder.Controls.Add(dgvSpareParts);
             pnlSpareHolder.Dock = DockStyle.Fill;
             pnlSpareHolder.Location = new Point(0, 62);
             pnlSpareHolder.Name = "pnlSpareHolder";
@@ -214,12 +151,93 @@
             pnlSpareHolder.Size = new Size(958, 502);
             pnlSpareHolder.TabIndex = 4;
             // 
+            // pnlHolder
+            // 
+            pnlHolder.Controls.Add(dgvSpareParts);
+            pnlHolder.Dock = DockStyle.Fill;
+            pnlHolder.Location = new Point(0, 96);
+            pnlHolder.Name = "pnlHolder";
+            pnlHolder.Padding = new Padding(10);
+            pnlHolder.Size = new Size(958, 468);
+            pnlHolder.TabIndex = 3;
+            // 
+            // colName
+            // 
+            colName.DataPropertyName = "Name";
+            colName.FillWeight = 188.396683F;
+            colName.HeaderText = "Spare Part Name";
+            colName.MinimumWidth = 6;
+            colName.Name = "colName";
+            colName.ReadOnly = true;
+            // 
+            // category
+            // 
+            category.DataPropertyName = "Category";
+            category.FillWeight = 153.706024F;
+            category.HeaderText = "Category";
+            category.MinimumWidth = 6;
+            category.Name = "category";
+            category.ReadOnly = true;
+            // 
+            // colQuantity
+            // 
+            colQuantity.DataPropertyName = "Quantity";
+            colQuantity.FillWeight = 153.706024F;
+            colQuantity.HeaderText = "Quantity";
+            colQuantity.MinimumWidth = 6;
+            colQuantity.Name = "colQuantity";
+            colQuantity.Resizable = DataGridViewTriState.True;
+            // 
+            // minus
+            // 
+            minus.FillWeight = 23.34265F;
+            minus.HeaderText = "";
+            minus.MinimumWidth = 2;
+            minus.Name = "minus";
+            minus.Text = "-";
+            minus.UseColumnTextForButtonValue = true;
+            // 
+            // plus
+            // 
+            plus.FillWeight = 22.7077866F;
+            plus.HeaderText = "";
+            plus.MinimumWidth = 2;
+            plus.Name = "plus";
+            plus.Text = "+";
+            plus.UseColumnTextForButtonValue = true;
+            // 
+            // restock
+            // 
+            restock.DataPropertyName = "RestockLevel";
+            restock.FillWeight = 153.706024F;
+            restock.HeaderText = "Restock";
+            restock.MinimumWidth = 6;
+            restock.Name = "restock";
+            // 
+            // restockminus
+            // 
+            restockminus.FillWeight = 24.0641747F;
+            restockminus.HeaderText = "";
+            restockminus.MinimumWidth = 2;
+            restockminus.Name = "restockminus";
+            restockminus.Text = "-";
+            restockminus.UseColumnTextForButtonValue = true;
+            // 
+            // restockplus
+            // 
+            restockplus.FillWeight = 26.6647167F;
+            restockplus.HeaderText = "";
+            restockplus.MinimumWidth = 2;
+            restockplus.Name = "restockplus";
+            restockplus.Text = "+";
+            restockplus.UseColumnTextForButtonValue = true;
+            // 
             // SparePartsView
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(248, 249, 250);
-            Controls.Add(dgvSpareParts);
+            Controls.Add(pnlHolder);
             Controls.Add(filterBanner);
             Controls.Add(pnlActionBar);
             Cursor = Cursors.Hand;
@@ -228,7 +246,7 @@
             Size = new Size(958, 564);
             ((System.ComponentModel.ISupportInitialize)dgvSpareParts).EndInit();
             pnlActionBar.ResumeLayout(false);
-            pnlSpareHolder.ResumeLayout(false);
+            pnlHolder.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -240,6 +258,8 @@
         private Button buttonDelete;
         private Panel pnlActionBar;
         private Button btnRequestPart;
+        private Panel pnlSpareHolder;
+        private Panel pnlHolder;
         private DataGridViewTextBoxColumn colName;
         private DataGridViewTextBoxColumn category;
         private DataGridViewTextBoxColumn colQuantity;
@@ -248,6 +268,5 @@
         private DataGridViewTextBoxColumn restock;
         private DataGridViewButtonColumn restockminus;
         private DataGridViewButtonColumn restockplus;
-        private Panel pnlSpareHolder;
     }
 }

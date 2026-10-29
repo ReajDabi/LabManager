@@ -55,6 +55,8 @@
             // 
             // dgvBorrowHistory
             // 
+            dgvBorrowHistory.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvBorrowHistory.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dgvBorrowHistory.BackgroundColor = SystemColors.ButtonHighlight;
             dgvBorrowHistory.BorderStyle = BorderStyle.None;
             dgvBorrowHistory.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -62,13 +64,16 @@
             dgvBorrowHistory.Location = new Point(10, 10);
             dgvBorrowHistory.Margin = new Padding(0);
             dgvBorrowHistory.Name = "dgvBorrowHistory";
+            dgvBorrowHistory.ReadOnly = true;
             dgvBorrowHistory.RowHeadersVisible = false;
             dgvBorrowHistory.RowHeadersWidth = 62;
-            dgvBorrowHistory.Size = new Size(688, 568);
+            dgvBorrowHistory.Size = new Size(507, 568);
             dgvBorrowHistory.TabIndex = 1;
             // 
             // dgvMaintenanceHistory
             // 
+            dgvMaintenanceHistory.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvMaintenanceHistory.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dgvMaintenanceHistory.BackgroundColor = SystemColors.ButtonHighlight;
             dgvMaintenanceHistory.BorderStyle = BorderStyle.None;
             dgvMaintenanceHistory.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -76,9 +81,10 @@
             dgvMaintenanceHistory.Location = new Point(10, 10);
             dgvMaintenanceHistory.Margin = new Padding(0);
             dgvMaintenanceHistory.Name = "dgvMaintenanceHistory";
+            dgvMaintenanceHistory.ReadOnly = true;
             dgvMaintenanceHistory.RowHeadersVisible = false;
             dgvMaintenanceHistory.RowHeadersWidth = 62;
-            dgvMaintenanceHistory.Size = new Size(575, 568);
+            dgvMaintenanceHistory.Size = new Size(506, 568);
             dgvMaintenanceHistory.TabIndex = 1;
             // 
             // pnlHeader
@@ -89,14 +95,14 @@
             pnlHeader.Dock = DockStyle.Top;
             pnlHeader.Location = new Point(0, 0);
             pnlHeader.Name = "pnlHeader";
-            pnlHeader.Size = new Size(1302, 126);
+            pnlHeader.Size = new Size(1059, 126);
             pnlHeader.TabIndex = 2;
             // 
             // label2
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label2.Location = new Point(717, 91);
+            label2.Location = new Point(546, 91);
             label2.Name = "label2";
             label2.Size = new Size(313, 32);
             label2.TabIndex = 0;
@@ -119,24 +125,24 @@
             pnlLeft.Location = new Point(0, 126);
             pnlLeft.Name = "pnlLeft";
             pnlLeft.Padding = new Padding(10);
-            pnlLeft.Size = new Size(708, 588);
+            pnlLeft.Size = new Size(527, 588);
             pnlLeft.TabIndex = 3;
             // 
             // pnlRight
             // 
             pnlRight.Controls.Add(dgvMaintenanceHistory);
             pnlRight.Dock = DockStyle.Right;
-            pnlRight.Location = new Point(707, 126);
+            pnlRight.Location = new Point(533, 126);
             pnlRight.Name = "pnlRight";
             pnlRight.Padding = new Padding(10);
-            pnlRight.Size = new Size(595, 588);
+            pnlRight.Size = new Size(526, 588);
             pnlRight.TabIndex = 4;
             // 
             // UserActivityForm
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1302, 714);
+            ClientSize = new Size(1059, 714);
             Controls.Add(pnlRight);
             Controls.Add(pnlLeft);
             Controls.Add(pnlHeader);

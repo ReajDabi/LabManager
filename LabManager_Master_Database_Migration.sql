@@ -128,14 +128,14 @@ SET FOREIGN_KEY_CHECKS = 1;
 
 -- USERS (All use the same valid BCrypt hash you provided for easy testing)
 INSERT INTO Users (Username, PasswordHash, Role, FirstName, LastName, IsSuspended) VALUES 
-('admin_reaj', '$2a$11$1ehfe4lt7rMOq7iwX1YGDOor6P/BrzxXLVqmX9x7xn1xdt8Wmqery', 'Admin', 'Reajzedrik', 'Dabi', 0),
-('admin_sys', '$2a$11$1ehfe4lt7rMOq7iwX1YGDOor6P/BrzxXLVqmX9x7xn1xdt8Wmqery', 'Admin', 'System', 'Director', 0),
-('tech_chrishian', '$2a$11$1ehfe4lt7rMOq7iwX1YGDOor6P/BrzxXLVqmX9x7xn1xdt8Wmqery', 'Technician', 'Chrishian', 'Degaom', 0),
-('tech_mark', '$2a$11$1ehfe4lt7rMOq7iwX1YGDOor6P/BrzxXLVqmX9x7xn1xdt8Wmqery', 'Technician', 'Mark', 'Villanueva', 0),
-('student_test', '$2a$11$1ehfe4lt7rMOq7iwX1YGDOor6P/BrzxXLVqmX9x7xn1xdt8Wmqery', 'Student', 'Test', 'Student', 0),
-('student_lion', '$2a$11$1ehfe4lt7rMOq7iwX1YGDOor6P/BrzxXLVqmX9x7xn1xdt8Wmqery', 'Student', 'Lion', 'Nel', 0),
-('student_anna', '$2a$11$1ehfe4lt7rMOq7iwX1YGDOor6P/BrzxXLVqmX9x7xn1xdt8Wmqery', 'Student', 'Anna', 'Reyes', 0),
-('student_bad', '$2a$11$1ehfe4lt7rMOq7iwX1YGDOor6P/BrzxXLVqmX9x7xn1xdt8Wmqery', 'Student', 'Rule', 'Breaker', 1); -- Suspended Student
+('admin_reaj', '$2a$11$jVIV7O8byvUQPppEyuYPPuSQy.hTL6Augy7HkyIUvEPoAbDcNJTXu', 'Admin', 'Reajzedrik', 'Dabi', 0),
+('admin_sys', '$2a$11$jVIV7O8byvUQPppEyuYPPuSQy.hTL6Augy7HkyIUvEPoAbDcNJTXu', 'Admin', 'System', 'Director', 0),
+('tech_chrishian','$2a$11$jVIV7O8byvUQPppEyuYPPuSQy.hTL6Augy7HkyIUvEPoAbDcNJTXu', 'Technician', 'Chrishian', 'Degaom', 0),
+('tech_mark', '$2a$11$jVIV7O8byvUQPppEyuYPPuSQy.hTL6Augy7HkyIUvEPoAbDcNJTXu', 'Technician', 'Mark', 'Villanueva', 0),
+('student_test','$2a$11$jVIV7O8byvUQPppEyuYPPuSQy.hTL6Augy7HkyIUvEPoAbDcNJTXu', 'Student', 'Test', 'Student', 0),
+('student_lion', '$2a$11$jVIV7O8byvUQPppEyuYPPuSQy.hTL6Augy7HkyIUvEPoAbDcNJTXu', 'Student', 'Lion', 'Nel', 0),
+('student_anna','$2a$11$jVIV7O8byvUQPppEyuYPPuSQy.hTL6Augy7HkyIUvEPoAbDcNJTXu', 'Student', 'Anna', 'Reyes', 0),
+('student_bad', '$2a$11$jVIV7O8byvUQPppEyuYPPuSQy.hTL6Augy7HkyIUvEPoAbDcNJTXu', 'Student', 'Rule', 'Breaker', 1); -- Suspended Student
 
 -- EQUIPMENT (Mix of Active PCs, Available Tools, High-Usage items, and Broken items)
 INSERT INTO Equipment (AssetTag, Name, Category, Status, StationNumber, UsageCount, DateAcquired) VALUES
