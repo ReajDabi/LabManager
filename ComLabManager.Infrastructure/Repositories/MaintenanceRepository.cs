@@ -33,7 +33,7 @@ namespace ComLabManager.Infrastructure.Repositories
                                LEFT JOIN SpareParts sp ON sp.Id = mp.SparePartId
                                GROUP BY l.Id, e.AssetTag, e.Name, l.IssueDescription, l.Status, l.DateReported,
                                         l.AssignedTechnicianId, u.FirstName, u.LastName, u.Username
-                               ORDER BY (l.Status = 'Resolved'), l.DateReported DESC, l.Id DESC";
+                               ORDER BY l.DateReported DESC, l.Id DESC";
 
                 return connection.Query<MaintenanceTicket>(sql).ToList();
             }

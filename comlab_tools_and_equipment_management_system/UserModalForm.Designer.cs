@@ -42,6 +42,7 @@
             txtLastName = new TextBox();
             label1 = new Label();
             label2 = new Label();
+            checkBoxShowPassword = new CheckBox();
             chkIsSuspended = new CheckBox();
             SuspendLayout();
             // 
@@ -49,7 +50,7 @@
             // 
             lblModalTitle.AutoSize = true;
             lblModalTitle.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblModalTitle.Location = new Point(130, 30);
+            lblModalTitle.Location = new Point(226, 42);
             lblModalTitle.Margin = new Padding(4, 0, 4, 0);
             lblModalTitle.Name = "lblModalTitle";
             lblModalTitle.Size = new Size(292, 48);
@@ -59,7 +60,7 @@
             // lblPass
             // 
             lblPass.AutoSize = true;
-            lblPass.Location = new Point(287, 247);
+            lblPass.Location = new Point(431, 243);
             lblPass.Margin = new Padding(4, 0, 4, 0);
             lblPass.Name = "lblPass";
             lblPass.Size = new Size(87, 25);
@@ -98,11 +99,12 @@
             // txtPassword
             // 
             txtPassword.BorderStyle = BorderStyle.FixedSingle;
-            txtPassword.Location = new Point(287, 276);
+            txtPassword.Location = new Point(427, 272);
             txtPassword.Margin = new Padding(4);
             txtPassword.Name = "txtPassword";
             txtPassword.Size = new Size(196, 31);
             txtPassword.TabIndex = 6;
+            txtPassword.UseSystemPasswordChar = true;
             // 
             // cmbRole
             // 
@@ -124,7 +126,7 @@
             btnSave.FlatAppearance.BorderSize = 0;
             btnSave.FlatStyle = FlatStyle.Flat;
             btnSave.ForeColor = SystemColors.Control;
-            btnSave.Location = new Point(349, 459);
+            btnSave.Location = new Point(448, 467);
             btnSave.Margin = new Padding(4);
             btnSave.Name = "btnSave";
             btnSave.Size = new Size(137, 44);
@@ -141,7 +143,7 @@
             btnCancel.FlatAppearance.BorderSize = 0;
             btnCancel.FlatStyle = FlatStyle.Flat;
             btnCancel.ForeColor = SystemColors.Control;
-            btnCancel.Location = new Point(57, 459);
+            btnCancel.Location = new Point(156, 467);
             btnCancel.Margin = new Padding(4);
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new Size(137, 44);
@@ -154,7 +156,7 @@
             lblEdit.AutoSize = true;
             lblEdit.Font = new Font("Segoe UI", 7F, FontStyle.Italic, GraphicsUnit.Point, 0);
             lblEdit.ForeColor = SystemColors.ControlDarkDark;
-            lblEdit.Location = new Point(204, 307);
+            lblEdit.Location = new Point(379, 309);
             lblEdit.Margin = new Padding(4, 0, 4, 0);
             lblEdit.Name = "lblEdit";
             lblEdit.Size = new Size(0, 19);
@@ -172,7 +174,7 @@
             // txtLastName
             // 
             txtLastName.BorderStyle = BorderStyle.FixedSingle;
-            txtLastName.Location = new Point(287, 179);
+            txtLastName.Location = new Point(427, 179);
             txtLastName.Margin = new Padding(4);
             txtLastName.Name = "txtLastName";
             txtLastName.Size = new Size(199, 31);
@@ -191,29 +193,41 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(287, 150);
+            label2.Location = new Point(431, 149);
             label2.Margin = new Padding(4, 0, 4, 0);
             label2.Name = "label2";
             label2.Size = new Size(95, 25);
             label2.TabIndex = 3;
             label2.Text = "Last Name";
             // 
+            // checkBoxShowPassword
+            // 
+            checkBoxShowPassword.AutoSize = true;
+            checkBoxShowPassword.Location = new Point(630, 273);
+            checkBoxShowPassword.Name = "checkBoxShowPassword";
+            checkBoxShowPassword.Size = new Size(82, 29);
+            checkBoxShowPassword.TabIndex = 10;
+            checkBoxShowPassword.Text = "Show";
+            checkBoxShowPassword.UseVisualStyleBackColor = true;
+            checkBoxShowPassword.CheckedChanged += checkBoxShowPassword_CheckedChanged;
+            // 
             // chkIsSuspended
             // 
             chkIsSuspended.AutoSize = true;
-            chkIsSuspended.Location = new Point(300, 371);
+            chkIsSuspended.Location = new Point(427, 369);
             chkIsSuspended.Name = "chkIsSuspended";
-            chkIsSuspended.Size = new Size(177, 29);
+            chkIsSuspended.Size = new Size(107, 29);
             chkIsSuspended.TabIndex = 10;
-            chkIsSuspended.Text = "Suspend Account";
+            chkIsSuspended.Text = "Suspend";
             chkIsSuspended.UseVisualStyleBackColor = true;
             // 
             // UserModalForm
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(544, 539);
+            ClientSize = new Size(747, 539);
             Controls.Add(chkIsSuspended);
+            Controls.Add(checkBoxShowPassword);
             Controls.Add(btnCancel);
             Controls.Add(btnSave);
             Controls.Add(cmbRole);
@@ -253,6 +267,7 @@
         private TextBox txtLastName;
         private Label label1;
         private Label label2;
+        private CheckBox checkBoxShowPassword;
         private CheckBox chkIsSuspended;
     }
 }

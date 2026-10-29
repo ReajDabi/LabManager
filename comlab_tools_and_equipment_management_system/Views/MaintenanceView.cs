@@ -51,11 +51,6 @@ namespace ComLabManager.UI
 
                 IEnumerable<MaintenanceTicket> tickets = _maintenanceRepo.GetAllTickets();
 
-                if (_currentUser?.Role == "Technician")
-                {
-                    tickets = tickets.OrderBy(t => GetTaskRank(t, _currentUser.Id));
-                }
-
                 foreach (var t in tickets)
                 {
                     int rowIndex = dataGridView1.Rows.Add($"TKT-{t.Id:D4}", t.AssetTag, t.EquipmentName, t.IssueDescription, t.Status, t.SparePartName ?? "", t.AssignedTechnicianName ?? "Unassigned");
@@ -73,13 +68,6 @@ namespace ComLabManager.UI
         private MaintenanceTicket? GetSelectedTicket()
         {
             return dataGridView1.SelectedRows.Count > 0 ? dataGridView1.SelectedRows[0].Tag as MaintenanceTicket : null;
-        }
-
-        private static int GetTaskRank(MaintenanceTicket ticket, int technicianId)
-        {
-            if (ticket.Status != "Resolved" && ticket.AssignedTechnicianId == technicianId) return 0;
-            if (ticket.Status == "Open" && ticket.AssignedTechnicianId == null) return 1;
-            return 2;
         }
 
         private void UpdateStatusButtons()

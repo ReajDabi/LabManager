@@ -56,6 +56,16 @@ namespace ComLabManager.UI
 
         }
 
+        private void checkBoxShowPassword_CheckedChanged(object sender, EventArgs e)
+        {
+            
+            txtPassword.UseSystemPasswordChar = checkBoxShowPassword.Checked;
+        }
+
+
+
+
+
         private void txtUsername_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
