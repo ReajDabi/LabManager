@@ -19,6 +19,8 @@ The solution (`comlab_tools_and_equipment_management_system.slnx`) has three pro
 
 **Navigation.** `MainForm` keeps a `_navigationMap` of sidebar button → (page title, view factory). Clicking a button disposes the current view and loads a new one. Each role's strategy decides which buttons are visible and which page opens first.
 
+**Dashboard routing.** Each dashboard KPI card (`Views/Controls/KpiCard`) maps to an `AppPage` + `ViewFilter` (`Navigation/`). `DashboardView` receives `MainForm.NavigateTo` as an injected delegate. `NavigateTo` opens the page through the normal nav map and, if the page implements `IFilterableView`, calls `ApplyFilter`. Filtered pages show a `FilterBanner` with a **Show all** link. To make another page filterable, implement `IFilterableView` on it; `MainForm` doesn't change.
+
 ## 2. Roles
 
 | Capability | Admin | Technician | Student |
@@ -38,6 +40,8 @@ Suspension (`Users.IsSuspended`) can only be set on Students. It blocks new borr
 - **Spare-part request:** `Pending` → `Approved` (stock is deducted) or `Denied`.
 - **Preventive maintenance task:** has no status column. The status is computed from `NextDueDate`: Overdue, Due Soon (within 7 days), or Scheduled. **Mark Done** sets `LastCompleted` to today and moves `NextDueDate` forward by the frequency (Weekly, Monthly, Quarterly, Biannually = 6 months, Annually).
 - **Equipment:** `Available`, `Active`, `In Use`, `Under Repair`, `Decommissioned`. Equipment with `UsageCount >= Equipment.HighUsageThreshold` (15) is flagged as high usage.
+
+- **Overdue loan:** an equipment loan (`EquipmentId` set, status `Approved` or `In Use`) whose due time has passed. The due time is `RequestedDate + EndTime`, plus one day when `EndTime <= StartTime` (overnight). Whole-room reservations are never overdue. The rule is written once in C# (`BorrowRequest.DueAt` / `IsOverdue`) and once in SQL (`BorrowRequestSql.OverdueCondition`); keep the two in sync. Overdue rows are shown in red with the status "Overdue". While a student has an overdue item, new borrow requests are refused; the block lifts as soon as the item is marked Returned.
 
 Only `Pending` requests can be approved or denied. The repositories enforce this too, so a stale screen can't process a request twice.
 
@@ -67,4 +71,4 @@ Only `Pending` requests can be approved or denied. The repositories enforce this
 ## 7. Known limitations
 
 - Users and Equipment are hard-deleted. Keeping their history would need soft-delete columns, i.e. a schema change.
-- The seed data contains a borrow request with status `In Use`, which no code path produces. It can't be returned from the Requests screen.
+- The seed data contains a borrow request with status `In Use`, which no code path produces. It's treated the same as `Approved` (it can be returned and can go overdue).
