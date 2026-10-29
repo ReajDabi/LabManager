@@ -20,7 +20,11 @@ namespace ComLabManager.UI
             _existingTask = existingTask;
 
             comboBoxLocation.Items.AddRange(LabLocations.All);
-            comboBoxFrequency.Items.AddRange(new string[] { "Weekly", "Monthly", "Quarterly", "Biannually", "Annually" });
+            comboBoxFrequency.Items.AddRange(PmFrequency.All);
+
+            // The next due date follows the frequency; nobody types it in
+            dateTimePicker1.Enabled = false;
+            label5.Text = "Next Due Date (automatic)";
 
             _equipment = equipmentRepo.GetAllEquipment();
 
@@ -54,6 +58,18 @@ namespace ComLabManager.UI
             {
                 dateTimePicker1.Value = DateTime.Today;
             }
+
+            // Hooked up after the existing task is loaded, so opening Edit keeps its saved due date
+            comboBoxFrequency.SelectedIndexChanged += comboBoxFrequency_SelectedIndexChanged;
+        }
+
+        // Count from the last time the task was done; a new or never-done task counts from today
+        private void comboBoxFrequency_SelectedIndexChanged(object? sender, EventArgs e)
+        {
+            if (comboBoxFrequency.SelectedItem is not string frequency) return;
+
+            DateTime from = _existingTask?.LastCompleted ?? DateTime.Today;
+            dateTimePicker1.Value = PmFrequency.NextDueDate(from, frequency);
         }
 
         // Fill in the location from the equipment's station when the user picks an asset tag
