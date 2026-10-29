@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            filterBanner = new Controls.FilterBanner();
+            filterBanner = new ComLabManager.UI.Views.Controls.FilterBanner();
             overdueTimer = new System.Windows.Forms.Timer(components);
             btnApprove = new Button();
             btnDeny = new Button();
@@ -62,6 +62,21 @@
             pnlHeader.SuspendLayout();
             SuspendLayout();
             // 
+            // filterBanner
+            // 
+            filterBanner.BackColor = Color.FromArgb(255, 243, 205);
+            filterBanner.Dock = DockStyle.Top;
+            filterBanner.Location = new Point(0, 80);
+            filterBanner.Name = "filterBanner";
+            filterBanner.Size = new Size(958, 34);
+            filterBanner.TabIndex = 3;
+            filterBanner.Visible = false;
+            // 
+            // overdueTimer
+            // 
+            overdueTimer.Interval = 60000;
+            overdueTimer.Tick += overdueTimer_Tick;
+            // 
             // btnApprove
             // 
             btnApprove.Anchor = AnchorStyles.Top | AnchorStyles.Right;
@@ -69,7 +84,7 @@
             btnApprove.FlatStyle = FlatStyle.Flat;
             btnApprove.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
             btnApprove.ForeColor = SystemColors.ButtonHighlight;
-            btnApprove.Location = new Point(569, 19);
+            btnApprove.Location = new Point(580, 7);
             btnApprove.Name = "btnApprove";
             btnApprove.Size = new Size(158, 41);
             btnApprove.TabIndex = 1;
@@ -84,7 +99,7 @@
             btnDeny.FlatStyle = FlatStyle.Flat;
             btnDeny.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
             btnDeny.ForeColor = SystemColors.ButtonHighlight;
-            btnDeny.Location = new Point(775, 19);
+            btnDeny.Location = new Point(775, 7);
             btnDeny.Name = "btnDeny";
             btnDeny.Size = new Size(145, 41);
             btnDeny.TabIndex = 1;
@@ -132,7 +147,7 @@
             dgvBorrowRequests.RowHeadersVisible = false;
             dgvBorrowRequests.RowHeadersWidth = 62;
             dgvBorrowRequests.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvBorrowRequests.Size = new Size(938, 464);
+            dgvBorrowRequests.Size = new Size(938, 430);
             dgvBorrowRequests.TabIndex = 0;
             dgvBorrowRequests.CellFormatting += dgvBorrowRequests_CellFormatting;
             // 
@@ -190,10 +205,10 @@
             // 
             pnlPartRequests.Controls.Add(dgvPartRequests);
             pnlPartRequests.Dock = DockStyle.Fill;
-            pnlPartRequests.Location = new Point(0, 80);
+            pnlPartRequests.Location = new Point(0, 114);
             pnlPartRequests.Name = "pnlPartRequests";
             pnlPartRequests.Padding = new Padding(10);
-            pnlPartRequests.Size = new Size(958, 424);
+            pnlPartRequests.Size = new Size(958, 390);
             pnlPartRequests.TabIndex = 2;
             // 
             // dgvPartRequests
@@ -209,7 +224,7 @@
             dgvPartRequests.RowHeadersVisible = false;
             dgvPartRequests.RowHeadersWidth = 62;
             dgvPartRequests.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvPartRequests.Size = new Size(938, 404);
+            dgvPartRequests.Size = new Size(938, 370);
             dgvPartRequests.TabIndex = 0;
             // 
             // colPartRequestId
@@ -267,10 +282,10 @@
             // 
             pnlBorrowRequests.Controls.Add(dgvBorrowRequests);
             pnlBorrowRequests.Dock = DockStyle.Fill;
-            pnlBorrowRequests.Location = new Point(0, 80);
+            pnlBorrowRequests.Location = new Point(0, 114);
             pnlBorrowRequests.Name = "pnlBorrowRequests";
             pnlBorrowRequests.Padding = new Padding(10);
-            pnlBorrowRequests.Size = new Size(958, 484);
+            pnlBorrowRequests.Size = new Size(958, 450);
             pnlBorrowRequests.TabIndex = 1;
             // 
             // btnToggleBorrow
@@ -309,13 +324,8 @@
             btnToggleParts.UseVisualStyleBackColor = false;
             btnToggleParts.Click += btnToggleParts_Click;
             // 
-            // overdueTimer
-            //
-            overdueTimer.Interval = 60000;
-            overdueTimer.Tick += overdueTimer_Tick;
-            //
             // AdminApprovalsView
-            //
+            // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(248, 249, 250);
