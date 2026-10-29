@@ -73,23 +73,20 @@ namespace ComLabManager.Infrastructure.Repositories
         {
             using (var connection = new MySqlConnection(_connectionString))
             {
-                // The next due date rolls forward from today based on the task's frequency
-                string sql = @"UPDATE PreventiveMaintenance
-                               SET LastCompleted = CURDATE(),
-                                   NextDueDate = CASE Frequency
-                                                     WHEN 'Weekly' THEN DATE_ADD(CURDATE(), INTERVAL 1 WEEK)
-                                                     WHEN 'Monthly' THEN DATE_ADD(CURDATE(), INTERVAL 1 MONTH)
-                                                     WHEN 'Quarterly' THEN DATE_ADD(CURDATE(), INTERVAL 3 MONTH)
-                                                     WHEN 'Biannually' THEN DATE_ADD(CURDATE(), INTERVAL 6 MONTH)
-                                                     WHEN 'Annually' THEN DATE_ADD(CURDATE(), INTERVAL 1 YEAR)
-                                                     ELSE DATE_ADD(CURDATE(), INTERVAL 1 MONTH)
-                                                 END
-                               WHERE Id = @Id";
+                string? frequency = connection.ExecuteScalar<string?>("SELECT Frequency FROM PreventiveMaintenance WHERE Id = @Id", new { Id = id });
 
-                if (connection.Execute(sql, new { Id = id }) == 0)
+                if (frequency == null)
                 {
                     throw new InvalidOperationException("This task no longer exists.");
                 }
+
+                // The next due date rolls forward from today, using the same rule as the Schedule Task form
+                DateTime today = DateTime.Today;
+                string sql = @"UPDATE PreventiveMaintenance
+                               SET LastCompleted = @Today, NextDueDate = @NextDueDate
+                               WHERE Id = @Id";
+
+                connection.Execute(sql, new { Id = id, Today = today, NextDueDate = PmFrequency.NextDueDate(today, frequency) });
             }
         }
     }
