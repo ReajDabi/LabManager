@@ -41,6 +41,7 @@
             lblLM = new Label();
             lblUserName = new Label();
             lblPass = new Label();
+            checkBoxShowPassword = new CheckBox();
             pnlLogin.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pbLogo).BeginInit();
             SuspendLayout();
@@ -50,7 +51,7 @@
             txtUsername.BackColor = Color.FromArgb(248, 249, 250);
             txtUsername.BorderStyle = BorderStyle.FixedSingle;
             txtUsername.Font = new Font("Segoe UI", 11F);
-            txtUsername.Location = new Point(752, 235);
+            txtUsername.Location = new Point(754, 236);
             txtUsername.Multiline = true;
             txtUsername.Name = "txtUsername";
             txtUsername.PlaceholderText = "Enter User Name";
@@ -81,7 +82,7 @@
             btnLogin.FlatStyle = FlatStyle.Flat;
             btnLogin.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnLogin.ForeColor = Color.White;
-            btnLogin.Location = new Point(752, 417);
+            btnLogin.Location = new Point(752, 441);
             btnLogin.Name = "btnLogin";
             btnLogin.Size = new Size(291, 52);
             btnLogin.TabIndex = 2;
@@ -172,12 +173,26 @@
             lblPass.TabIndex = 5;
             lblPass.Text = "Password";
             // 
+            // checkBoxShowPassword
+            // 
+            checkBoxShowPassword.AutoSize = true;
+            checkBoxShowPassword.Font = new Font("Segoe UI", 8F, FontStyle.Italic, GraphicsUnit.Point, 0);
+            checkBoxShowPassword.ForeColor = SystemColors.ControlText;
+            checkBoxShowPassword.Location = new Point(754, 384);
+            checkBoxShowPassword.Name = "checkBoxShowPassword";
+            checkBoxShowPassword.Size = new Size(144, 25);
+            checkBoxShowPassword.TabIndex = 6;
+            checkBoxShowPassword.Text = "Show Password";
+            checkBoxShowPassword.UseVisualStyleBackColor = true;
+            checkBoxShowPassword.CheckedChanged += checkBoxShowPassword_CheckedChanged;
+            // 
             // LoginForm
             // 
             AcceptButton = btnLogin;
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1178, 644);
+            Controls.Add(checkBoxShowPassword);
             Controls.Add(lblPass);
             Controls.Add(lblUserName);
             Controls.Add(pnlLogin);
@@ -209,5 +224,6 @@
         private Label lblWU;
         private Label lblLM;
         private PictureBox pbLogo;
+        private CheckBox checkBoxShowPassword;
     }
 }

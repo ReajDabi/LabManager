@@ -1,5 +1,6 @@
 ﻿using ComLabManager.Core.Models;
 using System;
+using System.Drawing.Text;
 using System.Windows.Forms;
 
 namespace ComLabManager.UI
@@ -15,6 +16,8 @@ namespace ComLabManager.UI
             InitializeComponent();
             lblModalTitle.Text = "Add New User";
             _editingUserId = null;
+            chkIsSuspended.Enabled = false;
+            chkIsSuspended.Visible = false;
 
             if (chkIsSuspended != null) chkIsSuspended.Checked = false;
         }
@@ -23,10 +26,10 @@ namespace ComLabManager.UI
         {
             if (chkIsSuspended != null && cmbRole.SelectedItem != null)
             {
-                
+
                 chkIsSuspended.Enabled = cmbRole.SelectedItem.ToString() == "Student";
 
-              
+
                 if (!chkIsSuspended.Enabled)
                 {
                     chkIsSuspended.Checked = false;
@@ -36,8 +39,9 @@ namespace ComLabManager.UI
         public UserModalForm(User existingUser)
         {
             InitializeComponent();
-            lblModalTitle.Text = "Edit User";
+            lblModalTitle.Text = "    Edit User";
             _editingUserId = existingUser.Id;
+            chkIsSuspended.Enabled = true;
 
             txtFirstName.Text = existingUser.FirstName;
             txtLastName.Text = existingUser.LastName;
@@ -73,13 +77,20 @@ namespace ComLabManager.UI
                 LastName = txtLastName.Text.Trim(),
                 UserName = txtUsername.Text.Trim(),
                 Role = cmbRole.SelectedItem.ToString(),
-                IsSuspended = chkIsSuspended != null && chkIsSuspended.Checked 
+                IsSuspended = chkIsSuspended != null && chkIsSuspended.Checked
             };
 
             RawPassword = txtPassword.Text;
 
             this.DialogResult = DialogResult.OK;
             this.Close();
+        }
+
+
+
+        private void checkBoxShowPassword_CheckedChanged(object sender, EventArgs e)
+        {
+            txtPassword.UseSystemPasswordChar = !checkBoxShowPassword.Checked;
         }
     }
 }
