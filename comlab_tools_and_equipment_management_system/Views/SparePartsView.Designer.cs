@@ -29,11 +29,6 @@
         private void InitializeComponent()
         {
             dgvSpareParts = new DataGridView();
-            filterBanner = new Views.Controls.FilterBanner();
-            buttonAddSparePart = new Button();
-            buttonDelete = new Button();
-            pnlActionBar = new Panel();
-            btnRequestPart = new Button();
             colName = new DataGridViewTextBoxColumn();
             category = new DataGridViewTextBoxColumn();
             colQuantity = new DataGridViewTextBoxColumn();
@@ -42,14 +37,16 @@
             restock = new DataGridViewTextBoxColumn();
             restockminus = new DataGridViewButtonColumn();
             restockplus = new DataGridViewButtonColumn();
+            filterBanner = new ComLabManager.UI.Views.Controls.FilterBanner();
             buttonAddSparePart = new Button();
             buttonDelete = new Button();
             pnlActionBar = new Panel();
             btnRequestPart = new Button();
             pnlSpareHolder = new Panel();
+            pnlHolder = new Panel();
             ((System.ComponentModel.ISupportInitialize)dgvSpareParts).BeginInit();
             pnlActionBar.SuspendLayout();
-            pnlSpareHolder.SuspendLayout();
+            pnlHolder.SuspendLayout();
             SuspendLayout();
             // 
             // dgvSpareParts
@@ -63,13 +60,13 @@
             dgvSpareParts.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvSpareParts.Columns.AddRange(new DataGridViewColumn[] { colName, category, colQuantity, minus, plus, restock, restockminus, restockplus });
             dgvSpareParts.Dock = DockStyle.Fill;
-            dgvSpareParts.Location = new Point(0, 62);
+            dgvSpareParts.Location = new Point(10, 10);
             dgvSpareParts.Margin = new Padding(4);
             dgvSpareParts.Name = "dgvSpareParts";
             dgvSpareParts.RowHeadersVisible = false;
             dgvSpareParts.RowHeadersWidth = 51;
             dgvSpareParts.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvSpareParts.Size = new Size(958, 502);
+            dgvSpareParts.Size = new Size(938, 448);
             dgvSpareParts.TabIndex = 0;
             dgvSpareParts.CellContentClick += dgvSpareParts_CellContentClick;
             dgvSpareParts.CellEndEdit += dgvSpareParts_CellEndEdit;
@@ -145,6 +142,16 @@
             restockplus.Text = "+";
             restockplus.UseColumnTextForButtonValue = true;
             // 
+            // filterBanner
+            // 
+            filterBanner.BackColor = Color.FromArgb(255, 243, 205);
+            filterBanner.Dock = DockStyle.Top;
+            filterBanner.Location = new Point(0, 62);
+            filterBanner.Name = "filterBanner";
+            filterBanner.Size = new Size(958, 34);
+            filterBanner.TabIndex = 1;
+            filterBanner.Visible = false;
+            // 
             // buttonAddSparePart
             // 
             buttonAddSparePart.Anchor = AnchorStyles.Right;
@@ -206,7 +213,6 @@
             // 
             // pnlSpareHolder
             // 
-            pnlSpareHolder.Controls.Add(dgvSpareParts);
             pnlSpareHolder.Dock = DockStyle.Fill;
             pnlSpareHolder.Location = new Point(0, 62);
             pnlSpareHolder.Name = "pnlSpareHolder";
@@ -214,12 +220,22 @@
             pnlSpareHolder.Size = new Size(958, 502);
             pnlSpareHolder.TabIndex = 4;
             // 
+            // pnlHolder
+            // 
+            pnlHolder.Controls.Add(dgvSpareParts);
+            pnlHolder.Dock = DockStyle.Fill;
+            pnlHolder.Location = new Point(0, 96);
+            pnlHolder.Name = "pnlHolder";
+            pnlHolder.Padding = new Padding(10);
+            pnlHolder.Size = new Size(958, 468);
+            pnlHolder.TabIndex = 3;
+            // 
             // SparePartsView
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(248, 249, 250);
-            Controls.Add(dgvSpareParts);
+            Controls.Add(pnlHolder);
             Controls.Add(filterBanner);
             Controls.Add(pnlActionBar);
             Cursor = Cursors.Hand;
@@ -228,7 +244,7 @@
             Size = new Size(958, 564);
             ((System.ComponentModel.ISupportInitialize)dgvSpareParts).EndInit();
             pnlActionBar.ResumeLayout(false);
-            pnlSpareHolder.ResumeLayout(false);
+            pnlHolder.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -249,5 +265,6 @@
         private DataGridViewButtonColumn restockminus;
         private DataGridViewButtonColumn restockplus;
         private Panel pnlSpareHolder;
+        private Panel pnlHolder;
     }
 }

@@ -58,16 +58,18 @@
             // 
             // dgvSchedules
             // 
+            dgvSchedules.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvSchedules.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dgvSchedules.BackgroundColor = SystemColors.ButtonHighlight;
             dgvSchedules.BorderStyle = BorderStyle.None;
             dgvSchedules.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvSchedules.Dock = DockStyle.Fill;
-            dgvSchedules.Location = new Point(0, 0);
+            dgvSchedules.Location = new Point(10, 10);
             dgvSchedules.Name = "dgvSchedules";
             dgvSchedules.RowHeadersVisible = false;
             dgvSchedules.RowHeadersWidth = 62;
             dgvSchedules.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvSchedules.Size = new Size(603, 478);
+            dgvSchedules.Size = new Size(699, 407);
             dgvSchedules.TabIndex = 0;
             dgvSchedules.SelectionChanged += dgvSchedules_SelectionChanged;
             // 
@@ -120,7 +122,7 @@
             btnUpdate.FlatAppearance.BorderSize = 0;
             btnUpdate.FlatStyle = FlatStyle.Flat;
             btnUpdate.ForeColor = SystemColors.ButtonHighlight;
-            btnUpdate.Location = new Point(576, 23);
+            btnUpdate.Location = new Point(692, 23);
             btnUpdate.Name = "btnUpdate";
             btnUpdate.Size = new Size(145, 39);
             btnUpdate.TabIndex = 4;
@@ -135,7 +137,7 @@
             btnDelete.FlatAppearance.BorderSize = 0;
             btnDelete.FlatStyle = FlatStyle.Flat;
             btnDelete.ForeColor = SystemColors.ButtonHighlight;
-            btnDelete.Location = new Point(771, 23);
+            btnDelete.Location = new Point(887, 23);
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new Size(145, 39);
             btnDelete.TabIndex = 4;
@@ -150,7 +152,7 @@
             btnAdd.FlatAppearance.BorderSize = 0;
             btnAdd.FlatStyle = FlatStyle.Flat;
             btnAdd.ForeColor = SystemColors.ButtonHighlight;
-            btnAdd.Location = new Point(374, 23);
+            btnAdd.Location = new Point(490, 23);
             btnAdd.Name = "btnAdd";
             btnAdd.Size = new Size(145, 39);
             btnAdd.TabIndex = 4;
@@ -163,7 +165,7 @@
             lblTitle.Anchor = AnchorStyles.Top;
             lblTitle.AutoSize = true;
             lblTitle.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblTitle.Location = new Point(288, 5);
+            lblTitle.Location = new Point(346, 5);
             lblTitle.Name = "lblTitle";
             lblTitle.Size = new Size(332, 48);
             lblTitle.TabIndex = 5;
@@ -229,7 +231,8 @@
             pnlData.Dock = DockStyle.Fill;
             pnlData.Location = new Point(336, 72);
             pnlData.Name = "pnlData";
-            pnlData.Size = new Size(603, 478);
+            pnlData.Padding = new Padding(10);
+            pnlData.Size = new Size(719, 427);
             pnlData.TabIndex = 6;
             // 
             // pnlFillups
@@ -249,7 +252,7 @@
             pnlFillups.Dock = DockStyle.Left;
             pnlFillups.Location = new Point(0, 72);
             pnlFillups.Name = "pnlFillups";
-            pnlFillups.Size = new Size(336, 478);
+            pnlFillups.Size = new Size(336, 427);
             pnlFillups.TabIndex = 7;
             // 
             // cmbRoom
@@ -267,9 +270,9 @@
             pnlAction.Controls.Add(btnDelete);
             pnlAction.Controls.Add(btnUpdate);
             pnlAction.Dock = DockStyle.Bottom;
-            pnlAction.Location = new Point(0, 550);
+            pnlAction.Location = new Point(0, 499);
             pnlAction.Name = "pnlAction";
-            pnlAction.Size = new Size(939, 74);
+            pnlAction.Size = new Size(1055, 74);
             pnlAction.TabIndex = 8;
             // 
             // pnlHeader
@@ -278,14 +281,14 @@
             pnlHeader.Dock = DockStyle.Top;
             pnlHeader.Location = new Point(0, 0);
             pnlHeader.Name = "pnlHeader";
-            pnlHeader.Size = new Size(939, 72);
+            pnlHeader.Size = new Size(1055, 72);
             pnlHeader.TabIndex = 9;
             // 
             // ManageSchedulesForm
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(939, 624);
+            ClientSize = new Size(1055, 573);
             Controls.Add(pnlData);
             Controls.Add(pnlFillups);
             Controls.Add(pnlHeader);
