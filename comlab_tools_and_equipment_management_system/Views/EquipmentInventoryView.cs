@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 using ComLabManager.Core.Interfaces;
 using ComLabManager.Core.Models;
@@ -14,7 +15,6 @@ namespace ComLabManager.UI.Views
         private readonly IEquipmentRepository _equipmentRepo;
         private bool _highUsageOnly;
 
-       
         private readonly Dictionary<string, (Color Back, Color Fore)> _statusColors;
 
         public EquipmentInventoryView(IEquipmentRepository equipmentRepo)
@@ -77,19 +77,18 @@ namespace ComLabManager.UI.Views
             {
                 if (currentEquipment.UsageCount >= Equipment.HighUsageThreshold)
                 {
-                   
                     e.CellStyle.BackColor = Color.LightGoldenrodYellow;
                     e.CellStyle.ForeColor = Color.DarkGoldenrod;
-
-                  
                     e.CellStyle.SelectionBackColor = Color.Goldenrod;
                     e.CellStyle.SelectionForeColor = Color.White;
                 }
             }
         }
+
         private void btnAddEquipment_Click(object sender, EventArgs e)
         {
-            using (AddEquipmentForm form = new AddEquipmentForm())
+          
+            using (AddEquipmentForm form = new AddEquipmentForm(_equipmentRepo))
             {
                 if (form.ShowDialog() == DialogResult.OK)
                 {
@@ -121,7 +120,9 @@ namespace ComLabManager.UI.Views
             if (dgvEquipment.SelectedRows.Count == 0) return;
 
             Equipment selectedEquipment = (Equipment)dgvEquipment.SelectedRows[0].DataBoundItem;
-            using (AddEquipmentForm form = new AddEquipmentForm(selectedEquipment))
+
+           
+            using (AddEquipmentForm form = new AddEquipmentForm(selectedEquipment, _equipmentRepo))
             {
                 if (form.ShowDialog() == DialogResult.OK)
                 {
@@ -148,31 +149,26 @@ namespace ComLabManager.UI.Views
                 SaveEquipment(() => _equipmentRepo.DeleteEquipment(selectedEquipment.Id), selectedEquipment.AssetTag, "deleting");
             }
         }
-       
+
         private void ApplyFilters()
         {
-            
             string keyword = txtSearch.Text.Trim();
             string selectedCategory = cmbCategoryFilter.SelectedItem?.ToString() ?? "All Categories";
             string selectedStatus = cmbStatusFilter.SelectedItem?.ToString() ?? "All Statuses";
 
-          
             var baseList = string.IsNullOrWhiteSpace(keyword)
                 ? _equipmentRepo.GetAllEquipment()
                 : _equipmentRepo.SearchEquipment(keyword);
 
-           
             var filteredList = baseList.Where(e =>
                 (selectedCategory == "All Categories" || e.Category == selectedCategory) &&
                 (selectedStatus == "All Statuses" || e.Status == selectedStatus) &&
                 (!_highUsageOnly || e.UsageCount >= Equipment.HighUsageThreshold)
             ).ToList();
 
-          
             dgvEquipment.DataSource = filteredList;
         }
 
-        
         private void txtSearch_TextChanged(object sender, EventArgs e)
         {
             ApplyFilters();

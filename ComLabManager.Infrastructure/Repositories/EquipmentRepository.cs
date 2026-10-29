@@ -105,5 +105,42 @@ namespace ComLabManager.Infrastructure.Repositories
                 return db.ExecuteScalar<int>("SELECT COUNT(*) FROM Equipment WHERE UsageCount >= @Threshold", new { Threshold = Equipment.HighUsageThreshold });
             }
         }
+
+        public string GenerateNextAssetTag(string categoryName)
+        {
+            string categoryCode = categoryName switch
+            {
+                "System Unit" => "SYS",
+                "Monitor" => "MON",
+                "Peripheral" => "PER",
+                "Networking" => "NET",
+                "Tool" => "EQ",
+                "Cable" => "CBL",
+                _ => "GEN" 
+            };
+
+            string prefix = $"UM-{categoryCode}-";
+
+            using (var db = new MySqlConnection(_connectionString))
+            {
+                string sql = "SELECT AssetTag FROM Equipment WHERE AssetTag LIKE @Prefix ORDER BY AssetTag DESC LIMIT 1";
+                string lastTag = db.ExecuteScalar<string>(sql, new { Prefix = prefix + "%" });
+
+                int nextNumber = 1;
+
+               
+                if (!string.IsNullOrWhiteSpace(lastTag))
+                {
+                    string numberPart = lastTag.Substring(prefix.Length);
+                    if (int.TryParse(numberPart, out int lastNumber))
+                    {
+                        nextNumber = lastNumber + 1;
+                    }
+                }
+
+               
+                return $"{prefix}{nextNumber:D3}";
+            }
+        }
     }
 }

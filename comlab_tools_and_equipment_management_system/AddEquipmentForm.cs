@@ -1,17 +1,24 @@
-﻿using System;
-using System.Windows.Forms;
+﻿using ComLabManager.Core.Interfaces;
 using ComLabManager.Core.Models;
+using System;
+using System.Drawing;
+using System.Windows.Forms;
 
 namespace ComLabManager.UI
 {
     public partial class AddEquipmentForm : Form
     {
         public Equipment ProcessedEquipment { get; private set; }
-        private readonly int _existingId;
 
-        public AddEquipmentForm()
+        private readonly int _existingId;
+        private readonly IEquipmentRepository _equipmentRepo; 
+
+      
+        public AddEquipmentForm(IEquipmentRepository equipmentRepo)
         {
             InitializeComponent();
+            _equipmentRepo = equipmentRepo ?? throw new ArgumentNullException(nameof(equipmentRepo));
+
             PopulateDropdowns();
 
             lblTitle.Text = "Add New Equipment";
@@ -19,32 +26,57 @@ namespace ComLabManager.UI
             numUsageCount.Value = 0;
             dtpDateAcquired.Value = DateTime.Now;
 
+          
+            txtAssetTag.ReadOnly = true;
+            txtAssetTag.BackColor = SystemColors.Control;
+
+           
+            cmbCategory.SelectedIndexChanged += cmbCategory_SelectedIndexChanged;
+
             SetupDynamicUI();
         }
 
-        public AddEquipmentForm(Equipment equipmentToEdit)
+    
+        public AddEquipmentForm(Equipment existingEquipment, IEquipmentRepository equipmentRepo)
         {
             InitializeComponent();
+            _equipmentRepo = equipmentRepo;
+
             PopulateDropdowns();
 
             lblTitle.Text = "Edit Equipment";
-            _existingId = equipmentToEdit.Id;
+            _existingId = existingEquipment.Id;
 
-            txtAssetTag.Text = equipmentToEdit.AssetTag;
-            txtName.Text = equipmentToEdit.Name;
-            cmbCategory.SelectedItem = equipmentToEdit.Category;
-            cmbStatus.SelectedItem = equipmentToEdit.Status;
+           
+            txtAssetTag.ReadOnly = true;
+            txtAssetTag.BackColor = SystemColors.Control;
 
-     
-            if (cmbLocation.Items.Contains(equipmentToEdit.StationNumber))
-                cmbLocation.SelectedItem = equipmentToEdit.StationNumber;
-            else
-                cmbLocation.Text = equipmentToEdit.StationNumber;
-
-            dtpDateAcquired.Value = equipmentToEdit.DateAcquired;
-            numUsageCount.Value = equipmentToEdit.UsageCount;
+           
+            txtAssetTag.Text = existingEquipment.AssetTag;
+            txtName.Text = existingEquipment.Name;
+            cmbCategory.SelectedItem = existingEquipment.Category;
+            cmbStatus.SelectedItem = existingEquipment.Status;
+            cmbLocation.Text = existingEquipment.StationNumber;
+            numUsageCount.Value = existingEquipment.UsageCount;
+            dtpDateAcquired.Value = existingEquipment.DateAcquired;
 
             SetupDynamicUI();
+        }
+
+        private void cmbCategory_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cmbCategory.SelectedItem != null)
+            {
+                string selectedCategory = cmbCategory.SelectedItem.ToString();
+                try
+                {
+                    txtAssetTag.Text = _equipmentRepo.GenerateNextAssetTag(selectedCategory);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error generating Asset Tag: " + ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
 
         private void PopulateDropdowns()
@@ -69,7 +101,6 @@ namespace ComLabManager.UI
         {
             string currentStatus = cmbStatus.SelectedItem?.ToString();
 
-          
             if (currentStatus == "Under Repair" || currentStatus == "Decommissioned")
             {
                 cmbLocation.SelectedIndex = -1;
