@@ -11,8 +11,8 @@ namespace ComLabManager.Core.Models
         public int ReportedById { get; set; }
         public string IssueDescription { get; set; }
         public string Status { get; set; }
-        public decimal RepairCost { get; set; }
         public DateTime DateReported { get; set; }
         public DateTime? DateResolved { get; set; }
+        public int? AssignedTechnicianId { get; set; }
     }
 }
